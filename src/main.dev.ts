@@ -11,7 +11,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import startLCUConnector from './electron/lcu/lcu-connector';
@@ -144,4 +144,8 @@ app.on('second-instance', () => {
 
     mainWindow.show();
   }
+});
+
+ipcMain.on('window-close', () => {
+  app.quit();
 });

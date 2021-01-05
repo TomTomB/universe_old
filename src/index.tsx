@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
-import './App.global.css';
+import RootView from './domain/Shell/views/Root';
 
-render(<App />, document.getElementById('root'));
+render(<RootView />, document.getElementById('root'));
