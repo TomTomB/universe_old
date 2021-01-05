@@ -1,0 +1,18 @@
+{
+  "name": "@bornholdt-digital/universe",
+  "productName": "Universe",
+  "version": "0.0.1",
+  "description": "Universe app",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Tom-Rune Bornholdt",
+    "email": "kontakt@bornholdt.digital",
+    "url": "https://bornholdt.digital"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
