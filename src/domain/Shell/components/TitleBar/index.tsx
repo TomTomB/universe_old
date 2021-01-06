@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import TitleBarButton from '../TitleBarButton';
+import TitleBarButton, {
+  TitleBarButtonBase,
+  TitleBarButtonType,
+} from '../TitleBarButton';
 
 const TitleBar = styled.div`
   -webkit-app-region: drag;
@@ -9,19 +12,36 @@ const TitleBar = styled.div`
   left: 0;
   right: 0;
   height: 32px;
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  justify-content: end;
 `;
 
 const TitleBarControls = styled.div`
   -webkit-app-region: no-drag;
+  align-self: center;
+
+  ${TitleBarButtonBase} {
+    :not(:last-of-type) {
+      margin-right: 15px;
+    }
+
+    :last-of-type {
+      margin-right: 10px;
+    }
+  }
 `;
 
 const TitleBarComponent = () => {
   return (
     <TitleBar>
       <TitleBarControls>
-        <TitleBarButton label="Close" />
+        <TitleBarButton label="Open help" type={TitleBarButtonType.Help} />
+        <TitleBarButton label="Hide app" type={TitleBarButtonType.Hide} />
+        <TitleBarButton
+          label="Open settings"
+          type={TitleBarButtonType.Settings}
+        />
+        <TitleBarButton label="Close app" type={TitleBarButtonType.Close} />
       </TitleBarControls>
     </TitleBar>
   );

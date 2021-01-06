@@ -139,15 +139,17 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 app.on('second-instance', () => {
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) {
-      mainWindow.restore();
-    }
-
-    mainWindow.show();
+  if (mainWindow?.isMinimized()) {
+    mainWindow?.restore();
   }
+
+  mainWindow?.show();
 });
 
 ipcMain.on('window-close', () => {
   app.quit();
+});
+
+ipcMain.on('window-hide', () => {
+  mainWindow?.minimize();
 });
