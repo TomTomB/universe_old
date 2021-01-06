@@ -14,7 +14,7 @@ import path from 'path';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import startLCUConnector from './electron/lcu/lcu-connector';
+import LCUConnector from './electron/lcu/lcu-connector';
 
 export default class AppUpdater {
   constructor() {
@@ -25,6 +25,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+let lcuConnector: LCUConnector | null = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -94,7 +95,8 @@ const createWindow = async () => {
       mainWindow.focus();
     }
 
-    startLCUConnector();
+    lcuConnector = new LCUConnector();
+    lcuConnector.start();
   });
 
   mainWindow.on('closed', () => {
