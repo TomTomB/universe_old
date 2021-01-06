@@ -14,7 +14,8 @@
     "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
-    "test": "jest"
+    "test": "jest",
+    "release": "standard-version"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -217,6 +218,7 @@
     "react-test-renderer": "^17.0.1",
     "rimraf": "^3.0.0",
     "sass-loader": "^10.1.0",
+    "standard-version": "^9.1.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.0.3",
     "typescript": "^4.0.5",
