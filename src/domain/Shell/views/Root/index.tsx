@@ -23,8 +23,8 @@ const Shell = styled.div`
 const RootView = () => {
   return (
     <>
-      <GlobalStyle />
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Shell>
           <TitleBarComponent />
           <Router>
