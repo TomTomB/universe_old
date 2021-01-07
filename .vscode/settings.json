@@ -26,6 +26,7 @@
     "*.{css,sass,scss}.d.ts": true
   },
   "cSpell.words": [
+    "Formik",
     "bornholdt"
   ]
 }
