@@ -19,6 +19,8 @@ const TitleBar = styled.div`
 const TitleBarControls = styled.div`
   -webkit-app-region: no-drag;
   align-self: center;
+  position: relative;
+  top: -1px;
 
   ${TitleBarButtonBase} {
     :not(:last-of-type) {
