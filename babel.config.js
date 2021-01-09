@@ -57,6 +57,16 @@ module.exports = (api) => {
       require('@babel/plugin-proposal-json-strings'),
 
       require('babel-plugin-styled-components'),
+      [
+        require('babel-plugin-module-resolver'),
+        {
+          root: ['./'],
+          alias: {
+            '@uikit': './src/domain/UiKit',
+            '@assets': './assets',
+          },
+        },
+      ],
 
       ...(development ? developmentPlugins : productionPlugins),
     ],

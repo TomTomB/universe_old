@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2018",
     "module": "CommonJS",
     "lib": ["dom", "esnext"],
@@ -20,7 +21,11 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "allowJs": true
+    "allowJs": true,
+    "paths": {
+      "@uikit/*": ["src/domain/UiKit/*"],
+      "@assets/*": ["assets/*"]
+    }
   },
   "exclude": [
     "test",

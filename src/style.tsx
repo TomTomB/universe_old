@@ -1,22 +1,22 @@
 import { createGlobalStyle } from 'styled-components';
-import beaufortBold from '../assets/app/fonts/BeaufortForLoL-Bold.otf';
-import beaufortBoldItalic from '../assets/app/fonts/BeaufortForLoL-BoldItalic.otf';
-import beaufortHeavy from '../assets/app/fonts/BeaufortForLoL-Heavy.otf';
-import beaufortHeavyItalic from '../assets/app/fonts/BeaufortForLoL-HeavyItalic.otf';
-import beaufortItalic from '../assets/app/fonts/BeaufortForLoL-Italic.otf';
-import beaufortLight from '../assets/app/fonts/BeaufortForLoL-Light.otf';
-import beaufortLightItalic from '../assets/app/fonts/BeaufortForLoL-LightItalic.otf';
-import beaufortMedium from '../assets/app/fonts/BeaufortForLoL-Medium.otf';
-import beaufortMediumItalic from '../assets/app/fonts/BeaufortForLoL-MediumItalic.otf';
-import beaufortRegular from '../assets/app/fonts/BeaufortForLoL-Regular.otf';
-import spiegelBold from '../assets/app/fonts/Spiegel-Bold.otf';
-import spiegelBoldItalic from '../assets/app/fonts/Spiegel-BoldItalic.otf';
-import spiegelRegular from '../assets/app/fonts/Spiegel-Regular.otf';
-import spiegelRegularItalic from '../assets/app/fonts/Spiegel-RegularItalic.otf';
-import spiegelSemiBold from '../assets/app/fonts/Spiegel-SemiBold.otf';
-import spiegelSemiBoldItalic from '../assets/app/fonts/Spiegel-SemiBoldItalic.otf';
+import beaufortBold from '@assets/app/fonts/BeaufortForLoL-Bold.otf';
+import beaufortBoldItalic from '@assets/app/fonts/BeaufortForLoL-BoldItalic.otf';
+import beaufortHeavy from '@assets/app/fonts/BeaufortForLoL-Heavy.otf';
+import beaufortHeavyItalic from '@assets/app/fonts/BeaufortForLoL-HeavyItalic.otf';
+import beaufortItalic from '@assets/app/fonts/BeaufortForLoL-Italic.otf';
+import beaufortLight from '@assets/app/fonts/BeaufortForLoL-Light.otf';
+import beaufortLightItalic from '@assets/app/fonts/BeaufortForLoL-LightItalic.otf';
+import beaufortMedium from '@assets/app/fonts/BeaufortForLoL-Medium.otf';
+import beaufortMediumItalic from '@assets/app/fonts/BeaufortForLoL-MediumItalic.otf';
+import beaufortRegular from '@assets/app/fonts/BeaufortForLoL-Regular.otf';
+import spiegelBold from '@assets/app/fonts/Spiegel-Bold.otf';
+import spiegelBoldItalic from '@assets/app/fonts/Spiegel-BoldItalic.otf';
+import spiegelRegular from '@assets/app/fonts/Spiegel-Regular.otf';
+import spiegelRegularItalic from '@assets/app/fonts/Spiegel-RegularItalic.otf';
+import spiegelSemiBold from '@assets/app/fonts/Spiegel-SemiBold.otf';
+import spiegelSemiBoldItalic from '@assets/app/fonts/Spiegel-SemiBoldItalic.otf';
 
-import externalLinkMask from '../assets/app/external-link-mask.png';
+import externalLinkMask from '@assets/app/external-link-mask.png';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,6 +28,10 @@ const GlobalStyle = createGlobalStyle`
   *, *::before,  *::after{
     box-sizing: inherit;
     user-select: none;
+  }
+
+  img{
+    -webkit-user-drag: none;
   }
 
   input,

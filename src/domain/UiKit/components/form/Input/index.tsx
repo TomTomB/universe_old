@@ -1,10 +1,13 @@
 import classNames from 'classnames';
-import { ErrorMessage, Field, FieldProps } from 'formik';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import searchBoxClear from '@assets/app/search-box-clear.png';
+import searchIcon from '@assets/app/search-icon.png';
+import eyeHide from '@assets/app/eye-hide.svg';
+import eyeShow from '@assets/app/eye-show.svg';
+import { animated, useTransition, config } from 'react-spring';
+import { FieldError } from 'react-hook-form';
 import Label, { StyledLabel } from '../Label';
-import searchBoxClear from '../../../../../../assets/app/search-box-clear.png';
-import searchIcon from '../../../../../../assets/app/search-icon.png';
 
 const InputLabel = styled(Label)`
   display: inline-block;
@@ -15,15 +18,49 @@ const ErrorContainer = styled.div`
   height: 18px;
 `;
 
-const ErrorParagraph = styled.p`
+const ErrorParagraph = styled(animated.p)`
   color: ${(props) => props.theme.colors.mage[2]};
   margin: 0;
   padding: 2px 0 0;
+  letter-spacing: 0.1em;
 `;
 
 const FormField = styled.div`
+  position: relative;
   ${StyledLabel} {
     margin-bottom: 2px;
+  }
+
+  & + & {
+    margin-top: 2px;
+  }
+`;
+
+const TogglePasswordButton = styled.button`
+  appearance: none;
+  mask: url(${eyeShow}) no-repeat center;
+  mask-size: 16px;
+  border: none;
+  height: 22px;
+  width: 22px;
+  position: absolute;
+  right: 4px;
+  top: 25px;
+  z-index: 1;
+  cursor: pointer;
+  background-color: ${(props) => props.theme.colors.gold[2]};
+  display: none;
+  &:hover {
+    background-color: ${(props) => props.theme.colors.gold[1]};
+    display: block;
+  }
+  &:active {
+    background-color: ${(props) => props.theme.colors.gold[6]};
+  }
+
+  &.is-shown {
+    mask: url(${eyeHide}) no-repeat center;
+    mask-size: 16px;
   }
 `;
 
@@ -45,6 +82,8 @@ const FlatInput = styled.input`
   border: 1px solid ${(props) => props.theme.colors.gold[5]};
   background-color: rgba(0, 0, 0, 0.7);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 0 0 1px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
 
   &[type='search'] {
     line-height: 15px;
@@ -75,6 +114,10 @@ const FlatInput = styled.input`
     }
   }
 
+  &.is-password-field {
+    padding-right: 30px;
+  }
+
   &:focus {
     background: linear-gradient(
       to bottom,
@@ -87,6 +130,13 @@ const FlatInput = styled.input`
         ${(props) => props.theme.colors.gold[3]}
       )
       1 stretch;
+  }
+
+  &:hover,
+  &:focus {
+    + ${TogglePasswordButton} {
+      display: block;
+    }
   }
 
   &[disabled] {
@@ -108,6 +158,9 @@ interface InputProps {
   placeholder?: string;
   showError?: boolean;
   disabled?: boolean;
+  error?: FieldError;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  register: (...args: any) => any;
 }
 
 const Input: FC<InputProps> = ({
@@ -115,40 +168,62 @@ const Input: FC<InputProps> = ({
   label,
   name,
   placeholder,
+  error,
   type = 'text',
   showError = true,
   disabled = false,
+  register,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const transitions = useTransition(error, null, {
+    config: config.stiff,
+    from: { transform: 'translateY(-20px)', opacity: 0 },
+    enter: { opacity: 1, transform: 'translateY(0)' },
+    leave: { opacity: 0, transform: 'translateY(-20px)' },
+  });
+
   return (
-    <Field name={name}>
-      {({ field, form }: FieldProps) => (
-        <FormField>
-          <InputLabel
-            htmlFor={id}
-            isInvalid={
-              (form.touched[name] && Boolean(form.errors[name])) ?? false
-            }
-          >
-            {label}
-          </InputLabel>
-          <FlatInput
-            {...field}
-            id={id}
-            className={classNames({
-              'is-invalid': form.errors[field.name] && form.touched[field.name],
-            })}
-            placeholder={placeholder}
-            type={type}
-            disabled={disabled}
-          />
-          {showError && (
-            <ErrorContainer>
-              <ErrorMessage name={field.name} component={ErrorParagraph} />
-            </ErrorContainer>
-          )}
-        </FormField>
+    <FormField>
+      <InputLabel htmlFor={id} isInvalid={!!error}>
+        {label}
+      </InputLabel>
+      <FlatInput
+        ref={register()}
+        name={name}
+        id={id}
+        aria-invalid={error ? 'true' : 'false'}
+        className={classNames({
+          'is-invalid': error,
+          'is-password-field': type === 'password',
+        })}
+        placeholder={placeholder}
+        type={showPassword ? 'text' : type}
+        disabled={disabled}
+      />
+      {type === 'password' && (
+        <TogglePasswordButton
+          type="button"
+          className={classNames({
+            'is-shown': showPassword,
+          })}
+          onClick={() => setShowPassword(!showPassword)}
+          aria-label={showPassword ? 'Hide password' : 'Show password'}
+        />
       )}
-    </Field>
+      {showError && (
+        <ErrorContainer>
+          {transitions.map(
+            ({ item, key, props }) =>
+              item && (
+                <ErrorParagraph style={props} key={key} role="alert">
+                  {item.message}
+                </ErrorParagraph>
+              )
+          )}
+        </ErrorContainer>
+      )}
+    </FormField>
   );
 };
 

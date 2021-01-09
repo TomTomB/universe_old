@@ -10,7 +10,7 @@ module.exports = {
         depth: 3,
       },
     ],
-    'react/prop-types': [false],
+    'react/prop-types': [0],
   },
   parserOptions: {
     ecmaVersion: 2020,
