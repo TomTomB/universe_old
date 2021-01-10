@@ -3,14 +3,17 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '@theme';
-import TitleBarButton, { TitleBarButtonType } from '.';
+import SystemTooltip from '.';
 
-describe('TitleBarButton', () => {
+describe('SystemTooltip', () => {
   it('should render', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <TitleBarButton label="Test" type={TitleBarButtonType.Close} />
+          <p data-tip data-for="abc123">
+            Anchor for tooltip
+          </p>
+          <SystemTooltip id="abc123">Test Tooltip</SystemTooltip>
         </ThemeProvider>
       )
     ).toBeTruthy();

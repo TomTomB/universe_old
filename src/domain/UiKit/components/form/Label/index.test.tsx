@@ -3,14 +3,16 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '@theme';
-import TitleBarButton, { TitleBarButtonType } from '.';
+import Label from '.';
 
-describe('TitleBarButton', () => {
+describe('Label', () => {
   it('should render', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <TitleBarButton label="Test" type={TitleBarButtonType.Close} />
+          <Label htmlFor="abc123" isInvalid={false}>
+            Test Label
+          </Label>
         </ThemeProvider>
       )
     ).toBeTruthy();

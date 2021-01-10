@@ -16,7 +16,7 @@
     "start": "yarn build:version && node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
-    "test": "jest",
+    "test": "yarn build:version && jest",
     "release": "standard-version"
   },
   "lint-staged": {

@@ -6,7 +6,7 @@ import useYupValidationResolver from '@uikit/util/yupValidationResolver';
 import lolLogo from '@assets/app/lol-logo.png';
 import asheSplash from '@assets/app/placeholder/ashe-splash.jpg';
 import styled from 'styled-components';
-import { semverString } from '../../../../../git-version.json';
+import gitVersion from '../../../../../git-version.json';
 
 interface FormValues {
   password: string;
@@ -144,7 +144,7 @@ const LoginView = () => {
           </p>
         </FooterContainer>
         <VersionFooter>
-          <span>{semverString}</span>
+          <span>{gitVersion.semverString}</span>
         </VersionFooter>
       </Panel>
     </Container>

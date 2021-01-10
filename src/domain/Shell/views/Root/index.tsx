@@ -6,8 +6,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
+import theme from '@theme';
 import GlobalStyle from '../../../../style';
-import theme from '../../../../theme';
 import LoginView from '../../../Auth/views/Login';
 import TitleBarComponent from '../../components/TitleBar';
 
