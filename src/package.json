@@ -1,7 +1,7 @@
 {
   "name": "@bornholdt-digital/universe",
   "productName": "Universe",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Universe app",
   "main": "./main.prod.js",
   "author": {
