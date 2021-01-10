@@ -154,13 +154,13 @@ interface InputProps {
   id: string;
   label: string;
   name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  register: (...args: any) => any;
   type?: string;
   placeholder?: string;
   showError?: boolean;
   disabled?: boolean;
   error?: FieldError;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: (...args: any) => any;
 }
 
 const Input: FC<InputProps> = ({
