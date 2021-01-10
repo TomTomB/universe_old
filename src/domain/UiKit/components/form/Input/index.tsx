@@ -7,10 +7,10 @@ import eyeHide from '@assets/app/eye-hide.svg';
 import eyeShow from '@assets/app/eye-show.svg';
 import { animated, useTransition, config } from 'react-spring';
 import { FieldError } from 'react-hook-form';
+import SystemTooltip from '../../tooltip/SystemTooltip';
 import Label, { StyledLabel } from '../Label';
 
 const InputLabel = styled(Label)`
-  display: inline-block;
   margin-bottom: 2px;
 `;
 
@@ -23,6 +23,7 @@ const ErrorParagraph = styled(animated.p)`
   margin: 0;
   padding: 2px 0 0;
   letter-spacing: 0.1em;
+  backface-visibility: hidden;
 `;
 
 const FormField = styled.div`
@@ -49,10 +50,11 @@ const TogglePasswordButton = styled.button`
   z-index: 1;
   cursor: pointer;
   background-color: ${(props) => props.theme.colors.gold[2]};
-  display: none;
-  &:hover {
+  opacity: 0;
+  &:hover,
+  &:focus-visible {
     background-color: ${(props) => props.theme.colors.gold[1]};
-    display: block;
+    opacity: 1;
   }
   &:active {
     background-color: ${(props) => props.theme.colors.gold[6]};
@@ -135,7 +137,7 @@ const FlatInput = styled.input`
   &:hover,
   &:focus {
     + ${TogglePasswordButton} {
-      display: block;
+      opacity: 1;
     }
   }
 
@@ -202,14 +204,20 @@ const Input: FC<InputProps> = ({
         disabled={disabled}
       />
       {type === 'password' && (
-        <TogglePasswordButton
-          type="button"
-          className={classNames({
-            'is-shown': showPassword,
-          })}
-          onClick={() => setShowPassword(!showPassword)}
-          aria-label={showPassword ? 'Hide password' : 'Show password'}
-        />
+        <>
+          <TogglePasswordButton
+            type="button"
+            className={classNames({
+              'is-shown': showPassword,
+            })}
+            data-tip
+            data-for="togglePasswordTip"
+            onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          />
+
+          <SystemTooltip id="togglePasswordTip">Toggle password</SystemTooltip>
+        </>
       )}
       {showError && (
         <ErrorContainer>

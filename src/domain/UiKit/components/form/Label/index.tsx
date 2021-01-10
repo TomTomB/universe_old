@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export const StyledLabel = styled.label`
   display: inline-block;
+  backface-visibility: hidden;
 `;
 
 const Label = ({

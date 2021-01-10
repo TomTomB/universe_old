@@ -308,7 +308,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: subpixel-antialiased;
     transition: 300ms color ${(props) => props.theme.easing.soft};
 
-    &:hover{
+    &:hover, &:focus-visible{
       color: ${(props) => props.theme.colors.gold[1]};
     }
 
@@ -330,7 +330,7 @@ const GlobalStyle = createGlobalStyle`
           props.theme.easing.soft};
       }
 
-      &:hover{
+      &:hover, &:focus-visible{
         color: ${(props) => props.theme.colors.blue[1]};
 
         &::after{

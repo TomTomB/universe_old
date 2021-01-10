@@ -26,6 +26,10 @@ jobs:
         run: |
           yarn install
 
+      - name: Build version file
+        run: |
+          yarn build:version
+
       - name: Publish releases
         env:
           # These values are used for auto updates signing
