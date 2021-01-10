@@ -5,10 +5,12 @@ import tooltipSystemCaret from '@assets/app/tooltip-system-caret.png';
 
 const StyledSystemTooltip = styled(ReactTooltip)`
   &.__react_component_tooltip {
+    --frameColors: #614a1f 0, #463714 5px, #463714 100%;
+
     margin: 1px;
     box-sizing: border-box;
     flex: 1;
-    background-color: #010a13;
+    background-color: ${(props) => props.theme.colors.black};
     border-width: 2px;
     box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
     min-width: 41px;
@@ -16,6 +18,7 @@ const StyledSystemTooltip = styled(ReactTooltip)`
     max-width: 250px;
     text-align: center;
     border: 2px solid transparent;
+
     &::before {
       content: '';
       border: unset !important;
@@ -41,13 +44,7 @@ const StyledSystemTooltip = styled(ReactTooltip)`
     }
 
     &.place-top {
-      border-image: linear-gradient(
-          to top,
-          #614a1f 0,
-          #463714 5px,
-          #463714 100%
-        )
-        1 stretch;
+      border-image: linear-gradient(to top, var(--frameColors)) 1 stretch;
 
       &::after {
         left: calc(50% - 8px);
@@ -56,13 +53,7 @@ const StyledSystemTooltip = styled(ReactTooltip)`
     }
 
     &.place-bottom {
-      border-image: linear-gradient(
-          to bottom,
-          #614a1f 0,
-          #463714 5px,
-          #463714 100%
-        )
-        1 stretch;
+      border-image: linear-gradient(to bottom, var(--frameColors)) 1 stretch;
       &::after {
         left: calc(50% - 8px);
         transform: rotate(180deg);
@@ -71,13 +62,7 @@ const StyledSystemTooltip = styled(ReactTooltip)`
     }
 
     &.place-left {
-      border-image: linear-gradient(
-          to left,
-          #614a1f 0,
-          #463714 5px,
-          #463714 100%
-        )
-        1 stretch;
+      border-image: linear-gradient(to left, var(--frameColors)) 1 stretch;
       &::after {
         top: calc(50% - 5px);
         transform: rotate(-90deg);
@@ -86,13 +71,7 @@ const StyledSystemTooltip = styled(ReactTooltip)`
     }
 
     &.place-right {
-      border-image: linear-gradient(
-          to right,
-          #614a1f 0,
-          #463714 5px,
-          #463714 100%
-        )
-        1 stretch;
+      border-image: linear-gradient(to right, var(--frameColors)) 1 stretch;
       &::after {
         transform: rotate(90deg);
         top: calc(50% - 5px);
