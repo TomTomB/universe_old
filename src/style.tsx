@@ -25,12 +25,12 @@ const GlobalStyle = createGlobalStyle`
     font-family: LoL Body;
   }
 
-  *, *::before,  *::after{
+  *, *::before,  *::after {
     box-sizing: inherit;
     user-select: none;
   }
 
-  img{
+  img {
     -webkit-user-drag: none;
   }
 
@@ -53,10 +53,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @font-face {
-  font-family: 'LoL Body';
-  font-weight: normal;
-  font-style: normal;
-  src: url(${spiegelRegular}) format('opentype');
+    font-family: 'LoL Body';
+    font-weight: normal;
+    font-style: normal;
+    src: url(${spiegelRegular}) format('opentype');
   }
 
   @font-face {
@@ -164,22 +164,22 @@ const GlobalStyle = createGlobalStyle`
     src: url(${beaufortHeavyItalic}) format('opentype');
   }
 
-  h1, h2, h3, h4, h5, h6, a, p, label, li{
+  h1, h2, h3, h4, h5, h6, a, p, label, li {
     font-kerning: normal;
     font-feature-settings: 'kern' 1;
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6{
+  h1, h2, h3, h4, h5, h6 {
     font-family: LoL Display;
     margin: 0 0 0.5em;
 
-    :not(.preserve-case){
+    :not(.preserve-case) {
       text-transform: uppercase;
     }
   }
 
-  h1{
+  h1 {
     color: ${(props) => props.theme.colors.gold[1]};
     font-size: 40px;
     font-weight: 700;
@@ -190,12 +190,12 @@ const GlobalStyle = createGlobalStyle`
       letter-spacing: 0.025em;
     }
 
-    &.subhead{
+    &.subhead {
       color: ${(props) => props.theme.colors.grey[1]};
     }
   }
 
-  h2{
+  h2 {
     color: ${(props) => props.theme.colors.gold[1]};
     font-size: 30px;
     font-weight: 700;
@@ -206,12 +206,12 @@ const GlobalStyle = createGlobalStyle`
       letter-spacing: 0.025em;
     }
 
-    &.subhead{
+    &.subhead {
       color: ${(props) => props.theme.colors.grey[1]};
     }
   }
 
-  h3{
+  h3 {
     color: ${(props) => props.theme.colors.gold[1]};
     font-size: 24px;
     font-weight: 700;
@@ -222,12 +222,12 @@ const GlobalStyle = createGlobalStyle`
       letter-spacing: 0.025em;
     }
 
-    &.subhead{
+    &.subhead {
       color: ${(props) => props.theme.colors.grey[1]};
     }
   }
 
-  h4{
+  h4 {
     color: ${(props) => props.theme.colors.gold[1]};
     font-size: 18px;
     font-weight: 700;
@@ -238,12 +238,12 @@ const GlobalStyle = createGlobalStyle`
       letter-spacing: 0.025em;
     }
 
-    &.subhead{
+    &.subhead {
       color: ${(props) => props.theme.colors.grey[1]};
     }
   }
 
-  h5{
+  h5 {
     color: ${(props) => props.theme.colors.gold[1]};
     font-size: 14px;
     font-weight: 700;
@@ -254,12 +254,12 @@ const GlobalStyle = createGlobalStyle`
       letter-spacing: 0.0375em;
     }
 
-    &.subhead{
+    &.subhead {
       color: ${(props) => props.theme.colors.grey[1]};
     }
   }
 
-  h6{
+  h6 {
     color: ${(props) => props.theme.colors.gold[1]};
     font-size: 12px;
     font-weight: 700;
@@ -270,7 +270,7 @@ const GlobalStyle = createGlobalStyle`
       letter-spacing: 0.0375em;
     }
 
-    &.subhead{
+    &.subhead {
       color: ${(props) => props.theme.colors.grey[1]};
     }
   }
@@ -299,7 +299,7 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  a{
+  a {
     color: ${(props) => props.theme.colors.gold[2]};
     font-size: 12px;
     font-weight: normal;
@@ -308,15 +308,15 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: subpixel-antialiased;
     transition: 300ms color ${(props) => props.theme.easing.soft};
 
-    &:hover, &:focus-visible{
+    &:hover, &:focus-visible {
       color: ${(props) => props.theme.colors.gold[1]};
     }
 
-    &.external{
+    &.external {
       color: ${(props) => props.theme.colors.blue[3]};
       text-decoration: none;
 
-      &::after{
+      &::after {
         width: 9px;
         height: 9px;
         content: '';
@@ -330,18 +330,18 @@ const GlobalStyle = createGlobalStyle`
           props.theme.easing.soft};
       }
 
-      &:hover, &:focus-visible{
+      &:hover, &:focus-visible {
         color: ${(props) => props.theme.colors.blue[1]};
 
-        &::after{
+        &::after {
           background-color: ${(props) => props.theme.colors.blue[1]};
         }
       }
     }
   }
 
-  ul{
-    li{
+  ul {
+    li {
       color: ${(props) => props.theme.colors.grey[1]};
       font-size: 12px;
       font-weight: normal;
@@ -350,7 +350,7 @@ const GlobalStyle = createGlobalStyle`
       -webkit-font-smoothing: subpixel-antialiased;
     }
     &.title-list {
-      li{
+      li {
         font-family: LoL Display;
         color: ${(props) => props.theme.colors.gold[1]};
         font-size: 14px;
@@ -358,7 +358,7 @@ const GlobalStyle = createGlobalStyle`
         line-height: 18px;
         letter-spacing: 0.0375em;
 
-        &.subhead{
+        &.subhead {
           color: ${(props) => props.theme.colors.grey[1]};
         }
       }
