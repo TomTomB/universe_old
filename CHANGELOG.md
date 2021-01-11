@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/TomTomB/universe/compare/v0.0.5...v0.0.6) (2021-01-11)
+
+### Features
+
+- 🎸 Checkbox component ([85087a9](https://github.com/TomTomB/universe/commit/85087a9ba6f3600faf7a6e8137753939bbfb2f61))
+
 ### [0.0.5](https://github.com/TomTomB/universe/compare/v0.0.4...v0.0.5) (2021-01-10)
 
 ### Features
