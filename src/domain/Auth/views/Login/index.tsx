@@ -6,11 +6,13 @@ import useYupValidationResolver from '@uikit/util/yupValidationResolver';
 import lolLogo from '@assets/app/lol-logo.png';
 import asheSplash from '@assets/app/placeholder/ashe-splash.jpg';
 import styled from 'styled-components';
+import Checkbox from '@uikit/components/form/Checkbox';
 import gitVersion from '../../../../../git-version.json';
 
 interface FormValues {
   password: string;
   email: string;
+  staySignedIn: boolean;
 }
 
 const Container = styled.div`
@@ -121,6 +123,12 @@ const LoginView = () => {
               id="password"
               type="password"
               error={errors.password}
+              register={register}
+            />
+            <Checkbox
+              label="Remember Me"
+              name="staySignedIn"
+              id="staySignedIn"
               register={register}
             />
             <button type="submit">Submit</button>
