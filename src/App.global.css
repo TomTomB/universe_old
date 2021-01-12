@@ -19,28 +19,28 @@ import spiegelSemiBoldItalic from '@assets/app/fonts/woff2/Spiegel-SemiBoldItali
   font-family: 'LoL Body';
   font-weight: normal;
   font-style: normal;
-  src: url('../assets/app/fonts/woff2/Spiegel-Regular.woff2') format('woff2');
+  src: url('/assets/app/fonts/woff2/Spiegel-Regular.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'LoL Body';
   font-weight: 700;
   font-style: normal;
-  src: url('../assets/app/fonts/woff2/Spiegel-SemiBold.woff2') format('woff2');
+  src: url('/assets/app/fonts/woff2/Spiegel-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'LoL Body';
   font-weight: 900;
   font-style: normal;
-  src: url('../assets/app/fonts/woff2/Spiegel-Bold.woff2') format('woff2');
+  src: url('/assets/app/fonts/woff2/Spiegel-Bold.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'LoL Body';
   font-weight: normal;
   font-style: italic;
-  src: url('../assets/app/fonts/woff2/Spiegel-RegularItalic.woff2')
+  src: url('/assets/app/fonts/woff2/Spiegel-RegularItalic.woff2')
     format('woff2');
 }
 
@@ -48,7 +48,7 @@ import spiegelSemiBoldItalic from '@assets/app/fonts/woff2/Spiegel-SemiBoldItali
   font-family: 'LoL Body';
   font-weight: 700;
   font-style: italic;
-  src: url('../assets/app/fonts/woff2/Spiegel-SemiBoldItalic.woff2')
+  src: url('/assets/app/fonts/woff2/Spiegel-SemiBoldItalic.woff2')
     format('woff2');
 }
 
@@ -56,7 +56,7 @@ import spiegelSemiBoldItalic from '@assets/app/fonts/woff2/Spiegel-SemiBoldItali
   font-family: 'LoL Body';
   font-weight: 900;
   font-style: italic;
-  src: url('../assets/app/fonts/woff2/Spiegel-BoldItalic.woff2') format('woff2');
+  src: url('/assets/app/fonts/woff2/Spiegel-BoldItalic.woff2') format('woff2');
 }
 
 /* @font-face {
