@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/TomTomB/universe/compare/v0.0.11...v0.0.12) (2021-01-12)
+
+### Bug Fixes
+
+- 🐛 Add styles to head in prod ([8b673f0](https://github.com/TomTomB/universe/commit/8b673f0946fe94ca160e5abfafd18c89154d3480))
+- 🐛 I like fonts ([dd9f473](https://github.com/TomTomB/universe/commit/dd9f473fe4e4ffce9ab064f93f237fa29861f13e))
+
 ### [0.0.11](https://github.com/TomTomB/universe/compare/v0.0.10...v0.0.11) (2021-01-12)
 
 ### Bug Fixes
