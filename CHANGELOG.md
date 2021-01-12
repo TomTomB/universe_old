@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/TomTomB/universe/compare/v0.0.7...v0.0.8) (2021-01-12)
+
+### Bug Fixes
+
+- 🐛 Fix fonts ([43d00c7](https://github.com/TomTomB/universe/commit/43d00c71d777c7146fefd91b6b4e1e6b5a9a3360))
+
 ### [0.0.7](https://github.com/TomTomB/universe/compare/v0.0.6...v0.0.7) (2021-01-12)
 
 ### Bug Fixes
