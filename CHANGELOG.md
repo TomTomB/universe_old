@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/TomTomB/universe/compare/v0.0.6...v0.0.7) (2021-01-12)
+
+### Bug Fixes
+
+- 🐛 Exchange otf with woff2 fonts ([e54bed3](https://github.com/TomTomB/universe/commit/e54bed3722a8b30e3ef21cfc8b25e913ec9176cc))
+
 ### [0.0.6](https://github.com/TomTomB/universe/compare/v0.0.5...v0.0.6) (2021-01-11)
 
 ### Features
