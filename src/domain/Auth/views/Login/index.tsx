@@ -152,7 +152,9 @@ const LoginView = () => {
           </p>
         </FooterContainer>
         <VersionFooter>
-          <span>{gitVersion.semverString}</span>
+          <span>
+            V{gitVersion.semver.version}.{gitVersion.hash}
+          </span>
         </VersionFooter>
       </Panel>
     </Container>

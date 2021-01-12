@@ -1,20 +1,20 @@
 import { createGlobalStyle } from 'styled-components';
-import beaufortBold from '@assets/app/fonts/BeaufortForLoL-Bold.otf';
-import beaufortBoldItalic from '@assets/app/fonts/BeaufortForLoL-BoldItalic.otf';
-import beaufortHeavy from '@assets/app/fonts/BeaufortForLoL-Heavy.otf';
-import beaufortHeavyItalic from '@assets/app/fonts/BeaufortForLoL-HeavyItalic.otf';
-import beaufortItalic from '@assets/app/fonts/BeaufortForLoL-Italic.otf';
-import beaufortLight from '@assets/app/fonts/BeaufortForLoL-Light.otf';
-import beaufortLightItalic from '@assets/app/fonts/BeaufortForLoL-LightItalic.otf';
-import beaufortMedium from '@assets/app/fonts/BeaufortForLoL-Medium.otf';
-import beaufortMediumItalic from '@assets/app/fonts/BeaufortForLoL-MediumItalic.otf';
-import beaufortRegular from '@assets/app/fonts/BeaufortForLoL-Regular.otf';
-import spiegelBold from '@assets/app/fonts/Spiegel-Bold.otf';
-import spiegelBoldItalic from '@assets/app/fonts/Spiegel-BoldItalic.otf';
-import spiegelRegular from '@assets/app/fonts/Spiegel-Regular.otf';
-import spiegelRegularItalic from '@assets/app/fonts/Spiegel-RegularItalic.otf';
-import spiegelSemiBold from '@assets/app/fonts/Spiegel-SemiBold.otf';
-import spiegelSemiBoldItalic from '@assets/app/fonts/Spiegel-SemiBoldItalic.otf';
+import beaufortBold from '@assets/app/fonts/woff2/BeaufortForLoL-Bold.woff2';
+import beaufortBoldItalic from '@assets/app/fonts/woff2/BeaufortForLoL-BoldItalic.woff2';
+import beaufortHeavy from '@assets/app/fonts/woff2/BeaufortForLoL-Heavy.woff2';
+import beaufortHeavyItalic from '@assets/app/fonts/woff2/BeaufortForLoL-HeavyItalic.woff2';
+import beaufortItalic from '@assets/app/fonts/woff2/BeaufortForLoL-Italic.woff2';
+import beaufortLight from '@assets/app/fonts/woff2/BeaufortForLoL-Light.woff2';
+import beaufortLightItalic from '@assets/app/fonts/woff2/BeaufortForLoL-LightItalic.woff2';
+import beaufortMedium from '@assets/app/fonts/woff2/BeaufortForLoL-Medium.woff2';
+import beaufortMediumItalic from '@assets/app/fonts/woff2/BeaufortForLoL-MediumItalic.woff2';
+import beaufortRegular from '@assets/app/fonts/woff2/BeaufortForLoL-Regular.woff2';
+import spiegelBold from '@assets/app/fonts/woff2/Spiegel-Bold.woff2';
+import spiegelBoldItalic from '@assets/app/fonts/woff2/Spiegel-BoldItalic.woff2';
+import spiegelRegular from '@assets/app/fonts/woff2/Spiegel-Regular.woff2';
+import spiegelRegularItalic from '@assets/app/fonts/woff2/Spiegel-RegularItalic.woff2';
+import spiegelSemiBold from '@assets/app/fonts/woff2/Spiegel-SemiBold.woff2';
+import spiegelSemiBoldItalic from '@assets/app/fonts/woff2/Spiegel-SemiBoldItalic.woff2';
 
 import externalLinkMask from '@assets/app/external-link-mask.png';
 
@@ -56,112 +56,112 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'LoL Body';
     font-weight: normal;
     font-style: normal;
-    src: url(${spiegelRegular}) format('opentype');
+    src: url(${spiegelRegular}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 700;
     font-style: normal;
-    src: url(${spiegelSemiBold}) format('opentype');
+    src: url(${spiegelSemiBold}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 900;
     font-style: normal;
-    src: url(${spiegelBold}) format('opentype');
+    src: url(${spiegelBold}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: normal;
     font-style: italic;
-    src: url(${spiegelRegularItalic}) format('opentype');
+    src: url(${spiegelRegularItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 700;
     font-style: italic;
-    src: url(${spiegelSemiBoldItalic}) format('opentype');
+    src: url(${spiegelSemiBoldItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 900;
     font-style: italic;
-    src: url(${spiegelBoldItalic}) format('opentype');
+    src: url(${spiegelBoldItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 300;
     font-style: normal;
-    src: url(${beaufortLight}) format('opentype');
+    src: url(${beaufortLight}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: normal;
     font-style: normal;
-    src: url(${beaufortRegular}) format('opentype');
+    src: url(${beaufortRegular}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 500;
     font-style: normal;
-    src: url(${beaufortMedium}) format('opentype');
+    src: url(${beaufortMedium}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 700;
     font-style: normal;
-    src: url(${beaufortBold}) format('opentype');
+    src: url(${beaufortBold}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 900;
     font-style: normal;
-    src: url(${beaufortHeavy}) format('opentype');
+    src: url(${beaufortHeavy}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 300;
     font-style: italic;
-    src: url(${beaufortLightItalic}) format('opentype');
+    src: url(${beaufortLightItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: normal;
     font-style: italic;
-    src: url(${beaufortItalic}) format('opentype');
+    src: url(${beaufortItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 500;
     font-style: italic;
-    src: url(${beaufortMediumItalic}) format('opentype');
+    src: url(${beaufortMediumItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 700;
     font-style: italic;
-    src: url(${beaufortBoldItalic}) format('opentype');
+    src: url(${beaufortBoldItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Display';
     font-weight: 900;
     font-style: italic;
-    src: url(${beaufortHeavyItalic}) format('opentype');
+    src: url(${beaufortHeavyItalic}) format('woff2');
   }
 
   h1, h2, h3, h4, h5, h6, a, p, label, li {

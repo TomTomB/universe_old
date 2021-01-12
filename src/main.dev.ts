@@ -23,11 +23,6 @@ export default class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 let lcuConnector: LCUConnector | null = null;
 
-if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support');
-  sourceMapSupport.install();
-}
-
 const installExtensions = () => {
   const {
     default: installExtension,

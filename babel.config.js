@@ -2,7 +2,10 @@
 
 const developmentEnvironments = ['development', 'test'];
 
-const developmentPlugins = [require('@babel/plugin-transform-runtime')];
+const developmentPlugins = [
+  require('@babel/plugin-transform-runtime'),
+  require('babel-plugin-styled-components'),
+];
 
 const productionPlugins = [
   require('babel-plugin-dev-expression'),
@@ -55,8 +58,6 @@ module.exports = (api) => {
       require('@babel/plugin-syntax-import-meta'),
       [require('@babel/plugin-proposal-class-properties'), { loose: true }],
       require('@babel/plugin-proposal-json-strings'),
-
-      require('babel-plugin-styled-components'),
       [
         require('babel-plugin-module-resolver'),
         {
