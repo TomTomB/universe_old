@@ -9,12 +9,12 @@ import beaufortLightItalic from '@assets/app/fonts/woff2/BeaufortForLoL-LightIta
 import beaufortMedium from '@assets/app/fonts/woff2/BeaufortForLoL-Medium.woff2';
 import beaufortMediumItalic from '@assets/app/fonts/woff2/BeaufortForLoL-MediumItalic.woff2';
 import beaufortRegular from '@assets/app/fonts/woff2/BeaufortForLoL-Regular.woff2';
-// import spiegelBold from '@assets/app/fonts/woff2/Spiegel-Bold.woff2';
-// import spiegelBoldItalic from '@assets/app/fonts/woff2/Spiegel-BoldItalic.woff2';
-// import spiegelRegular from '@assets/app/fonts/woff2/Spiegel-Regular.woff2';
-// import spiegelRegularItalic from '@assets/app/fonts/woff2/Spiegel-RegularItalic.woff2';
-// import spiegelSemiBold from '@assets/app/fonts/woff2/Spiegel-SemiBold.woff2';
-// import spiegelSemiBoldItalic from '@assets/app/fonts/woff2/Spiegel-SemiBoldItalic.woff2';
+import spiegelBold from '@assets/app/fonts/woff2/Spiegel-Bold.woff2';
+import spiegelBoldItalic from '@assets/app/fonts/woff2/Spiegel-BoldItalic.woff2';
+import spiegelRegular from '@assets/app/fonts/woff2/Spiegel-Regular.woff2';
+import spiegelRegularItalic from '@assets/app/fonts/woff2/Spiegel-RegularItalic.woff2';
+import spiegelSemiBold from '@assets/app/fonts/woff2/Spiegel-SemiBold.woff2';
+import spiegelSemiBoldItalic from '@assets/app/fonts/woff2/Spiegel-SemiBoldItalic.woff2';
 
 import externalLinkMask from '@assets/app/external-link-mask.png';
 
@@ -56,42 +56,42 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'LoL Body';
     font-weight: normal;
     font-style: normal;
-    src: url("../assets/app/fonts/woff2/Spiegel-Regular.woff2") format('woff2');
+    src: url(${spiegelRegular}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 700;
     font-style: normal;
-    src: url("../assets/app/fonts/woff2/Spiegel-SemiBold.woff2") format('woff2');
+    src: url(${spiegelSemiBold}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 900;
     font-style: normal;
-    src: url("../assets/app/fonts/woff2/Spiegel-Bold.woff2") format('woff2');
+    src: url(${spiegelBold}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: normal;
     font-style: italic;
-    src: url("../assets/app/fonts/woff2/Spiegel-RegularItalic.woff2") format('woff2');
+    src: url(${spiegelRegularItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 700;
     font-style: italic;
-    src: url("../assets/app/fonts/woff2/Spiegel-SemiBoldItalic.woff2") format('woff2');
+    src: url(${spiegelSemiBoldItalic}) format('woff2');
   }
 
   @font-face {
     font-family: 'LoL Body';
     font-weight: 900;
     font-style: italic;
-    src: url("../assets/app/fonts/woff2/Spiegel-BoldItalic.woff2") format('woff2');
+    src: url(${spiegelBoldItalic}) format('woff2');
   }
 
   @font-face {
