@@ -28,7 +28,13 @@ const CheckboxInput = styled.input`
   position: absolute;
   width: 100%;
   cursor: pointer;
-
+  appearance: none;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
   &:hover,
   &:focus-visible {
     + ${CheckboxSpan} {
