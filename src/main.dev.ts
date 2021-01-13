@@ -59,9 +59,8 @@ const createWindow = async () => {
 
   if (isDev) {
     await installExtensions();
+    mainWindow.webContents.openDevTools();
   }
-
-  mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.once('did-finish-load', () => {
     if (!mainWindow) {
