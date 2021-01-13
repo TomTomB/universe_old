@@ -1,14 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import beaufortBold from '@assets/app/fonts/woff2/BeaufortForLoL-Bold.woff2';
-import beaufortBoldItalic from '@assets/app/fonts/woff2/BeaufortForLoL-BoldItalic.woff2';
-import beaufortHeavy from '@assets/app/fonts/woff2/BeaufortForLoL-Heavy.woff2';
-import beaufortHeavyItalic from '@assets/app/fonts/woff2/BeaufortForLoL-HeavyItalic.woff2';
-import beaufortItalic from '@assets/app/fonts/woff2/BeaufortForLoL-Italic.woff2';
-import beaufortLight from '@assets/app/fonts/woff2/BeaufortForLoL-Light.woff2';
-import beaufortLightItalic from '@assets/app/fonts/woff2/BeaufortForLoL-LightItalic.woff2';
-import beaufortMedium from '@assets/app/fonts/woff2/BeaufortForLoL-Medium.woff2';
-import beaufortMediumItalic from '@assets/app/fonts/woff2/BeaufortForLoL-MediumItalic.woff2';
-import beaufortRegular from '@assets/app/fonts/woff2/BeaufortForLoL-Regular.woff2';
 
 import externalLinkMask from '@assets/app/external-link-mask.png';
 
@@ -44,76 +34,6 @@ const GlobalStyle = createGlobalStyle`
   video {
     display: block;
     max-width: 100%;
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 300;
-    font-style: normal;
-    src: url(${beaufortLight}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: normal;
-    font-style: normal;
-    src: url(${beaufortRegular}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 500;
-    font-style: normal;
-    src: url(${beaufortMedium}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 700;
-    font-style: normal;
-    src: url(${beaufortBold}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 900;
-    font-style: normal;
-    src: url(${beaufortHeavy}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 300;
-    font-style: italic;
-    src: url(${beaufortLightItalic}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: normal;
-    font-style: italic;
-    src: url(${beaufortItalic}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 500;
-    font-style: italic;
-    src: url(${beaufortMediumItalic}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 700;
-    font-style: italic;
-    src: url(${beaufortBoldItalic}) format('woff2');
-  }
-
-  @font-face {
-    font-family: 'LoL Display';
-    font-weight: 900;
-    font-style: italic;
-    src: url(${beaufortHeavyItalic}) format('woff2');
   }
 
   h1, h2, h3, h4, h5, h6, a, p, label, li {
