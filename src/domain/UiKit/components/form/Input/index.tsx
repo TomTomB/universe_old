@@ -37,7 +37,7 @@ const FormField = styled.div`
   }
 `;
 
-const TogglePasswordButton = styled.button`
+const TogglePasswordCheckbox = styled.input`
   appearance: none;
   mask: url(${eyeShow}) no-repeat center;
   mask-size: 16px;
@@ -45,8 +45,8 @@ const TogglePasswordButton = styled.button`
   height: 22px;
   width: 22px;
   position: absolute;
-  right: 4px;
-  top: 25px;
+  right: 1px;
+  top: 22px;
   z-index: 1;
   cursor: pointer;
   background-color: ${(props) => props.theme.colors.gold[2]};
@@ -136,7 +136,7 @@ const FlatInput = styled.input`
 
   &:hover,
   &:focus {
-    + ${TogglePasswordButton} {
+    + ${TogglePasswordCheckbox} {
       opacity: 1;
     }
   }
@@ -205,14 +205,15 @@ const Input: FC<InputProps> = ({
       />
       {type === 'password' && (
         <>
-          <TogglePasswordButton
-            type="button"
+          <TogglePasswordCheckbox
+            type="checkbox"
             className={classNames({
               'is-shown': showPassword,
             })}
             data-tip
             data-for="togglePasswordTip"
-            onClick={() => setShowPassword(!showPassword)}
+            onChange={(event) => setShowPassword(event.target.checked)}
+            checked={showPassword}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           />
 
