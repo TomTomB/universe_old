@@ -2,7 +2,7 @@
   "name": "universe",
   "productName": "Universe",
   "description": "Universe app",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "scripts": {
     "commit": "npx git-cz",
     "build": "yarn build:version && concurrently \"yarn build:main\" \"yarn build:renderer\"",
@@ -18,7 +18,7 @@
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
     "test": "yarn build:version && jest",
-    "publish": "standard-version && git push --follow-tags origin main && yarn package:publish"
+    "deploy": "standard-version && git push --follow-tags origin main && yarn package:publish"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
