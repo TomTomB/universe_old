@@ -7,6 +7,7 @@ import lolLogo from '@assets/app/lol-logo.png';
 import asheSplash from '@assets/app/placeholder/ashe-splash.jpg';
 import styled from 'styled-components';
 import Checkbox from '@uikit/components/form/Checkbox';
+import PrimaryMagicButton from '@uikit/components/form/buttons/PrimaryMagicButton';
 import gitVersion from '../../../../../git-version.json';
 
 interface FormValues {
@@ -42,6 +43,11 @@ const SignInContainer = styled.div`
 
 const SignInHead = styled.h5`
   height: 36px;
+`;
+
+const SignInButton = styled(PrimaryMagicButton)`
+  display: block;
+  width: 100%;
 `;
 
 const SplashContainer = styled.div`
@@ -125,13 +131,23 @@ const LoginView = () => {
               error={errors.password}
               register={register}
             />
+            <br />
             <Checkbox
               label="Remember Me"
               name="staySignedIn"
               id="staySignedIn"
               register={register}
             />
-            <button type="submit">Submit</button>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <SignInButton>Sign in</SignInButton>
           </form>
         </SignInContainer>
         <FooterContainer>
