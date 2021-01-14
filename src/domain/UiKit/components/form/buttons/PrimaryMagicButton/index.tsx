@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import magicButtonLeftRunes from '@assets/app/magic-button-left-runes-44x22-29f30f29f.png';
 import magicButtonRightRunes from '@assets/app/magic-button-right-runes-62x22-25f30f29f.png';
 import classNames from 'classnames';
+import AnimatedBorderOverlay from '@uikit/components/decoration/AnimatedBorderOverlay';
 
 const backgroundIntroAnimation = keyframes`
   0% {
@@ -43,6 +44,14 @@ const radialEffectAnimation = keyframes`
   100% {
     top: 100%;
   }
+`;
+
+const StyledAnimatedBorderOverlay = styled(AnimatedBorderOverlay)`
+  display: block;
+  position: absolute;
+  opacity: 0.01;
+  transition: 300ms opacity linear;
+  pointer-events: none;
 `;
 
 const FrameBase = styled.div`
@@ -249,6 +258,9 @@ const MagicButton = styled.button`
       ${LeftRuneMagic} {
         animation: ${runeMagicLeftSpriteSheetAnimation} 500ms forwards steps(31);
       }
+      ${StyledAnimatedBorderOverlay} {
+        opacity: 1;
+      }
     }
 
     &:not(:hover):not(:active):not(:focus-visible) {
@@ -343,6 +355,9 @@ const MagicButton = styled.button`
       ${FrameIdle} {
         opacity: 0;
       }
+      ${StyledAnimatedBorderOverlay} {
+        opacity: 0.5;
+      }
     }
   }
 
@@ -370,6 +385,7 @@ const PrimaryMagicButton: FC<InputProps> = ({
   className,
 }) => {
   const [intro, setIntro] = useState(false);
+
   const introTimeout = useRef(0);
 
   useEffect(() => {
@@ -383,7 +399,7 @@ const PrimaryMagicButton: FC<InputProps> = ({
 
     introTimeout.current = window.setTimeout(() => {
       setIntro(false);
-    }, 800);
+    }, 400);
   }, [disabled]);
 
   return (
@@ -400,6 +416,7 @@ const PrimaryMagicButton: FC<InputProps> = ({
           <RadialEffect />
         </RadialContainer>
         <Content>{children}</Content>
+        <StyledAnimatedBorderOverlay speed={5000} />
       </Container>
     </MagicButton>
   );

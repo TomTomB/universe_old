@@ -79,7 +79,7 @@ const CheckboxInput = styled.input`
   }
 `;
 
-interface InputProps {
+interface CheckboxProps {
   id: string;
   label: string;
   name: string;
@@ -88,7 +88,7 @@ interface InputProps {
   disabled?: boolean;
 }
 
-const Checkbox: FC<InputProps> = ({
+const Checkbox: FC<CheckboxProps> = ({
   id,
   label,
   name,
