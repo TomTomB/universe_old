@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.16](https://github.com/TomTomB/universe/compare/v0.0.15...v0.0.16) (2021-01-14)
+
+### Features
+
+- 🎸 Animated border and arrow overlays ([d4a1a8c](https://github.com/TomTomB/universe/commit/d4a1a8c3c040027e75f1281d531a5b336243dc0b))
+- 🎸 Working primary magic button ([f5fb3c4](https://github.com/TomTomB/universe/commit/f5fb3c4c2a22bfa496a866aad361419213aa91a2))
+
 ### [0.0.15](https://github.com/TomTomB/universe/compare/v0.0.14...v0.0.15) (2021-01-14)
 
 ### Features
