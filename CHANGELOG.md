@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.15](https://github.com/TomTomB/universe/compare/v0.0.14...v0.0.15) (2021-01-14)
+
+### Features
+
+- 🎸 Basic primary magic button ([91095d9](https://github.com/TomTomB/universe/commit/91095d9f1e87f42497d2d799d9eb617380ba8b61))
+- 🎸 Dont open devtool in prod build ([83e5b6d](https://github.com/TomTomB/universe/commit/83e5b6d2e41880f75bc17b52e68c27694a3c79a3))
+- 🎸 Make toggle passwort a checkbox ([ee21d8f](https://github.com/TomTomB/universe/commit/ee21d8f24439892e6d5c8978a4d195ecb4c4e967))
+
+### Bug Fixes
+
+- 🐛 Remove weird clickable area from checkbox ([cc09cbb](https://github.com/TomTomB/universe/commit/cc09cbb2b8351ae0cbe9fa6c89367bce39799a65))
+
 ### [0.0.14](https://github.com/TomTomB/universe/compare/v0.0.13...v0.0.14) (2021-01-13)
 
 ### Bug Fixes
