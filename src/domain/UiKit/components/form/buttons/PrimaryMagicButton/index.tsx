@@ -1,35 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import magicButtonLeftRunes from '@assets/app/magic-button-left-runes-44x22-29f30f29f.png';
 import magicButtonRightRunes from '@assets/app/magic-button-right-runes-62x22-25f30f29f.png';
-
-interface MagicButtonEffectState {
-  hover: boolean;
-  active: boolean;
-  intro: boolean;
-}
-
-const FrameBase = styled.div<MagicButtonEffectState>`
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  transition: 300ms all linear;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    box-sizing: border-box;
-    box-shadow: 0 0 1px rgba(1, 10, 19, 0.25),
-      inset 0 0 1px rgba(1, 10, 19, 0.25);
-  }
-`;
+import classNames from 'classnames';
 
 const backgroundIntroAnimation = keyframes`
   0% {
@@ -41,152 +14,6 @@ const backgroundIntroAnimation = keyframes`
   100% {
     box-shadow: inset 0 -10px 20px rgba(5, 150, 170, 0);
   }
-`;
-
-const FrameIdle = styled(FrameBase)`
-  opacity: 1;
-  &::before,
-  &::after {
-    transition: 300ms all linear;
-  }
-  &::before {
-    opacity: 1;
-    border: 2px solid #3c3c41;
-  }
-  &::after {
-    opacity: 0;
-    border: 2px solid transparent;
-    border-image: linear-gradient(
-        to top,
-        #005a82 0%,
-        #0596aa 44%,
-        #0596aa 93%,
-        #0ac8b9 100%
-      )
-      2 stretch;
-  }
-
-  ${({ intro }) =>
-    intro &&
-    css`
-      background-color: rgba(30, 35, 40, 0.5);
-      animation: ${backgroundIntroAnimation} 1000ms ease-out;
-      transition: 500ms all ease-out;
-      &::before {
-        opacity: 0;
-      }
-      &::after {
-        opacity: 1;
-      }
-    `}
-
-  ${({ hover, active }) =>
-    !hover &&
-    !active &&
-    css`
-      opacity: 1;
-      background-color: rgba(30, 35, 40, 0.5);
-      &::before,
-      &::after {
-        transition: 300ms all linear;
-      }
-      &::before {
-        opacity: 0;
-      }
-      &::after {
-        opacity: 1;
-      }
-    `}
-
-  ${({ hover }) =>
-    hover &&
-    css`
-      background-color: rgba(30, 35, 40, 0.5);
-      opacity: 0;
-    `}
-
-  ${({ active }) =>
-    active &&
-    css`
-      opacity: 0;
-    `}
-`;
-const FrameInteractive = styled(FrameBase)`
-  opacity: 0;
-  &::before,
-  &::after {
-    transition: 300ms all linear;
-  }
-  &::before {
-    opacity: 1;
-    border: 2px solid transparent;
-    border-image: linear-gradient(to top, #3295c7 0%, #0ac8b9 49%, #cdfafa 100%)
-      2 stretch;
-  }
-  &::after {
-    opacity: 0;
-    border: 2px solid transparent;
-    border-image: linear-gradient(to top, #005a82 0%, #005a82 83%, #005a82 100%)
-      2 stretch;
-  }
-
-  ${({ hover, active }) =>
-    !hover &&
-    !active &&
-    css`
-      opacity: 0;
-      transition: 300ms all linear;
-      &::before,
-      &::after {
-        opacity: 0;
-      }
-    `}
-
-  ${({ hover }) =>
-    hover &&
-    css`
-      background-color: rgba(30, 35, 40, 0.5);
-      opacity: 1;
-      &::before,
-      &::after {
-        box-shadow: inset 0 -10px 20px rgba(5, 150, 170, 0.5);
-      }
-      &::before {
-        opacity: 1;
-      }
-      &::after {
-        opacity: 0;
-      }
-    `}
-
-  ${({ active }) =>
-    active &&
-    css`
-      opacity: 1;
-      box-shadow: inset 0 -10px 20px rgba(5, 150, 170, 0.5);
-      &::before,
-      &::after {
-        box-shadow: inset 0 -10px 20px rgba(5, 150, 170, 0);
-      }
-      &::before {
-        opacity: 0;
-      }
-      &::after {
-        opacity: 1;
-      }
-    `}
-`;
-
-const RuneBase = styled.div<MagicButtonEffectState>`
-  position: absolute;
-  pointer-events: inherit;
-  background-repeat: no-repeat;
-
-  ${({ intro, hover }) =>
-    (intro || hover) &&
-    css`
-      background-position-x: 0;
-    `}
 `;
 
 const runeMagicLeftSpriteSheetAnimation = keyframes`
@@ -209,59 +36,6 @@ const runeMagicRightSpriteSheetAnimation = keyframes`
   }
 `;
 
-const LeftRuneMagic = styled(RuneBase)`
-  width: 44px;
-  height: 22px;
-  left: 0;
-  bottom: 0;
-  background-image: url(${magicButtonLeftRunes});
-  background-position: 100px 100px;
-
-  ${({ intro, hover }) =>
-    (intro || hover) &&
-    css`
-      animation: ${runeMagicLeftSpriteSheetAnimation} 500ms forwards steps(31);
-    `}
-
-  ${({ hover }) =>
-    hover &&
-    css`
-      background-position-x: -44px;
-    `}
-
-  ${({ active }) =>
-    active &&
-    css`
-      background-position-x: -88px;
-    `}
-`;
-const RightRuneMagic = styled(RuneBase)`
-  width: 62px;
-  height: 22px;
-  right: 0;
-  top: 0;
-  background-image: url(${magicButtonRightRunes});
-  background-position: 100px 100px;
-
-  ${({ intro, hover }) =>
-    (intro || hover) &&
-    css`
-      animation: ${runeMagicRightSpriteSheetAnimation} 500ms forwards steps(31);
-    `}
-
-  ${({ hover }) =>
-    hover &&
-    css`
-      background-position-x: -62px;
-    `}
-
-  ${({ active }) =>
-    active &&
-    css`
-      background-position-x: -124px;
-    `}
-`;
-
 const radialEffectAnimation = keyframes`
    0% {
     top: -120px;
@@ -271,13 +45,114 @@ const radialEffectAnimation = keyframes`
   }
 `;
 
-const RadialContainer = styled.div<MagicButtonEffectState>`
+const FrameBase = styled.div`
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  transition: 300ms all linear;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 0 0 1px rgba(1, 10, 19, 0.25),
+      inset 0 0 1px rgba(1, 10, 19, 0.25);
+  }
+`;
+
+const FrameIdle = styled(FrameBase)`
+  opacity: 1;
+  &::before,
+  &::after {
+    transition: 300ms all linear;
+  }
+  &::before {
+    opacity: 1;
+    border: 2px solid #3c3c41;
+  }
+  &::after {
+    opacity: 0;
+    border: 2px solid transparent;
+    border-image: linear-gradient(
+        to top,
+        ${(props) => props.theme.colors.blue[4]} 0%,
+        ${(props) => props.theme.colors.blue[3]} 44%,
+        ${(props) => props.theme.colors.blue[3]} 93%,
+        ${(props) => props.theme.colors.blue[2]} 100%
+      )
+      2 stretch;
+  }
+`;
+
+const FrameInteractive = styled(FrameBase)`
+  opacity: 0;
+  &::before,
+  &::after {
+    transition: 300ms all linear;
+  }
+  &::before {
+    opacity: 1;
+    border: 2px solid transparent;
+    border-image: linear-gradient(
+        to top,
+        #3295c7 0%,
+        ${(props) => props.theme.colors.blue[2]} 49%,
+        ${(props) => props.theme.colors.blue[1]} 100%
+      )
+      2 stretch;
+  }
+  &::after {
+    opacity: 0;
+    border: 2px solid transparent;
+    border-image: linear-gradient(
+        to top,
+        ${(props) => props.theme.colors.blue[4]} 0%,
+        ${(props) => props.theme.colors.blue[4]} 83%,
+        ${(props) => props.theme.colors.blue[4]} 100%
+      )
+      2 stretch;
+  }
+`;
+
+const RuneBase = styled.div`
+  position: absolute;
+  pointer-events: inherit;
+  background-repeat: no-repeat;
+`;
+
+const LeftRuneMagic = styled(RuneBase)`
+  width: 44px;
+  height: 22px;
+  left: 0;
+  bottom: 0;
+  background-image: url(${magicButtonLeftRunes});
+  background-position: 100px 100px;
+`;
+
+const RightRuneMagic = styled(RuneBase)`
+  width: 62px;
+  height: 22px;
+  right: 0;
+  top: 0;
+  background-image: url(${magicButtonRightRunes});
+  background-position: 100px 100px;
+`;
+
+const RadialContainer = styled.div`
   display: block;
   width: 0;
   height: 0;
   pointer-events: none;
 `;
-const RadialEffect = styled.div<MagicButtonEffectState>`
+
+const RadialEffect = styled.div`
   display: none;
   position: absolute;
   width: 100%;
@@ -286,12 +161,6 @@ const RadialEffect = styled.div<MagicButtonEffectState>`
   box-sizing: border-box;
   overflow: hidden;
   mask-image: linear-gradient(to right, #000, #000);
-
-  ${({ hover }) =>
-    hover &&
-    css`
-      display: block;
-    `}
 
   &::after {
     content: '';
@@ -308,12 +177,6 @@ const RadialEffect = styled.div<MagicButtonEffectState>`
       transparent 90%
     );
     background-position: center;
-
-    ${({ hover }) =>
-      hover &&
-      css`
-        animation: ${radialEffectAnimation} 700ms forwards ease-out;
-      `}
   }
 `;
 
@@ -325,17 +188,7 @@ const Container = styled.div`
   width: inherit;
 `;
 
-const MagicButton = styled.button`
-  height: 32px;
-  cursor: pointer;
-  appearance: none;
-  border: 0;
-  background: none;
-  padding: 0;
-  outline: 0;
-`;
-
-const Content = styled.div<MagicButtonEffectState>`
+const Content = styled.div`
   font-family: LoL Display;
   font-kerning: normal;
   font-feature-settings: 'kern' 1;
@@ -356,25 +209,153 @@ const Content = styled.div<MagicButtonEffectState>`
   border: 2px solid transparent;
   overflow: hidden;
   transition: 300ms all linear;
+`;
 
-  ${({ hover, active }) =>
-    !hover &&
-    !active &&
-    css`
-      color: #a3c7c7;
-    `}
+const MagicButton = styled.button`
+  height: 32px;
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  outline: 0;
 
-  ${({ hover }) =>
-    hover &&
-    css`
-      color: #cdfafa;
-    `}
+  &:not([disabled]) {
+    cursor: pointer;
 
-  ${({ active }) =>
-    active &&
-    css`
-      color: #005a82;
-    `}
+    &.intro {
+      ${FrameIdle} {
+        background-color: rgba(30, 35, 40, 0.5);
+        animation: ${backgroundIntroAnimation} 1000ms ease-out;
+        transition: 500ms all ease-out;
+        &::before {
+          opacity: 0;
+        }
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    &.intro,
+    &:hover,
+    &:focus-visible {
+      ${RuneBase} {
+        background-position-x: 0;
+      }
+      ${RightRuneMagic} {
+        animation: ${runeMagicRightSpriteSheetAnimation} 500ms forwards
+          steps(31);
+      }
+      ${LeftRuneMagic} {
+        animation: ${runeMagicLeftSpriteSheetAnimation} 500ms forwards steps(31);
+      }
+    }
+
+    &:not(:hover):not(:active):not(:focus-visible) {
+      ${Content} {
+        color: ${(props) => props.theme.colors.grey.blue};
+      }
+      ${FrameInteractive} {
+        opacity: 0;
+        transition: 300ms all linear;
+        &::before,
+        &::after {
+          opacity: 0;
+        }
+      }
+      ${FrameIdle} {
+        opacity: 1;
+        background-color: rgba(30, 35, 40, 0.5);
+        &::before,
+        &::after {
+          transition: 300ms all linear;
+        }
+        &::before {
+          opacity: 0;
+        }
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus-visible {
+      ${Content} {
+        color: ${(props) => props.theme.colors.blue[1]};
+      }
+      ${RadialEffect} {
+        display: block;
+        &::after {
+          animation: ${radialEffectAnimation} 700ms forwards ease-out;
+        }
+      }
+      ${RightRuneMagic} {
+        background-position-x: -62px;
+      }
+      ${LeftRuneMagic} {
+        background-position-x: -44px;
+      }
+      ${FrameInteractive} {
+        background-color: rgba(30, 35, 40, 0.5);
+        opacity: 1;
+        &::before,
+        &::after {
+          box-shadow: inset 0 -10px 20px rgba(5, 150, 170, 0.5);
+        }
+        &::before {
+          opacity: 1;
+        }
+        &::after {
+          opacity: 0;
+        }
+      }
+      ${FrameIdle} {
+        background-color: rgba(30, 35, 40, 0.5);
+        opacity: 0;
+      }
+    }
+
+    &:active {
+      ${Content} {
+        color: ${(props) => props.theme.colors.blue[4]};
+      }
+      ${RightRuneMagic} {
+        background-position-x: -124px;
+      }
+      ${LeftRuneMagic} {
+        background-position-x: -88px;
+      }
+      ${FrameInteractive} {
+        opacity: 1;
+        box-shadow: inset 0 -10px 20px rgba(5, 150, 170, 0.5);
+        &::before,
+        &::after {
+          box-shadow: inset 0 -10px 20px rgba(5, 150, 170, 0);
+        }
+        &::before {
+          opacity: 0;
+        }
+        &::after {
+          opacity: 1;
+        }
+      }
+      ${FrameIdle} {
+        opacity: 0;
+      }
+    }
+  }
+
+  &[disabled] {
+    ${Content} {
+      color: ${(props) => props.theme.colors.grey.disabled};
+      font-size: 14px;
+      box-shadow: 0 0 1px 1px ${(props) => props.theme.colors.black},
+        inset 0 0 1px 1px ${(props) => props.theme.colors.black};
+      background-color: ${(props) => props.theme.colors.grey.frame};
+      border: 2px solid ${(props) => props.theme.colors.grey.disabled};
+    }
+  }
 `;
 
 interface InputProps {
@@ -388,40 +369,37 @@ const PrimaryMagicButton: FC<InputProps> = ({
   disabled,
   className,
 }) => {
-  const [hover, setHover] = useState(false);
-  const [active, setActive] = useState(false);
   const [intro, setIntro] = useState(false);
+  const introTimeout = useRef(0);
 
   useEffect(() => {
     if (!disabled) {
+      clearTimeout(introTimeout.current);
       setIntro(true);
+    } else {
+      setIntro(false);
+      return;
     }
 
-    setTimeout(() => {
+    introTimeout.current = window.setTimeout(() => {
       setIntro(false);
-    }, 300);
+    }, 800);
   }, [disabled]);
 
   return (
     <MagicButton
-      className={className}
+      className={classNames(className, { intro })}
       disabled={disabled}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onMouseDown={() => setActive(true)}
-      onMouseUp={() => setActive(false)}
     >
       <Container>
-        <FrameIdle hover={hover} active={active} intro={intro} />
-        <FrameInteractive hover={hover} active={active} intro={intro} />
-        <LeftRuneMagic hover={hover} active={active} intro={intro} />
-        <RightRuneMagic hover={hover} active={active} intro={intro} />
-        <RadialContainer hover={hover} active={active} intro={intro}>
-          <RadialEffect hover={hover} active={active} intro={intro} />
+        <FrameIdle />
+        <FrameInteractive />
+        <LeftRuneMagic />
+        <RightRuneMagic />
+        <RadialContainer>
+          <RadialEffect />
         </RadialContainer>
-        <Content hover={hover} active={active} intro={intro}>
-          {children}
-        </Content>
+        <Content>{children}</Content>
       </Container>
     </MagicButton>
   );

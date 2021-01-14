@@ -94,10 +94,11 @@ const LoginView = () => {
   );
 
   const resolver = useYupValidationResolver(validationSchema);
-  const { register, handleSubmit, errors } = useForm<FormValues>({
+  const { register, handleSubmit, errors, formState } = useForm<FormValues>({
     resolver,
-    mode: 'onTouched',
+    mode: 'onChange',
   });
+
   // eslint-disable-next-line no-console
   const onSubmit = handleSubmit((data) => console.log(data));
 
@@ -147,23 +148,23 @@ const LoginView = () => {
             <br />
             <br />
             <br />
-            <SignInButton>Sign in</SignInButton>
+            <SignInButton disabled={!formState.isValid}>Sign in</SignInButton>
           </form>
         </SignInContainer>
         <FooterContainer>
           <p>
             <a href="#foo" className="external">
-              External Link No. 1
+              Forgot your email?
             </a>
           </p>
           <p>
             <a href="#foo" className="external">
-              Lorem ipsum
+              Forgot your password?
             </a>
           </p>
           <p>
             <a href="#foo" className="external">
-              I like cookies very much
+              Create an account
             </a>
           </p>
         </FooterContainer>
