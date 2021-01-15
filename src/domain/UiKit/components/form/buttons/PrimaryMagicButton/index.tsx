@@ -243,6 +243,9 @@ const MagicButton = styled.button`
           opacity: 1;
         }
       }
+      ${StyledAnimatedBorderOverlay} {
+        opacity: 0.75;
+      }
     }
 
     &.intro,
@@ -257,9 +260,6 @@ const MagicButton = styled.button`
       }
       ${LeftRuneMagic} {
         animation: ${runeMagicLeftSpriteSheetAnimation} 500ms forwards steps(31);
-      }
-      ${StyledAnimatedBorderOverlay} {
-        opacity: 1;
       }
     }
 
@@ -325,6 +325,9 @@ const MagicButton = styled.button`
       ${FrameIdle} {
         background-color: rgba(30, 35, 40, 0.5);
         opacity: 0;
+      }
+      ${StyledAnimatedBorderOverlay} {
+        opacity: 1;
       }
     }
 
@@ -416,7 +419,7 @@ const PrimaryMagicButton: FC<InputProps> = ({
           <RadialEffect />
         </RadialContainer>
         <Content>{children}</Content>
-        <StyledAnimatedBorderOverlay speed={5000} />
+        <StyledAnimatedBorderOverlay speed={7500} />
       </Container>
     </MagicButton>
   );
