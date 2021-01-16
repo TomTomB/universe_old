@@ -25,5 +25,12 @@
     "yarn.lock": true,
     "*.{css,sass,scss}.d.ts": true
   },
-  "cSpell.words": ["Formik", "Styleguide", "bornholdt", "uikit"]
+  "cSpell.words": [
+    "Formik",
+    "Styleguide",
+    "bornholdt",
+    "immer",
+    "uikit",
+    "zustand"
+  ]
 }

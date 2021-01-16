@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import externalLinkMask from '@assets/app/external-link-mask.png';
+import externalLinkMask from '@assets/external-link-mask.png';
 
 const GlobalStyle = createGlobalStyle`
   body {

@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react';
-import noiseTileAlphaTintLarge from '@assets/app/noise-tile-alpha-tint-large.png';
+import noiseTileAlphaTintLarge from '@assets/noise-tile-alpha-tint-large.png';
 import styled, { css, keyframes } from 'styled-components';
 
 interface AnimatedArrowOverlayProps {

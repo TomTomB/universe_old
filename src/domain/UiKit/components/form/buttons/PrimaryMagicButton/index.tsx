@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import magicButtonLeftRunes from '@assets/app/magic-button-left-runes-44x22-29f30f29f.png';
-import magicButtonRightRunes from '@assets/app/magic-button-right-runes-62x22-25f30f29f.png';
+import magicButtonLeftRunes from '@assets/magic-button-left-runes-44x22-29f30f29f.png';
+import magicButtonRightRunes from '@assets/magic-button-right-runes-62x22-25f30f29f.png';
 import classNames from 'classnames';
 import AnimatedBorderOverlay from '@uikit/components/decoration/AnimatedBorderOverlay';
 

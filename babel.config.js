@@ -64,7 +64,7 @@ module.exports = (api) => {
           root: ['./'],
           alias: {
             '@uikit': './src/domain/UiKit',
-            '@assets': './assets',
+            '@assets': './src/assets',
             '@theme': './src/theme.tsx',
           },
         },
