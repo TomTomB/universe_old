@@ -3,13 +3,6 @@ module.exports = {
   rules: {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
-    'jsx-a11y/label-has-associated-control': [
-      2,
-      {
-        controlComponents: ['FieldXD'],
-        depth: 3,
-      },
-    ],
     'react/prop-types': [0],
   },
   parserOptions: {

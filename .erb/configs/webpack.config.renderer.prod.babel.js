@@ -7,6 +7,7 @@ import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import baseConfig from './webpack.config.base';
@@ -38,7 +39,7 @@ export default merge(baseConfig, {
 
   output: {
     path: path.join(__dirname, '../../src/dist'),
-    publicPath: './dist/',
+    publicPath: './',
     filename: 'renderer.prod.js',
   },
 
@@ -159,6 +160,11 @@ export default merge(baseConfig, {
       analyzerMode:
         process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true',
+    }),
+
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '../../src/index.html'),
+      title: 'Universe',
     }),
   ],
 });

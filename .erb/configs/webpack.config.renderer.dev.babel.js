@@ -7,6 +7,8 @@ import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import gitVersion from '../../git-version.json';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
@@ -16,25 +18,18 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dllDir = path.join(__dirname, '../dll');
+const dllDir = path.join(__dirname, '../../src/dist');
 const manifest = path.resolve(dllDir, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
 );
 
-/**
- * Warn if the DLL is not built
- */
 if (
   !requiredByDLLConfig &&
   !(fs.existsSync(dllDir) && fs.existsSync(manifest))
 ) {
-  console.log(
-    chalk.black.bgYellow.bold(
-      'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
-    )
-  );
-  execSync('yarn build-dll');
+  console.log(chalk.black.bgYellow.bold('Building dll file'));
+  execSync('yarn build:dll');
 }
 
 export default merge(baseConfig, {
@@ -215,7 +210,7 @@ export default merge(baseConfig, {
     requiredByDLLConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '../dll'),
+          context: path.join(__dirname, '../../src/dist'),
           manifest: require(manifest),
           sourceType: 'var',
         }),
@@ -243,6 +238,12 @@ export default merge(baseConfig, {
     }),
 
     new ReactRefreshWebpackPlugin(),
+
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '../../src/index.html'),
+      title: `Universe (DEV V${gitVersion.semver.version}${gitVersion.hash})`,
+      externals: ['/renderer.dll.js'],
+    }),
   ],
 
   node: {
@@ -260,7 +261,7 @@ export default merge(baseConfig, {
     lazy: false,
     hot: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, '../../src/dist'),
     watchOptions: {
       aggregateTimeout: 300,
       ignored: /node_modules/,

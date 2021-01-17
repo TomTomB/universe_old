@@ -36,12 +36,11 @@ const installExtensions = () => {
 
 const createWindow = async () => {
   const RESOURCES_PATH = app.isPackaged
-    ? path.join(process.resourcesPath, 'resources')
-    : path.join(__dirname, '../resources');
+    ? path.join(process.resourcesPath, 'assets')
+    : path.join(__dirname, '../assets');
 
-  const getAssetPath = (...paths: string[]): string => {
-    return path.join(RESOURCES_PATH, ...paths);
-  };
+  const getAssetPath = (...paths: string[]): string =>
+    path.join(RESOURCES_PATH, ...paths);
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -49,13 +48,20 @@ const createWindow = async () => {
     height: 720,
     frame: false,
     resizable: false,
-    icon: getAssetPath('icon.png'),
+    icon: getAssetPath('icon.ico'),
+    backgroundColor: '#010a13',
+    center: true,
     webPreferences: {
       nodeIntegration: true,
     },
   });
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  if (isDev) {
+    const port = process.env.PORT || 1212;
+    mainWindow.loadURL(`http://localhost:${port}/dist`);
+  } else {
+    mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
+  }
 
   if (isDev) {
     await installExtensions();
