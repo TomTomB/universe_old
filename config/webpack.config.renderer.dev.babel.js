@@ -4,11 +4,11 @@ import webpack from 'webpack';
 import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import gitVersion from '../../git-version.json';
+import gitVersion from '../intermediate/git-version.json';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dllDir = path.join(__dirname, '../../src/dist');
+const dllDir = path.join(__dirname, '../intermediate/dll');
 const manifest = path.resolve(dllDir, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
@@ -42,7 +42,7 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    require.resolve('../../src/index.tsx'),
+    require.resolve('../src/index.tsx'),
   ],
 
   output: {
@@ -153,7 +153,7 @@ export default merge(baseConfig, {
     requiredByDLLConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '../../src/dist'),
+          context: path.join(__dirname, '../intermediate/dll'),
           manifest: require(manifest),
           sourceType: 'var',
         }),
@@ -171,7 +171,7 @@ export default merge(baseConfig, {
     new ReactRefreshWebpackPlugin(),
 
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../../src/index.html'),
+      template: './src/index.ejs',
       title: `Universe (DEV V${gitVersion.semver.version}.${gitVersion.hash})`,
       externals: ['/renderer.dll.js'],
     }),
@@ -192,7 +192,7 @@ export default merge(baseConfig, {
     lazy: false,
     hot: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    contentBase: path.join(__dirname, '../../src/dist'),
+    contentBase: './intermediate/dll',
     watchOptions: {
       aggregateTimeout: 300,
       ignored: /node_modules/,

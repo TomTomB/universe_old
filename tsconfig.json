@@ -28,12 +28,5 @@
       "@theme": ["src/theme.tsx"]
     }
   },
-  "exclude": [
-    "test",
-    "release",
-    "src/main.prod.js",
-    "src/renderer.prod.js",
-    "src/dist",
-    ".erb/dll"
-  ]
+  "exclude": ["test", "release", "intermediate"]
 }

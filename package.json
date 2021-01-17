@@ -6,18 +6,18 @@
   "scripts": {
     "commit": "npx git-cz",
     "build": "yarn build:version && concurrently \"yarn build:main\" \"yarn build:renderer\"",
-    "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
-    "build:renderer": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.renderer.prod.babel.js",
-    "build:dll": "cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js",
-    "build:version": "node git-version.js",
+    "build:main": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.main.prod.babel.js",
+    "build:renderer": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.renderer.prod.babel.js",
+    "build:dll": "cross-env NODE_ENV=development webpack --config ./config/webpack.config.renderer.dev.dll.babel.js",
+    "build:version": "node -r @babel/register ./scripts/GenerateVersionFile.js",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "yarn build && electron-builder build --publish never",
     "package:publish": "yarn build && electron-builder build --publish always --win",
-    "postinstall": "yarn build:version && node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && yarn-deduplicate yarn.lock",
-    "start": "yarn build:version && node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env yarn start:renderer",
-    "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
-    "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
+    "postinstall": "yarn build:version && node -r @babel/register ./scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./config/webpack.config.renderer.dev.dll.babel.js && yarn-deduplicate yarn.lock",
+    "start": "yarn build:version && node -r @babel/register ./scripts/CheckPortInUse.js && cross-env yarn start:renderer",
+    "start:main": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister ./src/main.dev.ts",
+    "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./config/webpack.config.renderer.dev.babel.js",
     "test": "yarn build:version && jest",
     "deploy": "standard-version && git push --follow-tags origin main && yarn package:publish"
   },
@@ -42,10 +42,9 @@
       "dist/",
       "node_modules/",
       "main.prod.js",
-      "main.prod.js.map",
       "package.json"
     ],
-    "afterSign": ".erb/scripts/Notarize.js",
+    "afterSign": "scripts/Notarize.js",
     "mac": {
       "target": [
         "dmg"
@@ -82,7 +81,7 @@
       "category": "Development"
     },
     "directories": {
-      "app": "src",
+      "app": "intermediate",
       "buildResources": "assets",
       "output": "release"
     },
@@ -113,7 +112,7 @@
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/.erb/mocks/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
@@ -128,7 +127,7 @@
       "src/node_modules"
     ],
     "setupFiles": [
-      "./.erb/scripts/CheckBuildsExist.js"
+      "./scripts/CheckBuildsExist.js"
     ]
   },
   "devDependencies": {
@@ -182,6 +181,7 @@
     "browserslist-config-erb": "^0.0.1",
     "chalk": "^4.1.0",
     "concurrently": "^5.3.0",
+    "copy-webpack-plugin": "^7.0.0",
     "core-js": "^3.8.2",
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",

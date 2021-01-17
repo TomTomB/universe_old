@@ -2,15 +2,15 @@ import webpack from 'webpack';
 import path from 'path';
 import { merge } from 'webpack-merge';
 import baseConfig from './webpack.config.base';
-import { dependencies } from '../../package.json';
+import { dependencies } from '../package.json';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 
 CheckNodeEnv('development');
 
-const dist = path.join(__dirname, '../../src/dist');
+const dllPath = path.join(__dirname, '../intermediate/dll');
 
 export default merge(baseConfig, {
-  context: path.join(__dirname, '../..'),
+  context: path.join(__dirname, '../'),
 
   devtool: 'eval',
 
@@ -28,14 +28,14 @@ export default merge(baseConfig, {
 
   output: {
     library: 'renderer',
-    path: dist,
+    path: dllPath,
     filename: '[name].dll.js',
     libraryTarget: 'var',
   },
 
   plugins: [
     new webpack.DllPlugin({
-      path: path.join(dist, '[name].json'),
+      path: path.join(dllPath, '[name].json'),
       name: '[name]',
     }),
 
@@ -46,9 +46,9 @@ export default merge(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
-        context: path.join(__dirname, '../../src'),
+        context: path.join(__dirname, '../src'),
         output: {
-          path: path.join(__dirname, '../../src/dist'),
+          path: path.join(__dirname, '../intermediate/dist'),
         },
       },
     }),

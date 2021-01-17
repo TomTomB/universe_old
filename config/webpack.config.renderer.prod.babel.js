@@ -30,11 +30,11 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    path.join(__dirname, '../../src/index.tsx'),
+    path.join(__dirname, '../src/index.tsx'),
   ],
 
   output: {
-    path: path.join(__dirname, '../../src/dist'),
+    path: path.join(__dirname, '../intermediate/dist'),
     publicPath: './',
     filename: 'renderer.prod.js',
   },
@@ -92,7 +92,7 @@ export default merge(baseConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../../src/index.html'),
+      template: './src/index.ejs',
       title: 'Universe',
     }),
   ],

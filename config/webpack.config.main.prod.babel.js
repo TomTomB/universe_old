@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import CopyPlugin from 'copy-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
@@ -27,8 +28,8 @@ export default merge(baseConfig, {
   entry: './src/main.dev.ts',
 
   output: {
-    path: path.join(__dirname, '../../'),
-    filename: './src/main.prod.js',
+    path: path.join(__dirname, '../'),
+    filename: './intermediate/main.prod.js',
   },
 
   optimization: {
@@ -50,6 +51,22 @@ export default merge(baseConfig, {
       NODE_ENV: 'production',
       DEBUG_PROD: false,
       START_MINIMIZED: false,
+    }),
+
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src/package.json',
+          to: './intermediate/package.json',
+          transform(content) {
+            const packageFileData = JSON.parse(content.toString());
+            delete packageFileData.scripts;
+
+            return JSON.stringify(packageFileData);
+          },
+        },
+        { from: './src/node_modules', to: './intermediate/node_modules' },
+      ],
     }),
   ],
 

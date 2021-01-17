@@ -10,7 +10,7 @@
     "url": "https://bornholdt.digital"
   },
   "scripts": {
-    "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+    "electron-rebuild": "node -r ../scripts/BabelRegister.js ../scripts/ElectronRebuild.js",
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",
