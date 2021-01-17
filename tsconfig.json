@@ -22,11 +22,18 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "allowJs": true,
+    "skipLibCheck": true,
     "paths": {
       "@uikit/*": ["src/renderer/domain/UiKit/*"],
       "@assets/*": ["src/renderer/assets/*"],
-      "@theme": ["src/renderer/theme.tsx"]
+      "@styles": ["src/renderer/styles/*"]
     }
   },
-  "exclude": ["test", "release", "intermediate"]
+  "exclude": [
+    "test",
+    "release",
+    "intermediate",
+    "src/main/node_modules",
+    "node_modules"
+  ]
 }

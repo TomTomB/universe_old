@@ -6,8 +6,11 @@ import {
   Redirect,
 } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
-import theme from '@theme';
-import GlobalStyle from '../../../../style';
+import theme from '@styles/theme';
+import Reset from '@styles/Reset';
+import FontFaces from '@styles/FontFaces';
+import BodyTypography from '@styles/typo/Body';
+import HeadingTypography from '@styles/typo/Heading';
 import LoginView from '../../../Auth/views/Login';
 import TitleBarComponent from '../../components/TitleBar';
 
@@ -23,8 +26,11 @@ const Shell = styled.div`
 const RootView = () => {
   return (
     <>
+      <FontFaces />
+      <Reset />
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
+        <BodyTypography />
+        <HeadingTypography />
         <Shell>
           <TitleBarComponent />
           <Router>

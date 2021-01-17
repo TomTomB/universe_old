@@ -3,7 +3,7 @@
   "productName": "Universe",
   "version": "0.0.17",
   "description": "Universe app",
-  "main": "./main.prod.js",
+  "main": "./main.js",
   "author": {
     "name": "Tom-Rune Bornholdt",
     "email": "kontakt@bornholdt.digital",

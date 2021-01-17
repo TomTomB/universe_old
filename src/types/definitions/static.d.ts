@@ -56,4 +56,7 @@ declare module '*.png' {
   export default ref;
 }
 
-/* CUSTOM: ADD YOUR OWN HERE */
+declare module '*.woff2' {
+  const ref: string;
+  export default ref;
+}

@@ -6,8 +6,8 @@ import path from 'path';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import LCUConnector from './electron/lcu/lcu-connector';
-import Logger from './electron/logger';
+import LCUConnector from './lcu/lcu-connector';
+import Logger from './util/logger';
 
 const isDev =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
@@ -65,8 +65,9 @@ const createWindow = async () => {
 
   if (isDev) {
     await installExtensions();
-    mainWindow.webContents.openDevTools();
   }
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.once('did-finish-load', () => {
     if (!mainWindow) {

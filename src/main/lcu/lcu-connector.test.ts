@@ -1,4 +1,4 @@
-import { LCU } from '../../../types';
+import { LCU } from '../../types';
 import LCUConnector from './lcu-connector';
 
 describe('LCUConnector', () => {

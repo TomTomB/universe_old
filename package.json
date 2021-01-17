@@ -16,7 +16,7 @@
     "package:publish": "yarn build && electron-builder build --publish always --win",
     "postinstall": "yarn --cwd src/main install && yarn build:version && yarn build:main && node -r @babel/register ./scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./config/webpack.config.renderer.dev.dll.babel.js && yarn-deduplicate yarn.lock",
     "start": "yarn build:version && node -r @babel/register ./scripts/CheckPortInUse.js && cross-env yarn start:renderer",
-    "start:main": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister ./src/main/main.dev.ts",
+    "start:main": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister ./src/main/main.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./config/webpack.config.renderer.dev.babel.js",
     "test": "yarn build:version && jest",
     "deploy": "standard-version && git push --follow-tags origin main && yarn package:publish"
@@ -41,7 +41,7 @@
     "files": [
       "package.json",
       "node_modules/",
-      "main.prod.js",
+      "main.js",
       "dist/"
     ],
     "afterSign": "scripts/Notarize.js",
@@ -178,7 +178,6 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-styled-components": "^1.12.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "browserslist-config-erb": "^0.0.1",
     "chalk": "^4.1.0",
     "concurrently": "^5.3.0",
     "copy-webpack-plugin": "^7.0.0",
@@ -198,7 +197,6 @@
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-typescript": "^12.0.0",
-    "eslint-config-erb": "^2.0.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-compat": "^3.9.0",
@@ -252,7 +250,9 @@
     "npm": ">=6.x",
     "yarn": ">=1.21.3"
   },
-  "browserslist": [],
+  "browserslist": [
+    "last 1 electron version"
+  ],
   "prettier": {
     "overrides": [
       {
