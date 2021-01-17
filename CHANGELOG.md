@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.19](https://github.com/TomTomB/universe/compare/v0.0.18...v0.0.19) (2021-01-17)
+
+### Bug Fixes
+
+- 🐛 Dont open devtools in prod ([fdfab04](https://github.com/TomTomB/universe/commit/fdfab04e3c9f6018dd3426aee18b30521e4a2b09))
+- 🐛 Version number ([a6d1dc7](https://github.com/TomTomB/universe/commit/a6d1dc7829f8396849825d6fc9820f56dcd46f53))
+- 🐛 Versioning ([87a1dfb](https://github.com/TomTomB/universe/commit/87a1dfb239b9b3192d3997abc8a0d8bd1503ebb5))
+
 ### [0.0.18](https://github.com/TomTomB/universe/compare/v0.0.17...v0.0.18) (2021-01-17)
 
 ### Bug Fixes
