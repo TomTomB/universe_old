@@ -25,7 +25,7 @@ export default merge(baseConfig, {
 
   target: 'electron-main',
 
-  entry: './src/main.dev.ts',
+  entry: './src/main/main.dev.ts',
 
   output: {
     path: path.join(__dirname, '../'),
@@ -56,7 +56,7 @@ export default merge(baseConfig, {
     new CopyPlugin({
       patterns: [
         {
-          from: './src/package.json',
+          from: './src/main/package.json',
           to: './intermediate/package.json',
           transform(content) {
             const packageFileData = JSON.parse(content.toString());
@@ -65,7 +65,7 @@ export default merge(baseConfig, {
             return JSON.stringify(packageFileData);
           },
         },
-        { from: './src/node_modules', to: './intermediate/node_modules' },
+        { from: './src/main/node_modules', to: './intermediate/node_modules' },
       ],
     }),
   ],

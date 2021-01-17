@@ -23,9 +23,9 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "paths": {
-      "@uikit/*": ["src/domain/UiKit/*"],
-      "@assets/*": ["src/assets/*"],
-      "@theme": ["src/theme.tsx"]
+      "@uikit/*": ["src/renderer/domain/UiKit/*"],
+      "@assets/*": ["src/renderer/assets/*"],
+      "@theme": ["src/renderer/theme.tsx"]
     }
   },
   "exclude": ["test", "release", "intermediate"]

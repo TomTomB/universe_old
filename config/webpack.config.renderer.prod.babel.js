@@ -30,7 +30,7 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    path.join(__dirname, '../src/index.tsx'),
+    path.join(__dirname, '../src/renderer/index.tsx'),
   ],
 
   output: {
@@ -92,7 +92,7 @@ export default merge(baseConfig, {
     }),
 
     new HtmlWebpackPlugin({
-      template: './src/index.ejs',
+      template: './src/renderer/index.ejs',
       title: 'Universe',
     }),
   ],

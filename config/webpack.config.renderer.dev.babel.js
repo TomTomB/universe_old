@@ -42,7 +42,7 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    require.resolve('../src/index.tsx'),
+    require.resolve('../src/renderer/index.tsx'),
   ],
 
   output: {
@@ -171,7 +171,7 @@ export default merge(baseConfig, {
     new ReactRefreshWebpackPlugin(),
 
     new HtmlWebpackPlugin({
-      template: './src/index.ejs',
+      template: './src/renderer/index.ejs',
       title: `Universe (DEV V${gitVersion.semver.version}.${gitVersion.hash})`,
       externals: ['/renderer.dll.js'],
     }),

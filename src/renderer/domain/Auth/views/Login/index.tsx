@@ -8,7 +8,7 @@ import asheSplash from '@assets/placeholder/ashe-splash.jpg';
 import styled from 'styled-components';
 import Checkbox from '@uikit/components/form/Checkbox';
 import PrimaryMagicButton from '@uikit/components/form/buttons/PrimaryMagicButton';
-import gitVersion from '../../../../../intermediate/git-version.json';
+import gitVersion from '../../../../../../intermediate/git-version.json';
 
 interface FormValues {
   password: string;

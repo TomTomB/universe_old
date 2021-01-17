@@ -1,4 +1,4 @@
-/* eslint global-require: off, no-console: off */
+/* eslint-disable no-console, global-require */
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -37,7 +37,7 @@ const installExtensions = () => {
 const createWindow = async () => {
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
-    : path.join(__dirname, '../assets');
+    : path.join(__dirname, '../../assets');
 
   const getAssetPath = (...paths: string[]): string =>
     path.join(RESOURCES_PATH, ...paths);

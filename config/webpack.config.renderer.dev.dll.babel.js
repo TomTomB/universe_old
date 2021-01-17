@@ -46,7 +46,7 @@ export default merge(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
-        context: path.join(__dirname, '../src'),
+        context: path.join(__dirname, '../src/renderer'),
         output: {
           path: path.join(__dirname, '../intermediate/dist'),
         },
