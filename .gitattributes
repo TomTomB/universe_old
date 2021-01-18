@@ -3,5 +3,12 @@
 *.png   binary
 *.jpg   binary
 *.jpeg  binary
+*.webm  binary
+*.webp  binary
 *.ico   binary
 *.icns  binary
+*.ttf   binary
+*.eot   binary
+*.woff  binary
+*.woff2 binary
+*.otf   binary

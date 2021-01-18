@@ -60,3 +60,7 @@ declare module '*.woff2' {
   const ref: string;
   export default ref;
 }
+declare module '*.otf' {
+  const ref: string;
+  export default ref;
+}
