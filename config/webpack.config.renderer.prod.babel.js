@@ -36,7 +36,7 @@ export default merge(baseConfig, {
   output: {
     path: path.join(__dirname, '../intermediate/dist'),
     publicPath: './',
-    filename: 'renderer.prod.js',
+    filename: 'renderer.js',
   },
 
   module: {

@@ -4,10 +4,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 
 const mainPath = path.join(__dirname, '../intermediate/main.js');
-const rendererPath = path.join(
-  __dirname,
-  '../intermediate/dist/renderer.prod.js'
-);
+const rendererPath = path.join(__dirname, '../intermediate/dist/renderer.js');
 
 if (!fs.existsSync(mainPath)) {
   throw new Error(
