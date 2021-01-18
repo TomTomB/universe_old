@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.21](https://github.com/TomTomB/universe/compare/v0.0.20...v0.0.21) (2021-01-18)
+
+### Bug Fixes
+
+- 🐛 Disable devtools on prod, disable fullscreen ([00e2660](https://github.com/TomTomB/universe/commit/00e2660c6c42a1f0629119c79dec7e893f09d19a))
+
 ### [0.0.20](https://github.com/TomTomB/universe/compare/v0.0.19...v0.0.20) (2021-01-18)
 
 ### Bug Fixes
