@@ -29,6 +29,7 @@
     "Formik",
     "Styleguide",
     "bornholdt",
+    "fullscreenable",
     "immer",
     "uikit",
     "zustand"

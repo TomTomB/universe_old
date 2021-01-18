@@ -50,8 +50,10 @@ const createWindow = async () => {
     resizable: false,
     icon: getAssetPath('icon.ico'),
     backgroundColor: '#010a13',
+    fullscreenable: false,
     center: true,
     webPreferences: {
+      devTools: !app.isPackaged,
       nodeIntegration: true,
     },
   });
@@ -130,6 +132,8 @@ app.on('second-instance', () => {
 });
 
 ipcMain.on('window-close', () => {
+  mainWindow?.close();
+
   if (process.platform !== 'darwin') {
     app.quit();
   }
