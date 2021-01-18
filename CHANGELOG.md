@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.20](https://github.com/TomTomB/universe/compare/v0.0.19...v0.0.20) (2021-01-18)
+
+### Bug Fixes
+
+- 🐛 build dll before running tests in ci ([4091a4c](https://github.com/TomTomB/universe/commit/4091a4c1edfb4235a0cfc7a1883c5349f3b8a0c8))
+- 🐛 build process ([856e140](https://github.com/TomTomB/universe/commit/856e140315dabbc2b8fc2b47ca7a9a2860b602dd))
+- 🐛 tsconfig path ([71e89f9](https://github.com/TomTomB/universe/commit/71e89f99921ac387ce5c59711d078308727fdef4))
+
 ### [0.0.19](https://github.com/TomTomB/universe/compare/v0.0.18...v0.0.19) (2021-01-17)
 
 ### Bug Fixes
