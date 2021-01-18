@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   HashRouter as Router,
   Switch,
@@ -23,7 +23,7 @@ const Shell = styled.div`
   border-top: 2px solid ${(props) => props.theme.colors.gold[5]};
 `;
 
-const RootView = () => {
+const RootView: FC = () => {
   return (
     <>
       <FontFaces />

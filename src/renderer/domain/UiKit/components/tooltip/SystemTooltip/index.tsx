@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import ReactTooltip, { TooltipProps } from 'react-tooltip';
 import styled from 'styled-components';
 import tooltipSystemCaret from '@assets/tooltip-system-caret.png';
@@ -85,7 +85,9 @@ const TooltipContent = styled.p`
   margin: 0;
 `;
 
-const SystemTooltip = ({
+type SystemTooltipProps = TooltipProps;
+
+const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
   id,
   children,
   effect = 'solid',

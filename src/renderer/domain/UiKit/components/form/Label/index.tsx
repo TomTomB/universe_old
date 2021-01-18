@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 export const StyledLabel = styled.label`
@@ -7,14 +7,15 @@ export const StyledLabel = styled.label`
   backface-visibility: hidden;
 `;
 
-const Label = ({
+interface LabelProps {
+  htmlFor: string;
+  isInvalid: boolean;
+}
+
+const Label: FC<PropsWithChildren<LabelProps>> = ({
   htmlFor,
   children,
   isInvalid,
-}: {
-  htmlFor: string;
-  children: string | string[];
-  isInvalid: boolean;
 }) => {
   return (
     <StyledLabel

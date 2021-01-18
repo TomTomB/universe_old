@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const Styleguide = () => {
+const Styleguide: FC = () => {
   return (
     <div>
       <h1>Hi</h1>

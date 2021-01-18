@@ -1,4 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled, { keyframes } from 'styled-components';
 import magicButtonLeftRunes from '@assets/magic-button-left-runes-44x22-29f30f29f.png';
 import magicButtonRightRunes from '@assets/magic-button-right-runes-62x22-25f30f29f.png';
@@ -376,13 +382,12 @@ const MagicButton = styled.button`
   }
 `;
 
-interface InputProps {
-  children: string;
+interface PrimaryMagicButtonProps {
   disabled?: boolean;
   className?: string;
 }
 
-const PrimaryMagicButton: FC<InputProps> = ({
+const PrimaryMagicButton: FC<PropsWithChildren<PrimaryMagicButtonProps>> = ({
   children,
   disabled,
   className,

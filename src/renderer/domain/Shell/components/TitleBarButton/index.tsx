@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ipcRenderer } from 'electron';
 import styled from 'styled-components';
 import controlHide from '@assets/controls/control-hide.png';
@@ -50,13 +50,12 @@ const TitleBarButtonSettings = styled(TitleBarButtonBase)`
   mask-image: url(${controlSettings});
 `;
 
-const TitleBarButton = ({
-  label,
-  type,
-}: {
+interface TitleBarButtonProps {
   label: string;
   type: TitleBarButtonType;
-}) => {
+}
+
+const TitleBarButton: FC<TitleBarButtonProps> = ({ label, type }) => {
   switch (type) {
     case TitleBarButtonType.Close:
       return (

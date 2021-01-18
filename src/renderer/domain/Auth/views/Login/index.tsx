@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import Input from '@uikit/components/form/Input';
@@ -80,7 +80,7 @@ const VersionFooter = styled.div`
   }
 `;
 
-const LoginView = () => {
+const LoginView: FC = () => {
   const validationSchema = useMemo(
     () =>
       yup.object({
