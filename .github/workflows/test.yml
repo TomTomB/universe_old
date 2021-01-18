@@ -23,14 +23,6 @@ jobs:
         run: |
           yarn install --frozen-lockfile --network-timeout 300000
 
-      - name: Build dll
-        run: |
-          yarn build:dll
-
-      - name: Build project
-        run: |
-          yarn build
-
       - name: Run tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
