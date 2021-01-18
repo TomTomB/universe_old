@@ -13,7 +13,7 @@
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src/main",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "yarn build && electron-builder build --publish never",
-    "package:publish": "yarn build && electron-builder build --publish always --win",
+    "package:publish": "yarn build && electron-builder build --publish always --win --mac --linux",
     "postinstall": "yarn --cwd src/main install && yarn build:version && yarn build:main && node -r @babel/register ./scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./config/webpack.config.renderer.dev.dll.babel.js && yarn-deduplicate yarn.lock",
     "start": "yarn build:version && node -r @babel/register ./scripts/CheckPortInUse.js && cross-env yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister ./src/main/main.ts",
