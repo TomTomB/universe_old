@@ -5,8 +5,9 @@ import searchBoxClear from '@assets/search-box-clear.png';
 import searchIcon from '@assets/search-icon.png';
 import eyeHide from '@assets/eye-hide.svg';
 import eyeShow from '@assets/eye-show.svg';
-import { animated, useTransition, config } from 'react-spring';
+import { animated, useTransition } from 'react-spring';
 import { FieldError } from 'react-hook-form';
+import { springConfigHarsh } from '@uikit/util/springConfig';
 import SystemTooltip from '../../tooltip/SystemTooltip';
 import Label, { StyledLabel } from '../Label';
 
@@ -179,7 +180,7 @@ const Input: FC<InputProps> = ({
   const [showPassword, setShowPassword] = useState(false);
 
   const transitions = useTransition(error, null, {
-    config: config.stiff,
+    config: springConfigHarsh,
     from: { transform: 'translateY(-20px)', opacity: 0 },
     enter: { opacity: 1, transform: 'translateY(0)' },
     leave: { opacity: 0, transform: 'translateY(-20px)' },
