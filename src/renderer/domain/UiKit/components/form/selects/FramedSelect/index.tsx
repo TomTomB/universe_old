@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import dropdownCheck from '@assets/dropdown-check.png';
 import dropdownSelectDot from '@assets/dropdown-select-dot.png';
@@ -7,6 +7,23 @@ import dropdownArrow from '@assets/up-down-arrow.png';
 import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
+import { nanoid } from 'nanoid';
+import Label, { StyledLabel } from '../../Label';
+
+const FormField = styled.div`
+  position: relative;
+  ${StyledLabel} {
+    margin-bottom: 2px;
+  }
+
+  & + & {
+    margin-top: 2px;
+  }
+`;
+
+const SelectLabel = styled(Label)`
+  margin-bottom: 2px;
+`;
 
 const CurrentContainer = styled.dt`
   cursor: pointer;
@@ -86,6 +103,7 @@ const Options = styled.ul`
   min-width: 100%;
   background: #010a13;
   max-height: 150px;
+  overflow: auto;
 `;
 
 const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
@@ -102,8 +120,10 @@ const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
   position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
+  outline: none;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: #f0e6d2;
     background-color: #1e2328;
   }
@@ -155,6 +175,10 @@ const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
       background-color: rgba(30, 35, 40, 0);
     }
   }
+`;
+
+const NativeSelect = styled.select`
+  display: none;
 `;
 
 const Select = styled.div<{ active: boolean }>`
@@ -216,8 +240,39 @@ const Select = styled.div<{ active: boolean }>`
   }
 `;
 
-const FramedSelect: FC = () => {
+export interface SelectOption {
+  label: string;
+  value: string;
+}
+
+interface FramedSelectProps {
+  items: SelectOption[];
+  id: string;
+  label: string;
+  name: string;
+  value?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  register: (...args: any) => any;
+}
+
+const FramedSelect: FC<FramedSelectProps> = ({
+  items,
+  register,
+  id,
+  label,
+  name,
+  value,
+}) => {
+  const nativeSelectId = useMemo(() => {
+    return nanoid();
+  }, []);
+  const [selected, setSelected] = useState(
+    !value && items.length ? items[0].value : value
+  );
   const [isOpen, setIsOpen] = useState(false);
+  const [currentFocusedOptionIndex, setCurrentFocusedOptionIndex] = useState(
+    selected ? items.findIndex((i) => i.value === selected) : 0
+  );
   const optionsContainerRef = useRef(null);
 
   useClickOutside(optionsContainerRef, () => {
@@ -226,8 +281,34 @@ const FramedSelect: FC = () => {
     }
   });
 
+  useEffect(() => {
+    if (isOpen) {
+      const option = items[currentFocusedOptionIndex];
+      if (option) {
+        const optionElement = document.querySelector<HTMLLIElement>(
+          `#${id} [data-index="${currentFocusedOptionIndex}"]`
+        );
+
+        optionElement?.focus();
+      }
+    }
+  }, [isOpen, currentFocusedOptionIndex, items, id]);
+
+  useEffect(() => {
+    const element = document.getElementById(nativeSelectId);
+    if (element) {
+      (element as HTMLSelectElement).value = selected as string;
+    }
+    setCurrentFocusedOptionIndex(items.findIndex((i) => i.value === selected));
+  }, [selected, name, items, nativeSelectId]);
+
   const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    // console.log(event);
+    const updateOptionFocus = (val: number) => {
+      const optionElement = document.querySelector<HTMLLIElement>(
+        `#${id} [data-index="${currentFocusedOptionIndex + val}"]`
+      );
+      optionElement?.focus();
+    };
 
     if (event.code === 'Enter' || event.code === 'Space') {
       setIsOpen(true);
@@ -235,6 +316,37 @@ const FramedSelect: FC = () => {
 
     if (event.code === 'Enter' || event.code === 'Escape') {
       setIsOpen(false);
+    }
+
+    if (event.code === 'Tab') {
+      setIsOpen(false);
+      document.getElementById(id)?.focus();
+    }
+
+    if (event.code === 'ArrowDown') {
+      const option = items[currentFocusedOptionIndex + 1];
+
+      if (event.altKey && !isOpen) {
+        setIsOpen(true);
+      }
+
+      if (option) {
+        setSelected(option.value);
+        updateOptionFocus(1);
+      }
+    }
+
+    if (event.code === 'ArrowUp') {
+      const option = items[currentFocusedOptionIndex - 1];
+
+      if (event.altKey && !isOpen) {
+        setIsOpen(true);
+      }
+
+      if (option) {
+        setSelected(option.value);
+        updateOptionFocus(-1);
+      }
     }
   };
 
@@ -246,51 +358,86 @@ const FramedSelect: FC = () => {
   });
 
   return (
-    <Select
-      tabIndex={0}
-      active={isOpen}
-      onClick={() => setIsOpen(!isOpen)}
-      onKeyUp={handleKeyUp}
-      role="listbox"
-      aria-labelledby="label"
-      aria-expanded={isOpen ? 'true' : 'false'}
-    >
-      <CurrentContainer>
-        <CurrentValue>Some Selected Value</CurrentValue>
-      </CurrentContainer>
-      {transitions.map(
-        ({ item, key, props }) =>
-          item && (
-            <AnimatedOptionsContainer
-              openUpward={false}
-              ref={optionsContainerRef}
-              style={props}
-              key={key}
-            >
-              <Options>
-                <Option role="option" selected={false}>
-                  Some Value
-                </Option>
-                <Option role="option" selected>
-                  Some Other Value
-                </Option>
-                <Option role="option" selected={false}>
-                  Some More Other Value
-                </Option>
-                <Option role="option" selected={false}>
-                  Some More Other Value
-                </Option>
-                <Option role="option" selected={false}>
-                  Some More Other Value
-                </Option>
-                <Option role="option" selected={false}>
-                  Some More Other Value
-                </Option>
-              </Options>
-            </AnimatedOptionsContainer>
-          )
-      )}
-    </Select>
+    <FormField>
+      <NativeSelect
+        aria-hidden="true"
+        id={nativeSelectId}
+        ref={register()}
+        name={name}
+        onChange={(e) => {
+          if (selected !== e.target.value) {
+            setSelected(e.target.value);
+          }
+        }}
+      >
+        {items.map(
+          (option) =>
+            option && (
+              <option key={option.label + option.value} value={option.value}>
+                {option.label}
+              </option>
+            )
+        )}
+      </NativeSelect>
+      <SelectLabel
+        htmlFor={id}
+        isInvalid={false}
+        onClick={() => {
+          document.getElementById(id)?.focus();
+        }}
+      >
+        {label}
+      </SelectLabel>
+      <Select
+        tabIndex={0}
+        active={isOpen}
+        onClick={() => setIsOpen(!isOpen)}
+        onKeyUp={handleKeyUp}
+        role="combobox"
+        aria-expanded={isOpen ? 'true' : 'false'}
+        aria-haspopup="true"
+        aria-autocomplete="none"
+        id={id}
+      >
+        <CurrentContainer>
+          <CurrentValue>
+            {items.find((item) => item.value === selected)?.label || 'Select'}
+          </CurrentValue>
+        </CurrentContainer>
+        {transitions.map(
+          ({ item, key, props }) =>
+            item && (
+              <AnimatedOptionsContainer
+                openUpward={false}
+                ref={optionsContainerRef}
+                style={props}
+                key={key}
+              >
+                <Options role="listbox">
+                  {items.map(
+                    (option, index) =>
+                      option && (
+                        <Option
+                          data-index={index}
+                          tabIndex={0}
+                          key={option.label + option.value}
+                          role="option"
+                          selected={selected === option.value}
+                          onClick={() => {
+                            setSelected(option.value);
+                          }}
+                          value={option.value}
+                        >
+                          {option.label}
+                        </Option>
+                      )
+                  )}
+                </Options>
+              </AnimatedOptionsContainer>
+            )
+        )}
+      </Select>
+    </FormField>
   );
 };
 

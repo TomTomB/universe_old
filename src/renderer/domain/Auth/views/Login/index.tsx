@@ -142,7 +142,19 @@ const LoginView: FC = () => {
             />
             <br />
             <br />
-            <FramedSelect />
+            <FramedSelect
+              register={register}
+              name="someSelect"
+              id="someSelect"
+              label="Some Label"
+              items={[
+                { label: 'A Option 1', value: 'opt-1' },
+                { label: 'A Option 2', value: 'opt-2' },
+                { label: 'A Option 3', value: 'opt-3' },
+                { label: 'A Option 4', value: 'opt-4' },
+                { label: 'A Option 5', value: 'opt-5' },
+              ]}
+            />
             <br />
             <br />
             <br />
