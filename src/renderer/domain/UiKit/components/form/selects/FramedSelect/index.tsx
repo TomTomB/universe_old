@@ -7,8 +7,8 @@ import dropdownArrow from '@assets/up-down-arrow.png';
 import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
-import shortid from 'shortid';
-import ScrollContainer from '@uikit/components/base/Scrollbar';
+import ScrollContainer from '@uikit/components/base/ScrollContainer';
+import generateId from '@uikit/util/idGenerator';
 import Label from '../../Label';
 import FormField from '../../base/FormField';
 
@@ -260,7 +260,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
   value,
 }) => {
   const nativeSelectId = useMemo(() => {
-    return shortid();
+    return generateId();
   }, []);
   const [selected, setSelected] = useState(
     !value && items.length ? items[0].value : value

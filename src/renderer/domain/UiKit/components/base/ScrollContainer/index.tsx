@@ -5,7 +5,7 @@ import contentGradientMaskBottom from '@assets/content-gradient-mask-bottom.png'
 import contentGradientMaskTop from '@assets/content-gradient-mask-top.png';
 import React, { FC, PropsWithChildren, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import shortid from 'shortid';
+import generateId from '@uikit/util/idGenerator';
 
 const StyledScrollContainer = styled(OverlayScrollbarsComponent)`
   &.with-overflow-masks {
@@ -53,7 +53,7 @@ const ScrollContainer: FC<PropsWithChildren<ScrollContainerProps>> = ({
   maskOverflow,
 }) => {
   const scrollContainerId = useMemo(() => {
-    return shortid();
+    return generateId();
   }, []);
 
   useEffect(() => {
