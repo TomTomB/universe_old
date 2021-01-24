@@ -124,9 +124,10 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "src/node_modules"
+      "src/main/node_modules"
     ],
     "setupFiles": [
+      "./scripts/SetupJest.js",
       "./scripts/CheckBuildsExist.js"
     ]
   },
