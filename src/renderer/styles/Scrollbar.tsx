@@ -458,11 +458,11 @@ const Scrollbar = createGlobalStyle`
 
   .os-theme-dark > .os-scrollbar-horizontal {
       right: 10px;
-      height: 10px;
+      height: 11px;
   }
   .os-theme-dark > .os-scrollbar-vertical {
       bottom: 10px;
-      width: 10px;
+      width: 11px;
   }
   .os-theme-dark.os-host-rtl > .os-scrollbar-horizontal {
       left: 10px;
@@ -476,7 +476,7 @@ const Scrollbar = createGlobalStyle`
       background-color: transparent;
   }
   .os-theme-dark > .os-scrollbar {
-      padding: 2px;
+      padding: 3px;
       box-sizing: border-box;
       background: transparent;
   }

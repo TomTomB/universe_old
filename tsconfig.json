@@ -26,7 +26,9 @@
     "paths": {
       "@uikit/*": ["src/renderer/domain/UiKit/*"],
       "@assets/*": ["src/renderer/assets/*"],
-      "@styles/*": ["src/renderer/styles/*"]
+      "@styles/*": ["src/renderer/styles/*"],
+      "@store/*": ["src/renderer/store/*"],
+      "@store": ["src/renderer/store/index.ts"]
     }
   },
   "exclude": [

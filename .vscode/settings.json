@@ -32,6 +32,7 @@
     "fullscreenable",
     "immer",
     "overlayscrollbars",
+    "reduxjs",
     "uikit",
     "zustand"
   ]

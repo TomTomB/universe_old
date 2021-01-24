@@ -1,15 +1,19 @@
 import React, { FC, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import Input from '@uikit/components/form/Input';
-import useYupValidationResolver from '@uikit/util/yupValidationResolver';
 import lolLogo from '@assets/lol-logo.png';
 import asheSplash from '@assets/placeholder/ashe-splash.jpg';
 import styled from 'styled-components';
-import Checkbox from '@uikit/components/form/Checkbox';
-import PrimaryMagicButton from '@uikit/components/form/buttons/PrimaryMagicButton';
-import FramedSelect from '@uikit/components/form/selects/FramedSelect';
-import generateId from '@uikit/util/idGenerator';
+import { generateId, useYupValidationResolver } from '@uikit/util';
+import { useSelector } from 'react-redux';
+import { increment, selectCount } from '@store/counter/counterSlice';
+import { useAppDispatch } from '@store';
+import {
+  Checkbox,
+  FramedSelect,
+  Input,
+  PrimaryMagicButton,
+} from '@uikit/components/form';
 import gitVersion from '../../../../../../intermediate/git-version.json';
 
 interface FormValues {
@@ -83,6 +87,9 @@ const VersionFooter = styled.div`
 `;
 
 const LoginView: FC = () => {
+  const count = useSelector(selectCount);
+  const dispatch = useAppDispatch();
+
   const validationSchema = useMemo(
     () =>
       yup.object({
@@ -101,8 +108,11 @@ const LoginView: FC = () => {
     mode: 'onChange',
   });
 
-  // eslint-disable-next-line no-console
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+    dispatch(increment());
+  });
 
   return (
     <Container>
@@ -115,7 +125,7 @@ const LoginView: FC = () => {
           height="65"
         />
         <SignInContainer>
-          <SignInHead>Sign in</SignInHead>
+          <SignInHead>Sign in {count} </SignInHead>
 
           <form noValidate onSubmit={onSubmit}>
             <Input

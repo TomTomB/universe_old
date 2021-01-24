@@ -66,6 +66,7 @@ module.exports = (api) => {
             '@uikit': './src/renderer/domain/UiKit',
             '@assets': './src/renderer/assets',
             '@styles': './src/renderer/styles',
+            '@store': './src/renderer/store',
           },
         },
       ],

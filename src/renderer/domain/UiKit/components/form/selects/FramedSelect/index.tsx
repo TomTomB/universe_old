@@ -7,9 +7,7 @@ import dropdownArrow from '@assets/up-down-arrow.png';
 import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
-import ScrollContainer, {
-  StyledScrollContainer,
-} from '@uikit/components/base/ScrollContainer';
+import { ScrollContainer, StyledScrollContainer } from '@uikit/components/base';
 import generateId from '@uikit/util/idGenerator';
 import Label from '../../Label';
 import FormField from '../../base/FormField';
