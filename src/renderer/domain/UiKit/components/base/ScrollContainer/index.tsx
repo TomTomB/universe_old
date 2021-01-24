@@ -1,23 +1,29 @@
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import styled from 'styled-components';
-import contentGradientMaskBoth from '@assets/content-gradient-mask-both.png';
-import contentGradientMaskBottom from '@assets/content-gradient-mask-bottom.png';
-import contentGradientMaskTop from '@assets/content-gradient-mask-top.png';
-import React, { FC, PropsWithChildren, useEffect, useMemo } from 'react';
+import contentGradientMaskBoth from '@assets/content-gradient-mask-both-no-scrollbar.png';
+import contentGradientMaskBottom from '@assets/content-gradient-mask-bottom-no-scrollbar.png';
+import contentGradientMaskTop from '@assets/content-gradient-mask-top-no-scrollbar.png';
+import React, {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import generateId from '@uikit/util/idGenerator';
 
-const StyledScrollContainer = styled(OverlayScrollbarsComponent)`
+export const StyledScrollContainer = styled(OverlayScrollbarsComponent)`
   &.with-overflow-masks {
-    &[scrolled-top='false'][scrolled-bottom='true'] {
+    &[data-scrolled-top='false'][data-scrolled-bottom='true'] {
       -webkit-mask-box-image-source: url(${contentGradientMaskTop});
       -webkit-mask-box-image-slice: 18 8 0 0 fill;
     }
-    &[scrolled-top='true'][scrolled-bottom='false'] {
+    &[data-scrolled-top='true'][data-scrolled-bottom='false'] {
       -webkit-mask-box-image-source: url(${contentGradientMaskBottom});
       -webkit-mask-box-image-slice: 0 8 18 0 fill;
     }
-    &[scrolled-top='false'][scrolled-bottom='false'] {
+    &[data-scrolled-top='false'][data-scrolled-bottom='false'] {
       -webkit-mask-box-image-source: url(${contentGradientMaskBoth});
       -webkit-mask-box-image-slice: 18 8 18 0 fill;
     }
@@ -46,52 +52,86 @@ const StyledScrollContainer = styled(OverlayScrollbarsComponent)`
 
 interface ScrollContainerProps {
   maskOverflow?: boolean;
+  observeStartSelector?: string;
+  observeEndSelector?: string;
 }
 
 const ScrollContainer: FC<PropsWithChildren<ScrollContainerProps>> = ({
   children,
   maskOverflow,
+  observeStartSelector,
+  observeEndSelector,
 }) => {
   const scrollContainerId = useMemo(() => {
     return generateId();
   }, []);
+  const [scrolledTop, setScrolledTop] = useState(false);
+  const [scrolledBottom, setScrolledBottom] = useState(false);
 
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
 
-    const target = document.querySelector(
-      `#${scrollContainerId} .os-viewport ul`
+    const targetStart = document.querySelector(
+      `#${scrollContainerId} ${observeStartSelector}`
+    );
+    const targetEnd = document.querySelector(
+      `#${scrollContainerId} ${observeEndSelector}`
     );
 
-    if (maskOverflow && target) {
+    const root = document.querySelector(`#${scrollContainerId}`);
+
+    if (maskOverflow && targetStart && targetEnd) {
       const handleIntersect: IntersectionObserverCallback = (entries) => {
         entries.forEach((entry) => {
-          const currentY = entry.boundingClientRect.y;
-          const currentRatio = entry.intersectionRatio;
-          const { isIntersecting } = entry;
+          const { isIntersecting, target } = entry;
 
-          // eslint-disable-next-line no-console
-          console.log(isIntersecting, currentY, currentRatio);
+          if (isIntersecting) {
+            if (target === targetStart) {
+              setScrolledTop(true);
+            }
+            if (target === targetEnd) {
+              setScrolledBottom(true);
+            }
+          } else {
+            if (target === targetStart) {
+              setScrolledTop(false);
+            }
+            if (target === targetEnd) {
+              setScrolledBottom(false);
+            }
+          }
         });
       };
 
       observer = new IntersectionObserver(handleIntersect, {
-        threshold: [0, 0.5, 1],
+        threshold: [1],
+        root,
       });
 
-      observer.observe(target);
+      observer.observe(targetStart);
+      observer.observe(targetEnd);
 
       return () => {
-        observer?.unobserve(target);
+        observer?.unobserve(targetStart);
+        observer?.unobserve(targetEnd);
       };
     }
     return () => {};
-  }, [maskOverflow, scrollContainerId]);
+  }, [
+    maskOverflow,
+    scrollContainerId,
+    observeStartSelector,
+    observeEndSelector,
+  ]);
 
   return (
     <StyledScrollContainer
-      className={classNames({ 'with-overflow-masks': maskOverflow })}
+      className={classNames({
+        'with-overflow-masks': maskOverflow,
+      })}
       id={scrollContainerId}
+      data-scrolled-top={scrolledTop}
+      data-scrolled-bottom={scrolledBottom}
     >
       {children}
     </StyledScrollContainer>

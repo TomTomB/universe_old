@@ -7,7 +7,9 @@ import dropdownArrow from '@assets/up-down-arrow.png';
 import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
-import ScrollContainer from '@uikit/components/base/ScrollContainer';
+import ScrollContainer, {
+  StyledScrollContainer,
+} from '@uikit/components/base/ScrollContainer';
 import generateId from '@uikit/util/idGenerator';
 import Label from '../../Label';
 import FormField from '../../base/FormField';
@@ -78,6 +80,14 @@ const OptionsContainer = styled.dd<{ openUpward: boolean }>`
   overflow: hidden;
   background: ${(props) => props.theme.colors.black};
 
+  ${StyledScrollContainer} {
+    max-height: 150px;
+
+    .os-content-glue {
+      max-height: 150px;
+    }
+  }
+
   ${({ openUpward }) =>
     openUpward &&
     css`
@@ -94,8 +104,6 @@ const Options = styled.ul`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  min-width: 100%;
-  max-height: 150px;
 
   ::-webkit-scrollbar {
     display: none;
@@ -426,7 +434,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
                 style={props}
                 key={key}
               >
-                <ScrollContainer maskOverflow>
+                <ScrollContainer>
                   <Options role="listbox">
                     {items.map(
                       (option, index) =>
