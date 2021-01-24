@@ -8,18 +8,8 @@ import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
 import { nanoid } from 'nanoid';
-import Label, { StyledLabel } from '../../Label';
-
-const FormField = styled.div`
-  position: relative;
-  ${StyledLabel} {
-    margin-bottom: 2px;
-  }
-
-  & + & {
-    margin-top: 2px;
-  }
-`;
+import Label from '../../Label';
+import FormField from '../../base/FormField';
 
 const SelectLabel = styled(Label)`
   margin-bottom: 2px;
@@ -350,6 +340,16 @@ const FramedSelect: FC<FramedSelectProps> = ({
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (
+      event.code === 'Tab' ||
+      event.code === 'ArrowDown' ||
+      event.code === 'ArrowUp'
+    ) {
+      event.preventDefault();
+    }
+  };
+
   const transitions = useTransition(isOpen, null, {
     config: springConfigHarsh,
     from: { transform: 'scaleY(0)', opacity: 0 },
@@ -392,6 +392,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
         tabIndex={0}
         active={isOpen}
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         role="combobox"
         aria-expanded={isOpen ? 'true' : 'false'}

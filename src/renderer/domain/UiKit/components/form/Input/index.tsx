@@ -9,7 +9,8 @@ import { animated, useTransition } from 'react-spring';
 import { FieldError } from 'react-hook-form';
 import { springConfigHarsh } from '@uikit/util/springConfig';
 import SystemTooltip from '../../tooltip/SystemTooltip';
-import Label, { StyledLabel } from '../Label';
+import Label from '../Label';
+import FormField from '../base/FormField';
 
 const InputLabel = styled(Label)`
   margin-bottom: 2px;
@@ -25,17 +26,6 @@ const ErrorParagraph = styled(animated.p)`
   padding: 2px 0 0;
   letter-spacing: 0.1em;
   backface-visibility: hidden;
-`;
-
-const FormField = styled.div`
-  position: relative;
-  ${StyledLabel} {
-    margin-bottom: 2px;
-  }
-
-  & + & {
-    margin-top: 2px;
-  }
 `;
 
 const TogglePasswordCheckbox = styled.input`
