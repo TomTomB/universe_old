@@ -31,6 +31,7 @@ declare module 'styled-components' {
         gold: '#3c3732';
         blue: '#a3c7c7';
         frame: '#1e282d';
+        frame50: 'rgba(30, 35, 40, 0.5)';
         disabled: '#5c5b57';
         1: '#a09b8c';
         2: '#5b5a56';

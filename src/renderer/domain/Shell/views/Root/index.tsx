@@ -10,6 +10,7 @@ import theme from '@styles/theme';
 import Reset from '@styles/Reset';
 import FontFaces from '@styles/FontFaces';
 import BodyTypography from '@styles/typo/Body';
+import Scrollbar from '@styles/Scrollbar';
 import HeadingTypography from '@styles/typo/Heading';
 import LoginView from '../../../Auth/views/Login';
 import TitleBarComponent from '../../components/TitleBar';
@@ -29,6 +30,7 @@ const RootView: FC = () => {
       <FontFaces />
       <Reset />
       <ThemeProvider theme={theme}>
+        <Scrollbar />
         <BodyTypography />
         <HeadingTypography />
         <Shell>

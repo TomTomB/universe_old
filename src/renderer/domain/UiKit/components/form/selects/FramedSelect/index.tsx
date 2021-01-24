@@ -7,7 +7,8 @@ import dropdownArrow from '@assets/up-down-arrow.png';
 import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
-import { nanoid } from 'nanoid';
+import shortid from 'shortid';
+import ScrollContainer from '@uikit/components/base/Scrollbar';
 import Label from '../../Label';
 import FormField from '../../base/FormField';
 
@@ -23,7 +24,7 @@ const CurrentContainer = styled.dt`
       #695625 0%,
       #a9852d 23%,
       #b88d35 93%,
-      #c8aa6e 100%
+      ${(props) => props.theme.colors.gold[3]} 100%
     )
     1;
   display: flex;
@@ -34,7 +35,7 @@ const CurrentContainer = styled.dt`
   margin: 0;
   padding: 7px 5px;
   align-items: center;
-  background-color: rgba(30, 35, 40, 0.5);
+  background-color: ${(props) => props.theme.colors.grey.frame50};
 
   &::after {
     background: url(${dropdownArrow}) center no-repeat;
@@ -60,11 +61,14 @@ const CurrentValue = styled.div`
 
 const OptionsContainer = styled.dd<{ openUpward: boolean }>`
   border: 1px solid transparent;
-  border-image: linear-gradient(to top, #695625, #463714) 1;
+  border-image: linear-gradient(
+      to top,
+      #695625,
+      ${(props) => props.theme.colors.gold[6]}
+    )
+    1;
   margin: 0;
-  display: flex;
   padding: 0;
-  box-sizing: border-box;
   width: 100%;
   position: absolute;
   top: 100%;
@@ -72,7 +76,7 @@ const OptionsContainer = styled.dd<{ openUpward: boolean }>`
   max-height: 400px;
   z-index: 2;
   overflow: hidden;
-  background-color: rgba(30, 35, 40, 0.5);
+  background: ${(props) => props.theme.colors.black};
 
   ${({ openUpward }) =>
     openUpward &&
@@ -91,9 +95,11 @@ const Options = styled.ul`
   padding: 0;
   box-sizing: border-box;
   min-width: 100%;
-  background: #010a13;
   max-height: 150px;
-  overflow: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
@@ -113,14 +119,14 @@ const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
   outline: none;
 
   &:hover,
-  &:focus-visible {
-    color: #f0e6d2;
-    background-color: #1e2328;
+  &:focus {
+    color: ${(props) => props.theme.colors.gold[1]};
+    background-color: ${(props) => props.theme.colors.grey[4]};
   }
 
   &:active {
-    color: #463714;
-    background-color: rgba(30, 35, 40, 0.5);
+    color: ${(props) => props.theme.colors.gold[6]};
+    background-color: ${(props) => props.theme.colors.grey.frame50};
   }
 
   ${({ selected }) =>
@@ -150,7 +156,7 @@ const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
         #73561e 100%
       );
       border-image-slice: 1;
-      color: #f0e6d2;
+      color: ${(props) => props.theme.colors.gold[1]};
       padding-left: 15px;
       background: url(${dropdownSelectDot}) no-repeat 7px 10px;
       background-color: #010a13;
@@ -179,7 +185,7 @@ const Select = styled.div<{ active: boolean }>`
   font-kerning: normal;
   font-feature-settings: 'kern' 1;
   -webkit-font-smoothing: subpixel-antialiased;
-  color: #a09b8c;
+  color: ${(props) => props.theme.colors.grey[1]};
   font-size: 12px;
   font-weight: normal;
   line-height: 16px;
@@ -208,8 +214,8 @@ const Select = styled.div<{ active: boolean }>`
     active &&
     css`
       ${CurrentContainer} {
-        border: 1px solid #463714;
-        color: #463714;
+        border: 1px solid ${(props) => props.theme.colors.gold[6]};
+        color: ${(props) => props.theme.colors.gold[6]};
         &::after {
           background-image: url(${dropdownArrowLocked});
         }
@@ -220,8 +226,8 @@ const Select = styled.div<{ active: boolean }>`
     cursor: default;
     pointer-events: none;
     ${CurrentContainer} {
-      border: 1px solid #3c3c41;
-      color: #3c3c41;
+      border: 1px solid ${(props) => props.theme.colors.grey[3]};
+      color: ${(props) => props.theme.colors.grey[3]};
       &::after {
         filter: grayscale(100%);
         opacity: 0.35;
@@ -254,7 +260,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
   value,
 }) => {
   const nativeSelectId = useMemo(() => {
-    return nanoid();
+    return shortid();
   }, []);
   const [selected, setSelected] = useState(
     !value && items.length ? items[0].value : value
@@ -278,8 +284,11 @@ const FramedSelect: FC<FramedSelectProps> = ({
         const optionElement = document.querySelector<HTMLLIElement>(
           `#${id} [data-index="${currentFocusedOptionIndex}"]`
         );
-
         optionElement?.focus();
+
+        setTimeout(() => {
+          optionElement?.scrollIntoView({ block: 'center' });
+        }, 10);
       }
     }
   }, [isOpen, currentFocusedOptionIndex, items, id]);
@@ -300,12 +309,13 @@ const FramedSelect: FC<FramedSelectProps> = ({
       optionElement?.focus();
     };
 
-    if (event.code === 'Enter' || event.code === 'Space') {
+    if (!isOpen && (event.code === 'Enter' || event.code === 'Space')) {
       setIsOpen(true);
     }
 
-    if (event.code === 'Enter' || event.code === 'Escape') {
+    if (isOpen && (event.code === 'Enter' || event.code === 'Escape')) {
       setIsOpen(false);
+      document.getElementById(id)?.focus();
     }
 
     if (event.code === 'Tab') {
@@ -346,7 +356,9 @@ const FramedSelect: FC<FramedSelectProps> = ({
       event.code === 'ArrowDown' ||
       event.code === 'ArrowUp'
     ) {
-      event.preventDefault();
+      if (isOpen) {
+        event.preventDefault();
+      }
     }
   };
 
@@ -414,26 +426,28 @@ const FramedSelect: FC<FramedSelectProps> = ({
                 style={props}
                 key={key}
               >
-                <Options role="listbox">
-                  {items.map(
-                    (option, index) =>
-                      option && (
-                        <Option
-                          data-index={index}
-                          tabIndex={0}
-                          key={option.label + option.value}
-                          role="option"
-                          selected={selected === option.value}
-                          onClick={() => {
-                            setSelected(option.value);
-                          }}
-                          value={option.value}
-                        >
-                          {option.label}
-                        </Option>
-                      )
-                  )}
-                </Options>
+                <ScrollContainer maskOverflow>
+                  <Options role="listbox">
+                    {items.map(
+                      (option, index) =>
+                        option && (
+                          <Option
+                            data-index={index}
+                            tabIndex={0}
+                            key={option.label + option.value}
+                            role="option"
+                            selected={selected === option.value}
+                            onClick={() => {
+                              setSelected(option.value);
+                            }}
+                            value={option.value}
+                          >
+                            {option.label}
+                          </Option>
+                        )
+                    )}
+                  </Options>
+                </ScrollContainer>
               </AnimatedOptionsContainer>
             )
         )}
