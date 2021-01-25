@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.23](https://github.com/TomTomB/universe/compare/v0.0.22...v0.0.23) (2021-01-25)
+
+### Bug Fixes
+
+- 🐛 ogg files ([71c0ca4](https://github.com/TomTomB/universe/commit/71c0ca4f3bd441e3d234c6a06dbf6bd58c60eaec))
+
 ### [0.0.22](https://github.com/TomTomB/universe/compare/v0.0.21...v0.0.22) (2021-01-25)
 
 ### Features
