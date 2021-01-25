@@ -64,3 +64,13 @@ declare module '*.otf' {
   const ref: string;
   export default ref;
 }
+
+declare module '*.webm' {
+  const ref: string;
+  export default ref;
+}
+
+declare module '*.ogg' {
+  const ref: string;
+  export default ref;
+}

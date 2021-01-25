@@ -5,6 +5,7 @@ const Reset = createGlobalStyle`
     margin: 0;
     box-sizing: border-box;
     font-family: LoL Body;
+    scroll-behavior: smooth;
   }
 
   *, *::before,  *::after {

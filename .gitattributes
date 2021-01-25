@@ -4,6 +4,7 @@
 *.jpg   binary
 *.jpeg  binary
 *.webm  binary
+*.ogg   binary
 *.webp  binary
 *.ico   binary
 *.icns  binary

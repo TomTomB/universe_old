@@ -62,6 +62,10 @@ export default merge(baseConfig, {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },
+      {
+        test: /\.(webm|ogg)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import checkboxSpriteSheet from '@assets/checkbox-spritesheet.png';
 import classNames from 'classnames';
 
-const CheckboxContainer = styled.div`
+export const CheckboxContainer = styled.div`
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -83,31 +83,53 @@ interface CheckboxProps {
   id: string;
   label: string;
   name: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: (...args: any) => any;
+
   disabled?: boolean;
+  className?: string;
+  value?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  register?: (...args: any) => any;
+  onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Checkbox: FC<CheckboxProps> = ({
   id,
   label,
   name,
+  className,
   disabled = false,
+  value = false,
   register,
+  onChange,
 }) => {
   return (
     <CheckboxContainer
-      className={classNames({
-        disabled,
-      })}
+      className={classNames(
+        {
+          disabled,
+        },
+        className
+      )}
     >
-      <CheckboxInput
-        type="checkbox"
-        id={id}
-        name={name}
-        disabled={disabled}
-        ref={register}
-      />
+      {register && (
+        <CheckboxInput
+          type="checkbox"
+          id={id}
+          name={name}
+          disabled={disabled}
+          ref={register}
+        />
+      )}
+      {!register && (
+        <CheckboxInput
+          type="checkbox"
+          id={id}
+          name={name}
+          disabled={disabled}
+          checked={value}
+          onChange={onChange}
+        />
+      )}
       <CheckboxSpan />
       <CheckboxLabel htmlFor={id}>{label}</CheckboxLabel>
     </CheckboxContainer>

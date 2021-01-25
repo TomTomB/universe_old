@@ -2,19 +2,20 @@ import React, { FC, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import lolLogo from '@assets/lol-logo.png';
-import asheSplash from '@assets/placeholder/ashe-splash.jpg';
 import styled from 'styled-components';
 import { generateId, useYupValidationResolver } from '@uikit/util';
-import { useSelector } from 'react-redux';
-import { increment, selectCount } from '@store/counter/counterSlice';
-import { useAppDispatch } from '@store';
 import {
   Checkbox,
   FramedSelect,
   Input,
   PrimaryMagicButton,
 } from '@uikit/components/form';
+import loginVideoLoop from '@assets/video/video-splash-season2018.webm';
+import loginMusicLoop from '@assets/music/music-splash-season2018_post.ogg';
+import loginPicture from '@assets/background/image-splash-season2018.jpg';
 import gitVersion from '../../../../../../intermediate/git-version.json';
+import SplashScreen from '../../components/SplashScreen';
+import SplashScreenControls from '../../components/SplashScreenControls';
 
 interface FormValues {
   password: string;
@@ -56,8 +57,9 @@ const SignInButton = styled(PrimaryMagicButton)`
   width: 100%;
 `;
 
-const SplashContainer = styled.div`
-  background: url(${asheSplash}) no-repeat center;
+const SplashScreenContainer = styled.div`
+  position: relative;
+  overflow: hidden;
 `;
 
 const FooterContainer = styled.div`
@@ -87,9 +89,6 @@ const VersionFooter = styled.div`
 `;
 
 const LoginView: FC = () => {
-  const count = useSelector(selectCount);
-  const dispatch = useAppDispatch();
-
   const validationSchema = useMemo(
     () =>
       yup.object({
@@ -111,12 +110,18 @@ const LoginView: FC = () => {
   const onSubmit = handleSubmit((data) => {
     // eslint-disable-next-line no-console
     console.log(data);
-    dispatch(increment());
   });
 
   return (
     <Container>
-      <SplashContainer />
+      <SplashScreenContainer>
+        <SplashScreen
+          music={{ loop: loginMusicLoop }}
+          picture={loginPicture}
+          video={{ loop: loginVideoLoop }}
+        />
+        <SplashScreenControls />
+      </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg
           src={lolLogo}
@@ -125,7 +130,7 @@ const LoginView: FC = () => {
           height="65"
         />
         <SignInContainer>
-          <SignInHead>Sign in {count} </SignInHead>
+          <SignInHead>Sign in </SignInHead>
 
           <form noValidate onSubmit={onSubmit}>
             <Input
