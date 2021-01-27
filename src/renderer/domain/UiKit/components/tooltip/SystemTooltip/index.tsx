@@ -95,7 +95,7 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
 }: TooltipProps) => {
   return (
     <StyledSystemTooltip delayShow={delayShow} id={id} effect={effect}>
-      <TooltipContent>{children}</TooltipContent>
+      <TooltipContent role="tooltip">{children}</TooltipContent>
     </StyledSystemTooltip>
   );
 };
