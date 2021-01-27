@@ -10,6 +10,7 @@ export const StyledLabel = styled.label`
 interface LabelProps {
   htmlFor: string;
   isInvalid: boolean;
+  id?: string;
   onClick?: (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;
 }
 
@@ -17,10 +18,12 @@ const Label: FC<PropsWithChildren<LabelProps>> = ({
   htmlFor,
   children,
   isInvalid,
+  id,
   onClick,
 }) => {
   return (
     <StyledLabel
+      id={id}
       onClick={onClick}
       htmlFor={htmlFor}
       className={classNames({

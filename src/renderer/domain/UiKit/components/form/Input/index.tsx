@@ -154,6 +154,7 @@ interface InputProps {
   showError?: boolean;
   disabled?: boolean;
   error?: FieldError;
+  spellcheck?: boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -162,6 +163,7 @@ const Input: FC<InputProps> = ({
   name,
   placeholder,
   error,
+  spellcheck,
   type = 'text',
   showError = true,
   disabled = false,
@@ -185,6 +187,7 @@ const Input: FC<InputProps> = ({
         ref={register()}
         name={name}
         id={id}
+        spellCheck={spellcheck}
         aria-invalid={error ? 'true' : 'false'}
         className={classNames({
           'is-invalid': error,

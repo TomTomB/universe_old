@@ -257,6 +257,29 @@ interface FramedSelectProps {
   register: (...args: any) => any;
 }
 
+const getOption = ({
+  selectId,
+  optionIndex,
+}: {
+  selectId: string;
+  optionIndex: number;
+}) => {
+  return document.querySelector<HTMLLIElement>(
+    `#${selectId} [data-index="${optionIndex}"]`
+  );
+};
+
+const updateOptionFocus = ({
+  selectId,
+  optionIndex,
+}: {
+  selectId: string;
+  optionIndex: number;
+}) => {
+  const optionElement = getOption({ selectId, optionIndex });
+  optionElement?.focus();
+};
+
 const FramedSelect: FC<FramedSelectProps> = ({
   items,
   register,
@@ -268,6 +291,9 @@ const FramedSelect: FC<FramedSelectProps> = ({
   const nativeSelectId = useMemo(() => {
     return generateId();
   }, []);
+  const labelId = useMemo(() => {
+    return generateId();
+  }, []);
   const [selected, setSelected] = useState(
     !value && items.length ? items[0].value : value
   );
@@ -276,6 +302,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
     selected ? items.findIndex((i) => i.value === selected) : 0
   );
   const optionsContainerRef = useRef(null);
+  const customSelectRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(optionsContainerRef, () => {
     if (isOpen) {
@@ -287,13 +314,14 @@ const FramedSelect: FC<FramedSelectProps> = ({
     if (isOpen) {
       const option = items[currentFocusedOptionIndex];
       if (option) {
-        const optionElement = document.querySelector<HTMLLIElement>(
-          `#${id} [data-index="${currentFocusedOptionIndex}"]`
-        );
+        const optionElement = getOption({
+          selectId: id,
+          optionIndex: currentFocusedOptionIndex,
+        });
         optionElement?.focus();
 
         setTimeout(() => {
-          optionElement?.scrollIntoView({ block: 'center' });
+          optionElement?.scrollIntoView({ block: 'nearest' });
         }, 10);
       }
     }
@@ -307,52 +335,76 @@ const FramedSelect: FC<FramedSelectProps> = ({
     setCurrentFocusedOptionIndex(items.findIndex((i) => i.value === selected));
   }, [selected, name, items, nativeSelectId]);
 
+  let searchTerm = '';
+  let debounceTimeout: number | null = null;
+
+  const trySelectOption = (atIndex: number) => {
+    if (items[atIndex]) {
+      setSelected(items[atIndex].value);
+      if (isOpen) {
+        updateOptionFocus({
+          selectId: id,
+          optionIndex: atIndex,
+        });
+      }
+    }
+  };
+
+  const searchAndSelectOption = () => {
+    const searchedOptionIndex = items.findIndex((option) => {
+      return option.label.toLowerCase().startsWith(searchTerm);
+    });
+    trySelectOption(searchedOptionIndex);
+  };
+
   const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const updateOptionFocus = (val: number) => {
-      const optionElement = document.querySelector<HTMLLIElement>(
-        `#${id} [data-index="${currentFocusedOptionIndex + val}"]`
-      );
-      optionElement?.focus();
-    };
+    switch (event.code) {
+      case 'Enter':
+      case 'Space':
+        if (isOpen) {
+          setIsOpen(false);
+          customSelectRef.current?.focus();
+        } else {
+          setIsOpen(true);
+        }
+        break;
 
-    if (!isOpen && (event.code === 'Enter' || event.code === 'Space')) {
-      setIsOpen(true);
-    }
+      case 'Escape':
+      case 'Tab':
+        if (isOpen) {
+          setIsOpen(false);
+          customSelectRef.current?.focus();
+        }
 
-    if (isOpen && (event.code === 'Enter' || event.code === 'Escape')) {
-      setIsOpen(false);
-      document.getElementById(id)?.focus();
-    }
+        break;
 
-    if (event.code === 'Tab') {
-      setIsOpen(false);
-      document.getElementById(id)?.focus();
-    }
+      case 'ArrowDown':
+        if (event.altKey && !isOpen) {
+          setIsOpen(true);
+        }
 
-    if (event.code === 'ArrowDown') {
-      const option = items[currentFocusedOptionIndex + 1];
+        trySelectOption(currentFocusedOptionIndex + 1);
+        break;
 
-      if (event.altKey && !isOpen) {
-        setIsOpen(true);
-      }
+      case 'ArrowUp':
+        if (event.altKey && !isOpen) {
+          setIsOpen(true);
+        }
 
-      if (option) {
-        setSelected(option.value);
-        updateOptionFocus(1);
-      }
-    }
+        trySelectOption(currentFocusedOptionIndex - 1);
+        break;
 
-    if (event.code === 'ArrowUp') {
-      const option = items[currentFocusedOptionIndex - 1];
+      default:
+        if (debounceTimeout) {
+          window.clearTimeout(debounceTimeout);
+        }
+        searchTerm += event.key;
+        debounceTimeout = window.setTimeout(() => {
+          searchTerm = '';
+        }, 500);
 
-      if (event.altKey && !isOpen) {
-        setIsOpen(true);
-      }
-
-      if (option) {
-        setSelected(option.value);
-        updateOptionFocus(-1);
-      }
+        searchAndSelectOption();
+        break;
     }
   };
 
@@ -398,6 +450,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
         )}
       </NativeSelect>
       <SelectLabel
+        id={labelId}
         htmlFor={id}
         isInvalid={false}
         onClick={() => {
@@ -416,7 +469,9 @@ const FramedSelect: FC<FramedSelectProps> = ({
         aria-expanded={isOpen ? 'true' : 'false'}
         aria-haspopup="true"
         aria-autocomplete="none"
+        aria-labelledby={labelId}
         id={id}
+        ref={customSelectRef}
       >
         <CurrentContainer>
           <CurrentValue>

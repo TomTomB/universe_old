@@ -13,6 +13,7 @@ import Logger from './util/logger';
 Sentry.init({
   dsn:
     'https://7a7bda98ee08405485c17ba4004e77a0@o512127.ingest.sentry.io/5610895',
+  enabled: app.isPackaged,
 });
 
 const isDev =
@@ -60,7 +61,7 @@ const createWindow = async () => {
     fullscreenable: false,
     center: true,
     webPreferences: {
-      // devTools: !app.isPackaged,
+      devTools: !app.isPackaged,
       nodeIntegration: true,
     },
   });
