@@ -6,8 +6,14 @@ import path from 'path';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import * as Sentry from '@sentry/electron';
 import LCUConnector from './lcu/lcu-connector';
 import Logger from './util/logger';
+
+Sentry.init({
+  dsn:
+    'https://7a7bda98ee08405485c17ba4004e77a0@o512127.ingest.sentry.io/5610895',
+});
 
 const isDev =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
@@ -54,7 +60,7 @@ const createWindow = async () => {
     fullscreenable: false,
     center: true,
     webPreferences: {
-      devTools: !app.isPackaged,
+      // devTools: !app.isPackaged,
       nodeIntegration: true,
     },
   });
@@ -68,8 +74,9 @@ const createWindow = async () => {
 
   if (isDev) {
     await installExtensions();
-    mainWindow.webContents.openDevTools();
   }
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.once('did-finish-load', () => {
     if (!mainWindow) {

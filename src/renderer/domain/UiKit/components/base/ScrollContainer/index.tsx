@@ -29,10 +29,6 @@ export const StyledScrollContainer = styled(OverlayScrollbarsComponent)`
     }
   }
 
-  .os-scrollbar-vertical {
-    width: 9px;
-  }
-
   .os-scrollbar {
     .os-scrollbar-handle {
       background-color: ${(props) => props.theme.colors.gold[5]} !important;
