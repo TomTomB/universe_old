@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.26](https://github.com/TomTomB/universe/compare/v0.0.25...v0.0.26) (2021-01-28)
+
+### Bug Fixes
+
+- 🐛 music should start at zero seconds ([22f14b8](https://github.com/TomTomB/universe/commit/22f14b822aff4ea69db01cd7975c83e23c8575ee))
+
 ### [0.0.25](https://github.com/TomTomB/universe/compare/v0.0.24...v0.0.25) (2021-01-28)
 
 ### Features
