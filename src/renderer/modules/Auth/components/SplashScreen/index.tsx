@@ -150,7 +150,7 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
   const handleLoopMusicLoadedData = () => {
     if (!loopMusic.current || music.intro) return;
 
-    loopMusic.current.currentTime = 130;
+    loopMusic.current.currentTime = 0.1;
     loopMusic.current.play();
   };
 
