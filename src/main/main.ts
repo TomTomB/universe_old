@@ -56,7 +56,10 @@ const createWindow = async () => {
     height: 720,
     frame: false,
     resizable: false,
-    icon: getAssetPath('icon.ico'),
+    icon:
+      process.platform === 'win32'
+        ? getAssetPath('icon.ico')
+        : getAssetPath('icon.png'),
     backgroundColor: '#010a13',
     fullscreenable: false,
     center: true,
