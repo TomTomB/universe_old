@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.25](https://github.com/TomTomB/universe/compare/v0.0.24...v0.0.25) (2021-01-28)
+
+### Features
+
+- 🎸 Always render static login splash ([36872c2](https://github.com/TomTomB/universe/commit/36872c29ef05d1d76cddc418754dc7debab1896e))
+
+### Bug Fixes
+
+- 🐛 segfault on mac ([eb939e0](https://github.com/TomTomB/universe/commit/eb939e039d4c71121f0fee29e84287dc5b18f206))
+
 ### [0.0.24](https://github.com/TomTomB/universe/compare/v0.0.23...v0.0.24) (2021-01-28)
 
 ### Features
