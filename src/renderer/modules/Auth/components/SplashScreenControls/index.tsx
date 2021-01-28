@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import buttonReplay from '@assets/buttons/replay/button-replay.png';
-import buttonReplayHover from '@assets/buttons/replay/button-replay-hover.png';
-import buttonReplayActive from '@assets/buttons/replay/button-replay-active.png';
 import lineVerticalFade from '@assets/decoration/line-vertical-fade.png';
-import { Checkbox, CheckboxContainer } from '@uikit/components/form';
+import {
+  Checkbox,
+  CheckboxContainer,
+  PrimaryReplayButton,
+} from '@uikit/components/form';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@store';
 import {
@@ -28,6 +29,10 @@ const SplashScreenControlsContainer = styled.div`
     rgba(0, 0, 0, 0.2) 80%,
     rgba(0, 0, 0, 0.8) 100%
   );
+`;
+
+const ReplayButton = styled(PrimaryReplayButton)`
+  margin-right: 1rem;
 `;
 
 const Controls = styled.div`
@@ -55,35 +60,6 @@ const UniverseLogo = styled.h2`
   font-size: 25px;
 `;
 
-const SplashReplayVideoButton = styled.button`
-  background-image: url(${buttonReplay});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 49px;
-  height: 49px;
-  cursor: pointer;
-  margin-right: 1rem;
-  padding: 0;
-  background-color: transparent;
-  border: none;
-  outline: none;
-
-  &:hover,
-  &:focus-visible {
-    background-image: url(${buttonReplayHover});
-  }
-  &:active {
-    background-image: url(${buttonReplayActive});
-  }
-  &:disabled {
-    pointer-events: none;
-    cursor: default;
-    background-image: url(${buttonReplayActive});
-    opacity: 0.5;
-  }
-`;
-
 const SplashCheckboxContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -109,7 +85,7 @@ const SplashScreenControls: FC<SplashScreenControlsProps> = ({
         <UniverseLogo>Universe</UniverseLogo>
         <LineVerticalFade />
         {hasIntroVideo && (
-          <SplashReplayVideoButton
+          <ReplayButton
             onClick={() => dispatch(replayLoginMusicAndVideo())}
             disabled={!playLoginAnimations}
           />

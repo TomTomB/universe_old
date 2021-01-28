@@ -122,7 +122,7 @@ const LoginView: FC = () => {
           picture={loginPicture}
           video={{ loop: loginVideoLoop }}
         />
-        <SplashScreenControls />
+        <SplashScreenControls hasIntroVideo />
       </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg
