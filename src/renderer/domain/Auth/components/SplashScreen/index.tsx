@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import {
   selectPlayLoginAnimations,
   selectPlayLoginMusic,
+  selectReplayLoginMusicAndVideoId,
 } from '@store/settings/settingsSlice';
 
 const StaticSplash = styled.img`
@@ -52,19 +53,64 @@ interface SplashScreenProps {
 }
 
 const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
-  const [introEnded, setIntroEnded] = useState(false);
+  const [introVideoEnded, setIntroVideoEnded] = useState(false);
+  const [introMusicEnded, setIntroMusicEnded] = useState(false);
 
   const playLoginAnimations = useSelector(selectPlayLoginAnimations);
   const playLoginMusic = useSelector(selectPlayLoginMusic);
+  const replayLoginMusicAndVideoId = useSelector(
+    selectReplayLoginMusicAndVideoId
+  );
 
   const introVideo = useRef<HTMLVideoElement>(null);
   const loopVideo = useRef<HTMLVideoElement>(null);
 
+  const introMusic = useRef<HTMLVideoElement>(null);
+  const loopMusic = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     if (playLoginAnimations && video.intro) {
-      setIntroEnded(false);
+      setIntroVideoEnded(false);
     }
   }, [playLoginAnimations, video]);
+
+  useEffect(() => {
+    if (playLoginAnimations) {
+      if (video.intro && introVideoEnded && introVideo.current) {
+        setIntroVideoEnded(false);
+        introVideo.current.currentTime = 0.1;
+        introVideo.current.play();
+      } else if (introVideo.current) {
+        introVideo.current.currentTime = 0.1;
+        introVideo.current.play();
+      } else if (loopVideo.current) {
+        loopVideo.current.currentTime = 0.1;
+        loopVideo.current.play();
+      }
+    }
+    if (playLoginMusic) {
+      if (
+        music.intro &&
+        introMusicEnded &&
+        introMusic.current &&
+        loopMusic.current
+      ) {
+        setIntroMusicEnded(false);
+        introMusic.current.currentTime = 0.1;
+        introMusic.current.play();
+        loopMusic.current?.pause();
+        loopMusic.current.currentTime = 0;
+      } else if (introMusic.current) {
+        introMusic.current.currentTime = 0.1;
+        introMusic.current.play();
+      } else if (loopMusic.current) {
+        loopMusic.current.currentTime = 0.1;
+        loopMusic.current.play();
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [replayLoginMusicAndVideoId]);
 
   const handleIntroVideoLoadedData = () => {
     introVideo.current?.play();
@@ -72,7 +118,7 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
 
   const handleIntroVideoEnded = () => {
     loopVideo.current?.play();
-    setIntroEnded(true);
+    setIntroVideoEnded(true);
   };
 
   const handleLoopVideoLoadedData = () => {
@@ -83,22 +129,64 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
   };
 
   const handleLoopVideoEnded = () => {
-    loopVideo.current?.play();
+    if (!loopVideo.current) return;
+
+    loopVideo.current.currentTime = 0.1;
+    loopVideo.current.play();
+  };
+
+  const handleIntroMusicLoadedData = () => {
+    if (!introMusic.current) return;
+
+    introMusic.current.currentTime = 0.1;
+    introMusic.current.play();
+  };
+
+  const handleIntroMusicEnded = () => {
+    loopMusic.current?.play();
+    setIntroMusicEnded(true);
+  };
+
+  const handleLoopMusicLoadedData = () => {
+    if (!loopMusic.current || music.intro) return;
+
+    loopMusic.current.currentTime = 130;
+    loopMusic.current.play();
+  };
+
+  const handleLoopMusicEnded = () => {
+    if (!loopMusic.current) return;
+
+    loopMusic.current.currentTime = 0.1;
+    loopMusic.current?.play();
   };
 
   return (
     <>
       {playLoginMusic && (
         <>
-          {music.intro && <BackgroundAudio />}
-          <BackgroundAudio src={music.loop} autoPlay={playLoginMusic} loop />
+          {music.intro && (
+            <BackgroundAudio
+              src={music.intro}
+              ref={introMusic}
+              onLoadedData={handleIntroMusicLoadedData}
+              onEnded={handleIntroMusicEnded}
+            />
+          )}
+          <BackgroundAudio
+            src={music.loop}
+            ref={loopMusic}
+            onLoadedData={handleLoopMusicLoadedData}
+            onEnded={handleLoopMusicEnded}
+          />
         </>
       )}
+
       {playLoginAnimations && (
         <>
           {video.intro && (
             <DynamicSplash
-              show={!introEnded}
+              show={!introVideoEnded}
               ref={introVideo}
               muted
               src={video.intro}
@@ -107,7 +195,7 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
             />
           )}
           <DynamicSplash
-            show={introEnded || !video.intro}
+            show={introVideoEnded || !video.intro}
             ref={loopVideo}
             muted
             src={video.loop}

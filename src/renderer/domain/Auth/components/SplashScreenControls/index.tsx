@@ -8,6 +8,7 @@ import { Checkbox, CheckboxContainer } from '@uikit/components/form';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@store';
 import {
+  replayLoginMusicAndVideo,
   selectPlayLoginAnimations,
   selectPlayLoginMusic,
   togglePlayLoginAnimations,
@@ -108,7 +109,10 @@ const SplashScreenControls: FC<SplashScreenControlsProps> = ({
         <UniverseLogo>Universe</UniverseLogo>
         <LineVerticalFade />
         {hasIntroVideo && (
-          <SplashReplayVideoButton disabled={!playLoginAnimations} />
+          <SplashReplayVideoButton
+            onClick={() => dispatch(replayLoginMusicAndVideo())}
+            disabled={!playLoginAnimations}
+          />
         )}
         <SplashCheckboxContainer>
           <Checkbox
