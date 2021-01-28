@@ -1,7 +1,7 @@
 {
   "name": "universe",
   "productName": "Universe",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Universe app",
   "main": "./main.js",
   "author": {

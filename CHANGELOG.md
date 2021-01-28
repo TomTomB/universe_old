@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.24](https://github.com/TomTomB/universe/compare/v0.0.23...v0.0.24) (2021-01-28)
+
+### Features
+
+- 🎸 Add role tooltip to tooltips ([8be1113](https://github.com/TomTomB/universe/commit/8be1113c8f4317aaa192505b34e54cc9d6a15968))
+- 🎸 Add sentry error tracking ([ca62b19](https://github.com/TomTomB/universe/commit/ca62b191da798a2eb8814b049b7c105654374044))
+- 🎸 Lots of ally improvements ([8380bfa](https://github.com/TomTomB/universe/commit/8380bfac98b7cb664e215d2823eaddd2f62c27d2))
+- 🎸 Splash video replay button logic ([4ba5748](https://github.com/TomTomB/universe/commit/4ba574883c535596bf916dc6fdebfe3a52cb460c))
+
 ### [0.0.23](https://github.com/TomTomB/universe/compare/v0.0.22...v0.0.23) (2021-01-25)
 
 ### Bug Fixes
