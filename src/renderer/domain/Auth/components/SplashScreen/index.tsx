@@ -181,7 +181,7 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
           />
         </>
       )}
-
+      <StaticSplash src={picture} />
       {playLoginAnimations && (
         <>
           {video.intro && (
@@ -204,7 +204,6 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
           />
         </>
       )}
-      {!playLoginAnimations && <StaticSplash src={picture} />}
     </>
   );
 };
