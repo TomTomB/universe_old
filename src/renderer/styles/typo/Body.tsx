@@ -49,8 +49,8 @@ const BodyTypography = createGlobalStyle`
         content: '';
         display: inline-block;
         vertical-align: middle;
-        mask: url(${externalLinkMask}) no-repeat;
-        mask-size: contain;
+        -webkit-mask: url(${externalLinkMask}) no-repeat;
+        -webkit-mask-size: contain;
         background-color: ${(props) => props.theme.colors.blue[3]};
         margin-left: 5px;
         transition: 300ms background-color ${(props) =>

@@ -69,10 +69,12 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
   const loopMusic = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (playLoginAnimations && video.intro) {
-      setIntroVideoEnded(false);
+    if (!playLoginAnimations) {
+      return;
     }
-  }, [playLoginAnimations, video]);
+    setIntroVideoEnded(false);
+    setIntroMusicEnded(false);
+  }, [playLoginAnimations, video, music]);
 
   useEffect(() => {
     if (playLoginAnimations) {

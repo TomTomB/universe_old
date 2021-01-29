@@ -64,7 +64,7 @@ const GlowMask = styled.div`
 const GlowMaskTop = styled(GlowMask)`
   top: -2px;
   left: -2px;
-  mask-image: linear-gradient(
+  -webkit-mask-image: linear-gradient(
     to bottom,
     #000,
     #000 4px,
@@ -76,7 +76,7 @@ const GlowMaskTop = styled(GlowMask)`
 const GlowMaskRight = styled(GlowMask)`
   top: -2px;
   right: -2px;
-  mask-image: linear-gradient(
+  -webkit-mask-image: linear-gradient(
     to left,
     #000,
     #000 4px,
@@ -88,7 +88,7 @@ const GlowMaskRight = styled(GlowMask)`
 const GlowMaskBottom = styled(GlowMask)`
   bottom: -2px;
   right: -2px;
-  mask-image: linear-gradient(
+  -webkit-mask-image: linear-gradient(
     to top,
     #000,
     #000 4px,
@@ -100,7 +100,7 @@ const GlowMaskBottom = styled(GlowMask)`
 const GlowMaskLeft = styled(GlowMask)`
   bottom: -2px;
   left: -2px;
-  mask-image: linear-gradient(
+  -webkit-mask-image: linear-gradient(
     to right,
     #000,
     #000 4px,

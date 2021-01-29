@@ -5,13 +5,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import styled, { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
-import Reset from '@styles/Reset';
-import FontFaces from '@styles/FontFaces';
-import BodyTypography from '@styles/typo/Body';
-import Scrollbar from '@styles/Scrollbar';
-import HeadingTypography from '@styles/typo/Heading';
+import styled from 'styled-components';
+
 import LoginView from '../../../Auth/views/Login';
 import TitleBarComponent from '../../components/TitleBar';
 
@@ -26,24 +21,15 @@ const Shell = styled.div`
 
 const RootView: FC = () => {
   return (
-    <>
-      <FontFaces />
-      <Reset />
-      <ThemeProvider theme={theme}>
-        <Scrollbar />
-        <BodyTypography />
-        <HeadingTypography />
-        <Shell>
-          <TitleBarComponent />
-          <Router>
-            <Switch>
-              <Redirect from="/" exact to="/auth/login" />
-              <Route path="/auth/login" component={LoginView} />
-            </Switch>
-          </Router>
-        </Shell>
-      </ThemeProvider>
-    </>
+    <Shell>
+      <TitleBarComponent />
+      <Router>
+        <Switch>
+          <Redirect from="/" exact to="/auth/login" />
+          <Route path="/auth/login" component={LoginView} />
+        </Switch>
+      </Router>
+    </Shell>
   );
 };
 

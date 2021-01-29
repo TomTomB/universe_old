@@ -30,8 +30,8 @@ const ErrorParagraph = styled(animated.p)`
 
 const TogglePasswordCheckbox = styled.input`
   appearance: none;
-  mask: url(${eyeShow}) no-repeat center;
-  mask-size: 16px;
+  -webkit-mask: url(${eyeShow}) no-repeat center;
+  -webkit-mask-size: 16px;
   border: none;
   height: 22px;
   width: 22px;
@@ -52,8 +52,8 @@ const TogglePasswordCheckbox = styled.input`
   }
 
   &.is-shown {
-    mask: url(${eyeHide}) no-repeat center;
-    mask-size: 16px;
+    -webkit-mask: url(${eyeHide}) no-repeat center;
+    -webkit-mask-size: 16px;
   }
 `;
 
@@ -95,8 +95,8 @@ const FlatInput = styled.input`
       width: 18px;
       margin-left: 5px;
       margin-right: 0;
-      mask: url(${searchBoxClear}) no-repeat center;
-      mask-size: contain;
+      -webkit-mask: url(${searchBoxClear}) no-repeat center;
+      -webkit-mask-size: contain;
       background-color: ${(props) => props.theme.colors.gold[2]};
       &:hover {
         background-color: ${(props) => props.theme.colors.gold[1]};

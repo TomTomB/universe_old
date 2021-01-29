@@ -20,8 +20,8 @@ export const TitleBarButtonBase = styled.button`
   appearance: none;
   border: none;
   cursor: pointer;
-  mask-size: contain;
-  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
   background-color: ${(props) => props.theme.colors.grey[1]};
   outline: none;
 
@@ -35,19 +35,19 @@ export const TitleBarButtonBase = styled.button`
 `;
 
 const TitleBarButtonClose = styled(TitleBarButtonBase)`
-  mask-image: url(${controlClose});
+  -webkit-mask-image: url(${controlClose});
 `;
 
 const TitleBarButtonHide = styled(TitleBarButtonBase)`
-  mask-image: url(${controlHide});
+  -webkit-mask-image: url(${controlHide});
 `;
 
 const TitleBarButtonHelp = styled(TitleBarButtonBase)`
-  mask-image: url(${controlHelp});
+  -webkit-mask-image: url(${controlHelp});
 `;
 
 const TitleBarButtonSettings = styled(TitleBarButtonBase)`
-  mask-image: url(${controlSettings});
+  -webkit-mask-image: url(${controlSettings});
 `;
 
 interface TitleBarButtonProps {

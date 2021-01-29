@@ -175,7 +175,7 @@ const RadialEffect = styled.div`
   padding: 3px;
   box-sizing: border-box;
   overflow: hidden;
-  mask-image: linear-gradient(to right, #000, #000);
+  -webkit-mask-image: linear-gradient(to right, #000, #000);
 
   &::after {
     content: '';
