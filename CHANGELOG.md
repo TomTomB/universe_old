@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.31](https://github.com/TomTomB/universe/compare/v0.0.30...v0.0.31) (2021-01-30)
+
+### Features
+
+- 🎸 Add basic updater store and logic ([1469677](https://github.com/TomTomB/universe/commit/14696770e09ac854ecfae09d9bd0a1330728f465))
+
 ### [0.0.30](https://github.com/TomTomB/universe/compare/v0.0.29...v0.0.30) (2021-01-30)
 
 ### [0.0.29](https://github.com/TomTomB/universe/compare/v0.0.28...v0.0.29) (2021-01-30)
