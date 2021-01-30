@@ -6,6 +6,7 @@ import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
@@ -98,6 +99,15 @@ export default merge(baseConfig, {
     new HtmlWebpackPlugin({
       template: './src/renderer/index.ejs',
       title: 'Universe',
+    }),
+
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src/splash',
+          to: path.join(__dirname, '../intermediate/splash'),
+        },
+      ],
     }),
   ],
 });

@@ -42,7 +42,8 @@
       "package.json",
       "node_modules/",
       "main.js",
-      "dist/"
+      "dist/",
+      "splash/"
     ],
     "afterSign": "scripts/Notarize.js",
     "mac": {

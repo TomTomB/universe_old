@@ -69,11 +69,21 @@ const createWindow = async () => {
     },
   });
 
+  const splash = new BrowserWindow({
+    width: 810,
+    height: 610,
+    transparent: true,
+    frame: false,
+    alwaysOnTop: true,
+  });
+
   if (isDev) {
     const port = process.env.PORT || 1212;
     mainWindow.loadURL(`http://localhost:${port}/dist`);
+    splash.loadURL(`file://${path.join(__dirname, '../splash/index.html')}`);
   } else {
     mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
+    splash.loadURL(`file://${__dirname}/splash/index.html`);
   }
 
   if (isDev) {
@@ -82,6 +92,11 @@ const createWindow = async () => {
   }
 
   mainWindow.webContents.once('did-finish-load', () => {
+    lcuConnector = new LCUConnector();
+    lcuConnector.start();
+
+    splash.destroy();
+
     if (!mainWindow) {
       Logger.error('Main window is null');
       return;
@@ -93,9 +108,6 @@ const createWindow = async () => {
       mainWindow.show();
       mainWindow.focus();
     }
-
-    lcuConnector = new LCUConnector();
-    lcuConnector.start();
   });
 
   mainWindow.on('closed', () => {
