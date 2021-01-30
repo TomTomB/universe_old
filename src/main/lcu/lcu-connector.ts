@@ -4,10 +4,10 @@ import * as cp from 'child_process';
 import * as util from 'util';
 import * as fs from 'fs';
 import { FSWatcher, watch } from 'chokidar';
-import { BrowserWindow } from 'electron';
 import log from '../util/logger';
 import { COMMAND, INSTALL_REGEX } from './constants';
 import { LCU } from '../../types';
+import { Window } from '../util';
 
 export default class LCUConnector {
   private exec = util.promisify(cp.exec);
@@ -51,14 +51,12 @@ export default class LCUConnector {
         return;
       }
 
-      const allWindows = BrowserWindow.getAllWindows();
+      const mainWindow = Window.getMainWindow();
 
-      if (!allWindows.length) {
-        log.error('LCU CONNECTOR > No windows found');
+      if (!mainWindow) {
+        log.error('LCU CONNECTOR > Main window found');
         return;
       }
-
-      const mainWindow = allWindows[0];
 
       if (eventName === 'add') {
         const credentialString = await this.readFile(fullPath, 'utf8');

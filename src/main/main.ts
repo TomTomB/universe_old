@@ -4,11 +4,10 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
-import { autoUpdater } from 'electron-updater';
-import log from 'electron-log';
 import * as Sentry from '@sentry/electron';
 import LCUConnector from './lcu/lcu-connector';
 import Logger from './util/logger';
+import AppUpdater from './updater/appUpdater';
 
 Sentry.init({
   dsn:
@@ -19,16 +18,9 @@ Sentry.init({
 const isDev =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
-export default class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-}
-
 let mainWindow: BrowserWindow | null = null;
 let lcuConnector: LCUConnector | null = null;
+let updater: AppUpdater | null = null;
 
 const installExtensions = () => {
   const {
@@ -64,7 +56,7 @@ const createWindow = async () => {
     fullscreenable: false,
     center: true,
     webPreferences: {
-      devTools: !app.isPackaged,
+      // devTools: !app.isPackaged,
       nodeIntegration: true,
     },
   });
@@ -88,8 +80,9 @@ const createWindow = async () => {
 
   if (isDev) {
     await installExtensions();
-    mainWindow.webContents.openDevTools();
   }
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.once('did-finish-load', () => {
     lcuConnector = new LCUConnector();
@@ -119,8 +112,8 @@ const createWindow = async () => {
     shell.openExternal(url);
   });
 
-  // eslint-disable-next-line
-  new AppUpdater();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  updater = new AppUpdater();
 };
 
 app
