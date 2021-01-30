@@ -5,7 +5,7 @@ import {
   selectPlayLoginAnimations,
   selectPlayLoginMusic,
   selectReplayLoginMusicAndVideoId,
-} from '@store/settings/settingsSlice';
+} from '@store/slices/settings/settingsSlice';
 
 const StaticSplash = styled.img`
   width: 100%;

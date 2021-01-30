@@ -10,7 +10,7 @@ export default class Logger {
       return;
     }
 
-    log.info(params);
+    log.info(...params);
   };
 
   static warn = (...params: any[]) => {
@@ -18,7 +18,7 @@ export default class Logger {
       return;
     }
 
-    log.warn(params);
+    log.warn(...params);
   };
 
   static error = (...params: any[]) => {
@@ -26,6 +26,6 @@ export default class Logger {
       return;
     }
 
-    log.error(params);
+    log.error(...params);
   };
 }

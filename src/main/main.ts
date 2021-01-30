@@ -88,9 +88,6 @@ const createWindow = async () => {
   mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.once('did-finish-load', () => {
-    lcuConnector = new LCUConnector();
-    lcuConnector.start();
-
     splash.destroy();
 
     if (!mainWindow) {
@@ -104,6 +101,12 @@ const createWindow = async () => {
       mainWindow.show();
       mainWindow.focus();
     }
+
+    updater = new AppUpdater();
+    updater.start();
+
+    lcuConnector = new LCUConnector();
+    lcuConnector.start();
   });
 
   mainWindow.on('closed', () => {
@@ -114,9 +117,6 @@ const createWindow = async () => {
     event.preventDefault();
     shell.openExternal(url);
   });
-
-  updater = new AppUpdater();
-  updater.startCheck();
 };
 
 app

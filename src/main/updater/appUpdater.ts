@@ -9,18 +9,20 @@ export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
-    this.startCheck();
+    this.start();
   }
 
-  startCheck = () => {
-    if (!app.isPackaged) {
-      Logger.info('Skipping update check. App is in dev mode...');
-      return;
-    }
+  start = () => {
+    // if (!app.isPackaged) {
+    //   Logger.info('UPDATER > Skipping update check. App is not packaged.');
+    //   return;
+    // }
 
     const FOUR_HOURS = 1000 * 60 * 60 * 4;
     setInterval(() => {
-      Logger.info('Update interval (4h) expired. Checking for updates...');
+      Logger.info(
+        'UPDATER > Update interval (4h) expired. Checking for updates.'
+      );
       autoUpdater.checkForUpdates();
     }, FOUR_HOURS);
 

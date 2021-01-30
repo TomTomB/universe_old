@@ -6,7 +6,13 @@ window.getComputedStyle = (elt) => getComputedStyle(elt);
 jest.mock(
   'electron',
   () => {
-    const mElectron = { ipcRenderer: { on: jest.fn(), send: jest.fn() } };
+    const mElectron = {
+      ipcRenderer: {
+        on: jest.fn(),
+        send: jest.fn(),
+        removeListener: jest.fn(),
+      },
+    };
     return mElectron;
   },
   { virtual: true }

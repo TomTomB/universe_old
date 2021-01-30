@@ -14,7 +14,7 @@ import {
   selectPlayLoginMusic,
   togglePlayLoginAnimations,
   togglePlayLoginMusic,
-} from '@store/settings/settingsSlice';
+} from '@store/slices/settings/settingsSlice';
 
 const SplashScreenControlsContainer = styled.div`
   position: absolute;
