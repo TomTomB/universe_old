@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.28](https://github.com/TomTomB/universe/compare/v0.0.27...v0.0.28) (2021-01-30)
+
+### Features
+
+- 🎸 add splashscreen ([7a904a3](https://github.com/TomTomB/universe/commit/7a904a3ada162f194e5623f7e494bc32ffbcac6b))
+
 ### [0.0.27](https://github.com/TomTomB/universe/compare/v0.0.26...v0.0.27) (2021-01-29)
 
 ### Features
