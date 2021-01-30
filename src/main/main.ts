@@ -67,6 +67,9 @@ const createWindow = async () => {
     transparent: true,
     frame: false,
     alwaysOnTop: true,
+    fullscreenable: false,
+    center: true,
+    resizable: false,
   });
 
   if (isDev) {
