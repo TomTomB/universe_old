@@ -115,8 +115,8 @@ const createWindow = async () => {
     shell.openExternal(url);
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updater = new AppUpdater();
+  updater.startCheck();
 };
 
 app

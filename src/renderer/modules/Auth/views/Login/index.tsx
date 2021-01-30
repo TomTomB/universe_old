@@ -15,7 +15,6 @@ import loginVideoLoop from '@assets/video/video-splash-ss19-c.webm';
 // import loginMusicIntro from '@assets/music/intro-sound-splash-kaisa.ogg';
 import loginMusicLoop from '@assets/music/music-splash-ss19-c.ogg';
 import loginPicture from '@assets/background/image-splash-ss19-c.jpg';
-import { ipcRenderer } from 'electron';
 import gitVersion from '../../../../../../intermediate/git-version.json';
 import SplashScreen from '../../components/SplashScreen';
 import SplashScreenControls from '../../components/SplashScreenControls';
@@ -113,34 +112,6 @@ const LoginView: FC = () => {
   const onSubmit = handleSubmit((data) => {
     // eslint-disable-next-line no-console
     console.log(data);
-  });
-
-  ipcRenderer.on('checking-for-update', () => {
-    console.log('checking for update');
-  });
-
-  ipcRenderer.on('update-available', (_, info) => {
-    console.log('cupdate-available', info);
-  });
-
-  ipcRenderer.on('update-not-available', () => {
-    console.log('update-not-available');
-  });
-
-  ipcRenderer.on('update-download-progress', (_, progress) => {
-    console.log('update-download-progress', progress);
-  });
-
-  ipcRenderer.on('update-downloaded', (_, info) => {
-    console.log('update-downloaded', info);
-  });
-
-  ipcRenderer.on('before-quit-for-update', () => {
-    console.log('before-quit-for-update');
-  });
-
-  ipcRenderer.on('update-error', (_, error) => {
-    console.log('update-error', error);
   });
 
   return (

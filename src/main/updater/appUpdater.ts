@@ -12,7 +12,7 @@ export default class AppUpdater {
     this.startCheck();
   }
 
-  private startCheck = () => {
+  startCheck = () => {
     if (!app.isPackaged) {
       Logger.info('Skipping update check. App is in dev mode...');
       return;
@@ -23,6 +23,7 @@ export default class AppUpdater {
       Logger.info('Update interval (4h) expired. Checking for updates...');
       autoUpdater.checkForUpdates();
     }, FOUR_HOURS);
+
     autoUpdater.checkForUpdates();
   };
 }
