@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.32](https://github.com/TomTomB/universe/compare/v0.0.31...v0.0.32) (2021-01-31)
+
+### Features
+
+- 🎸 add additional security messures ([c7d039b](https://github.com/TomTomB/universe/commit/c7d039b7a530c006bca56128222972577665c929))
+- 🎸 add custom universe protocol ([05e2e32](https://github.com/TomTomB/universe/commit/05e2e32aa95fea892d296749236546535b2ff754))
+- 🎸 add router store ([df46502](https://github.com/TomTomB/universe/commit/df46502902a7f7f9ad784d62770ce3c3cd34d80f))
+
+### Bug Fixes
+
+- 🐛 lcu watcher found undefined as install path ([ea3e3a1](https://github.com/TomTomB/universe/commit/ea3e3a1ba044c962afbbc20dbeeb15f9274dd0ec))
+
 ### [0.0.31](https://github.com/TomTomB/universe/compare/v0.0.30...v0.0.31) (2021-01-30)
 
 ### Features
