@@ -13,6 +13,6 @@ const rootReducer = (history: History) =>
     updater: updaterReducer,
   });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<ReturnType<typeof rootReducer>>;
 
 export default rootReducer;
