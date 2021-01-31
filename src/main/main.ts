@@ -89,6 +89,13 @@ const createWindow = async () => {
 
   if (isDev) {
     await installExtensions();
+
+    mainWindow.webContents.once('dom-ready', () => {
+      if (!mainWindow) {
+        return;
+      }
+      mainWindow.webContents.openDevTools();
+    });
   }
 
   mainWindow.webContents.openDevTools();
@@ -154,6 +161,66 @@ app.on('second-instance', () => {
   }
 
   mainWindow?.show();
+});
+
+app.on('web-contents-created', (_event, contents) => {
+  contents.on('will-navigate', (contentsEvent, navigationUrl) => {
+    const parsedUrl = new URL(navigationUrl);
+    const validOrigins = [`http://localhost:${process.env.PORT || 1212}`];
+
+    if (!validOrigins.includes(parsedUrl.origin)) {
+      Logger.warn(
+        `The application tried to redirect to the following address: '${parsedUrl}'. This origin is not whitelisted and the attempt to navigate was blocked.`
+      );
+
+      contentsEvent.preventDefault();
+    }
+  });
+
+  contents.on('will-redirect', (contentsEvent, navigationUrl) => {
+    const parsedUrl = new URL(navigationUrl);
+    const validOrigins: string[] = [];
+
+    if (!validOrigins.includes(parsedUrl.origin)) {
+      Logger.warn(
+        `The application tried to redirect to the following address: '${navigationUrl}'. This attempt was blocked.`
+      );
+
+      contentsEvent.preventDefault();
+    }
+  });
+
+  contents.on('will-attach-webview', (_contentsEvent, webPreferences) => {
+    delete webPreferences.preload;
+  });
+
+  contents.on('new-window', async (contentsEvent, navigationUrl) => {
+    Logger.warn(
+      `The application tried to open a new window at the following address: '${navigationUrl}'. This attempt was blocked.`
+    );
+    contentsEvent.preventDefault();
+  });
+});
+
+app.on('remote-require', (event) => {
+  event.preventDefault();
+});
+
+// built-ins are modules such as "app"
+app.on('remote-get-builtin', (event) => {
+  event.preventDefault();
+});
+
+app.on('remote-get-global', (event) => {
+  event.preventDefault();
+});
+
+app.on('remote-get-current-window', (event) => {
+  event.preventDefault();
+});
+
+app.on('remote-get-current-web-contents', (event) => {
+  event.preventDefault();
 });
 
 ipcMain.on('window-close', () => {
