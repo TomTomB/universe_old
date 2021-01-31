@@ -16,23 +16,23 @@ Sentry.init({
 });
 
 render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <StyleSheetManager disableVendorPrefixes>
-        <>
-          <Styles.FontFaces />
-          <Styles.Reset />
+  // <React.StrictMode>
+  <Provider store={store}>
+    <StyleSheetManager disableVendorPrefixes>
+      <>
+        <Styles.FontFaces />
+        <Styles.Reset />
 
-          <UpdaterIPC />
-          <ThemeProvider theme={Styles.theme}>
-            <Styles.Scrollbar />
-            <Styles.BodyTypography />
-            <Styles.HeadingTypography />
-            <RootView />
-          </ThemeProvider>
-        </>
-      </StyleSheetManager>
-    </Provider>
-  </React.StrictMode>,
+        <UpdaterIPC />
+        <ThemeProvider theme={Styles.theme}>
+          <Styles.Scrollbar />
+          <Styles.BodyTypography />
+          <Styles.HeadingTypography />
+          <RootView />
+        </ThemeProvider>
+      </>
+    </StyleSheetManager>
+  </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );

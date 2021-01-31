@@ -1,12 +1,9 @@
+import { ConnectedRouter } from 'connected-react-router';
 import React, { FC } from 'react';
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { history } from '@store';
+import Styleguide from '@uikit/views/Styleguide';
 import LoginView from '../../../Auth/views/Login';
 import TitleBarComponent from '../../components/TitleBar';
 
@@ -23,12 +20,13 @@ const RootView: FC = () => {
   return (
     <Shell>
       <TitleBarComponent />
-      <Router>
+      <ConnectedRouter history={history}>
         <Switch>
           <Redirect from="/" exact to="/auth/login" />
           <Route path="/auth/login" component={LoginView} />
+          <Route path="/style" component={Styleguide} />
         </Switch>
-      </Router>
+      </ConnectedRouter>
     </Shell>
   );
 };

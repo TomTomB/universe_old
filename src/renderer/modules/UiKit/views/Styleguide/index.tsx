@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 const Styleguide: FC = () => {
   return (
@@ -23,7 +24,7 @@ const Styleguide: FC = () => {
         <li>Second</li>
         <li>Third</li>
       </ul>
-      <a href="https://google.com">Internal</a> <br />
+      <Link to="/auth/login">To Login</Link> <br />
       <a href="https://google.com" className="external">
         External
       </a>

@@ -15,6 +15,7 @@ import loginVideoLoop from '@assets/video/video-splash-ss19-c.webm';
 // import loginMusicIntro from '@assets/music/intro-sound-splash-kaisa.ogg';
 import loginMusicLoop from '@assets/music/music-splash-ss19-c.ogg';
 import loginPicture from '@assets/background/image-splash-ss19-c.jpg';
+import { Link } from 'react-router-dom';
 import gitVersion from '../../../../../../intermediate/git-version.json';
 import SplashScreen from '../../components/SplashScreen';
 import SplashScreenControls from '../../components/SplashScreenControls';
@@ -198,9 +199,9 @@ const LoginView: FC = () => {
             </a>
           </p>
           <p>
-            <a href="#foo" className="external">
+            <Link to="/style" className="external">
               Create an account
-            </a>
+            </Link>
           </p>
         </FooterContainer>
         <VersionFooter>

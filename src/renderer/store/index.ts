@@ -1,15 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { isTest } from '@shared/env';
 import { useDispatch } from 'react-redux';
+import { createHashHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 import { save, load } from './middleware/localstorage-sync';
 import rootReducer from './rootReducer';
 
+export const history = createHashHistory();
+
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
-      save({ states: ['settings'], namespace: 'universe', debounce: 300 })
-    ),
+  reducer: rootReducer(history),
+  middleware: [
+    ...getDefaultMiddleware(),
+    routerMiddleware(history),
+    save({ states: ['settings'], namespace: 'universe', debounce: 300 }),
+  ],
   preloadedState: load({
     namespace: 'universe',
     states: ['settings'],
