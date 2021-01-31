@@ -2,10 +2,11 @@
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import path from 'path';
-import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, protocol, shell } from 'electron';
 import * as Sentry from '@sentry/electron';
 import { isDev, sentryURL } from '@shared/env';
+import path from 'path';
+import * as Protocol from './util/protocol';
 import LCUConnector from './lcu/lcu-connector';
 import Logger from './util/logger';
 import AppUpdater from './updater/appUpdater';
@@ -18,6 +19,16 @@ Sentry.init({
 let mainWindow: BrowserWindow | null = null;
 let lcuConnector: LCUConnector | null = null;
 let updater: AppUpdater | null = null;
+
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: Protocol.scheme,
+    privileges: {
+      standard: true,
+      secure: true,
+    },
+  },
+]);
 
 const installExtensions = () => {
   const {
@@ -32,12 +43,9 @@ const installExtensions = () => {
 };
 
 const createWindow = async () => {
-  const RESOURCES_PATH = app.isPackaged
-    ? path.join(process.resourcesPath, 'assets')
-    : path.join(__dirname, '../../assets');
-
-  const getAssetPath = (...paths: string[]): string =>
-    path.join(RESOURCES_PATH, ...paths);
+  if (app.isPackaged) {
+    protocol.registerFileProtocol(Protocol.scheme, Protocol.requestHandler);
+  }
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -45,10 +53,6 @@ const createWindow = async () => {
     height: 720,
     frame: false,
     resizable: false,
-    icon:
-      process.platform === 'win32'
-        ? getAssetPath('icon.ico')
-        : getAssetPath('icon.png'),
     backgroundColor: '#010a13',
     fullscreenable: false,
     center: true,
@@ -69,6 +73,7 @@ const createWindow = async () => {
     center: true,
     resizable: false,
     webPreferences: {
+      devTools: !app.isPackaged,
       contextIsolation: true,
     },
   });
@@ -78,14 +83,15 @@ const createWindow = async () => {
     mainWindow.loadURL(`http://localhost:${port}/dist`);
     splash.loadURL(`file://${path.join(__dirname, '../splash/index.html')}`);
   } else {
-    mainWindow.loadURL(`file://${__dirname}/dist/index.html`);
-    splash.loadURL(`file://${__dirname}/splash/index.html`);
+    mainWindow.loadURL(`${Protocol.scheme}://dist/index.html`);
+    splash.loadURL(`${Protocol.scheme}://splash/index.html`);
   }
 
   if (isDev) {
     await installExtensions();
-    mainWindow.webContents.openDevTools();
   }
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.once('did-finish-load', () => {
     splash.destroy();

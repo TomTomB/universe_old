@@ -1,12 +1,19 @@
 /* eslint @typescript-eslint/no-explicit-any: off */
 
+import { isTest } from '@shared/env';
 import log from 'electron-log';
 
-const IS_TEST = process.env.NODE_ENV === 'test';
-
 export default class Logger {
+  static verbose = (...params: any[]) => {
+    if (isTest) {
+      return;
+    }
+
+    log.verbose(...params);
+  };
+
   static info = (...params: any[]) => {
-    if (IS_TEST) {
+    if (isTest) {
       return;
     }
 
@@ -14,7 +21,7 @@ export default class Logger {
   };
 
   static warn = (...params: any[]) => {
-    if (IS_TEST) {
+    if (isTest) {
       return;
     }
 
@@ -22,7 +29,7 @@ export default class Logger {
   };
 
   static error = (...params: any[]) => {
-    if (IS_TEST) {
+    if (isTest) {
       return;
     }
 
