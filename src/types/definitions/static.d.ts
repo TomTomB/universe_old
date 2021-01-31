@@ -65,6 +65,11 @@ declare module '*.otf' {
   export default ref;
 }
 
+declare module '*.ttf' {
+  const ref: string;
+  export default ref;
+}
+
 declare module '*.webm' {
   const ref: string;
   export default ref;

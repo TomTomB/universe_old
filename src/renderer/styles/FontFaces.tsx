@@ -15,6 +15,9 @@ import spiegelRegular from '@assets/fonts/Spiegel-Regular.otf';
 import spiegelRegularItalic from '@assets/fonts/Spiegel-RegularItalic.otf';
 import spiegelSemiBold from '@assets/fonts/Spiegel-SemiBold.otf';
 import spiegelSemiBoldItalic from '@assets/fonts/Spiegel-SemiBoldItalic.otf';
+import shentoxLight from '@assets/fonts/shentox-light.ttf';
+import shentoxRegular from '@assets/fonts/shentox.ttf';
+import shentoxSemiBold from '@assets/fonts/shentox-semibold.ttf';
 
 const FontFaces = createGlobalStyle`
   @font-face {
@@ -127,6 +130,27 @@ const FontFaces = createGlobalStyle`
     font-weight: 900;
     font-style: italic;
     src: url(${beaufortHeavyItalic}) format('opentype');
+  }
+
+  @font-face {
+    font-family: 'LoL ESport';
+    font-weight: 300;
+    font-style: normal;
+    src: url(${shentoxLight}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'LoL ESport';
+    font-weight: 400;
+    font-style: normal;
+    src: url(${shentoxRegular}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'LoL ESport';
+    font-weight: 600;
+    font-style: normal;
+    src: url(${shentoxSemiBold}) format('truetype');
   }
 `;
 
