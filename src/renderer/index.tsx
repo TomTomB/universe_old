@@ -16,7 +16,6 @@ Sentry.init({
 });
 
 render(
-  // <React.StrictMode>
   <Provider store={store}>
     <StyleSheetManager disableVendorPrefixes>
       <>
@@ -33,6 +32,5 @@ render(
       </>
     </StyleSheetManager>
   </Provider>,
-  // </React.StrictMode>,
   document.getElementById('root')
 );
