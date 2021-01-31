@@ -80,11 +80,16 @@ export default class LCUConnector {
       if (this.foundProcess) {
         return;
       }
-      this.foundProcess = true;
 
       const parts = stdout.match(INSTALL_REGEX) || [];
       const installPath = parts[1];
       const fullPath = `${installPath}\\lockfile`;
+
+      if (!installPath) {
+        return;
+      }
+
+      this.foundProcess = true;
 
       if (this.lockfileWatcher) {
         await this.lockfileWatcher.close();
