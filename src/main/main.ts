@@ -55,6 +55,7 @@ const createWindow = async () => {
     webPreferences: {
       devTools: !app.isPackaged,
       nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
@@ -67,6 +68,9 @@ const createWindow = async () => {
     fullscreenable: false,
     center: true,
     resizable: false,
+    webPreferences: {
+      contextIsolation: true,
+    },
   });
 
   if (isDev) {
