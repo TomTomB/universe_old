@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '@styles/theme';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Styleguide from '.';
 
 describe('Styleguide', () => {
@@ -10,7 +11,9 @@ describe('Styleguide', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <Styleguide />
+          <Router>
+            <Styleguide />
+          </Router>
         </ThemeProvider>
       )
     ).toBeTruthy();

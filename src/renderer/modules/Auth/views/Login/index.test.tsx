@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from '@styles/theme';
 import { Provider } from 'react-redux';
 import store from '@store';
+import { BrowserRouter as Router } from 'react-router-dom';
 import LoginView from '.';
 
 describe('LoginView', () => {
@@ -13,7 +14,9 @@ describe('LoginView', () => {
       render(
         <Provider store={store}>
           <ThemeProvider theme={theme}>
-            <LoginView />
+            <Router>
+              <LoginView />
+            </Router>
           </ThemeProvider>
         </Provider>
       )
