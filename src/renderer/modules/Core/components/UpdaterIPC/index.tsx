@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useAppDispatch } from '@store';
 import { setStatus } from '@store/slices/updater/updaterSlice';
 import { ipcRenderer } from 'electron';
@@ -22,7 +24,7 @@ const UpdaterIPC: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const listener = (_: Electron.IpcRendererEvent, info: UpdateInfo) => {
+    const listener = (_: Electron.IpcRendererEvent, _info: UpdateInfo) => {
       dispatch(setStatus('found-update'));
     };
     const channel = 'UPDATER:found-update';
@@ -50,7 +52,7 @@ const UpdaterIPC: FC = () => {
   useEffect(() => {
     const listener = (
       _: Electron.IpcRendererEvent,
-      progress: DownloadProgress
+      _progress: DownloadProgress
     ) => {
       dispatch(setStatus('download-progress'));
     };
@@ -64,7 +66,7 @@ const UpdaterIPC: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const listener = (_: Electron.IpcRendererEvent, info: UpdateInfo) => {
+    const listener = (_: Electron.IpcRendererEvent, _info: UpdateInfo) => {
       dispatch(setStatus('downloaded'));
     };
     const channel = 'UPDATER:downloaded';
@@ -90,7 +92,7 @@ const UpdaterIPC: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const listener = (_: Electron.IpcRendererEvent, error: Error) => {
+    const listener = (_: Electron.IpcRendererEvent, _error: Error) => {
       dispatch(setStatus('error'));
     };
     const channel = 'UPDATER:error';
