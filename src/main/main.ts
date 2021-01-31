@@ -14,6 +14,7 @@ import AppUpdater from './updater/appUpdater';
 Sentry.init({
   dsn: sentryURL,
   enabled: app.isPackaged,
+  release: `v${app.getVersion()}`,
 });
 
 let mainWindow: BrowserWindow | null = null;
