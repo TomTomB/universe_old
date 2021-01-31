@@ -5,18 +5,15 @@ import 'regenerator-runtime/runtime';
 import path from 'path';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import * as Sentry from '@sentry/electron';
+import { isDev, sentryURL } from '@shared/env';
 import LCUConnector from './lcu/lcu-connector';
 import Logger from './util/logger';
 import AppUpdater from './updater/appUpdater';
 
 Sentry.init({
-  dsn:
-    'https://7a7bda98ee08405485c17ba4004e77a0@o512127.ingest.sentry.io/5610895',
+  dsn: sentryURL,
   enabled: app.isPackaged,
 });
-
-const isDev =
-  process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 let mainWindow: BrowserWindow | null = null;
 let lcuConnector: LCUConnector | null = null;
@@ -56,7 +53,7 @@ const createWindow = async () => {
     fullscreenable: false,
     center: true,
     webPreferences: {
-      // devTools: !app.isPackaged,
+      devTools: !app.isPackaged,
       nodeIntegration: true,
     },
   });
@@ -83,9 +80,8 @@ const createWindow = async () => {
 
   if (isDev) {
     await installExtensions();
+    mainWindow.webContents.openDevTools();
   }
-
-  mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.once('did-finish-load', () => {
     splash.destroy();

@@ -25,10 +25,13 @@
     "skipLibCheck": true,
     "paths": {
       "@uikit/*": ["src/renderer/modules/UiKit/*"],
+      "@core/*": ["src/renderer/modules/Core/*"],
       "@assets/*": ["src/renderer/assets/*"],
       "@styles/*": ["src/renderer/styles/*"],
+      "@styles": ["src/renderer/styles/index.ts"],
       "@store/*": ["src/renderer/store/*"],
-      "@store": ["src/renderer/store/index.ts"]
+      "@store": ["src/renderer/store/index.ts"],
+      "@shared/*": ["src/shared/*"]
     }
   },
   "exclude": [

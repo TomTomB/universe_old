@@ -64,9 +64,11 @@ module.exports = (api) => {
           root: ['./'],
           alias: {
             '@uikit': './src/renderer/modules/UiKit',
+            '@core': './src/renderer/modules/Core',
             '@assets': './src/renderer/assets',
             '@styles': './src/renderer/styles',
             '@store': './src/renderer/store',
+            '@shared': './src/shared',
           },
         },
       ],

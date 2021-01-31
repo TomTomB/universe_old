@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { isTest } from '@uikit/util/env';
+import { isTest } from '@shared/env';
 import { useDispatch } from 'react-redux';
 import { save, load } from './middleware/localstorage-sync';
 import rootReducer from './rootReducer';

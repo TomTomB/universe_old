@@ -13,10 +13,10 @@ export default class AppUpdater {
   }
 
   start = () => {
-    // if (!app.isPackaged) {
-    //   Logger.info('UPDATER > Skipping update check. App is not packaged.');
-    //   return;
-    // }
+    if (!app.isPackaged) {
+      Logger.info('UPDATER > Skipping update check. App is not packaged.');
+      return;
+    }
 
     const FOUR_HOURS = 1000 * 60 * 60 * 4;
     setInterval(() => {
