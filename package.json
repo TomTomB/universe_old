@@ -19,7 +19,8 @@
     "start:main": "cross-env NODE_ENV=development electron -r ./scripts/BabelRegister ./src/main/main.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./config/webpack.config.renderer.dev.babel.js",
     "test": "yarn build:version && jest",
-    "release": "standard-version && git push --follow-tags origin main"
+    "release": "standard-version && git push --follow-tags origin main",
+    "fix:upstream": "rm .git/refs/remotes/origin/main && git fetch"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
