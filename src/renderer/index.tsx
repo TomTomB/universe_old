@@ -10,6 +10,7 @@ import UpdaterIPC from '@core/components/UpdaterIPC';
 import { sentryURL } from '@shared/env';
 import RootView from './modules/Shell/views/Root';
 import packageJSON from '../../package.json';
+import './styles/font-faces.scss';
 
 Sentry.init({
   dsn: sentryURL,
@@ -21,7 +22,6 @@ render(
   <Provider store={store}>
     <StyleSheetManager disableVendorPrefixes>
       <>
-        <Styles.FontFaces />
         <Styles.Reset />
 
         <UpdaterIPC />
