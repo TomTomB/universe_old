@@ -1,12 +1,14 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, useState } from 'react';
 import { ComponentTypes } from '@types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PlayButtonFrame from '@assets/buttons/play/play-button-frame.png';
 
 import LeagueLogoIntro from '@assets/video/league-logo/league-logo-intro.webm';
 import LeagueLogoMagic from '@assets/video/league-logo/league-logo-magic.webm';
 import LeagueLogoLoopIdle from '@assets/video/league-logo/league-logo-loop-idle.webm';
 import LeagueLogoLoopActive from '@assets/video/league-logo/league-logo-loop-active.webm';
+
+import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
 
 const ContentContainer = styled.div`
   position: relative;
@@ -49,7 +51,7 @@ const ButtonContainer = styled.button`
   cursor: pointer;
   outline: none;
 `;
-const Frame = styled.div`
+const Frame = styled.div<{ show: boolean }>`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -57,6 +59,13 @@ const Frame = styled.div`
   left: 0;
   background: url(${PlayButtonFrame}) no-repeat center;
   background-size: contain;
+  opacity: 0;
+
+  ${({ show }) =>
+    show &&
+    css`
+      opacity: 1;
+    `}
 `;
 
 const VideoIntroContainer = styled.div``;
@@ -98,23 +107,30 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   disabled,
   onClick,
 }) => {
+  const [showStaticFrame, setShowStaticFrame] = useState(
+    buttonState !== PlayButtonState.Patcher
+  );
+
   return (
     <StyledPlayButton className={className}>
-      <Frame />
+      <Frame show={showStaticFrame} />
+      {buttonState === PlayButtonState.Patcher && !showStaticFrame && (
+        <Animation
+          src={PatcherFrameIntro}
+          muted
+          autoPlay
+          onEnded={() => setShowStaticFrame(true)}
+        />
+      )}
       <LeagueLogoContainer>
-        <Animation src={LeagueLogoIntro} muted />
-        <Animation src={LeagueLogoLoopActive} muted />
+        {buttonState === PlayButtonState.Patcher && (
+          <Animation src={LeagueLogoIntro} muted autoPlay />
+        )}
+        {/* <Animation src={LeagueLogoLoopActive} muted />
         <Animation src={LeagueLogoMagic} muted />
-        <Animation src={LeagueLogoLoopIdle} loop autoPlay muted />
+        <Animation src={LeagueLogoLoopIdle} loop autoPlay muted /> */}
       </LeagueLogoContainer>
-      <ButtonContainer
-        onClick={onClick}
-        disabled={disabled}
-        type={
-          // eslint-disable-next-line react/button-has-type
-          type
-        }
-      >
+      <ButtonContainer onClick={onClick} disabled={disabled} type={type}>
         <VideoIntroContainer />
         <HoverMagicContainer />
 

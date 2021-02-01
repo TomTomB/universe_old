@@ -132,7 +132,7 @@ const LoginView: FC = () => {
           video={{ loop: loginVideoLoop }}
         />
         <SplashScreenControls hasIntroVideo />
-        <StyledPlayButton buttonState={PlayButtonState.Play} type="button">
+        <StyledPlayButton buttonState={PlayButtonState.Patcher} type="button">
           Play
         </StyledPlayButton>
       </SplashScreenContainer>
