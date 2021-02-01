@@ -2,13 +2,15 @@ import React, { FC, PropsWithChildren, useState } from 'react';
 import { ComponentTypes } from '@types';
 import styled, { css } from 'styled-components';
 import PlayButtonFrame from '@assets/buttons/play/play-button-frame.png';
-
 import LeagueLogoIntro from '@assets/video/league-logo/league-logo-intro.webm';
 import LeagueLogoMagic from '@assets/video/league-logo/league-logo-magic.webm';
 import LeagueLogoLoopIdle from '@assets/video/league-logo/league-logo-loop-idle.webm';
 import LeagueLogoLoopActive from '@assets/video/league-logo/league-logo-loop-active.webm';
-
 import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
+import { useMachine } from '@xstate/react';
+import stateMachine, { PlayButtonState } from './state';
+
+export { PlayButtonState };
 
 const ContentContainer = styled.div`
   position: relative;
@@ -89,12 +91,6 @@ const Animation = styled.video`
   position: absolute;
 `;
 
-export enum PlayButtonState {
-  Patcher,
-  Play,
-  Lobby,
-}
-
 interface PlayButtonProps extends ComponentTypes.ButtonProps {
   buttonState: PlayButtonState;
 }
@@ -107,35 +103,59 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   disabled,
   onClick,
 }) => {
-  const [showStaticFrame, setShowStaticFrame] = useState(
-    buttonState !== PlayButtonState.Patcher
+  const [current, send] = useMachine(
+    stateMachine.withContext({ state: buttonState })
   );
 
   return (
     <StyledPlayButton className={className}>
-      <Frame show={showStaticFrame} />
-      {buttonState === PlayButtonState.Patcher && !showStaticFrame && (
-        <Animation
-          src={PatcherFrameIntro}
-          muted
-          autoPlay
-          onEnded={() => setShowStaticFrame(true)}
-        />
+      <Frame show={!current.matches('intro')} />
+      {current.matches('intro') && (
+        <Animation src={PatcherFrameIntro} muted autoPlay />
       )}
       <LeagueLogoContainer>
-        {buttonState === PlayButtonState.Patcher && (
-          <Animation src={LeagueLogoIntro} muted autoPlay />
+        {current.matches('intro') && (
+          <Animation
+            src={LeagueLogoIntro}
+            muted
+            autoPlay
+            onEnded={() => send('ACTIVE')}
+          />
+        )}
+        {current.matches('idle') && (
+          <Animation src={LeagueLogoLoopIdle} muted autoPlay loop />
+        )}
+        {current.matches('active') && (
+          <Animation src={LeagueLogoLoopActive} muted autoPlay loop />
+        )}
+        {current.matches('click') && (
+          <Animation
+            src={LeagueLogoMagic}
+            onEnded={() => send('ACTIVE')}
+            muted
+            autoPlay
+          />
         )}
         {/* <Animation src={LeagueLogoLoopActive} muted />
         <Animation src={LeagueLogoMagic} muted />
         <Animation src={LeagueLogoLoopIdle} loop autoPlay muted /> */}
       </LeagueLogoContainer>
-      <ButtonContainer onClick={onClick} disabled={disabled} type={type}>
+      <ButtonContainer
+        onClick={(e) => {
+          if (onClick) {
+            onClick(e);
+          }
+
+          send('CLICK');
+        }}
+        disabled={disabled}
+        type={type}
+      >
         <VideoIntroContainer />
         <HoverMagicContainer />
 
         <ContentContainer>
-          <ButtonText> {children} </ButtonText>
+          <ButtonText> {current.value} </ButtonText>
         </ContentContainer>
       </ButtonContainer>
     </StyledPlayButton>
