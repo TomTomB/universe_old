@@ -31,7 +31,9 @@
       "@styles": ["src/renderer/styles/index.ts"],
       "@store/*": ["src/renderer/store/*"],
       "@store": ["src/renderer/store/index.ts"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@types": ["src/types/index.ts"],
+      "@types/*": ["src/types/*"]
     }
   },
   "exclude": [

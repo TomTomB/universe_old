@@ -9,12 +9,12 @@ import * as Styles from '@styles';
 import UpdaterIPC from '@core/components/UpdaterIPC';
 import { sentryURL } from '@shared/env';
 import RootView from './modules/Shell/views/Root';
-import { version } from '../../package.json';
+import packageJSON from '../../package.json';
 
 Sentry.init({
   dsn: sentryURL,
   enabled: isProd,
-  release: `v${version}`,
+  release: `v${packageJSON.version}`,
 });
 
 render(

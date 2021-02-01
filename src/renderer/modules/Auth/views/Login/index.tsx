@@ -8,6 +8,8 @@ import {
   Checkbox,
   FramedSelect,
   Input,
+  PlayButton,
+  PlayButtonState,
   PrimaryMagicButton,
 } from '@uikit/components/form';
 // import loginVideoIntro from '@assets/video/intro-video-splash-kaisa.webm';
@@ -25,6 +27,12 @@ interface FormValues {
   email: string;
   staySignedIn: boolean;
 }
+
+const StyledPlayButton = styled(PlayButton)`
+  position: absolute;
+  top: 20px;
+  left: 29px;
+`;
 
 const Container = styled.div`
   display: grid;
@@ -124,6 +132,9 @@ const LoginView: FC = () => {
           video={{ loop: loginVideoLoop }}
         />
         <SplashScreenControls hasIntroVideo />
+        <StyledPlayButton buttonState={PlayButtonState.Play} type="button">
+          Play
+        </StyledPlayButton>
       </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg

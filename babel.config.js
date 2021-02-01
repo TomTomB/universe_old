@@ -69,6 +69,7 @@ module.exports = (api) => {
             '@styles': './src/renderer/styles',
             '@store': './src/renderer/store',
             '@shared': './src/shared',
+            '@types': './src/types',
           },
         },
       ],
