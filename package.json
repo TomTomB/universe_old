@@ -2,7 +2,7 @@
   "name": "universe",
   "productName": "Universe",
   "description": "Universe app",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "scripts": {
     "commit": "npx git-cz",
     "build": "yarn build:version && concurrently \"yarn build:main\" \"yarn build:renderer\"",

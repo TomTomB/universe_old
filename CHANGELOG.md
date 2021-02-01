@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.34](https://github.com/TomTomB/universe/compare/v0.0.33...v0.0.34) (2021-02-01)
+
+### Features
+
+- 🎸 Add new fonts and assets ([55a61c2](https://github.com/TomTomB/universe/commit/55a61c28119080385fbf021941c5431f30543f28))
+- 🎸 super basic play button ([b0d6af9](https://github.com/TomTomB/universe/commit/b0d6af96195c5f5da081f51f1a646a04d3722998))
+
+### Bug Fixes
+
+- 🐛 root reducer return type ([4a707bb](https://github.com/TomTomB/universe/commit/4a707bb16b0b106c4b0266f0d51a1bbd127ad0e3))
+
 ### [0.0.33](https://github.com/TomTomB/universe/compare/v0.0.32...v0.0.33) (2021-01-31)
 
 ### [0.0.32](https://github.com/TomTomB/universe/compare/v0.0.31...v0.0.32) (2021-01-31)
