@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useState } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import { ComponentTypes } from '@types';
 import styled, { css } from 'styled-components';
 import PlayButtonFrame from '@assets/buttons/play/play-button-frame.png';
@@ -22,6 +22,7 @@ const ContentContainer = styled.div`
 const ButtonText = styled.span`
   font-family: LoL Display;
   font-kerning: normal;
+  font-feature-settings: 'kern' 1;
   -webkit-font-feature-settings: 'kern' 1;
   -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
@@ -155,7 +156,7 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
         <HoverMagicContainer />
 
         <ContentContainer>
-          <ButtonText> {current.value} </ButtonText>
+          <ButtonText> {children} </ButtonText>
         </ContentContainer>
       </ButtonContainer>
     </StyledPlayButton>
