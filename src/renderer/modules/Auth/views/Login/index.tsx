@@ -12,15 +12,9 @@ import {
   PlayButtonState,
   PrimaryMagicButton,
 } from '@uikit/components/form';
-// import loginVideoIntro from '@assets/video/intro-video-splash-kaisa.webm';
-import loginVideoLoop from '@assets/video/video-splash-ss19-c.webm';
-// import loginMusicIntro from '@assets/music/intro-sound-splash-kaisa.ogg';
-import loginMusicLoop from '@assets/music/music-splash-ss19-c.ogg';
-import loginPicture from '@assets/background/image-splash-ss19-c.jpg';
 import { Link } from 'react-router-dom';
 import gitVersion from '../../../../../../intermediate/git-version.json';
-import SplashScreen from '../../components/SplashScreen';
-import SplashScreenControls from '../../components/SplashScreenControls';
+import SplashScreenContainer from '../../components/SplashScreenContainer';
 
 interface FormValues {
   password: string;
@@ -66,11 +60,6 @@ const SignInHead = styled.h5`
 const SignInButton = styled(PrimaryMagicButton)`
   display: block;
   width: 100%;
-`;
-
-const SplashScreenContainer = styled.div`
-  position: relative;
-  overflow: hidden;
 `;
 
 const FooterContainer = styled.div`
@@ -126,12 +115,6 @@ const LoginView: FC = () => {
   return (
     <Container>
       <SplashScreenContainer>
-        <SplashScreen
-          music={{ loop: loginMusicLoop }}
-          picture={loginPicture}
-          video={{ loop: loginVideoLoop }}
-        />
-        <SplashScreenControls hasIntroVideo />
         <StyledPlayButton buttonState={PlayButtonState.Patcher} type="button">
           Play
         </StyledPlayButton>
