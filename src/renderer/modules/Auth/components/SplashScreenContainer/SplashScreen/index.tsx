@@ -6,7 +6,7 @@ import React, { FC, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { State } from 'xstate';
 
-const StaticSplash = styled.img`
+const StaticSplash = styled.img<{ show: boolean }>`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -15,6 +15,14 @@ const StaticSplash = styled.img`
   left: 0;
   right: 0;
   bottom: 0;
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0, 0, 0, 1);
+
+  ${({ show }) =>
+    show &&
+    css`
+      opacity: 1;
+    `}
 `;
 
 const DynamicSplash = styled.video<{ show: boolean; enabled: boolean }>`
@@ -103,10 +111,19 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
           });
         }}
       />
-      <StaticSplash src={picture} />
+      <StaticSplash
+        src={picture}
+        show={
+          !video.current.context.isVideoEnabled ||
+          video.current.matches('loading')
+        }
+      />
       <DynamicSplash
         show={video.current.matches('playing.loop')}
-        enabled={video.current.context.isVideoEnabled}
+        enabled={
+          video.current.context.isVideoEnabled &&
+          !video.current.matches('loading')
+        }
         ref={loopVideo}
         muted
         src={video.loop}
@@ -124,7 +141,10 @@ const SplashScreen: FC<SplashScreenProps> = ({ video, music, picture }) => {
       />
       <DynamicSplash
         show={video.current.matches('playing.intro')}
-        enabled={video.current.context.isVideoEnabled}
+        enabled={
+          video.current.context.isVideoEnabled &&
+          !video.current.matches('loading')
+        }
         ref={introVideo}
         muted
         src={video.intro}
