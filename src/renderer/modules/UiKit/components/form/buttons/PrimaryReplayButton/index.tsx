@@ -10,11 +10,32 @@ interface PrimaryReplayButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const StyledPrimaryReplayButton = styled.button`
-  background-image: url(${buttonReplay});
+const ButtonStateBase = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0, 0, 0, 1);
+`;
+
+const ButtonStateDefault = styled(ButtonStateBase)`
+  background-image: url(${buttonReplay});
+`;
+
+const ButtonStateHover = styled(ButtonStateBase)`
+  background-image: url(${buttonReplayHover});
+`;
+
+const ButtonStateActive = styled(ButtonStateBase)`
+  background-image: url(${buttonReplayActive});
+`;
+
+const StyledPrimaryReplayButton = styled.button`
   width: 49px;
   height: 49px;
   cursor: pointer;
@@ -22,18 +43,29 @@ const StyledPrimaryReplayButton = styled.button`
   background-color: transparent;
   border: none;
   outline: none;
+  position: relative;
+  transition: opacity 300ms cubic-bezier(0, 0, 0, 1);
+
+  ${ButtonStateDefault} {
+    opacity: 1;
+  }
 
   &:hover,
   &:focus-visible {
-    background-image: url(${buttonReplayHover});
+    ${ButtonStateHover} {
+      opacity: 1;
+    }
   }
+
   &:active {
-    background-image: url(${buttonReplayActive});
+    ${ButtonStateActive} {
+      opacity: 1;
+    }
   }
+
   &:disabled {
     pointer-events: none;
     cursor: default;
-    background-image: url(${buttonReplayActive});
     opacity: 0.5;
   }
 `;
@@ -48,7 +80,11 @@ const PrimaryReplayButton: FC<PrimaryReplayButtonProps> = ({
       className={className}
       onClick={onClick}
       disabled={disabled}
-    />
+    >
+      <ButtonStateDefault />
+      <ButtonStateHover />
+      <ButtonStateActive />
+    </StyledPrimaryReplayButton>
   );
 };
 
