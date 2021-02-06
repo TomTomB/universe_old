@@ -183,6 +183,7 @@ export const machine = createMachine<MachineContext, MachineEvent>(
         if (!context.loopVideo) {
           return;
         }
+
         context.loopVideo.currentTime = 0;
         context.loopVideo.play();
       },
