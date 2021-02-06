@@ -9,12 +9,16 @@ import {
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@store';
 import {
-  replayLoginMusicAndVideo,
   selectPlayLoginAnimations,
   selectPlayLoginMusic,
   togglePlayLoginAnimations,
   togglePlayLoginMusic,
 } from '@store/slices/settings/settingsSlice';
+import { State } from 'xstate';
+import {
+  SplashScreenAudioMachine,
+  SplashScreenVideoMachine,
+} from '@uikit/machines';
 
 const SplashScreenControlsContainer = styled.div`
   position: absolute;
@@ -23,6 +27,7 @@ const SplashScreenControlsContainer = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 3;
   background: linear-gradient(
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0) 70%,
@@ -70,10 +75,25 @@ const SplashCheckboxContainer = styled.div`
 
 interface SplashScreenControlsProps {
   hasIntroVideo?: boolean;
+  music: {
+    current: State<
+      SplashScreenAudioMachine.MachineContext,
+      SplashScreenAudioMachine.MachineEvent
+    >;
+    send: (event: SplashScreenAudioMachine.MachineEvent) => void;
+  };
+  video: {
+    current: State<
+      SplashScreenVideoMachine.MachineContext,
+      SplashScreenVideoMachine.MachineEvent
+    >;
+    send: (event: SplashScreenVideoMachine.MachineEvent) => void;
+  };
 }
 
 const SplashScreenControls: FC<SplashScreenControlsProps> = ({
-  hasIntroVideo,
+  music,
+  video,
 }) => {
   const playLoginAnimations = useSelector(selectPlayLoginAnimations);
   const playLoginMusic = useSelector(selectPlayLoginMusic);
@@ -84,12 +104,17 @@ const SplashScreenControls: FC<SplashScreenControlsProps> = ({
       <Controls>
         <UniverseLogo>Universe</UniverseLogo>
         <LineVerticalFade />
-        {hasIntroVideo && (
-          <ReplayButton
-            onClick={() => dispatch(replayLoginMusicAndVideo())}
-            disabled={!playLoginAnimations}
-          />
-        )}
+        <ReplayButton
+          onClick={() => {
+            music.send({ type: 'REPLAY' });
+            video.send({ type: 'REPLAY' });
+          }}
+          disabled={
+            music.current.matches('disabled') &&
+            video.current.matches('disabled')
+          }
+        />
+
         <SplashCheckboxContainer>
           <Checkbox
             id="disableLoginAnimations"

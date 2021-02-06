@@ -26,6 +26,7 @@ const StyledPlayButton = styled(PlayButton)`
   position: absolute;
   top: 20px;
   left: 29px;
+  z-index: 3;
 `;
 
 const Container = styled.div`

@@ -6,7 +6,7 @@ import theme from '@styles/theme';
 import { useForm } from 'react-hook-form';
 import Checkbox from '.';
 
-describe('Input', () => {
+describe('Checkbox', () => {
   it('should render', () => {
     const FormComponent = () => {
       const { register } = useForm();
