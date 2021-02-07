@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.35](https://github.com/TomTomB/universe/compare/v0.0.34...v0.0.35) (2021-02-07)
+
+### Features
+
+- 🎸 add pointless splash screen state machine ([0635462](https://github.com/TomTomB/universe/commit/063546290689fb673e9cbd28fe078a3e39cc45b1))
+- 🎸 add replay button transitions ([b4e8c5e](https://github.com/TomTomB/universe/commit/b4e8c5ea98331d98c1919f68dcca5e6d747d5403))
+- 🎸 add xstate ([e32174a](https://github.com/TomTomB/universe/commit/e32174ae987287a327c9666e807d57a1b17b2bbd))
+- 🎸 play button basic state machine ([8989124](https://github.com/TomTomB/universe/commit/8989124bcb689b309e079e930ef6b9e5b7eedc48))
+- 🎸 splash screen state machines ([d72237a](https://github.com/TomTomB/universe/commit/d72237aa5cacd3a03ae2c85d3f8118680cd3471e))
+
 ### [0.0.34](https://github.com/TomTomB/universe/compare/v0.0.33...v0.0.34) (2021-02-01)
 
 ### Features
