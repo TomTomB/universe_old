@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.40](https://github.com/TomTomB/universe/compare/v0.0.39...v0.0.40) (2021-02-07)
+
+### Features
+
+- 🎸 add new splash screens and clean up ([935ba14](https://github.com/TomTomB/universe/commit/935ba14d04767b1fea505dd50084e52704844870))
+
 ### [0.0.39](https://github.com/TomTomB/universe/compare/v0.0.38...v0.0.39) (2021-02-07)
 
 ### Bug Fixes
