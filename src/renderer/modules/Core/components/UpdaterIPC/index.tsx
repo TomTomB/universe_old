@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useAppDispatch } from '@store';
-import { setStatus } from '@store/slices/updater/updaterSlice';
+import {
+  setDownloadProgress,
+  setStatus,
+} from '@store/slices/updater/updaterSlice';
 import { ipcRenderer } from 'electron';
 import { UpdateInfo } from 'electron-updater';
 import React, { FC, useEffect } from 'react';
@@ -52,9 +55,10 @@ const UpdaterIPC: FC = () => {
   useEffect(() => {
     const listener = (
       _: Electron.IpcRendererEvent,
-      _progress: DownloadProgress
+      progress: DownloadProgress
     ) => {
       dispatch(setStatus('download-progress'));
+      dispatch(setDownloadProgress(progress));
     };
     const channel = 'UPDATER:download-progress';
 

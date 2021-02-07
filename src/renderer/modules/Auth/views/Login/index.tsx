@@ -12,6 +12,11 @@ import {
   PrimaryMagicButton,
 } from '@uikit/components/form';
 import { Link } from 'react-router-dom';
+import {
+  selectDownloadProgress,
+  selectStatus,
+} from '@store/slices/updater/updaterSlice';
+import { useSelector } from 'react-redux';
 import gitVersion from '../../../../../../intermediate/git-version.json';
 import SplashScreenContainer from '../../components/SplashScreenContainer';
 
@@ -112,10 +117,25 @@ const LoginView: FC = () => {
     console.log(data);
   });
 
+  const updaterStatus = useSelector(selectStatus);
+  const updaterDownloadProgress = useSelector(selectDownloadProgress);
+
   return (
     <Container>
       <SplashScreenContainer>
-        <StyledPlayButton type="button">Play</StyledPlayButton>
+        {updaterStatus === 'download-progress' ||
+          (updaterStatus === 'found-update' && (
+            <StyledPlayButton
+              type="button"
+              downloadProgress={updaterDownloadProgress}
+              updaterStatus={updaterStatus}
+            >
+              {updaterDownloadProgress
+                ? Math.round(updaterDownloadProgress.percent)
+                : 0}
+              %
+            </StyledPlayButton>
+          ))}
       </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg

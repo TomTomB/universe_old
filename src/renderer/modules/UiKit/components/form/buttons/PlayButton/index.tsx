@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, useEffect } from 'react';
 import { ComponentTypes } from '@types';
 import styled, { css, keyframes } from 'styled-components';
 import PlayButtonFrame from '@assets/buttons/play/play-button-frame.png';
@@ -11,7 +11,9 @@ import ProgressBarBorderLoop from '@assets/video/buttons/progress-bar/progress-b
 import ProgressBarTipLoop from '@assets/video/buttons/progress-bar/progress-bar-tip-loop.webm';
 import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
 import { useMachine } from '@xstate/react';
+import { UpdaterStatus } from '@store/slices/updater/updaterSlice';
 import stateMachine from './state';
+import { DownloadProgress } from '../../../../../../../types/electron';
 
 const textShowAnimation = keyframes`
   from{
@@ -150,7 +152,10 @@ const ProgressBarTipLoopAnimation = styled(Animation)`
   transition: left 100ms cubic-bezier(0, 0, 0, 1);
 `;
 
-type PlayButtonProps = ComponentTypes.ButtonProps;
+interface PlayButtonProps extends ComponentTypes.ButtonProps {
+  updaterStatus?: UpdaterStatus;
+  downloadProgress?: DownloadProgress | null;
+}
 
 const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   type,
@@ -158,10 +163,28 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   className,
   disabled,
   onClick,
+  downloadProgress,
+  updaterStatus,
 }) => {
   const [current, send] = useMachine(stateMachine);
 
-  send({ type: 'TO_PATCHER_INTRO' });
+  useEffect(() => {
+    if (
+      updaterStatus === 'found-update' ||
+      updaterStatus === 'download-progress'
+    ) {
+      send({ type: 'TO_PATCHER_INTRO' });
+    }
+  }, [updaterStatus, send]);
+
+  useEffect(() => {
+    if (downloadProgress) {
+      send({
+        type: 'PATCHER_PROGRESS',
+        value: downloadProgress.percent,
+      });
+    }
+  }, [downloadProgress, send]);
 
   const addTenToProgress = () => {
     send({
