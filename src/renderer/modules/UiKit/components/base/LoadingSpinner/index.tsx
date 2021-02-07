@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { keyframes } from 'styled-components';
-import spinner from '@assets/spinner.png';
+import spinner from '@assets/components/spinner/spinner.png';
 
 const spinAnimation = keyframes`
   100% {

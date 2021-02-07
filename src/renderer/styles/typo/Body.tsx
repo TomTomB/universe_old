@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import externalLinkMask from '@assets/external-link-mask.png';
+import externalLinkMask from '@assets/masks/external-link-mask.png';
 
 const BodyTypography = createGlobalStyle`
   p {

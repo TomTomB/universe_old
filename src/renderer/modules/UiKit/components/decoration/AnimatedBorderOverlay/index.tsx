@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled, { keyframes } from 'styled-components';
-import noiseTileAlphaTintLarge from '@assets/noise-tile-alpha-tint-large.png';
-import noiseTileAlphaTintSmall from '@assets/noise-tile-alpha-tint-small.png';
+import noiseTileAlphaTintLarge from '@assets/components/noise/noise-tile-alpha-tint-large.png';
+import noiseTileAlphaTintSmall from '@assets/components/noise/noise-tile-alpha-tint-small.png';
 
 interface AnimatedArrowOverlayProps {
   speed?: number;

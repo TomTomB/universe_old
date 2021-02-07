@@ -1,9 +1,9 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
-import loginVideoIntro from '@assets/video/intro-video-splash-kaisa.webm';
-import loginVideoLoop from '@assets/video/video-splash-kaisa.webm';
-import loginMusicIntro from '@assets/music/intro-sound-splash-kaisa.ogg';
-import loginMusicLoop from '@assets/music/music-splash-kaisa.ogg';
-import loginPicture from '@assets/background/image-splash-kaisa.jpg';
+import loginVideoIntro from '@assets/video/splash/intro-video-splash-galio.webm';
+import loginVideoLoop from '@assets/video/splash/video-splash-galio.webm';
+import loginMusicIntro from '@assets/music/splash/intro-sound-splash-galio.ogg';
+import loginMusicLoop from '@assets/music/splash/music-splash-galio.ogg';
+import loginPicture from '@assets/background/splash/image-splash-galio.jpg';
 import styled from 'styled-components';
 import { useMachine } from '@xstate/react';
 import { useSelector } from 'react-redux';

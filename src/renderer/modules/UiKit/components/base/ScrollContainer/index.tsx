@@ -1,8 +1,8 @@
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import styled from 'styled-components';
-import contentGradientMaskBoth from '@assets/content-gradient-mask-both-no-scrollbar.png';
-import contentGradientMaskBottom from '@assets/content-gradient-mask-bottom-no-scrollbar.png';
-import contentGradientMaskTop from '@assets/content-gradient-mask-top-no-scrollbar.png';
+import contentGradientMaskBoth from '@assets/masks/content-gradient-mask-both-no-scrollbar.png';
+import contentGradientMaskBottom from '@assets/masks/content-gradient-mask-bottom-no-scrollbar.png';
+import contentGradientMaskTop from '@assets/masks/content-gradient-mask-top-no-scrollbar.png';
 import React, {
   FC,
   PropsWithChildren,

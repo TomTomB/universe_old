@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import checkboxSpriteSheet from '@assets/checkbox-spritesheet.png';
+import checkboxSpriteSheet from '@assets/sprites/checkbox-spritesheet.png';
 import classNames from 'classnames';
 
 export const CheckboxContainer = styled.div`

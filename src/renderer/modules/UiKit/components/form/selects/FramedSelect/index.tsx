@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import dropdownCheck from '@assets/dropdown-check.png';
-import dropdownSelectDot from '@assets/dropdown-select-dot.png';
-import dropdownArrowLocked from '@assets/up-down-arrow-locked.png';
-import dropdownArrow from '@assets/up-down-arrow.png';
+import dropdownCheck from '@assets/components/select/dropdown-check.png';
+import dropdownSelectDot from '@assets/components/select/dropdown-select-dot.png';
+import dropdownArrowLocked from '@assets/components/select/up-down-arrow-locked.png';
+import dropdownArrow from '@assets/components/select/up-down-arrow.png';
 import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';

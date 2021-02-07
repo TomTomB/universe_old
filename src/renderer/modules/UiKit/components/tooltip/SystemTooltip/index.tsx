@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react';
 import ReactTooltip, { TooltipProps } from 'react-tooltip';
 import styled from 'styled-components';
-import tooltipSystemCaret from '@assets/tooltip-system-caret.png';
+import tooltipSystemCaret from '@assets/components/tooltip/tooltip-system-caret.png';
 
 const StyledSystemTooltip = styled(ReactTooltip)`
   &.__react_component_tooltip {

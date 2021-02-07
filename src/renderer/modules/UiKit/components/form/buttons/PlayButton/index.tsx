@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
 import { ComponentTypes } from '@types';
 import styled, { css, keyframes } from 'styled-components';
-import PlayButtonFrame from '@assets/buttons/play/play-button-frame.png';
+import PlayButtonFrame from '@assets/components/buttons/play/play-button-frame.png';
 import LeagueLogoIntro from '@assets/video/league-logo/league-logo-intro.webm';
 import LeagueLogoMagic from '@assets/video/league-logo/league-logo-magic.webm';
 import LeagueLogoLoopIdle from '@assets/video/league-logo/league-logo-loop-idle.webm';

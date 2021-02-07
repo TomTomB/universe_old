@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import lolLogo from '@assets/lol-logo.png';
+import lolLogo from '@assets/logos/lol-logo.png';
 import styled from 'styled-components';
 import { generateId, useYupValidationResolver } from '@uikit/util';
 import {
