@@ -1,40 +1,91 @@
-import { assign, createMachine, EventObject } from 'xstate';
+import { assign, createMachine } from 'xstate';
 
-export enum PlayButtonState {
-  Patcher,
-  Play,
-  Lobby,
+export type MachineEvent =
+  | {
+      type: 'PATCHER_TO_PLAY';
+    }
+  | {
+      type: 'PLAY_TO_LOBBY';
+    }
+  | {
+      type: 'LOBBY_TO_PLAY';
+    }
+  | {
+      type: 'PATCHER_INTRO_END';
+    }
+  | {
+      type: 'TO_PATCHER';
+    }
+  | {
+      type: 'TO_PATCHER_INTRO';
+    }
+  | {
+      type: 'PATCHER_PROGRESS';
+      value: number;
+    };
+
+export interface MachineContext {
+  patcherProgress: number;
 }
 
-export interface StateMachineContext {
-  state: PlayButtonState;
-}
-
-export const setState = assign<
-  StateMachineContext,
-  EventObject & { value: PlayButtonState }
->({
-  state: (_context, action) => action.value,
-});
-
-const stateMachine = createMachine<StateMachineContext>({
+const stateMachine = createMachine<MachineContext, MachineEvent>({
   id: 'playButton',
-  initial: 'intro',
+  initial: 'play',
   context: {
-    state: PlayButtonState.Play,
+    patcherProgress: 0,
   },
   states: {
-    intro: {
-      on: { IDLE: 'idle', ACTIVE: 'active' },
+    patcher: {
+      on: {
+        PATCHER_TO_PLAY: {
+          target: 'play',
+        },
+      },
+      states: {
+        intro: {
+          on: {
+            PATCHER_INTRO_END: {
+              target: 'progress',
+            },
+          },
+        },
+        progress: {
+          on: {
+            PATCHER_PROGRESS: {
+              target: 'progress',
+              cond: (_, action) => {
+                return action.value <= 100;
+              },
+              actions: assign({
+                patcherProgress: (_, event) => event.value,
+              }),
+            },
+          },
+        },
+      },
     },
-    idle: {
-      on: { CLICK: 'click' },
+    play: {
+      on: {
+        PLAY_TO_LOBBY: {
+          target: 'lobby',
+        },
+        TO_PATCHER: {
+          target: 'patcher.progress',
+        },
+        TO_PATCHER_INTRO: {
+          target: 'patcher.intro',
+        },
+      },
     },
-    active: {
-      on: { IDLE: 'idle', CLICK: 'click' },
-    },
-    click: {
-      on: { ACTIVE: 'active', IDLE: 'idle' },
+    lobby: {
+      on: {
+        LOBBY_TO_PLAY: {
+          target: 'play',
+        },
+        TO_PATCHER: {
+          target: 'patcher',
+        },
+      },
     },
   },
 });

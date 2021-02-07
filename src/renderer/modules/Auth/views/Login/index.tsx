@@ -9,7 +9,6 @@ import {
   FramedSelect,
   Input,
   PlayButton,
-  PlayButtonState,
   PrimaryMagicButton,
 } from '@uikit/components/form';
 import { Link } from 'react-router-dom';
@@ -116,9 +115,7 @@ const LoginView: FC = () => {
   return (
     <Container>
       <SplashScreenContainer>
-        <StyledPlayButton buttonState={PlayButtonState.Patcher} type="button">
-          Play
-        </StyledPlayButton>
+        <StyledPlayButton type="button">Play</StyledPlayButton>
       </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg
