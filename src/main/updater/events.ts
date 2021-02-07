@@ -1,5 +1,6 @@
 import { ipcMain } from 'electron';
-import { autoUpdater, UpdateInfo } from 'electron-updater';
+import { UpdateInfo } from 'electron-updater';
+import { autoUpdater } from '@imjs/electron-differential-updater';
 import { DownloadProgress } from '../../types/electron';
 import { Logger, Window } from '../util';
 
@@ -38,23 +39,13 @@ autoUpdater.on('before-quit-for-update', () => {
   mainWindow?.webContents.send('UPDATER:before-quit-for-update');
 });
 
-autoUpdater.on(
-  'download-progress',
-  (progress, bytesPerSecond, percent, total, transferred) => {
-    const progressObj: DownloadProgress = {
-      progress,
-      bytesPerSecond,
-      percent,
-      total,
-      transferred,
-    };
-    Logger.info('UPDATER > download-progress', progressObj);
-    const mainWindow = Window.getMainWindow();
-    mainWindow?.webContents.send('UPDATER:download-progress', progressObj);
-  }
-);
+autoUpdater.on('download-progress', (progressObj: DownloadProgress) => {
+  Logger.info('UPDATER > download-progress', progressObj);
+  const mainWindow = Window.getMainWindow();
+  mainWindow?.webContents.send('UPDATER:download-progress', progressObj);
+});
 
-autoUpdater.on('error', (error) => {
+autoUpdater.on('error', (error: Error) => {
   Logger.info('UPDATER > error', error);
   const mainWindow = Window.getMainWindow();
   mainWindow?.webContents.send('UPDATER:error', error);

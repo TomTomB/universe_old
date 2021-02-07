@@ -238,6 +238,7 @@
     "yarn-deduplicate": "^3.1.0"
   },
   "dependencies": {
+    "@imjs/electron-differential-updater": "^5.1.4",
     "@reduxjs/toolkit": "^1.5.0",
     "@sentry/electron": "^2.2.0",
     "@xstate/react": "^1.2.2",
