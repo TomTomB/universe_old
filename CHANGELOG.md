@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.37](https://github.com/TomTomB/universe/compare/v0.0.36...v0.0.37) (2021-02-07)
+
+### Features
+
+- 🎸 download progress on play button ([9493ac7](https://github.com/TomTomB/universe/commit/9493ac7315a735cf49ed3a11ff7ea0be80fecb51))
+
 ### [0.0.36](https://github.com/TomTomB/universe/compare/v0.0.34...v0.0.36) (2021-02-07)
 
 ### Features
