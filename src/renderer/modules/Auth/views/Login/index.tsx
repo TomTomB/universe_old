@@ -123,19 +123,19 @@ const LoginView: FC = () => {
   return (
     <Container>
       <SplashScreenContainer>
-        {updaterStatus === 'download-progress' ||
-          (updaterStatus === 'found-update' && (
-            <StyledPlayButton
-              type="button"
-              downloadProgress={updaterDownloadProgress}
-              updaterStatus={updaterStatus}
-            >
-              {updaterDownloadProgress
-                ? Math.round(updaterDownloadProgress.percent)
-                : 0}
-              %
-            </StyledPlayButton>
-          ))}
+        {(updaterStatus === 'download-progress' ||
+          updaterStatus === 'found-update') && (
+          <StyledPlayButton
+            type="button"
+            downloadProgress={updaterDownloadProgress}
+            updaterStatus={updaterStatus}
+          >
+            {updaterDownloadProgress
+              ? Math.round(updaterDownloadProgress.percent)
+              : 0}
+            %
+          </StyledPlayButton>
+        )}
       </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg
