@@ -1,12 +1,12 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { ComponentTypes } from '@typings';
 import styled, { css, keyframes } from 'styled-components';
-
 import { UpdaterStatus } from '@store/slices/updater/updaterSlice';
 import { DownloadProgress } from '../../../../../../../types/electron';
 import PlayButtonLogo from './Logo';
 import PlayButtonFrame from './Frame';
 import PlayButtonPatcher from './Patcher';
+import PlayButtonPlay from './Play';
 
 const textShowAnimation = keyframes`
   from{
@@ -19,21 +19,6 @@ const textShowAnimation = keyframes`
   }
 `;
 
-const patcherShowAnimation = keyframes`
-  0%{
-    opacity: 0;
-    transform: scaleX(0);
-  }
-  50% {
-    opacity: 0;
-    transform: scaleX(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-`;
-
 const ContentContainer = styled.div`
   position: relative;
   height: 100%;
@@ -41,7 +26,8 @@ const ContentContainer = styled.div`
   box-sizing: border-box;
   pointer-events: none;
 `;
-const ButtonText = styled.span<{ intro: boolean }>`
+
+const ButtonText = styled.span<{ intro: boolean; reserveSpace: boolean }>`
   font-family: LoL Display;
   font-kerning: normal;
   font-feature-settings: 'kern' 1;
@@ -57,7 +43,7 @@ const ButtonText = styled.span<{ intro: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 85%;
+  width: 100%;
   height: 100%;
   box-sizing: border-box;
   text-align: center;
@@ -70,7 +56,14 @@ const ButtonText = styled.span<{ intro: boolean }>`
       animation: ${textShowAnimation} 300ms forwards 800ms
         ${({ theme }) => theme.easing.soft};
     `};
+
+  ${({ reserveSpace }) =>
+    reserveSpace &&
+    css`
+      width: 85%;
+    `};
 `;
+
 const ButtonContainer = styled.button`
   appearance: none;
   border: none;
@@ -82,37 +75,11 @@ const ButtonContainer = styled.button`
   width: calc(100% - 36px);
   height: 100%;
   outline: none;
+  pointer-events: all;
 
   &:not(:disabled) {
     cursor: pointer;
   }
-`;
-
-const VideoIntroContainer = styled.div``;
-const HoverMagicContainer = styled.div``;
-
-const ProgressContainer = styled.div<{ show: boolean; delay: number }>`
-  position: absolute;
-  width: 160px;
-  height: 60px;
-  top: -10px;
-  left: -20px;
-  overflow: hidden;
-  opacity: 0;
-  transform-origin: left center;
-
-  ${({ show }) =>
-    show &&
-    css`
-      animation: ${patcherShowAnimation} 500ms forwards
-        ${({ theme }) => theme.easing.soft};
-    `}
-
-  ${({ delay }) =>
-    delay &&
-    css`
-      animation-delay: ${delay}ms;
-    `}
 `;
 
 const LeagueLogoContainer = styled.div`
@@ -131,7 +98,7 @@ const StyledPlayButton = styled.div<{ show: boolean }>`
   opacity: 0;
   transition-property: all;
   transition-duration: 300ms;
-  transition-timing-function: ${({ theme }) => theme.easing.stern};
+  transition-timing-function: ${({ theme }) => theme.easing.soft};
   pointer-events: none;
 
   ${({ show }) =>
@@ -151,8 +118,8 @@ export enum PlayButtonState {
 interface PlayButtonProps extends ComponentTypes.ButtonProps {
   updaterStatus?: UpdaterStatus;
   downloadProgress?: DownloadProgress | null;
-  playPatcherIntro?: boolean;
-  buttonState?: PlayButtonState;
+  buttonState: PlayButtonState;
+  prevButtonState: PlayButtonState;
 }
 
 const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
@@ -161,11 +128,20 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   className,
   disabled,
   onClick,
-  buttonState = PlayButtonState.PATCHER,
+  buttonState,
+  prevButtonState,
   downloadProgress,
   updaterStatus,
-  playPatcherIntro,
 }) => {
+  const btnIsDisabled =
+    disabled ||
+    buttonState === PlayButtonState.PATCHER ||
+    buttonState === PlayButtonState.HIDDEN;
+
+  const playPatcherIntro =
+    buttonState === PlayButtonState.PATCHER &&
+    prevButtonState === PlayButtonState.HIDDEN;
+
   return (
     <StyledPlayButton
       className={className}
@@ -173,43 +149,30 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
     >
       <PlayButtonFrame
         playPatcherIntro={playPatcherIntro}
-        buttonState={buttonState}
+        buttonState={{ prev: prevButtonState, curr: buttonState }}
       />
       <LeagueLogoContainer>
         <PlayButtonLogo
           playPatcherIntro={playPatcherIntro}
-          buttonState={buttonState}
+          buttonState={{ prev: prevButtonState, curr: buttonState }}
         />
       </LeagueLogoContainer>
-      <ButtonContainer
-        onClick={onClick}
-        disabled={
-          disabled ||
-          buttonState === PlayButtonState.PATCHER ||
-          buttonState === PlayButtonState.HIDDEN
-        }
-        type={type}
-      >
-        <VideoIntroContainer />
-        <HoverMagicContainer />
-        <ProgressContainer
-          show={buttonState === PlayButtonState.PATCHER}
-          delay={
-            playPatcherIntro && buttonState === PlayButtonState.PATCHER
-              ? 500
-              : 300
-          }
-        >
-          <PlayButtonPatcher
-            playPatcherIntro={playPatcherIntro}
-            buttonState={buttonState}
-            downloadProgress={downloadProgress}
-          />
-        </ProgressContainer>
+      <ButtonContainer onClick={onClick} disabled={btnIsDisabled} type={type}>
+        <PlayButtonPlay
+          buttonState={{ prev: prevButtonState, curr: buttonState }}
+          disabled={btnIsDisabled}
+        />
+
+        <PlayButtonPatcher
+          playPatcherIntro={playPatcherIntro}
+          buttonState={{ prev: prevButtonState, curr: buttonState }}
+          downloadProgress={downloadProgress}
+        />
 
         <ContentContainer>
           <ButtonText
-            intro={!!playPatcherIntro && buttonState !== PlayButtonState.HIDDEN}
+            intro={playPatcherIntro}
+            reserveSpace={buttonState === PlayButtonState.PLAY}
           >
             {children}
           </ButtonText>

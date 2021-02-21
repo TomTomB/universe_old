@@ -122,7 +122,10 @@ const LoginView: FC = () => {
   const updaterDownloadProgress = useSelector(selectDownloadProgress);
 
   const [playButtonState, setPlayButtonState] = useState(
-    PlayButtonState.PATCHER
+    PlayButtonState.HIDDEN
+  );
+  const [prevPlayButtonState, setPrevPlayButtonState] = useState(
+    PlayButtonState.HIDDEN
   );
 
   return (
@@ -132,13 +135,14 @@ const LoginView: FC = () => {
           type="button"
           downloadProgress={updaterDownloadProgress}
           updaterStatus={updaterStatus}
-          playPatcherIntro
           buttonState={playButtonState}
+          prevButtonState={prevPlayButtonState}
         >
-          {updaterDownloadProgress
-            ? Math.round(updaterDownloadProgress.percent)
-            : 0}
-          %
+          {playButtonState === PlayButtonState.PLAY
+            ? 'Play'
+            : playButtonState === PlayButtonState.PATCHER
+            ? Math.round(updaterDownloadProgress?.percent ?? 0) + '%'
+            : ''}
         </StyledPlayButton>
         <button
           style={{
@@ -149,9 +153,13 @@ const LoginView: FC = () => {
           }}
           type="button"
           onClick={() => {
+            setPrevPlayButtonState(playButtonState);
+
             if (playButtonState === PlayButtonState.HIDDEN) {
               setPlayButtonState(PlayButtonState.PATCHER);
-            } else {
+            } else if (playButtonState === PlayButtonState.PATCHER) {
+              setPlayButtonState(PlayButtonState.PLAY);
+            } else if (playButtonState === PlayButtonState.PLAY) {
               setPlayButtonState(PlayButtonState.HIDDEN);
             }
           }}

@@ -1,4 +1,5 @@
 import useClickOutside from './useClickOutside';
+import usePrevious from './usePrevious';
+import useCompare from './useCompare';
 
-// eslint-disable-next-line import/prefer-default-export
-export { useClickOutside };
+export { useClickOutside, usePrevious, useCompare };

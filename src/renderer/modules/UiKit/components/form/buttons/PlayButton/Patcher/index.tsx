@@ -1,13 +1,93 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { PlayButtonState } from '@uikit/components/form/buttons/PlayButton';
-import useCompare from '@uikit/hooks/useCompare';
-import styled from 'styled-components';
+import { PlayButtonState } from '..';
+import { useCompare } from '@uikit/hooks';
+import styled, { css, keyframes } from 'styled-components';
 import ProgressBarMainLoop from '@assets/video/buttons/progress-bar/progress-bar-main-loop.webm';
 import ProgressBarBorderLoop from '@assets/video/buttons/progress-bar/progress-bar-border-loop.webm';
 import ProgressBarTipIntro from '@assets/video/buttons/progress-bar/progress-bar-tip-intro.webm';
 import ProgressBarTipLoop from '@assets/video/buttons/progress-bar/progress-bar-tip-loop.webm';
 import { AnimationWithTransition } from '../Animation';
 import { DownloadProgress } from '@typings/electron';
+
+const patcherShowAnimation = keyframes`
+  from{
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const patcherShowWithTransitionAnimation = keyframes`
+  0%{
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  50% {
+    opacity: 0;
+    transform: scaleX(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+`;
+
+const patcherHideAnimation = keyframes`
+  from{
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+interface ProgressContainerProps {
+  show: boolean;
+  showWithIntro: boolean;
+  delay: number;
+}
+
+const ProgressContainer = styled.div<ProgressContainerProps>`
+  position: absolute;
+  width: 160px;
+  height: 60px;
+  top: -10px;
+  left: -20px;
+  overflow: hidden;
+  opacity: 0;
+  transform-origin: left center;
+  pointer-events: none;
+  animation: 300ms forwards ${({ theme }) => theme.easing.soft};
+
+  ${({ show }) =>
+    show &&
+    css`
+      animation-name: ${patcherShowAnimation};
+    `}
+
+  ${({ showWithIntro }) =>
+    showWithIntro &&
+    css`
+      animation-name: ${patcherShowWithTransitionAnimation};
+      animation-duration: 500ms;
+      animation-timing-function: ${({ theme }) => theme.easing.softStern};
+    `}
+
+  ${({ show, showWithIntro }) =>
+    !show &&
+    !showWithIntro &&
+    css`
+      opacity: 1;
+      animation-name: ${patcherHideAnimation};
+    `}
+
+  ${({ delay }) =>
+    delay &&
+    css`
+      animation-delay: ${delay}ms;
+    `}
+`;
 
 const ProgressBarContainer = styled.div`
   overflow: hidden;
@@ -45,8 +125,8 @@ const ProgressBarTipLoopAnimation = styled(AnimationWithTransition)`
 `;
 
 interface PlayButtonPatcherProps {
-  buttonState: PlayButtonState;
-  playPatcherIntro?: boolean;
+  buttonState: { prev: PlayButtonState; curr: PlayButtonState };
+  playPatcherIntro: boolean;
   downloadProgress?: DownloadProgress | null;
 }
 
@@ -60,7 +140,7 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
   const patcherTipIntroAnim = useRef<HTMLVideoElement>(null);
   const patcherTipLoopAnim = useRef<HTMLVideoElement>(null);
 
-  const hasButtonStateChanged = useCompare(buttonState);
+  const hasButtonStateChanged = useCompare(buttonState.curr);
 
   const currentDownloadPercentage = downloadProgress?.percent ?? 0;
 
@@ -69,11 +149,8 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
       return;
     }
 
-    switch (buttonState) {
+    switch (buttonState.curr) {
       case PlayButtonState.PATCHER:
-        if (playPatcherIntro) {
-        }
-
         break;
 
       case PlayButtonState.PLAY:
@@ -89,7 +166,11 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
   }, [hasButtonStateChanged, playPatcherIntro, buttonState]);
 
   return (
-    <>
+    <ProgressContainer
+      show={!playPatcherIntro && buttonState.curr === PlayButtonState.PATCHER}
+      showWithIntro={playPatcherIntro}
+      delay={playPatcherIntro ? 500 : 0}
+    >
       <ProgressBarContainer
         style={{
           width: `${120 * (currentDownloadPercentage / 100)}px`,
@@ -104,20 +185,16 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
         />
       </ProgressBarContainer>
 
-      {/* <ProgressBarTipLoopAnimation
+      {/* TODO(TRB): Implement */}
+      <ProgressBarTipLoopAnimation
         src={ProgressBarTipIntro}
-        show={true}
-        style={{
-          left: `${119 * (currentDownloadPercentage / 100) - 94}px`,
-        }}
-        autoPlay
-        loop
+        show={false}
         ref={patcherTipIntroAnim}
-      /> */}
+      />
 
       <ProgressBarTipLoopAnimation
         src={ProgressBarTipLoop}
-        show={true}
+        show={119 * (currentDownloadPercentage / 100) - 94 > -86}
         style={{
           left: `${119 * (currentDownloadPercentage / 100) - 94}px`,
         }}
@@ -133,7 +210,7 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
         autoPlay
         ref={patcherBorderLoopAnim}
       />
-    </>
+    </ProgressContainer>
   );
 };
 

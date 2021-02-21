@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import PlayButtonFrame from '@assets/components/buttons/play/play-button-frame.png';
 import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
-import { PlayButtonState } from '@uikit/components/form/buttons/PlayButton';
-import useCompare from '@uikit/hooks/useCompare';
+import { PlayButtonState } from '..';
+import { useCompare, usePrevious } from '@uikit/hooks';
 import styled, { css } from 'styled-components';
 import Animation from '../Animation';
 
@@ -24,8 +24,8 @@ const Frame = styled.div<{ show: boolean }>`
 `;
 
 interface PlayButtonLogoProps {
-  buttonState: PlayButtonState;
-  playPatcherIntro?: boolean;
+  buttonState: { prev: PlayButtonState; curr: PlayButtonState };
+  playPatcherIntro: boolean;
 }
 
 const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
@@ -35,18 +35,17 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
   const patcherFrameIntroAnim = useRef<HTMLVideoElement>(null);
 
   const [patcherFrameIntroEnded, setPatcherFrameIntroEnded] = useState(false);
-  const [patcherFrameIntroLoaded, setPatcherFrameIntroLoaded] = useState(false);
 
-  const hasButtonStateChanged = useCompare(buttonState);
+  const hasButtonStateChanged = useCompare(buttonState.curr);
 
   useEffect(() => {
     if (!hasButtonStateChanged) {
       return;
     }
 
-    switch (buttonState) {
+    switch (buttonState.curr) {
       case PlayButtonState.PATCHER:
-        if (playPatcherIntro) {
+        if (playPatcherIntro && buttonState.prev === PlayButtonState.HIDDEN) {
           patcherFrameIntroAnim.current!.currentTime = 0;
           patcherFrameIntroAnim.current!.play();
         }
@@ -65,21 +64,18 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
 
         break;
     }
-  }, [hasButtonStateChanged, playPatcherIntro, buttonState]);
+  }, [playPatcherIntro, buttonState, hasButtonStateChanged]);
 
   return (
     <>
-      <Frame show={patcherFrameIntroEnded} />
+      <Frame show={patcherFrameIntroEnded || !playPatcherIntro} />
       <Animation
-        show={!!playPatcherIntro}
+        show={playPatcherIntro}
         src={PatcherFrameIntro}
         ref={patcherFrameIntroAnim}
         muted
-        onLoadedData={() => {
-          setPatcherFrameIntroLoaded(true);
-        }}
         onEnded={() => {
-          if (buttonState === PlayButtonState.HIDDEN) {
+          if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
           }
           setPatcherFrameIntroEnded(true);

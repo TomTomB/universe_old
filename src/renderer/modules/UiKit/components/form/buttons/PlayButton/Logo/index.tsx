@@ -3,13 +3,13 @@ import LeagueLogoIntro from '@assets/video/league-logo/league-logo-intro.webm';
 import LeagueLogoMagic from '@assets/video/league-logo/league-logo-magic.webm';
 import LeagueLogoLoopIdle from '@assets/video/league-logo/league-logo-loop-idle.webm';
 import LeagueLogoLoopActive from '@assets/video/league-logo/league-logo-loop-active.webm';
-import { PlayButtonState } from '@uikit/components/form/buttons/PlayButton';
-import useCompare from '@uikit/hooks/useCompare';
+import { PlayButtonState } from '..';
+import { useCompare } from '@uikit/hooks';
 import Animation from '../Animation';
 
 interface PlayButtonFrameProps {
-  buttonState: PlayButtonState;
-  playPatcherIntro?: boolean;
+  buttonState: { prev: PlayButtonState; curr: PlayButtonState };
+  playPatcherIntro: boolean;
 }
 
 enum LogoAnim {
@@ -36,24 +36,31 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
   const [logoLoopActiveEnded, setLogoLoopActiveEnded] = useState(false);
   const [logoMagicEnded, setLogoMagicEnded] = useState(false);
 
-  const hasButtonStateChanged = useCompare(buttonState);
+  const hasButtonStateChanged = useCompare(buttonState.curr);
 
   useEffect(() => {
     if (!hasButtonStateChanged) {
       return;
     }
 
-    switch (buttonState) {
+    switch (buttonState.curr) {
       case PlayButtonState.PATCHER:
-        if (playPatcherIntro) {
+        if (playPatcherIntro && buttonState.prev === PlayButtonState.HIDDEN) {
           setShownLogoAnim(LogoAnim.INTRO);
           logoIntroAnim.current!.currentTime = 0;
           logoIntroAnim.current!.play();
+        } else {
+          setShownLogoAnim(LogoAnim.ACTIVE);
+          logoLoopActiveAnim.current!.currentTime = 0;
+          logoLoopActiveAnim.current!.play();
         }
 
         break;
 
       case PlayButtonState.PLAY:
+        setShownLogoAnim(LogoAnim.IDLE);
+        logoLoopIdleAnim.current!.currentTime = 0;
+        logoLoopIdleAnim.current!.play();
         break;
 
       case PlayButtonState.LOBBY:
@@ -116,7 +123,7 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
         src={LeagueLogoIntro}
         ref={logoIntroAnim}
         onEnded={() => {
-          if (buttonState === PlayButtonState.HIDDEN) {
+          if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
           }
           setLogoIntroEnded(true);
@@ -127,7 +134,7 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
         src={LeagueLogoLoopIdle}
         ref={logoLoopIdleAnim}
         onEnded={() => {
-          if (buttonState === PlayButtonState.HIDDEN) {
+          if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
           }
           setLogoLoopIdleEnded(true);
@@ -138,7 +145,7 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
         src={LeagueLogoLoopActive}
         ref={logoLoopActiveAnim}
         onEnded={() => {
-          if (buttonState === PlayButtonState.HIDDEN) {
+          if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
           }
           setLogoLoopActiveEnded(true);
@@ -149,7 +156,7 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
         src={LeagueLogoMagic}
         ref={logoMagicAnim}
         onEnded={() => {
-          if (buttonState === PlayButtonState.HIDDEN) {
+          if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
           }
           setLogoMagicEnded(true);
