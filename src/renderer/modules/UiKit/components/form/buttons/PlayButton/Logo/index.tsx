@@ -7,7 +7,7 @@ import { PlayButtonState } from '..';
 import { useCompare } from '@uikit/hooks';
 import Animation from '../Animation';
 
-interface PlayButtonFrameProps {
+interface PlayButtonLogoProps {
   buttonState: { prev: PlayButtonState; curr: PlayButtonState };
   playPatcherIntro: boolean;
 }
@@ -18,7 +18,7 @@ enum LogoAnim {
   ACTIVE,
 }
 
-const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
+const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
   playPatcherIntro,
   buttonState,
 }) => {
@@ -58,9 +58,18 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
         break;
 
       case PlayButtonState.PLAY:
-        setShownLogoAnim(LogoAnim.IDLE);
-        logoLoopIdleAnim.current!.currentTime = 0;
-        logoLoopIdleAnim.current!.play();
+        if (shownLogoAnim !== LogoAnim.IDLE) {
+          setShownLogoAnim(LogoAnim.IDLE);
+          logoLoopIdleAnim.current!.currentTime = 0;
+          logoLoopIdleAnim.current!.play();
+        }
+
+        break;
+
+      case PlayButtonState.PLAY_DISABLED:
+        setShowLogoMagic(true);
+        logoMagicAnim.current!.currentTime = 0;
+        logoMagicAnim.current!.play();
         break;
 
       case PlayButtonState.LOBBY:
@@ -68,13 +77,14 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
 
       case PlayButtonState.HIDDEN:
       default:
+        setShowLogoMagic(false);
         setLogoIntroEnded(false);
         setLogoLoopIdleEnded(false);
         setLogoLoopActiveEnded(false);
         setLogoMagicEnded(false);
         break;
     }
-  }, [hasButtonStateChanged, playPatcherIntro, buttonState]);
+  }, [hasButtonStateChanged, shownLogoAnim, playPatcherIntro, buttonState]);
 
   useEffect(() => {
     if (!logoIntroEnded) {
@@ -94,7 +104,7 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
     logoLoopActiveAnim.current!.currentTime = 0;
     logoLoopActiveAnim.current!.play();
     setLogoLoopActiveEnded(false);
-  }, [logoLoopActiveEnded, showLogoMagic]);
+  }, [logoLoopActiveEnded]);
 
   useEffect(() => {
     if (!logoLoopIdleEnded) {
@@ -106,13 +116,14 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
     setLogoLoopIdleEnded(false);
   }, [logoLoopIdleEnded]);
 
-  //TODO(TRB): If the magic anim plays, the current loop needs to be paused and reset
   useEffect(() => {
     if (logoMagicEnded) {
       logoMagicAnim.current!.currentTime = 0;
       setShowLogoMagic(false);
       setLogoMagicEnded(false);
-      console.log('ended');
+
+      logoLoopIdleAnim.current!.currentTime = 0;
+      logoLoopIdleAnim.current!.play();
     }
   }, [logoMagicEnded]);
 
@@ -130,7 +141,7 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
         }}
       />
       <Animation
-        show={shownLogoAnim === LogoAnim.IDLE}
+        show={shownLogoAnim === LogoAnim.IDLE && !showLogoMagic}
         src={LeagueLogoLoopIdle}
         ref={logoLoopIdleAnim}
         onEnded={() => {
@@ -166,4 +177,4 @@ const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
   );
 };
 
-export default PlayButtonFrame;
+export default PlayButtonLogo;

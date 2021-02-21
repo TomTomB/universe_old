@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import PlayButtonFrame from '@assets/components/buttons/play/play-button-frame.png';
+import PlayButtonFrameImage from '@assets/components/buttons/play/play-button-frame-default.png';
 import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
 import { PlayButtonState } from '..';
-import { useCompare, usePrevious } from '@uikit/hooks';
+import { useCompare } from '@uikit/hooks';
 import styled, { css } from 'styled-components';
 import Animation from '../Animation';
 
@@ -12,8 +12,11 @@ const Frame = styled.div<{ show: boolean }>`
   height: 100%;
   top: 0;
   left: 0;
-  background: url(${PlayButtonFrame}) no-repeat center;
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(${PlayButtonFrameImage});
+  transition: 400ms background ease;
   opacity: 0;
 
   ${({ show }) =>
@@ -23,12 +26,20 @@ const Frame = styled.div<{ show: boolean }>`
     `}
 `;
 
-interface PlayButtonLogoProps {
+const FrameAnimation = styled(Animation)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+`;
+
+interface PlayButtonFrameProps {
   buttonState: { prev: PlayButtonState; curr: PlayButtonState };
   playPatcherIntro: boolean;
 }
 
-const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
+const PlayButtonFrame: FC<PlayButtonFrameProps> = ({
   playPatcherIntro,
   buttonState,
 }) => {
@@ -68,9 +79,14 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
 
   return (
     <>
-      <Frame show={patcherFrameIntroEnded || !playPatcherIntro} />
-      <Animation
-        show={playPatcherIntro}
+      <Frame
+        show={
+          (patcherFrameIntroEnded || !playPatcherIntro) &&
+          buttonState.curr !== PlayButtonState.HIDDEN
+        }
+      />
+      <FrameAnimation
+        show={playPatcherIntro && !patcherFrameIntroEnded}
         src={PatcherFrameIntro}
         ref={patcherFrameIntroAnim}
         muted
@@ -85,4 +101,4 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
   );
 };
 
-export default PlayButtonLogo;
+export default PlayButtonFrame;

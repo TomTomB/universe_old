@@ -28,8 +28,8 @@ interface FormValues {
 }
 
 const StyledPlayButton = styled(PlayButton)`
-  position: absolute;
-  top: 20px;
+  position: relative;
+  top: 10px;
   left: 29px;
   z-index: 3;
 `;
@@ -138,7 +138,8 @@ const LoginView: FC = () => {
           buttonState={playButtonState}
           prevButtonState={prevPlayButtonState}
         >
-          {playButtonState === PlayButtonState.PLAY
+          {playButtonState === PlayButtonState.PLAY ||
+          playButtonState === PlayButtonState.PLAY_DISABLED
             ? 'Play'
             : playButtonState === PlayButtonState.PATCHER
             ? Math.round(updaterDownloadProgress?.percent ?? 0) + '%'
@@ -160,6 +161,10 @@ const LoginView: FC = () => {
             } else if (playButtonState === PlayButtonState.PATCHER) {
               setPlayButtonState(PlayButtonState.PLAY);
             } else if (playButtonState === PlayButtonState.PLAY) {
+              setPlayButtonState(PlayButtonState.PLAY_DISABLED);
+            } else if (playButtonState === PlayButtonState.PLAY_DISABLED) {
+              setPlayButtonState(PlayButtonState.PLAY);
+            } else if (playButtonState === PlayButtonState.LOBBY) {
               setPlayButtonState(PlayButtonState.HIDDEN);
             }
           }}

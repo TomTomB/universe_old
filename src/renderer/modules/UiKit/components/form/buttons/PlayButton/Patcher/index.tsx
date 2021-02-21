@@ -52,7 +52,7 @@ const ProgressContainer = styled.div<ProgressContainerProps>`
   position: absolute;
   width: 160px;
   height: 60px;
-  top: -10px;
+  top: -8px;
   left: -20px;
   overflow: hidden;
   opacity: 0;
@@ -92,7 +92,7 @@ const ProgressContainer = styled.div<ProgressContainerProps>`
 const ProgressBarContainer = styled.div`
   overflow: hidden;
   position: absolute;
-  top: 16px;
+  top: 15px;
   height: 30px;
   left: 22px;
   transition: width 100ms ${({ theme }) => theme.easing.stern};
@@ -108,7 +108,7 @@ const ProgressBarBorderAnimation = styled(AnimationWithTransition)`
 `;
 
 const ProgressBarMainLoopAnimation = styled(AnimationWithTransition)`
-  top: 0;
+  top: -1px;
   left: 0;
   width: 119px;
   min-width: 119px;

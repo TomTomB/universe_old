@@ -22,12 +22,37 @@ const textShowAnimation = keyframes`
 const ContentContainer = styled.div`
   position: relative;
   height: 100%;
+  left: 0;
   padding: 6px;
   box-sizing: border-box;
-  pointer-events: none;
 `;
 
-const ButtonText = styled.span<{ intro: boolean; reserveSpace: boolean }>`
+const ButtonContainer = styled.button`
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  pointer-events: all;
+  position: absolute;
+  top: 0;
+  width: calc(100% - 36px);
+  height: 100%;
+  left: 36px;
+  -webkit-app-region: no-drag;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+`;
+
+interface ButtonTextProps {
+  intro: boolean;
+  reserveSpace: boolean;
+  patching: boolean;
+}
+
+const ButtonText = styled.span<ButtonTextProps>`
   font-family: LoL Display;
   font-kerning: normal;
   font-feature-settings: 'kern' 1;
@@ -48,6 +73,11 @@ const ButtonText = styled.span<{ intro: boolean; reserveSpace: boolean }>`
   box-sizing: border-box;
   text-align: center;
   pointer-events: none;
+  transition: color 300ms ${({ theme }) => theme.easing.soft};
+
+  ${ButtonContainer}:disabled & {
+    color: ${({ theme }) => theme.colors.grey[3]};
+  }
 
   ${({ intro }) =>
     intro &&
@@ -62,43 +92,32 @@ const ButtonText = styled.span<{ intro: boolean; reserveSpace: boolean }>`
     css`
       width: 85%;
     `};
-`;
 
-const ButtonContainer = styled.button`
-  appearance: none;
-  border: none;
-  background: none;
-  padding: 0;
-  position: absolute;
-  left: 36px;
-  top: 0;
-  width: calc(100% - 36px);
-  height: 100%;
-  outline: none;
-  pointer-events: all;
-
-  &:not(:disabled) {
-    cursor: pointer;
-  }
+  ${({ patching }) =>
+    patching &&
+    css`
+      color: #f0e6d2 !important;
+    `};
 `;
 
 const LeagueLogoContainer = styled.div`
   position: absolute;
-  top: -9px;
-  left: -9px;
-  width: 64px;
+  top: -6px;
+  left: -13px;
+  cursor: default;
   z-index: 1;
+  width: 65px;
+  height: 54px;
 `;
 
 const StyledPlayButton = styled.div<{ show: boolean }>`
   width: 162px;
-  height: 40px;
-  -webkit-app-region: no-drag;
-  position: relative;
+  height: 58px;
+  padding: 7px 0;
+  box-sizing: border-box;
+  transition: opacity 300ms ${({ theme }) => theme.easing.soft};
+  cursor: default;
   opacity: 0;
-  transition-property: all;
-  transition-duration: 300ms;
-  transition-timing-function: ${({ theme }) => theme.easing.soft};
   pointer-events: none;
 
   ${({ show }) =>
@@ -108,11 +127,24 @@ const StyledPlayButton = styled.div<{ show: boolean }>`
     `}
 `;
 
+const PlayButtonContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position: 20px center;
+  transition: 400ms 200ms background ease;
+`;
+
 export enum PlayButtonState {
   HIDDEN,
   PATCHER,
   PLAY,
+  PLAY_DISABLED,
   LOBBY,
+  LOBBY_DISABLED,
 }
 
 interface PlayButtonProps extends ComponentTypes.ButtonProps {
@@ -136,7 +168,8 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   const btnIsDisabled =
     disabled ||
     buttonState === PlayButtonState.PATCHER ||
-    buttonState === PlayButtonState.HIDDEN;
+    buttonState === PlayButtonState.HIDDEN ||
+    buttonState === PlayButtonState.PLAY_DISABLED;
 
   const playPatcherIntro =
     buttonState === PlayButtonState.PATCHER &&
@@ -151,33 +184,39 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
         playPatcherIntro={playPatcherIntro}
         buttonState={{ prev: prevButtonState, curr: buttonState }}
       />
-      <LeagueLogoContainer>
-        <PlayButtonLogo
-          playPatcherIntro={playPatcherIntro}
-          buttonState={{ prev: prevButtonState, curr: buttonState }}
-        />
-      </LeagueLogoContainer>
-      <ButtonContainer onClick={onClick} disabled={btnIsDisabled} type={type}>
-        <PlayButtonPlay
-          buttonState={{ prev: prevButtonState, curr: buttonState }}
-          disabled={btnIsDisabled}
-        />
+      <PlayButtonContainer>
+        <LeagueLogoContainer>
+          <PlayButtonLogo
+            playPatcherIntro={playPatcherIntro}
+            buttonState={{ prev: prevButtonState, curr: buttonState }}
+          />
+        </LeagueLogoContainer>
+        <ButtonContainer onClick={onClick} disabled={btnIsDisabled} type={type}>
+          <PlayButtonPlay
+            buttonState={{ prev: prevButtonState, curr: buttonState }}
+            disabled={btnIsDisabled}
+          />
 
-        <PlayButtonPatcher
-          playPatcherIntro={playPatcherIntro}
-          buttonState={{ prev: prevButtonState, curr: buttonState }}
-          downloadProgress={downloadProgress}
-        />
+          <PlayButtonPatcher
+            playPatcherIntro={playPatcherIntro}
+            buttonState={{ prev: prevButtonState, curr: buttonState }}
+            downloadProgress={downloadProgress}
+          />
 
-        <ContentContainer>
-          <ButtonText
-            intro={playPatcherIntro}
-            reserveSpace={buttonState === PlayButtonState.PLAY}
-          >
-            {children}
-          </ButtonText>
-        </ContentContainer>
-      </ButtonContainer>
+          <ContentContainer>
+            <ButtonText
+              intro={playPatcherIntro}
+              patching={buttonState === PlayButtonState.PATCHER}
+              reserveSpace={
+                buttonState === PlayButtonState.PLAY ||
+                buttonState === PlayButtonState.PLAY_DISABLED
+              }
+            >
+              {children}
+            </ButtonText>
+          </ContentContainer>
+        </ButtonContainer>
+      </PlayButtonContainer>
     </StyledPlayButton>
   );
 };
