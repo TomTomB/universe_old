@@ -32,8 +32,8 @@
       "@store/*": ["src/renderer/store/*"],
       "@store": ["src/renderer/store/index.ts"],
       "@shared/*": ["src/shared/*"],
-      "@types": ["src/types/index.ts"],
-      "@types/*": ["src/types/*"]
+      "@typings": ["src/types/index.ts"],
+      "@typings/*": ["src/types/*"]
     }
   },
   "exclude": [

@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import lolLogo from '@assets/logos/lol-logo.png';
@@ -17,6 +17,7 @@ import {
   selectStatus,
 } from '@store/slices/updater/updaterSlice';
 import { useSelector } from 'react-redux';
+import { PlayButtonState } from '@uikit/components/form/buttons/PlayButton';
 import gitVersion from '../../../../../../intermediate/git-version.json';
 import SplashScreenContainer from '../../components/SplashScreenContainer';
 
@@ -44,8 +45,8 @@ const Panel = styled.div`
   padding-top: 32px;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  border-left: 1px solid ${(props) => props.theme.colors.grey.frame};
-  background-color: ${(props) => props.theme.colors.black};
+  border-left: 1px solid ${props => props.theme.colors.grey.frame};
+  background-color: ${props => props.theme.colors.black};
 `;
 
 const LeagueLogoImg = styled.img`
@@ -112,7 +113,7 @@ const LoginView: FC = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(data => {
     // eslint-disable-next-line no-console
     console.log(data);
   });
@@ -120,22 +121,43 @@ const LoginView: FC = () => {
   const updaterStatus = useSelector(selectStatus);
   const updaterDownloadProgress = useSelector(selectDownloadProgress);
 
+  const [playButtonState, setPlayButtonState] = useState(
+    PlayButtonState.PATCHER
+  );
+
   return (
     <Container>
       <SplashScreenContainer>
-        {(updaterStatus === 'download-progress' ||
-          updaterStatus === 'found-update') && (
-          <StyledPlayButton
-            type="button"
-            downloadProgress={updaterDownloadProgress}
-            updaterStatus={updaterStatus}
-          >
-            {updaterDownloadProgress
-              ? Math.round(updaterDownloadProgress.percent)
-              : 0}
-            %
-          </StyledPlayButton>
-        )}
+        <StyledPlayButton
+          type="button"
+          downloadProgress={updaterDownloadProgress}
+          updaterStatus={updaterStatus}
+          playPatcherIntro
+          buttonState={playButtonState}
+        >
+          {updaterDownloadProgress
+            ? Math.round(updaterDownloadProgress.percent)
+            : 0}
+          %
+        </StyledPlayButton>
+        <button
+          style={{
+            zIndex: 1000,
+            marginTop: '6rem',
+            marginLeft: '34px',
+            position: 'relative',
+          }}
+          type="button"
+          onClick={() => {
+            if (playButtonState === PlayButtonState.HIDDEN) {
+              setPlayButtonState(PlayButtonState.PATCHER);
+            } else {
+              setPlayButtonState(PlayButtonState.HIDDEN);
+            }
+          }}
+        >
+          Toggle State
+        </button>
       </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg

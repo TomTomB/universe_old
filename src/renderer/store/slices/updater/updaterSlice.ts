@@ -31,7 +31,7 @@ export const updaterSlice = createSlice({
     },
     setDownloadProgress: (
       state,
-      action: PayloadAction<UpdaterSliceState['downloadProgress']>
+      action: PayloadAction<UpdaterSliceState['downloadProgress'] | null>
     ) => {
       state.downloadProgress = action.payload;
     },

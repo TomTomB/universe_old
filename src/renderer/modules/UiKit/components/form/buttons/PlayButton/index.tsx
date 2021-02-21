@@ -1,26 +1,36 @@
-import React, { FC, PropsWithChildren, useEffect } from 'react';
-import { ComponentTypes } from '@types';
+import React, { FC, PropsWithChildren } from 'react';
+import { ComponentTypes } from '@typings';
 import styled, { css, keyframes } from 'styled-components';
-import PlayButtonFrame from '@assets/components/buttons/play/play-button-frame.png';
-import LeagueLogoIntro from '@assets/video/league-logo/league-logo-intro.webm';
-import LeagueLogoMagic from '@assets/video/league-logo/league-logo-magic.webm';
-import LeagueLogoLoopIdle from '@assets/video/league-logo/league-logo-loop-idle.webm';
-import LeagueLogoLoopActive from '@assets/video/league-logo/league-logo-loop-active.webm';
-import ProgressBarMainLoop from '@assets/video/buttons/progress-bar/progress-bar-main-loop.webm';
-import ProgressBarBorderLoop from '@assets/video/buttons/progress-bar/progress-bar-border-loop.webm';
-import ProgressBarTipLoop from '@assets/video/buttons/progress-bar/progress-bar-tip-loop.webm';
-import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
-import { useMachine } from '@xstate/react';
+
 import { UpdaterStatus } from '@store/slices/updater/updaterSlice';
-import stateMachine from './state';
 import { DownloadProgress } from '../../../../../../../types/electron';
+import PlayButtonLogo from './Logo';
+import PlayButtonFrame from './Frame';
+import PlayButtonPatcher from './Patcher';
 
 const textShowAnimation = keyframes`
   from{
+    opacity: 0;
     transform: translateX(-5px)
   }
   to {
     opacity: 1;
+    transform: translateX(0)
+  }
+`;
+
+const patcherShowAnimation = keyframes`
+  0%{
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  50% {
+    opacity: 0;
+    transform: scaleX(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
   }
 `;
 
@@ -57,8 +67,8 @@ const ButtonText = styled.span<{ intro: boolean }>`
     intro &&
     css`
       opacity: 0;
-      animation: ${textShowAnimation} 300ms forwards 750ms
-        cubic-bezier(0, 0, 0, 1);
+      animation: ${textShowAnimation} 300ms forwards 800ms
+        ${({ theme }) => theme.easing.soft};
     `};
 `;
 const ButtonContainer = styled.button`
@@ -71,41 +81,38 @@ const ButtonContainer = styled.button`
   top: 0;
   width: calc(100% - 36px);
   height: 100%;
-  cursor: pointer;
   outline: none;
-`;
-const Frame = styled.div<{ show: boolean }>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: url(${PlayButtonFrame}) no-repeat center;
-  background-size: contain;
-  opacity: 0;
 
-  ${({ show }) =>
-    show &&
-    css`
-      opacity: 1;
-    `}
+  &:not(:disabled) {
+    cursor: pointer;
+  }
 `;
 
 const VideoIntroContainer = styled.div``;
 const HoverMagicContainer = styled.div``;
-const ProgressContainer = styled.div`
+
+const ProgressContainer = styled.div<{ show: boolean; delay: number }>`
   position: absolute;
   width: 160px;
   height: 60px;
   top: -10px;
+  left: -20px;
   overflow: hidden;
-`;
-const ProgressBarContainer = styled.div`
-  overflow: hidden;
-  position: absolute;
-  top: 10px;
-  height: 40px;
-  transition: width 100ms cubic-bezier(0, 0, 0, 1);
+  opacity: 0;
+  transform-origin: left center;
+
+  ${({ show }) =>
+    show &&
+    css`
+      animation: ${patcherShowAnimation} 500ms forwards
+        ${({ theme }) => theme.easing.soft};
+    `}
+
+  ${({ delay }) =>
+    delay &&
+    css`
+      animation-delay: ${delay}ms;
+    `}
 `;
 
 const LeagueLogoContainer = styled.div`
@@ -116,45 +123,36 @@ const LeagueLogoContainer = styled.div`
   z-index: 1;
 `;
 
-const StyledPlayButton = styled.div`
+const StyledPlayButton = styled.div<{ show: boolean }>`
   width: 162px;
   height: 40px;
   -webkit-app-region: no-drag;
   position: relative;
+  opacity: 0;
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: ${({ theme }) => theme.easing.stern};
+  pointer-events: none;
+
+  ${({ show }) =>
+    show &&
+    css`
+      opacity: 1;
+    `}
 `;
 
-const Animation = styled.video`
-  position: absolute;
-`;
-
-const ProgressBarBorderAnimation = styled(Animation)`
-  top: 0;
-  min-width: 142px;
-  max-width: 142px;
-  width: 142px;
-  height: 60px;
-  left: -8px;
-`;
-
-const ProgressBarMainLoopAnimation = styled(Animation)`
-  top: 4px;
-  width: 122px;
-  min-width: 122px;
-  max-width: 122px;
-`;
-
-const ProgressBarTipLoopAnimation = styled(Animation)`
-  top: 0;
-  height: 60px;
-  min-width: 142px;
-  max-width: 142px;
-  width: 142px;
-  transition: left 100ms cubic-bezier(0, 0, 0, 1);
-`;
+export enum PlayButtonState {
+  HIDDEN,
+  PATCHER,
+  PLAY,
+  LOBBY,
+}
 
 interface PlayButtonProps extends ComponentTypes.ButtonProps {
   updaterStatus?: UpdaterStatus;
   downloadProgress?: DownloadProgress | null;
+  playPatcherIntro?: boolean;
+  buttonState?: PlayButtonState;
 }
 
 const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
@@ -163,116 +161,56 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   className,
   disabled,
   onClick,
+  buttonState = PlayButtonState.PATCHER,
   downloadProgress,
   updaterStatus,
+  playPatcherIntro,
 }) => {
-  const [current, send] = useMachine(stateMachine);
-
-  useEffect(() => {
-    if (
-      updaterStatus === 'found-update' ||
-      updaterStatus === 'download-progress'
-    ) {
-      send({ type: 'TO_PATCHER_INTRO' });
-    }
-  }, [updaterStatus, send]);
-
-  useEffect(() => {
-    if (downloadProgress) {
-      send({
-        type: 'PATCHER_PROGRESS',
-        value: downloadProgress.percent,
-      });
-    }
-  }, [downloadProgress, send]);
-
-  const addTenToProgress = () => {
-    send({
-      type: 'PATCHER_PROGRESS',
-      value:
-        current.context.patcherProgress < 100
-          ? current.context.patcherProgress + 10
-          : 0,
-    });
-  };
-
   return (
-    <StyledPlayButton className={className}>
-      <Frame show={!current.matches('patcher.intro')} />
-      {current.matches('patcher.intro') && (
-        <Animation src={PatcherFrameIntro} muted autoPlay />
-      )}
+    <StyledPlayButton
+      className={className}
+      show={buttonState !== PlayButtonState.HIDDEN}
+    >
+      <PlayButtonFrame
+        playPatcherIntro={playPatcherIntro}
+        buttonState={buttonState}
+      />
       <LeagueLogoContainer>
-        {current.matches('patcher.intro') && (
-          <Animation
-            src={LeagueLogoIntro}
-            muted
-            autoPlay
-            onEnded={() => send('PATCHER_INTRO_END')}
-          />
-        )}
-        {current.matches('play') ||
-          (current.matches('lobby') && (
-            <Animation src={LeagueLogoLoopIdle} muted autoPlay loop />
-          ))}
-        {current.matches('patcher.progress') && (
-          <Animation src={LeagueLogoLoopActive} muted autoPlay loop />
-        )}
-        {current.matches('click') && (
-          <Animation src={LeagueLogoMagic} muted autoPlay />
-        )}
+        <PlayButtonLogo
+          playPatcherIntro={playPatcherIntro}
+          buttonState={buttonState}
+        />
       </LeagueLogoContainer>
       <ButtonContainer
-        onClick={(e) => {
-          if (onClick) {
-            onClick(e);
-          }
-          addTenToProgress();
-        }}
-        disabled={disabled}
+        onClick={onClick}
+        disabled={
+          disabled ||
+          buttonState === PlayButtonState.PATCHER ||
+          buttonState === PlayButtonState.HIDDEN
+        }
         type={type}
       >
         <VideoIntroContainer />
         <HoverMagicContainer />
-        {current.matches('patcher.progress') && (
-          <ProgressContainer>
-            <ProgressBarContainer
-              style={{
-                width: `${122 * (current.context.patcherProgress / 100)}px`,
-              }}
-            >
-              <ProgressBarMainLoopAnimation
-                src={ProgressBarMainLoop}
-                muted
-                autoPlay
-                loop
-              />
-            </ProgressBarContainer>
+        <ProgressContainer
+          show={buttonState === PlayButtonState.PATCHER}
+          delay={
+            playPatcherIntro && buttonState === PlayButtonState.PATCHER
+              ? 500
+              : 300
+          }
+        >
+          <PlayButtonPatcher
+            playPatcherIntro={playPatcherIntro}
+            buttonState={buttonState}
+            downloadProgress={downloadProgress}
+          />
+        </ProgressContainer>
 
-            {current.context.patcherProgress >= 5 && (
-              <ProgressBarTipLoopAnimation
-                src={ProgressBarTipLoop}
-                style={{
-                  left: `${
-                    122 * (current.context.patcherProgress / 100) - 115
-                  }px`,
-                }}
-                muted
-                autoPlay
-                loop
-              />
-            )}
-
-            <ProgressBarBorderAnimation
-              src={ProgressBarBorderLoop}
-              muted
-              autoPlay
-              loop
-            />
-          </ProgressContainer>
-        )}
         <ContentContainer>
-          <ButtonText intro={current.matches('patcher.intro')}>
+          <ButtonText
+            intro={!!playPatcherIntro && buttonState !== PlayButtonState.HIDDEN}
+          >
             {children}
           </ButtonText>
         </ContentContainer>

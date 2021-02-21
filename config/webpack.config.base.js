@@ -2,7 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import { dependencies as externals } from '../src/main/package.json';
 
-export default {
+const config = {
   externals: [...Object.keys(externals || {})],
 
   module: {
@@ -36,3 +36,5 @@ export default {
     }),
   ],
 };
+
+export default config;
