@@ -70,9 +70,26 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
         setShowLogoMagic(true);
         logoMagicAnim.current!.currentTime = 0;
         logoMagicAnim.current!.play();
+
+        if (shownLogoAnim !== LogoAnim.IDLE) {
+          setShownLogoAnim(LogoAnim.IDLE);
+        }
         break;
 
       case PlayButtonState.LOBBY:
+        if (shownLogoAnim !== LogoAnim.IDLE) {
+          setShownLogoAnim(LogoAnim.IDLE);
+          logoLoopIdleAnim.current!.currentTime = 0;
+          logoLoopIdleAnim.current!.play();
+        }
+        break;
+
+      case PlayButtonState.LOBBY_DISABLED:
+        if (shownLogoAnim !== LogoAnim.IDLE) {
+          setShownLogoAnim(LogoAnim.IDLE);
+          logoLoopIdleAnim.current!.currentTime = 0;
+          logoLoopIdleAnim.current!.play();
+        }
         break;
 
       case PlayButtonState.HIDDEN:
@@ -82,6 +99,7 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
         setLogoLoopIdleEnded(false);
         setLogoLoopActiveEnded(false);
         setLogoMagicEnded(false);
+        setShownLogoAnim(null);
         break;
     }
   }, [hasButtonStateChanged, shownLogoAnim, playPatcherIntro, buttonState]);

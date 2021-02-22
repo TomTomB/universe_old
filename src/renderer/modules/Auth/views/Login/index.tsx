@@ -141,6 +141,9 @@ const LoginView: FC = () => {
           {playButtonState === PlayButtonState.PLAY ||
           playButtonState === PlayButtonState.PLAY_DISABLED
             ? 'Play'
+            : playButtonState === PlayButtonState.LOBBY ||
+              playButtonState === PlayButtonState.LOBBY_DISABLED
+            ? 'Party'
             : playButtonState === PlayButtonState.PATCHER
             ? Math.round(updaterDownloadProgress?.percent ?? 0) + '%'
             : ''}
@@ -155,7 +158,6 @@ const LoginView: FC = () => {
           type="button"
           onClick={() => {
             setPrevPlayButtonState(playButtonState);
-
             if (playButtonState === PlayButtonState.HIDDEN) {
               setPlayButtonState(PlayButtonState.PATCHER);
             } else if (playButtonState === PlayButtonState.PATCHER) {
@@ -163,7 +165,9 @@ const LoginView: FC = () => {
             } else if (playButtonState === PlayButtonState.PLAY) {
               setPlayButtonState(PlayButtonState.PLAY_DISABLED);
             } else if (playButtonState === PlayButtonState.PLAY_DISABLED) {
-              setPlayButtonState(PlayButtonState.PLAY);
+              setPlayButtonState(PlayButtonState.LOBBY_DISABLED);
+            } else if (playButtonState === PlayButtonState.LOBBY_DISABLED) {
+              setPlayButtonState(PlayButtonState.LOBBY);
             } else if (playButtonState === PlayButtonState.LOBBY) {
               setPlayButtonState(PlayButtonState.HIDDEN);
             }

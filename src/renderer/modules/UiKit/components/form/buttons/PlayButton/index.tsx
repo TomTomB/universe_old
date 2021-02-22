@@ -7,6 +7,7 @@ import PlayButtonLogo from './Logo';
 import PlayButtonFrame from './Frame';
 import PlayButtonPatcher from './Patcher';
 import PlayButtonPlay from './Play';
+import PlayButtonLobby from './Lobby';
 
 const textShowAnimation = keyframes`
   from{
@@ -139,12 +140,37 @@ const PlayButtonContainer = styled.div`
 `;
 
 export enum PlayButtonState {
+  /**
+   * Allowed transitions: PATCHER / PLAY
+   */
   HIDDEN,
+
+  /**
+   * Allowed transitions: PLAY / HIDDEN
+   */
   PATCHER,
+
+  /**
+   * Allowed transitions: PLAY_DISABLED / PATCHER / HIDDEN
+   */
   PLAY,
+
+  /**
+   * Allowed transitions: PLAY / LOBBY_DISABLED / PATCHER / HIDDEN
+   *
+   */
+  // FIXME(TRB): Transition to PATCHER and HIDDEN shows a blue frame
   PLAY_DISABLED,
-  LOBBY,
+
+  /**
+   * Allowed transitions: LOBBY / PLAY / PATCHER / HIDDEN
+   */
   LOBBY_DISABLED,
+
+  /**
+   * Allowed transitions: LOBBY_DISABLED / PLAY / PATCHER / HIDDEN
+   */
+  LOBBY,
 }
 
 interface PlayButtonProps extends ComponentTypes.ButtonProps {
@@ -169,7 +195,8 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
     disabled ||
     buttonState === PlayButtonState.PATCHER ||
     buttonState === PlayButtonState.HIDDEN ||
-    buttonState === PlayButtonState.PLAY_DISABLED;
+    buttonState === PlayButtonState.PLAY_DISABLED ||
+    buttonState === PlayButtonState.LOBBY_DISABLED;
 
   const playPatcherIntro =
     buttonState === PlayButtonState.PATCHER &&
@@ -193,6 +220,11 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
         </LeagueLogoContainer>
         <ButtonContainer onClick={onClick} disabled={btnIsDisabled} type={type}>
           <PlayButtonPlay
+            buttonState={{ prev: prevButtonState, curr: buttonState }}
+            disabled={btnIsDisabled}
+          />
+
+          <PlayButtonLobby
             buttonState={{ prev: prevButtonState, curr: buttonState }}
             disabled={btnIsDisabled}
           />

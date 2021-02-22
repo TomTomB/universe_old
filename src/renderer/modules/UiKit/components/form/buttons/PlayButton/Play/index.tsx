@@ -2,10 +2,10 @@ import { useCompare } from '@uikit/hooks';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { PlayButtonState } from '..';
-import { AnimationWithTransition } from '../Animation';
+import Animation, { AnimationWithTransition } from '../Animation';
 import PatcherToPlay from '@assets/video/buttons/patcher/patcher-to-play-button-enabled.webm';
 import PlayButtonEnabledIntro from '@assets/video/buttons/play-button/play-button-enabled-intro.webm';
-
+import LobbyToPlay from '@assets/video/buttons/lobby-button/lobby-button-to-play-button.webm';
 import PlayButtonHoverIntro from '@assets/video/buttons/play-button/play-button-hover-intro.webm';
 import PlayButtonHoverLoop from '@assets/video/buttons/play-button/play-button-hover-loop.webm';
 import PlayButtonHoverOutro from '@assets/video/buttons/play-button/play-button-hover-outro.webm';
@@ -14,6 +14,7 @@ import PlayButtonRelease from '@assets/video/buttons/play-button/play-button-rel
 
 interface PlayContainerProps {
   show: boolean;
+  instant: boolean;
 }
 
 const PlayContainer = styled.div<PlayContainerProps>`
@@ -32,6 +33,12 @@ const PlayContainer = styled.div<PlayContainerProps>`
     show &&
     css`
       opacity: 1;
+    `}
+
+  ${({ instant }) =>
+    instant &&
+    css`
+      transition: none;
     `}
 `;
 
@@ -52,6 +59,14 @@ const PlayAnimation = styled(AnimationWithTransition)`
   left: 8px;
 `;
 
+const PlayAnimationWithoutTransition = styled(Animation)`
+  min-width: 145px;
+  max-width: 145px;
+  width: 145px;
+  height: 60px;
+  left: 8px;
+`;
+
 interface PlayButtonPlayProps {
   buttonState: { prev: PlayButtonState; curr: PlayButtonState };
   disabled: boolean;
@@ -59,6 +74,8 @@ interface PlayButtonPlayProps {
 
 const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
   const patcherToPlayElem = useRef<HTMLVideoElement>(null);
+  const lobbyToPlayElem = useRef<HTMLVideoElement>(null);
+
   const playEnabledIntroElem = useRef<HTMLVideoElement>(null);
   const playHoverIntroElem = useRef<HTMLVideoElement>(null);
   const playHoverLoopElem = useRef<HTMLVideoElement>(null);
@@ -69,7 +86,8 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
   const hasButtonStateChanged = useCompare(buttonState.curr);
 
   const [showPatcherToPlay, setShowPatcherToPlay] = useState(false);
-  const [patcherToPlayEnded, setPatcherToPlayEnded] = useState(false);
+  const [showLobbyToPlay, setShowLobbyToPlay] = useState(false);
+  const [transitionToPlayEnded, setTransitionToPlayEnded] = useState(false);
 
   useEffect(() => {
     if (!hasButtonStateChanged) {
@@ -78,6 +96,8 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
 
     switch (buttonState.curr) {
       case PlayButtonState.PATCHER:
+        setTransitionToPlayEnded(false);
+        setShowPatcherToPlay(false);
         break;
 
       case PlayButtonState.PLAY:
@@ -85,11 +105,16 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
           setShowPatcherToPlay(true);
           patcherToPlayElem.current!.currentTime = 0;
           patcherToPlayElem.current!.play();
-
-          playEnabledIntroElem.current!.play();
         } else if (buttonState.prev === PlayButtonState.PLAY_DISABLED) {
           playEnabledIntroElem.current!.currentTime = 0;
           playEnabledIntroElem.current!.play();
+        } else if (
+          buttonState.prev === PlayButtonState.LOBBY_DISABLED ||
+          buttonState.prev === PlayButtonState.LOBBY
+        ) {
+          setShowLobbyToPlay(true);
+          lobbyToPlayElem.current!.currentTime = 0;
+          lobbyToPlayElem.current!.play();
         }
 
         break;
@@ -107,9 +132,12 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
       case PlayButtonState.LOBBY:
         break;
 
+      case PlayButtonState.LOBBY_DISABLED:
+        break;
+
       case PlayButtonState.HIDDEN:
       default:
-        setPatcherToPlayEnded(false);
+        setTransitionToPlayEnded(false);
         setShowPatcherToPlay(false);
         break;
     }
@@ -121,6 +149,10 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
         buttonState.curr === PlayButtonState.PLAY ||
         buttonState.curr === PlayButtonState.PLAY_DISABLED
       }
+      instant={
+        buttonState.curr === PlayButtonState.PLAY_DISABLED &&
+        buttonState.prev === PlayButtonState.LOBBY_DISABLED
+      }
     >
       <PatcherToPlayAnimation
         show={showPatcherToPlay}
@@ -130,19 +162,34 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
           if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
           }
-          setPatcherToPlayEnded(true);
+          setTransitionToPlayEnded(true);
           setShowPatcherToPlay(false);
         }}
       />
 
-      <PlayAnimation
+      <PlayAnimationWithoutTransition
+        show={showLobbyToPlay}
+        src={LobbyToPlay}
+        ref={lobbyToPlayElem}
+        onEnded={() => {
+          if (buttonState.curr === PlayButtonState.HIDDEN) {
+            return;
+          }
+          setTransitionToPlayEnded(true);
+          setShowLobbyToPlay(false);
+        }}
+      />
+
+      <PlayAnimationWithoutTransition
         show={
-          (patcherToPlayEnded ||
+          (transitionToPlayEnded ||
             buttonState.prev !== PlayButtonState.PATCHER) &&
-          buttonState.curr !== PlayButtonState.PLAY_DISABLED
+          buttonState.curr !== PlayButtonState.PLAY_DISABLED &&
+          !showLobbyToPlay
         }
         src={PlayButtonEnabledIntro}
         ref={playEnabledIntroElem}
+        autoPlay
       />
 
       {/* TODO(TRB): Play once and show on hover */}
@@ -168,13 +215,13 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
         ref={playHoverOutroElem}
       />
 
-      <PlayAnimation
+      <PlayAnimationWithoutTransition
         show={buttonState.curr === PlayButtonState.PLAY_DISABLED}
         src={PlayButtonRelease}
         ref={playReleaseElem}
       />
 
-      <PlayAnimation
+      <PlayAnimationWithoutTransition
         show={buttonState.curr === PlayButtonState.PLAY_DISABLED}
         src={PlayButtonMagicRelease}
         ref={playReleaseMagicElem}

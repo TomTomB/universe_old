@@ -4,6 +4,7 @@ const Animation = styled.video<{ show: boolean }>`
   position: absolute;
   filter: opacity(0);
   pointer-events: none;
+  transition-duration: 0ms !important;
 
   ${({ show }) =>
     show &&

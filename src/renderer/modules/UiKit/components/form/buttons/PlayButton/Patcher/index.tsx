@@ -156,7 +156,13 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
       case PlayButtonState.PLAY:
         break;
 
+      case PlayButtonState.PLAY_DISABLED:
+        break;
+
       case PlayButtonState.LOBBY:
+        break;
+
+      case PlayButtonState.LOBBY_DISABLED:
         break;
 
       case PlayButtonState.HIDDEN:
