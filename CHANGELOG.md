@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.41](https://github.com/TomTomB/universe/compare/v0.0.40...v0.0.41) (2021-02-23)
+
+### Features
+
+- 🎸 add button play state ([1a16d60](https://github.com/TomTomB/universe/commit/1a16d60bb372a1273a5590d8592d7b897e72207e))
+- 🎸 add remaining play button states ([63ef88e](https://github.com/TomTomB/universe/commit/63ef88ec80d92f42af5a556ee354bf34ec74e2a3))
+- 🎸 finish up play button ([6ac55a6](https://github.com/TomTomB/universe/commit/6ac55a62b037114edaef1a5d5ea189a911c67494))
+- 🎸 work on play button ([28749db](https://github.com/TomTomB/universe/commit/28749db2473f50161f29673c2b32359fceadedf8))
+- 🎸 work on play button ([1f65c7b](https://github.com/TomTomB/universe/commit/1f65c7be7edf57c0bc0ded1728e16c6582980092))
+
 ### [0.0.40](https://github.com/TomTomB/universe/compare/v0.0.39...v0.0.40) (2021-02-07)
 
 ### Features
