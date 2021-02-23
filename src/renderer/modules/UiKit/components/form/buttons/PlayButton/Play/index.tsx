@@ -70,9 +70,14 @@ const PlayAnimationWithoutTransition = styled(Animation)`
 interface PlayButtonPlayProps {
   buttonState: { prev: PlayButtonState; curr: PlayButtonState };
   disabled: boolean;
+  isHovering: boolean;
 }
 
-const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
+const PlayButtonPlay: FC<PlayButtonPlayProps> = ({
+  buttonState,
+  disabled,
+  isHovering,
+}) => {
   const patcherToPlayElem = useRef<HTMLVideoElement>(null);
   const lobbyToPlayElem = useRef<HTMLVideoElement>(null);
 
@@ -143,6 +148,13 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
     }
   }, [hasButtonStateChanged, buttonState, disabled]);
 
+  useEffect(() => {
+    if (isHovering) {
+      playHoverIntroElem.current!.currentTime = 0;
+      playHoverIntroElem.current!.play();
+    }
+  }, [isHovering]);
+
   return (
     <PlayContainer
       show={
@@ -167,7 +179,7 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
         }}
       />
 
-      <PlayAnimationWithoutTransition
+      <PlayAnimation
         show={showLobbyToPlay}
         src={LobbyToPlay}
         ref={lobbyToPlayElem}
@@ -180,7 +192,7 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
         }}
       />
 
-      <PlayAnimationWithoutTransition
+      <PlayAnimation
         show={
           (transitionToPlayEnded ||
             buttonState.prev !== PlayButtonState.PATCHER) &&
@@ -192,16 +204,14 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({ buttonState, disabled }) => {
         autoPlay
       />
 
-      {/* TODO(TRB): Play once and show on hover */}
       <PlayAnimation
-        show={false}
+        show={isHovering}
         src={PlayButtonHoverIntro}
         ref={playHoverIntroElem}
       />
 
-      {/* TODO(TRB): Show on hover */}
       <PlayAnimation
-        show={false}
+        show={isHovering}
         src={PlayButtonHoverLoop}
         autoPlay
         loop

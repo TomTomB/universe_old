@@ -21,7 +21,7 @@ export const AnimationWithTransition = styled.video<{
   filter: opacity(0);
   transition-property: all;
   transition-duration: 300ms;
-  transition-timing-function: ${({ theme }) => theme.easing.stern};
+  transition-timing-function: ease-in-out;
   pointer-events: none;
 
   ${({ show }) =>

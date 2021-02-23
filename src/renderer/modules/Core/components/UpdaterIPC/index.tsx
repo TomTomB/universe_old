@@ -71,7 +71,7 @@ const UpdaterIPC: FC = () => {
     //     transferred: 1,
     //   })
     // );
-    fakeUpdate();
+    // fakeUpdate();
   }
 
   useEffect(() => {

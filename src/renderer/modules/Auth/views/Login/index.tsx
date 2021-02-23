@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import lolLogo from '@assets/logos/lol-logo.png';
@@ -121,12 +121,27 @@ const LoginView: FC = () => {
   const updaterStatus = useSelector(selectStatus);
   const updaterDownloadProgress = useSelector(selectDownloadProgress);
 
-  const [playButtonState, setPlayButtonState] = useState(
-    PlayButtonState.HIDDEN
-  );
-  const [prevPlayButtonState, setPrevPlayButtonState] = useState(
-    PlayButtonState.HIDDEN
-  );
+  const [playButtonState, setPlayButtonState] = useState({
+    prev: PlayButtonState.HIDDEN,
+    curr: PlayButtonState.HIDDEN,
+  });
+
+  useEffect(() => {
+    if (
+      updaterStatus === 'found-update' ||
+      updaterStatus === 'download-progress'
+    ) {
+      setPlayButtonState({
+        prev: PlayButtonState.HIDDEN,
+        curr: PlayButtonState.PATCHER,
+      });
+    } else {
+      setPlayButtonState({
+        prev: PlayButtonState.PATCHER,
+        curr: PlayButtonState.HIDDEN,
+      });
+    }
+  }, [updaterStatus]);
 
   return (
     <Container>
@@ -134,47 +149,19 @@ const LoginView: FC = () => {
         <StyledPlayButton
           type="button"
           downloadProgress={updaterDownloadProgress}
-          updaterStatus={updaterStatus}
-          buttonState={playButtonState}
-          prevButtonState={prevPlayButtonState}
+          buttonState={playButtonState.curr}
+          prevButtonState={playButtonState.prev}
         >
-          {playButtonState === PlayButtonState.PLAY ||
-          playButtonState === PlayButtonState.PLAY_DISABLED
+          {playButtonState.curr === PlayButtonState.PLAY ||
+          playButtonState.curr === PlayButtonState.PLAY_DISABLED
             ? 'Play'
-            : playButtonState === PlayButtonState.LOBBY ||
-              playButtonState === PlayButtonState.LOBBY_DISABLED
+            : playButtonState.curr === PlayButtonState.LOBBY ||
+              playButtonState.curr === PlayButtonState.LOBBY_DISABLED
             ? 'Party'
-            : playButtonState === PlayButtonState.PATCHER
+            : playButtonState.curr === PlayButtonState.PATCHER
             ? Math.round(updaterDownloadProgress?.percent ?? 0) + '%'
             : ''}
         </StyledPlayButton>
-        <button
-          style={{
-            zIndex: 1000,
-            marginTop: '6rem',
-            marginLeft: '34px',
-            position: 'relative',
-          }}
-          type="button"
-          onClick={() => {
-            setPrevPlayButtonState(playButtonState);
-            if (playButtonState === PlayButtonState.HIDDEN) {
-              setPlayButtonState(PlayButtonState.PATCHER);
-            } else if (playButtonState === PlayButtonState.PATCHER) {
-              setPlayButtonState(PlayButtonState.PLAY);
-            } else if (playButtonState === PlayButtonState.PLAY) {
-              setPlayButtonState(PlayButtonState.PLAY_DISABLED);
-            } else if (playButtonState === PlayButtonState.PLAY_DISABLED) {
-              setPlayButtonState(PlayButtonState.LOBBY_DISABLED);
-            } else if (playButtonState === PlayButtonState.LOBBY_DISABLED) {
-              setPlayButtonState(PlayButtonState.LOBBY);
-            } else if (playButtonState === PlayButtonState.LOBBY) {
-              setPlayButtonState(PlayButtonState.HIDDEN);
-            }
-          }}
-        >
-          Toggle State
-        </button>
       </SplashScreenContainer>
       <Panel>
         <LeagueLogoImg

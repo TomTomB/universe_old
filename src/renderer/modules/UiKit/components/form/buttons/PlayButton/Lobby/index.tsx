@@ -60,11 +60,13 @@ const LobbyAnimationWithoutTransition = styled(Animation)`
 interface PlayButtonLobbyProps {
   buttonState: { prev: PlayButtonState; curr: PlayButtonState };
   disabled: boolean;
+  isHovering: boolean;
 }
 
 const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
   buttonState,
   disabled,
+  isHovering,
 }) => {
   const lobbyHoverIntroElem = useRef<HTMLVideoElement>(null);
   const lobbyHoverLoopElem = useRef<HTMLVideoElement>(null);
@@ -113,6 +115,13 @@ const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
     }
   }, [hasButtonStateChanged, buttonState, disabled]);
 
+  useEffect(() => {
+    if (isHovering) {
+      lobbyHoverIntroElem.current!.currentTime = 0;
+      lobbyHoverIntroElem.current!.play();
+    }
+  }, [isHovering]);
+
   return (
     <LobbyContainer
       show={
@@ -133,16 +142,14 @@ const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
         ref={lobbyIntroElem}
       />
 
-      {/* TODO(TRB): Play once and show on hover */}
       <LobbyAnimation
-        show={false}
+        show={isHovering}
         src={LobbyHoverIntro}
         ref={lobbyHoverIntroElem}
       />
 
-      {/* TODO(TRB): Show on hover */}
       <LobbyAnimation
-        show={false}
+        show={isHovering}
         src={LobbyHoverLoop}
         autoPlay
         loop

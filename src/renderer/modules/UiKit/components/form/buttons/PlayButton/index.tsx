@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, useState } from 'react';
 import { ComponentTypes } from '@typings';
 import styled, { css, keyframes } from 'styled-components';
 import { UpdaterStatus } from '@store/slices/updater/updaterSlice';
@@ -174,7 +174,6 @@ export enum PlayButtonState {
 }
 
 interface PlayButtonProps extends ComponentTypes.ButtonProps {
-  updaterStatus?: UpdaterStatus;
   downloadProgress?: DownloadProgress | null;
   buttonState: PlayButtonState;
   prevButtonState: PlayButtonState;
@@ -189,7 +188,6 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   buttonState,
   prevButtonState,
   downloadProgress,
-  updaterStatus,
 }) => {
   const btnIsDisabled =
     disabled ||
@@ -201,6 +199,8 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
   const playPatcherIntro =
     buttonState === PlayButtonState.PATCHER &&
     prevButtonState === PlayButtonState.HIDDEN;
+
+  const [isHovering, setIsHovering] = useState(false);
 
   return (
     <StyledPlayButton
@@ -218,15 +218,27 @@ const PlayButton: FC<PropsWithChildren<PlayButtonProps>> = ({
             buttonState={{ prev: prevButtonState, curr: buttonState }}
           />
         </LeagueLogoContainer>
-        <ButtonContainer onClick={onClick} disabled={btnIsDisabled} type={type}>
+        <ButtonContainer
+          onClick={onClick}
+          onMouseEnter={() => {
+            setIsHovering(true);
+          }}
+          onMouseLeave={() => {
+            setIsHovering(false);
+          }}
+          disabled={btnIsDisabled}
+          type={type}
+        >
           <PlayButtonPlay
             buttonState={{ prev: prevButtonState, curr: buttonState }}
             disabled={btnIsDisabled}
+            isHovering={isHovering}
           />
 
           <PlayButtonLobby
             buttonState={{ prev: prevButtonState, curr: buttonState }}
             disabled={btnIsDisabled}
+            isHovering={isHovering}
           />
 
           <PlayButtonPatcher

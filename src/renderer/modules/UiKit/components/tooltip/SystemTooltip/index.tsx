@@ -10,7 +10,7 @@ const StyledSystemTooltip = styled(ReactTooltip)`
     margin: 1px;
     box-sizing: border-box;
     flex: 1;
-    background-color: ${(props) => props.theme.colors.black};
+    background-color: ${props => props.theme.colors.black};
     border-width: 2px;
     box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
     min-width: 41px;
@@ -87,16 +87,12 @@ const TooltipContent = styled.p`
 
 type SystemTooltipProps = TooltipProps;
 
-const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
-  id,
-  children,
-  effect = 'solid',
-  delayShow = 300,
-}: TooltipProps) => {
+const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = () => {
   return (
-    <StyledSystemTooltip delayShow={delayShow} id={id} effect={effect}>
-      <TooltipContent role="tooltip">{children}</TooltipContent>
-    </StyledSystemTooltip>
+    <div />
+    // <StyledSystemTooltip delayShow={delayShow} id={id} effect={effect}>
+    //   <TooltipContent role="tooltip">{children}</TooltipContent>
+    // </StyledSystemTooltip>
   );
 };
 
