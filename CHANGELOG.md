@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.42](https://github.com/TomTomB/universe/compare/v0.0.41...v0.0.42) (2021-02-25)
+
+### Features
+
+- 🎸 use popper js for tooltips ([67458ee](https://github.com/TomTomB/universe/commit/67458ee7d74fa3454d1b874b5e4b8cf0761bea15))
+
 ### [0.0.41](https://github.com/TomTomB/universe/compare/v0.0.40...v0.0.41) (2021-02-23)
 
 ### Features
