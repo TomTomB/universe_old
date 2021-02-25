@@ -1,7 +1,6 @@
 import React, { FC, PropsWithChildren, useState } from 'react';
 import { ComponentTypes } from '@typings';
 import styled, { css, keyframes } from 'styled-components';
-import { UpdaterStatus } from '@store/slices/updater/updaterSlice';
 import { DownloadProgress } from '../../../../../../../types/electron';
 import PlayButtonLogo from './Logo';
 import PlayButtonFrame from './Frame';
