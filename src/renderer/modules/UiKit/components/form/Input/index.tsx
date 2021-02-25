@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import styled from 'styled-components';
 import searchBoxClear from '@assets/components/input/search-box-clear.png';
 import searchIcon from '@assets/components/input/search-icon.png';
@@ -21,7 +21,7 @@ const ErrorContainer = styled.div`
 `;
 
 const ErrorParagraph = styled(animated.p)`
-  color: ${(props) => props.theme.colors.mage[2]};
+  color: ${props => props.theme.colors.mage[2]};
   margin: 0;
   padding: 2px 0 0;
   letter-spacing: 0.1em;
@@ -40,15 +40,15 @@ const TogglePasswordCheckbox = styled.input`
   top: 22px;
   z-index: 1;
   cursor: pointer;
-  background-color: ${(props) => props.theme.colors.gold[2]};
+  background-color: ${props => props.theme.colors.gold[2]};
   opacity: 0;
   &:hover,
   &:focus-visible {
-    background-color: ${(props) => props.theme.colors.gold[1]};
+    background-color: ${props => props.theme.colors.gold[1]};
     opacity: 1;
   }
   &:active {
-    background-color: ${(props) => props.theme.colors.gold[6]};
+    background-color: ${props => props.theme.colors.gold[6]};
   }
 
   &.is-shown {
@@ -71,8 +71,8 @@ const FlatInput = styled.input`
   height: 30px;
   padding: 0 6px;
   outline: none;
-  color: ${(props) => props.theme.colors.gold[1]};
-  border: 1px solid ${(props) => props.theme.colors.gold[5]};
+  color: ${props => props.theme.colors.gold[1]};
+  border: 1px solid ${props => props.theme.colors.gold[5]};
   background-color: rgba(0, 0, 0, 0.7);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 0 0 1px rgba(0, 0, 0, 0.25);
   position: relative;
@@ -97,12 +97,12 @@ const FlatInput = styled.input`
       margin-right: 0;
       -webkit-mask: url(${searchBoxClear}) no-repeat center;
       -webkit-mask-size: contain;
-      background-color: ${(props) => props.theme.colors.gold[2]};
+      background-color: ${props => props.theme.colors.gold[2]};
       &:hover {
-        background-color: ${(props) => props.theme.colors.gold[1]};
+        background-color: ${props => props.theme.colors.gold[1]};
       }
       &:active {
-        background-color: ${(props) => props.theme.colors.gold[6]};
+        background-color: ${props => props.theme.colors.gold[6]};
       }
     }
   }
@@ -119,8 +119,8 @@ const FlatInput = styled.input`
     );
     border-image: linear-gradient(
         to bottom,
-        ${(props) => props.theme.colors.gold[5]},
-        ${(props) => props.theme.colors.gold[3]}
+        ${props => props.theme.colors.gold[5]},
+        ${props => props.theme.colors.gold[3]}
       )
       1 stretch;
   }
@@ -133,13 +133,13 @@ const FlatInput = styled.input`
   }
 
   &[disabled] {
-    color: ${(props) => props.theme.colors.grey.disabled};
-    background-color: ${(props) => props.theme.colors.grey[4]};
-    border-color: ${(props) => props.theme.colors.grey[3]};
+    color: ${props => props.theme.colors.grey.disabled};
+    background-color: ${props => props.theme.colors.grey[4]};
+    border-color: ${props => props.theme.colors.grey[3]};
   }
 
   &::-webkit-input-placeholder {
-    color: ${(props) => props.theme.colors.grey[1]};
+    color: ${props => props.theme.colors.grey[1]};
   }
 `;
 
@@ -169,6 +169,8 @@ const Input: FC<InputProps> = ({
   disabled = false,
   register,
 }) => {
+  const triggerShowPasswordCheckboxRef = useRef<HTMLInputElement>(null);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const transitions = useTransition(error, null, {
@@ -204,14 +206,15 @@ const Input: FC<InputProps> = ({
             className={classNames({
               'is-shown': showPassword,
             })}
-            data-tip
-            data-for="togglePasswordTip"
-            onChange={(event) => setShowPassword(event.target.checked)}
+            onChange={event => setShowPassword(event.target.checked)}
             checked={showPassword}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
+            ref={triggerShowPasswordCheckboxRef}
           />
 
-          <SystemTooltip id="togglePasswordTip">Toggle password</SystemTooltip>
+          <SystemTooltip triggerRef={triggerShowPasswordCheckboxRef.current}>
+            {showPassword ? 'Hide password' : 'Show password'}
+          </SystemTooltip>
         </>
       )}
       {showError && (

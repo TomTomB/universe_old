@@ -1,80 +1,96 @@
-import React, { FC, PropsWithChildren } from 'react';
-import ReactTooltip, { TooltipProps } from 'react-tooltip';
+import React, { FC, PropsWithChildren, useEffect } from 'react';
 import styled from 'styled-components';
 import tooltipSystemCaret from '@assets/components/tooltip/tooltip-system-caret.png';
+import { usePopperTooltip } from 'react-popper-tooltip';
+import { animated, useTransition } from 'react-spring';
+import { springConfigHarsh } from '@uikit/util';
+import { useCompare } from '@uikit/hooks';
 
-const StyledSystemTooltip = styled(ReactTooltip)`
-  &.__react_component_tooltip {
-    --frameColors: #614a1f 0, #463714 5px, #463714 100%;
+const StyledSystemTooltip = styled(animated.div)`
+  --frameColors: #614a1f 0, #463714 5px, #463714 100%;
 
-    margin: 1px;
-    box-sizing: border-box;
-    flex: 1;
-    background-color: ${props => props.theme.colors.black};
-    border-width: 2px;
-    box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
-    min-width: 41px;
-    padding: 8px 6px;
-    max-width: 250px;
-    text-align: center;
-    border: 2px solid transparent;
+  box-sizing: border-box;
+  flex: 1;
+  background-color: ${props => props.theme.colors.black};
+  border-width: 2px;
+  box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
+  min-width: 41px;
+  padding: 8px 6px;
+  max-width: 250px;
+  text-align: center;
+  border: 2px solid transparent;
+  z-index: 100;
 
-    &::before {
-      content: '';
-      border: unset !important;
-      bottom: unset !important;
-      margin: unset !important;
-      position: absolute;
-      width: calc(100% - 12px);
-      height: calc(100% - 12px);
-      top: 6px !important;
-      left: 6px !important;
-      box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
-      pointer-events: none;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    top: 6px;
+    left: 6px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+  }
+
+  .tooltip-arrow {
+    width: 16px;
+    height: 11px;
 
     &::after {
       content: '';
       position: absolute;
-      border: unset !important;
-      margin: unset !important;
+      background: url(${tooltipSystemCaret}) center no-repeat;
       width: 16px;
       height: 11px;
-      background: url(${tooltipSystemCaret}) center no-repeat;
     }
+  }
 
-    &.place-top {
-      border-image: linear-gradient(to top, var(--frameColors)) 1 stretch;
+  &[data-popper-placement='top'] {
+    border-image: linear-gradient(to top, var(--frameColors)) 1 stretch;
 
-      &::after {
-        left: calc(50% - 8px);
+    .tooltip-arrow {
+      bottom: 0;
+      ::after {
         bottom: -11px;
+        left: 0;
       }
     }
+  }
 
-    &.place-bottom {
-      border-image: linear-gradient(to bottom, var(--frameColors)) 1 stretch;
-      &::after {
-        left: calc(50% - 8px);
+  &[data-popper-placement='bottom'] {
+    border-image: linear-gradient(to bottom, var(--frameColors)) 1 stretch;
+
+    .tooltip-arrow {
+      top: 0;
+      ::after {
         transform: rotate(180deg);
         top: -11px;
+        left: 0;
       }
     }
+  }
 
-    &.place-left {
-      border-image: linear-gradient(to left, var(--frameColors)) 1 stretch;
-      &::after {
-        top: calc(50% - 5px);
+  &[data-popper-placement='left'] {
+    border-image: linear-gradient(to left, var(--frameColors)) 1 stretch;
+
+    .tooltip-arrow {
+      right: 0;
+
+      ::after {
         transform: rotate(-90deg);
         right: -14px;
       }
     }
+  }
 
-    &.place-right {
-      border-image: linear-gradient(to right, var(--frameColors)) 1 stretch;
-      &::after {
+  &[data-popper-placement='right'] {
+    border-image: linear-gradient(to right, var(--frameColors)) 1 stretch;
+
+    .tooltip-arrow {
+      left: 0;
+
+      ::after {
         transform: rotate(90deg);
-        top: calc(50% - 5px);
         left: -14px;
       }
     }
@@ -85,14 +101,65 @@ const TooltipContent = styled.p`
   margin: 0;
 `;
 
-type SystemTooltipProps = TooltipProps;
+type SystemTooltipProps = {
+  triggerRef: HTMLElement | null;
+};
 
-const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = () => {
+const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
+  triggerRef,
+  children,
+}) => {
+  const {
+    getArrowProps,
+    getTooltipProps,
+    setTooltipRef,
+    setTriggerRef,
+    visible,
+    update,
+  } = usePopperTooltip({ placement: 'auto' });
+
+  const transitions = useTransition(visible, null, {
+    config: springConfigHarsh,
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
+
+  const childrenHasChanged = useCompare(children?.toString() ?? '');
+
+  useEffect(() => {
+    if (!triggerRef) {
+      return;
+    }
+    setTriggerRef(triggerRef);
+  }, [triggerRef, setTriggerRef]);
+
+  useEffect(() => {
+    if (update && children && childrenHasChanged) {
+      update();
+    }
+  }, [children, update, childrenHasChanged]);
+
+  if (!triggerRef) {
+    return <></>;
+  }
+
   return (
-    <div />
-    // <StyledSystemTooltip delayShow={delayShow} id={id} effect={effect}>
-    //   <TooltipContent role="tooltip">{children}</TooltipContent>
-    // </StyledSystemTooltip>
+    <>
+      {transitions.map(
+        ({ item, key, props }) =>
+          item && (
+            <StyledSystemTooltip
+              ref={setTooltipRef}
+              {...getTooltipProps({ style: props })}
+              key={key}
+            >
+              <div {...getArrowProps({ className: 'tooltip-arrow' })} />
+              <TooltipContent>{children}</TooltipContent>
+            </StyledSystemTooltip>
+          )
+      )}
+    </>
   );
 };
 
