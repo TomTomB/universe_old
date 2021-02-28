@@ -1,9 +1,9 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
-import loginVideoIntro from '@assets/video/splash/intro-video-splash-galio.webm';
-import loginVideoLoop from '@assets/video/splash/video-splash-galio.webm';
-import loginMusicIntro from '@assets/music/splash/intro-sound-splash-galio.ogg';
-import loginMusicLoop from '@assets/music/splash/music-splash-galio.ogg';
-import loginPicture from '@assets/background/splash/image-splash-galio.jpg';
+import loginVideoIntro from '@assets/video/splash/intro-video-splash-honor.webm';
+import loginVideoLoop from '@assets/video/splash/video-splash-honor.webm';
+// import loginMusicIntro from '@assets/music/splash/intro-sound-splash-galio.ogg';
+import loginMusicLoop from '@assets/music/splash/music-splash-honor.ogg';
+import loginPicture from '@assets/background/splash/image-splash-honor.jpg';
 import styled from 'styled-components';
 import { useMachine } from '@xstate/react';
 import { useSelector } from 'react-redux';
@@ -35,7 +35,7 @@ const SplashScreenContainer: FC<
 
   const [currentMusic, sendMusic] = useMachine(
     SplashScreenAudioMachine.machine.withContext({
-      hasIntroAudio: true,
+      hasIntroAudio: false,
       isAudioEnabled: playLoginMusic,
       introAudio: null,
       loopAudio: null,
@@ -64,7 +64,6 @@ const SplashScreenContainer: FC<
       <SplashScreen
         music={{
           loop: loginMusicLoop,
-          intro: loginMusicIntro,
           current: currentMusic,
           send: sendMusic,
         }}
