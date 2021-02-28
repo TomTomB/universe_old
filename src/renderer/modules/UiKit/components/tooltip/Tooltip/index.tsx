@@ -1,12 +1,26 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
 import styled from 'styled-components';
-import tooltipSystemCaret from '@assets/components/tooltip/tooltip-system-caret.png';
+import tooltipSystemCaret from '@assets/components/tooltip/tooltip-caret.png';
+import tooltipSubBorderHorizontal from '@assets/components/tooltip/tooltip-sub-border-horizontal.png';
+import tooltipSubBorderVertical from '@assets/components/tooltip/tooltip-sub-border-vertical.png';
 import { usePopperTooltip } from 'react-popper-tooltip';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util';
 import { useCompare } from '@uikit/hooks';
 
-const StyledSystemTooltip = styled(animated.div)`
+const TooltipSubBorder = styled.div`
+  position: absolute;
+  z-index: -1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    border-image-repeat: stretch;
+    border-style: solid;
+  }
+`;
+
+const StyledTooltip = styled(animated.div)`
   --frameColors: #614a1f 0, #463714 5px, #463714 100%;
 
   box-sizing: border-box;
@@ -34,15 +48,57 @@ const StyledSystemTooltip = styled(animated.div)`
   }
 
   .tooltip-arrow {
-    width: 16px;
-    height: 11px;
+    width: 24px;
+    height: 15px;
 
     &::after {
       content: '';
       position: absolute;
       background: url(${tooltipSystemCaret}) center no-repeat;
-      width: 16px;
-      height: 11px;
+      width: 24px;
+      height: 15px;
+    }
+  }
+
+  &[data-popper-placement='top'],
+  &[data-popper-placement='bottom'] {
+    .tooltip-arrow {
+      ::after {
+        transform-origin: center center;
+      }
+    }
+
+    ${TooltipSubBorder} {
+      left: 8px;
+      right: 8px;
+
+      &::before {
+        left: 0;
+        right: 0;
+        height: 0;
+        border-image-source: url(${tooltipSubBorderHorizontal});
+        border-width: 4px 4px 0 4px;
+        border-image-width: 4px 4px 0 4px;
+        border-image-slice: 4 4 0 4;
+      }
+    }
+  }
+
+  &[data-popper-placement='left'],
+  &[data-popper-placement='right'] {
+    ${TooltipSubBorder} {
+      top: 8px;
+      bottom: 8px;
+
+      &::before {
+        top: 0;
+        bottom: 0;
+        width: 0;
+        border-image-source: url(${tooltipSubBorderVertical});
+        border-width: 4px 4px 4px 0;
+        border-image-width: 4px 4px 4px 0;
+        border-image-slice: 4 4 4 0;
+      }
     }
   }
 
@@ -52,9 +108,13 @@ const StyledSystemTooltip = styled(animated.div)`
     .tooltip-arrow {
       bottom: 0;
       ::after {
-        bottom: -11px;
+        bottom: -15px;
         left: 0;
       }
+    }
+
+    ${TooltipSubBorder} {
+      bottom: -2px;
     }
   }
 
@@ -65,9 +125,14 @@ const StyledSystemTooltip = styled(animated.div)`
       top: 0;
       ::after {
         transform: rotate(180deg);
-        top: -11px;
+        top: -15px;
         left: 0;
       }
+    }
+
+    ${TooltipSubBorder} {
+      top: -2px;
+      transform: rotate(180deg);
     }
   }
 
@@ -78,9 +143,15 @@ const StyledSystemTooltip = styled(animated.div)`
       right: 0;
 
       ::after {
-        transform: rotate(-90deg);
-        right: -14px;
+        transform: rotate(-90deg) translateX(-19px);
+        transform-origin: top left;
+        right: -24px;
       }
+    }
+
+    ${TooltipSubBorder} {
+      right: -6px;
+      transform: rotate(180deg);
     }
   }
 
@@ -91,9 +162,14 @@ const StyledSystemTooltip = styled(animated.div)`
       left: 0;
 
       ::after {
-        transform: rotate(90deg);
-        left: -14px;
+        transform: rotate(90deg) translateX(19px);
+        transform-origin: top right;
+        left: -24px;
       }
+    }
+
+    ${TooltipSubBorder} {
+      left: -6px;
     }
   }
 `;
@@ -150,14 +226,15 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
       {transitions.map(
         ({ item, key, props }) =>
           item && (
-            <StyledSystemTooltip
+            <StyledTooltip
               ref={setTooltipRef}
               {...getTooltipProps({ style: props })}
               key={key}
             >
               <div {...getArrowProps({ className: 'tooltip-arrow' })} />
+              <TooltipSubBorder />
               <TooltipContent>{children}</TooltipContent>
-            </StyledSystemTooltip>
+            </StyledTooltip>
           )
       )}
     </>

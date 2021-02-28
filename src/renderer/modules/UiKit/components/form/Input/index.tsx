@@ -11,6 +11,7 @@ import { springConfigHarsh } from '@uikit/util/springConfig';
 import SystemTooltip from '../../tooltip/SystemTooltip';
 import Label from '../Label';
 import FormField from '../base/FormField';
+import { Tooltip } from '@uikit/components/tooltip';
 
 const InputLabel = styled(Label)`
   margin-bottom: 2px;
@@ -212,9 +213,9 @@ const Input: FC<InputProps> = ({
             ref={triggerShowPasswordCheckboxRef}
           />
 
-          <SystemTooltip triggerRef={triggerShowPasswordCheckboxRef.current}>
+          <Tooltip triggerRef={triggerShowPasswordCheckboxRef.current}>
             {showPassword ? 'Hide password' : 'Show password'}
-          </SystemTooltip>
+          </Tooltip>
         </>
       )}
       {showError && (
