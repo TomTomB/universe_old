@@ -5,6 +5,8 @@ import controlHide from '@assets/components/controls/control-hide.png';
 import controlHelp from '@assets/components/controls/control-help.png';
 import controlClose from '@assets/components/controls/control-close.png';
 import controlSettings from '@assets/components/controls/control-settings.png';
+import { useAppDispatch } from '@store';
+import { setShowSettingsModal } from '@store/slices/settings/settingsSlice';
 
 export enum TitleBarButtonType {
   Close,
@@ -22,15 +24,15 @@ export const TitleBarButtonBase = styled.button`
   cursor: pointer;
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
-  background-color: ${(props) => props.theme.colors.grey[1]};
+  background-color: ${props => props.theme.colors.grey[1]};
   outline: none;
 
   :hover,
   :focus-visible {
-    background-color: ${(props) => props.theme.colors.gold[1]};
+    background-color: ${props => props.theme.colors.gold[1]};
   }
   :active {
-    background-color: ${(props) => props.theme.colors.grey[2]};
+    background-color: ${props => props.theme.colors.grey[2]};
   }
 `;
 
@@ -56,13 +58,19 @@ interface TitleBarButtonProps {
 }
 
 const TitleBarButton: FC<TitleBarButtonProps> = ({ label, type }) => {
+  const dispatch = useAppDispatch();
+
   switch (type) {
     case TitleBarButtonType.Close:
       return (
         <TitleBarButtonClose
           type="button"
           aria-label={label}
-          onClick={() => ipcRenderer.send('window-close')}
+          onClick={e => {
+            e.preventDefault();
+
+            ipcRenderer.send('window-close');
+          }}
         />
       );
     case TitleBarButtonType.Hide:
@@ -70,13 +78,35 @@ const TitleBarButton: FC<TitleBarButtonProps> = ({ label, type }) => {
         <TitleBarButtonHide
           type="button"
           aria-label={label}
-          onClick={() => ipcRenderer.send('window-hide')}
+          onClick={e => {
+            e.preventDefault();
+
+            ipcRenderer.send('window-hide');
+          }}
         />
       );
     case TitleBarButtonType.Settings:
-      return <TitleBarButtonSettings type="button" aria-label={label} />;
+      return (
+        <TitleBarButtonSettings
+          type="button"
+          aria-label={label}
+          onClick={e => {
+            e.preventDefault();
+
+            dispatch(setShowSettingsModal(true));
+          }}
+        />
+      );
     case TitleBarButtonType.Help:
-      return <TitleBarButtonHelp type="button" aria-label={label} />;
+      return (
+        <TitleBarButtonHelp
+          type="button"
+          aria-label={label}
+          onClick={e => {
+            e.preventDefault();
+          }}
+        />
+      );
     default:
       return <></>;
   }

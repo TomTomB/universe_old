@@ -8,7 +8,6 @@ import eyeShow from '@assets/masks/eye-show.svg';
 import { animated, useTransition } from 'react-spring';
 import { FieldError } from 'react-hook-form';
 import { springConfigHarsh } from '@uikit/util/springConfig';
-import SystemTooltip from '../../tooltip/SystemTooltip';
 import Label from '../Label';
 import FormField from '../base/FormField';
 import { Tooltip } from '@uikit/components/tooltip';

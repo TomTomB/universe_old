@@ -14,6 +14,7 @@ const TitleBar = styled.div`
   height: 32px;
   display: grid;
   justify-content: end;
+  z-index: 10000;
 `;
 
 const TitleBarControls = styled.div`

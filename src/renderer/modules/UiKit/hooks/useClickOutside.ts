@@ -3,19 +3,32 @@ import { useEffect } from 'react';
 const useClickOutside = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: React.MutableRefObject<any>,
-  callback: () => void
+  callback: () => void,
+  respectDefaultPrevented?: boolean
 ) => {
   const handleClick = (e: MouseEvent) => {
-    if (!ref.current?.contains(e.target)) {
-      callback();
+    if (respectDefaultPrevented) {
+      if (!e.defaultPrevented && !ref.current?.contains(e.target)) {
+        callback();
+      }
+    } else {
+      if (!ref.current?.contains(e.target)) {
+        callback();
+      }
     }
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleClick);
+    const root = document.getElementById('root');
+
+    if (!root) {
+      return;
+    }
+
+    root.addEventListener('click', handleClick);
 
     return () => {
-      document.removeEventListener('click', handleClick);
+      root.removeEventListener('click', handleClick);
     };
   });
 };
