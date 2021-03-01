@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.43](https://github.com/TomTomB/universe/compare/v0.0.42...v0.0.43) (2021-03-01)
+
+### Features
+
+- 🎸 add modal component ([6fdf077](https://github.com/TomTomB/universe/commit/6fdf077a7bccc9bb31115acd7e8ddea03311aa49))
+- 🎸 add tooltip component ([6ae32b5](https://github.com/TomTomB/universe/commit/6ae32b527bba54a06473a6706a51f1198d0d4df9))
+- 🎸 finish flat select with dummy data ([58c1ad1](https://github.com/TomTomB/universe/commit/58c1ad17f616c7eba17d88ee7bd626d0d0fcd4ed))
+
+### Bug Fixes
+
+- 🐛 lint error ([be1758e](https://github.com/TomTomB/universe/commit/be1758e6387bad4159e4f9e736066abcf808b414))
+
 ### [0.0.42](https://github.com/TomTomB/universe/compare/v0.0.41...v0.0.42) (2021-02-25)
 
 ### Features
