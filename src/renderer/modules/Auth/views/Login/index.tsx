@@ -212,7 +212,7 @@ const LoginView: FC = () => {
                 { label: 'An Option 3', value: 'opt-3' },
                 { label: 'An Option 4', value: 'opt-4' },
                 { label: 'An Option 5', value: generateId() },
-                { label: 'Cool Option 6', value: generateId() },
+                { label: 'Cool Option 6', value: generateId(), disabled: true },
                 { label: 'Cold Option 7', value: generateId() },
                 { label: 'Best Option 8', value: generateId() },
               ]}

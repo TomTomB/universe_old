@@ -1,3 +1,4 @@
+import { FlatSelect } from '@uikit/components/form';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +39,8 @@ const Styleguide: FC = () => {
         A invalid label
         <input id="hiddenInput2" type="hidden" />
       </label>
+      <br />
+      <FlatSelect />
     </div>
   );
 };

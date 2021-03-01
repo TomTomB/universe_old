@@ -6,6 +6,7 @@ import Checkbox, { CheckboxContainer } from './Checkbox';
 import Input from './Input';
 import Label from './Label';
 import FramedSelect from './selects/FramedSelect';
+import FlatSelect from './selects/FlatSelect';
 
 export {
   PrimaryMagicButton,
@@ -15,6 +16,7 @@ export {
   Input,
   Label,
   FramedSelect,
+  FlatSelect,
   FormField,
   CheckboxContainer,
 };

@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import dropdownCheck from '@assets/components/select/dropdown-check.png';
-import dropdownSelectDot from '@assets/components/select/dropdown-select-dot.png';
-import dropdownArrowLocked from '@assets/components/select/up-down-arrow-locked.png';
-import dropdownArrow from '@assets/components/select/up-down-arrow.png';
+import dropdownCheck from '../assets/img/dropdown-check.png';
+import dropdownSelectDot from '../assets/img/dropdown-select-dot.png';
+import dropdownArrowLocked from '../assets/img/up-down-arrow-locked.png';
+import dropdownArrow from '../assets/img/up-down-arrow.png';
 import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
@@ -24,7 +24,7 @@ const CurrentContainer = styled.dt`
       #695625 0%,
       #a9852d 23%,
       #b88d35 93%,
-      ${(props) => props.theme.colors.gold[3]} 100%
+      ${props => props.theme.colors.gold[3]} 100%
     )
     1;
   display: flex;
@@ -35,7 +35,7 @@ const CurrentContainer = styled.dt`
   margin: 0;
   padding: 7px 5px;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.grey.frame50};
+  background-color: ${props => props.theme.colors.grey.frame50};
 
   &::after {
     background: url(${dropdownArrow}) center no-repeat;
@@ -64,7 +64,7 @@ const OptionsContainer = styled.dd<{ openUpward: boolean }>`
   border-image: linear-gradient(
       to top,
       #695625,
-      ${(props) => props.theme.colors.gold[6]}
+      ${props => props.theme.colors.gold[6]}
     )
     1;
   margin: 0;
@@ -76,7 +76,7 @@ const OptionsContainer = styled.dd<{ openUpward: boolean }>`
   max-height: 400px;
   z-index: 2;
   overflow: hidden;
-  background: ${(props) => props.theme.colors.black};
+  background: ${props => props.theme.colors.black};
 
   ${StyledScrollContainer} {
     max-height: 150px;
@@ -126,13 +126,13 @@ const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
 
   &:hover,
   &:focus {
-    color: ${(props) => props.theme.colors.gold[1]};
-    background-color: ${(props) => props.theme.colors.grey[4]};
+    color: ${props => props.theme.colors.gold[1]};
+    background-color: ${props => props.theme.colors.grey[4]};
   }
 
   &:active {
-    color: ${(props) => props.theme.colors.gold[6]};
-    background-color: ${(props) => props.theme.colors.grey.frame50};
+    color: ${props => props.theme.colors.gold[6]};
+    background-color: ${props => props.theme.colors.grey.frame50};
   }
 
   ${({ selected }) =>
@@ -162,13 +162,13 @@ const Option = styled.li<{ selected: boolean; sortingActive?: boolean }>`
         #73561e 100%
       );
       border-image-slice: 1;
-      color: ${(props) => props.theme.colors.gold[1]};
+      color: ${props => props.theme.colors.gold[1]};
       padding-left: 15px;
       background: url(${dropdownSelectDot}) no-repeat 7px 10px;
       background-color: #010a13;
     `}
 
-  &[disabled] {
+  &[data-disabled] {
     color: #888;
     cursor: default;
     pointer-events: none;
@@ -191,7 +191,7 @@ const Select = styled.div<{ active: boolean }>`
   font-kerning: normal;
   font-feature-settings: 'kern' 1;
   -webkit-font-smoothing: subpixel-antialiased;
-  color: ${(props) => props.theme.colors.grey[1]};
+  color: ${props => props.theme.colors.grey[1]};
   font-size: 12px;
   font-weight: normal;
   line-height: 16px;
@@ -220,20 +220,20 @@ const Select = styled.div<{ active: boolean }>`
     active &&
     css`
       ${CurrentContainer} {
-        border: 1px solid ${(props) => props.theme.colors.gold[6]};
-        color: ${(props) => props.theme.colors.gold[6]};
+        border: 1px solid ${props => props.theme.colors.gold[6]};
+        color: ${props => props.theme.colors.gold[6]};
         &::after {
           background-image: url(${dropdownArrowLocked});
         }
       }
     `}
 
-  &[disabled] {
+  &[data-disabled] {
     cursor: default;
     pointer-events: none;
     ${CurrentContainer} {
-      border: 1px solid ${(props) => props.theme.colors.grey[3]};
-      color: ${(props) => props.theme.colors.grey[3]};
+      border: 1px solid ${props => props.theme.colors.grey[3]};
+      color: ${props => props.theme.colors.grey[3]};
       &::after {
         filter: grayscale(100%);
         opacity: 0.35;
@@ -245,6 +245,7 @@ const Select = styled.div<{ active: boolean }>`
 export interface SelectOption {
   label: string;
   value: string;
+  disabled?: boolean;
 }
 
 interface FramedSelectProps {
@@ -253,6 +254,8 @@ interface FramedSelectProps {
   label: string;
   name: string;
   value?: string;
+  disabled?: boolean;
+  openUpward?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: (...args: any) => any;
 }
@@ -287,6 +290,8 @@ const FramedSelect: FC<FramedSelectProps> = ({
   label,
   name,
   value,
+  disabled,
+  openUpward = false,
 }) => {
   const nativeSelectId = useMemo(() => {
     return generateId();
@@ -299,7 +304,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
   );
   const [isOpen, setIsOpen] = useState(false);
   const [currentFocusedOptionIndex, setCurrentFocusedOptionIndex] = useState(
-    selected ? items.findIndex((i) => i.value === selected) : 0
+    selected ? items.findIndex(i => i.value === selected) : 0
   );
   const optionsContainerRef = useRef(null);
   const customSelectRef = useRef<HTMLDivElement>(null);
@@ -332,7 +337,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
     if (element) {
       (element as HTMLSelectElement).value = selected as string;
     }
-    setCurrentFocusedOptionIndex(items.findIndex((i) => i.value === selected));
+    setCurrentFocusedOptionIndex(items.findIndex(i => i.value === selected));
   }, [selected, name, items, nativeSelectId]);
 
   let searchTerm = '';
@@ -351,8 +356,10 @@ const FramedSelect: FC<FramedSelectProps> = ({
   };
 
   const searchAndSelectOption = () => {
-    const searchedOptionIndex = items.findIndex((option) => {
-      return option.label.toLowerCase().startsWith(searchTerm);
+    const searchedOptionIndex = items.findIndex(option => {
+      return (
+        option.label.toLowerCase().startsWith(searchTerm) && !option.disabled
+      );
     });
     trySelectOption(searchedOptionIndex);
   };
@@ -434,16 +441,21 @@ const FramedSelect: FC<FramedSelectProps> = ({
         id={nativeSelectId}
         ref={register()}
         name={name}
-        onChange={(e) => {
+        disabled={disabled}
+        onChange={e => {
           if (selected !== e.target.value) {
             setSelected(e.target.value);
           }
         }}
       >
         {items.map(
-          (option) =>
+          option =>
             option && (
-              <option key={option.label + option.value} value={option.value}>
+              <option
+                key={option.label + option.value}
+                value={option.value}
+                disabled={option.disabled}
+              >
                 {option.label}
               </option>
             )
@@ -460,9 +472,8 @@ const FramedSelect: FC<FramedSelectProps> = ({
         {label}
       </SelectLabel>
       <Select
-        tabIndex={0}
+        tabIndex={disabled ? -1 : 0}
         active={isOpen}
-        onClick={() => setIsOpen(!isOpen)}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
         role="combobox"
@@ -470,19 +481,20 @@ const FramedSelect: FC<FramedSelectProps> = ({
         aria-haspopup="true"
         aria-autocomplete="none"
         aria-labelledby={labelId}
+        data-disabled={disabled}
         id={id}
         ref={customSelectRef}
       >
-        <CurrentContainer>
+        <CurrentContainer onClick={() => setIsOpen(!isOpen)}>
           <CurrentValue>
-            {items.find((item) => item.value === selected)?.label || 'Select'}
+            {items.find(item => item.value === selected)?.label || 'Select'}
           </CurrentValue>
         </CurrentContainer>
         {transitions.map(
           ({ item, key, props }) =>
             item && (
               <AnimatedOptionsContainer
-                openUpward={false}
+                openUpward={openUpward}
                 ref={optionsContainerRef}
                 style={props}
                 key={key}
@@ -494,12 +506,14 @@ const FramedSelect: FC<FramedSelectProps> = ({
                         option && (
                           <Option
                             data-index={index}
-                            tabIndex={0}
+                            data-disabled={option.disabled}
+                            tabIndex={option.disabled ? -1 : 0}
                             key={option.label + option.value}
                             role="option"
                             selected={selected === option.value}
                             onClick={() => {
                               setSelected(option.value);
+                              setIsOpen(false);
                             }}
                             value={option.value}
                           >
