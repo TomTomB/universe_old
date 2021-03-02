@@ -1,13 +1,15 @@
 import { ScrollContainer, StyledScrollContainer } from '@uikit/components/base';
-import React, { FC, PropsWithChildren, useRef, useState } from 'react';
+import React, { FC, PropsWithChildren, useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import FlatSelectOption from './Option';
 import FlatSelectOptionGroup from './OptionGroup';
 import upDownArrowLocked from '../assets/img/up-down-arrow-locked.png';
 import upDownArrow from '../assets/img/up-down-arrow.png';
-import { useClickOutside } from '@uikit/hooks';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util';
+import useSelectBehavior from '../hooks/useSelectBehavior';
+import { SelectOption } from '../FramedSelect';
+import NativeSelect from '../NativeSelect';
 
 const OptionsContainer = styled.div<{ openUpward: boolean; active: boolean }>`
   background-color: #010a13;
@@ -40,8 +42,6 @@ const OptionsContainer = styled.div<{ openUpward: boolean; active: boolean }>`
       margin-bottom: -42px;
       padding: 0 0 40px 0;
     `}
-
-  ${({ openUpward, active }) => openUpward && active && css``}
 `;
 
 const AnimatedOptionsContainer = animated(OptionsContainer);
@@ -77,14 +77,6 @@ const Current = styled.div`
     }
   }
 
-  &:hover {
-    color: #f0e6d2;
-
-    &::after {
-      -webkit-filter: brightness(2.2);
-    }
-  }
-
   &::after {
     content: '';
     background: url(${upDownArrow}) center no-repeat;
@@ -108,22 +100,33 @@ const StyledFlatSelect = styled.div<{ active: boolean }>`
     pointer-events: none;
   }
 
+  &:hover,
+  &:focus-visible {
+    ${Current} {
+      color: #f0e6d2;
+
+      ::after {
+        -webkit-filter: brightness(2.2);
+      }
+    }
+  }
+
   ${({ active }) =>
     active &&
     css`
       z-index: auto;
 
+      :hover ${Current} {
+        color: #785a28;
+
+        ::after {
+          -webkit-filter: none;
+        }
+      }
+
       ${Current} {
         display: flex;
         color: #785a28;
-
-        :hover {
-          color: #785a28;
-
-          ::after {
-            -webkit-filter: none;
-          }
-        }
 
         ::after {
           background-image: url(${upDownArrowLocked});
@@ -132,24 +135,54 @@ const StyledFlatSelect = styled.div<{ active: boolean }>`
     `}
 `;
 
+export interface SelectOptionsWithGroups {
+  items: SelectOption[];
+  grouped: SelectOptionGroup[];
+}
+
+export interface SelectOptionGroup {
+  items: SelectOption[];
+  groupe: string;
+}
+
 interface FlatSelectProps {
-  openUpward?: boolean;
+  items: SelectOptionsWithGroups;
+  id: string;
+  label: string;
+  name: string;
+  value?: string;
   disabled?: boolean;
+  openUpward?: boolean;
+  register: (...args: any) => any;
 }
 
 const FlatSelect: FC<PropsWithChildren<FlatSelectProps>> = ({
   openUpward = false,
   disabled,
+  id,
+  items,
+  label,
+  name,
+  register,
+  value,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const normalizedItems = useMemo(() => {
+    const itemsCopy = [...items.items];
+    itemsCopy.unshift(...items.grouped.map(g => g.items).flat());
+    return itemsCopy;
+  }, [items]);
 
-  const optionsContainerRef = useRef(null);
-
-  useClickOutside(optionsContainerRef, () => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
-  });
+  const {
+    nativeSelectId,
+    selectedOption,
+    optionsContainerRef,
+    customSelectRef,
+    isOpen,
+    setSelectedOption,
+    setIsOpen,
+    handleKeyDown,
+    handleKeyUp,
+  } = useSelectBehavior(normalizedItems, name, id, value);
 
   const translateY = openUpward ? '-10px' : '10px';
   const transitions = useTransition(isOpen, null, {
@@ -166,39 +199,97 @@ const FlatSelect: FC<PropsWithChildren<FlatSelectProps>> = ({
   });
 
   return (
-    <StyledFlatSelect data-disabled={disabled} active={isOpen}>
-      {transitions.map(
-        ({ item, key, props }) =>
-          item && (
-            <AnimatedOptionsContainer
-              openUpward={openUpward}
-              ref={optionsContainerRef}
-              style={props}
-              key={key}
-            >
-              <ScrollContainer>
-                <FlatSelectOptionGroup>
-                  <FlatSelectOption>Foo</FlatSelectOption>
-                  <FlatSelectOption selected>Bar</FlatSelectOption>
-                  <FlatSelectOption disabled>Baz</FlatSelectOption>
-                  <FlatSelectOption>Baz</FlatSelectOption>
-                  <FlatSelectOption>Baz</FlatSelectOption>
-                  <FlatSelectOption>Baz</FlatSelectOption>
-                  <FlatSelectOption>Baz</FlatSelectOption>
-                </FlatSelectOptionGroup>
+    <>
+      <NativeSelect
+        id={nativeSelectId}
+        register={register}
+        hidden
+        items={normalizedItems}
+        name={name}
+        disabled={disabled}
+        onChange={e => {
+          if (selectedOption !== e.target.value) {
+            setSelectedOption(e.target.value);
+          }
+        }}
+      />
 
-                <FlatSelectOption>Bul</FlatSelectOption>
-                <FlatSelectOption>Baz</FlatSelectOption>
-                <FlatSelectOption>Baz</FlatSelectOption>
-                <FlatSelectOption>Baz</FlatSelectOption>
-                <FlatSelectOption>Baz</FlatSelectOption>
-                <FlatSelectOption>Bal</FlatSelectOption>
-              </ScrollContainer>
-            </AnimatedOptionsContainer>
-          )
-      )}
-      <Current onClick={() => setIsOpen(!isOpen)}>Huhu</Current>
-    </StyledFlatSelect>
+      <StyledFlatSelect
+        tabIndex={disabled ? -1 : 0}
+        active={isOpen}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        role="combobox"
+        aria-expanded={isOpen ? 'true' : 'false'}
+        aria-haspopup="true"
+        aria-autocomplete="none"
+        aria-label={label}
+        data-disabled={disabled}
+        id={id}
+        ref={customSelectRef}
+      >
+        {transitions.map(
+          ({ item, key, props }) =>
+            item && (
+              <AnimatedOptionsContainer
+                openUpward={openUpward}
+                ref={optionsContainerRef}
+                style={props}
+                key={key}
+              >
+                <ScrollContainer>
+                  {items.grouped.map(
+                    group =>
+                      group && (
+                        <FlatSelectOptionGroup key={group.groupe}>
+                          {group.items.map(
+                            option =>
+                              option && (
+                                <FlatSelectOption
+                                  index={normalizedItems.indexOf(option)}
+                                  disabled={option.disabled}
+                                  key={option.label + option.value}
+                                  selected={selectedOption === option.value}
+                                  onClick={() => {
+                                    setSelectedOption(option.value);
+                                    setIsOpen(false);
+                                  }}
+                                >
+                                  {option.label}
+                                </FlatSelectOption>
+                              )
+                          )}
+                        </FlatSelectOptionGroup>
+                      )
+                  )}
+
+                  {items.items.map(
+                    option =>
+                      option && (
+                        <FlatSelectOption
+                          index={normalizedItems.indexOf(option)}
+                          disabled={option.disabled}
+                          key={option.label + option.value}
+                          selected={selectedOption === option.value}
+                          onClick={() => {
+                            setSelectedOption(option.value);
+                            setIsOpen(false);
+                          }}
+                        >
+                          {option.label}
+                        </FlatSelectOption>
+                      )
+                  )}
+                </ScrollContainer>
+              </AnimatedOptionsContainer>
+            )
+        )}
+        <Current onClick={() => setIsOpen(!isOpen)}>
+          {normalizedItems.find(item => item.value === selectedOption)?.label ||
+            'Select'}
+        </Current>
+      </StyledFlatSelect>
+    </>
   );
 };
 

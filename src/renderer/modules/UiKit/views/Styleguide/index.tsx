@@ -40,7 +40,32 @@ const Styleguide: FC = () => {
         <input id="hiddenInput2" type="hidden" />
       </label>
       <br />
-      <FlatSelect />
+      <FlatSelect
+        id="sadfa"
+        items={{
+          grouped: [
+            {
+              groupe: 'Foo',
+              items: [
+                { label: 'Foo', value: 'foo' },
+                { label: 'Foo2', value: 'foo2' },
+                { label: 'Foo3', value: 'foo3' },
+              ],
+            },
+          ],
+          items: [
+            { label: 'Bar', value: 'bar', disabled: true },
+            { label: 'Baz', value: 'baz' },
+            { label: 'Buz', value: 'buz' },
+            { label: 'Biz', value: 'biz' },
+            { label: 'Bez', value: 'bez' },
+          ],
+        }}
+        label="Select a foo"
+        name="foo"
+        register={() => {}}
+        value="foo"
+      />
     </div>
   );
 };

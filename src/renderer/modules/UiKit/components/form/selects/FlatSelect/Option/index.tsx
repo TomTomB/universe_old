@@ -30,8 +30,10 @@ const StyledFlatSelectOption = styled.div<StyledFlatSelectOptionProps>`
   position: relative;
   border-bottom: thin solid #1e2328;
   padding: 0 10px;
+  outline: 0;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: #f0e6d2;
     background-color: #1e2328;
   }
@@ -44,6 +46,8 @@ const StyledFlatSelectOption = styled.div<StyledFlatSelectOptionProps>`
   ${({ selected }) =>
     selected &&
     css`
+      color: #f0e6d2;
+      background-color: #1e2328;
       &::after {
         background: url(${dropdownCheck}) center no-repeat;
         width: 14px;
@@ -68,17 +72,28 @@ const StyledFlatSelectOption = styled.div<StyledFlatSelectOptionProps>`
 `;
 
 interface FlatSelectOptionProps {
+  index: number;
   selected?: boolean;
   disabled?: boolean;
+  onClick: () => void;
 }
 
 const FlatSelectOption: FC<PropsWithChildren<FlatSelectOptionProps>> = ({
   children,
   selected,
   disabled,
+  index,
+  onClick,
 }) => {
   return (
-    <StyledFlatSelectOption selected={selected} data-disabled={disabled}>
+    <StyledFlatSelectOption
+      tabIndex={disabled ? -1 : 0}
+      selected={selected}
+      data-disabled={disabled}
+      data-index={index}
+      role="option"
+      onClick={onClick}
+    >
       {children}
     </StyledFlatSelectOption>
   );

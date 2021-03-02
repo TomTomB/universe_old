@@ -1,15 +1,15 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import dropdownArrowLocked from '../assets/img/up-down-arrow-locked.png';
 import dropdownArrow from '../assets/img/up-down-arrow.png';
-import useClickOutside from '@uikit/hooks/useClickOutside';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util/springConfig';
 import { ScrollContainer, StyledScrollContainer } from '@uikit/components/base';
-import generateId from '@uikit/util/idGenerator';
 import Label from '../../Label';
 import FormField from '../../base/FormField';
 import FramedSelectOption from './Option';
+import NativeSelect from '../NativeSelect';
+import useSelectBehavior from '../hooks/useSelectBehavior';
 
 const SelectLabel = styled(Label)`
   margin-bottom: 2px;
@@ -107,10 +107,6 @@ const Options = styled.ul`
   }
 `;
 
-const NativeSelect = styled.select`
-  display: none;
-`;
-
 const Select = styled.div<{ active: boolean }>`
   display: inline-flex;
   flex-direction: column;
@@ -184,32 +180,8 @@ interface FramedSelectProps {
   value?: string;
   disabled?: boolean;
   openUpward?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: (...args: any) => any;
 }
-
-const getOption = ({
-  selectId,
-  optionIndex,
-}: {
-  selectId: string;
-  optionIndex: number;
-}) => {
-  return document.querySelector<HTMLLIElement>(
-    `#${selectId} [data-index="${optionIndex}"]`
-  );
-};
-
-const updateOptionFocus = ({
-  selectId,
-  optionIndex,
-}: {
-  selectId: string;
-  optionIndex: number;
-}) => {
-  const optionElement = getOption({ selectId, optionIndex });
-  optionElement?.focus();
-};
 
 const FramedSelect: FC<FramedSelectProps> = ({
   items,
@@ -221,150 +193,18 @@ const FramedSelect: FC<FramedSelectProps> = ({
   disabled,
   openUpward = false,
 }) => {
-  const nativeSelectId = useMemo(() => {
-    return generateId();
-  }, []);
-  const labelId = useMemo(() => {
-    return generateId();
-  }, []);
-  const [selected, setSelected] = useState(
-    !value && items.length ? items[0].value : value
-  );
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentFocusedOptionIndex, setCurrentFocusedOptionIndex] = useState(
-    selected ? items.findIndex(i => i.value === selected) : 0
-  );
-  const optionsContainerRef = useRef(null);
-  const customSelectRef = useRef<HTMLDivElement>(null);
-
-  useClickOutside(optionsContainerRef, () => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
-  });
-
-  useEffect(() => {
-    if (isOpen) {
-      const option = items[currentFocusedOptionIndex];
-      if (option) {
-        const optionElement = getOption({
-          selectId: id,
-          optionIndex: currentFocusedOptionIndex,
-        });
-        optionElement?.focus();
-
-        setTimeout(() => {
-          optionElement?.scrollIntoView({ block: 'nearest' });
-        }, 10);
-      }
-    }
-  }, [isOpen, currentFocusedOptionIndex, items, id]);
-
-  useEffect(() => {
-    const element = document.getElementById(nativeSelectId);
-    if (element) {
-      (element as HTMLSelectElement).value = selected as string;
-    }
-    setCurrentFocusedOptionIndex(items.findIndex(i => i.value === selected));
-  }, [selected, name, items, nativeSelectId]);
-
-  let searchTerm = '';
-  let debounceTimeout: number | null = null;
-
-  const trySelectOption = (atIndex: number, dir?: 'next' | 'prev') => {
-    const itemToSelect = items[atIndex];
-    if (itemToSelect) {
-      if (itemToSelect.disabled) {
-        if (dir === 'prev') {
-          trySelectOption(atIndex - 1, dir);
-        } else if (dir === 'next') {
-          trySelectOption(atIndex + 1, dir);
-        }
-
-        return;
-      }
-
-      setSelected(itemToSelect.value);
-      if (isOpen) {
-        updateOptionFocus({
-          selectId: id,
-          optionIndex: atIndex,
-        });
-      }
-    }
-  };
-
-  const searchAndSelectOption = () => {
-    const searchedOptionIndex = items.findIndex(option => {
-      return (
-        option.label.toLowerCase().startsWith(searchTerm) && !option.disabled
-      );
-    });
-    trySelectOption(searchedOptionIndex);
-  };
-
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    switch (event.code) {
-      case 'Enter':
-      case 'Space':
-        if (isOpen) {
-          setIsOpen(false);
-          customSelectRef.current?.focus();
-        } else {
-          setIsOpen(true);
-        }
-        break;
-
-      case 'Escape':
-      case 'Tab':
-        if (isOpen) {
-          setIsOpen(false);
-          customSelectRef.current?.focus();
-        }
-
-        break;
-
-      case 'ArrowDown':
-        if (event.altKey && !isOpen) {
-          setIsOpen(true);
-        }
-
-        trySelectOption(currentFocusedOptionIndex + 1, 'next');
-        break;
-
-      case 'ArrowUp':
-        if (event.altKey && !isOpen) {
-          setIsOpen(true);
-        }
-
-        trySelectOption(currentFocusedOptionIndex - 1, 'prev');
-        break;
-
-      default:
-        if (debounceTimeout) {
-          window.clearTimeout(debounceTimeout);
-        }
-        searchTerm += event.key;
-        debounceTimeout = window.setTimeout(() => {
-          searchTerm = '';
-        }, 500);
-
-        searchAndSelectOption();
-        break;
-    }
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (
-      event.code === 'Tab' ||
-      event.code === 'ArrowDown' ||
-      event.code === 'ArrowUp'
-    ) {
-      if (isOpen) {
-        event.preventDefault();
-      }
-    }
-  };
+  const {
+    nativeSelectId,
+    labelId,
+    selectedOption,
+    optionsContainerRef,
+    customSelectRef,
+    isOpen,
+    setSelectedOption,
+    setIsOpen,
+    handleKeyDown,
+    handleKeyUp,
+  } = useSelectBehavior(items, name, id, value);
 
   const transitions = useTransition(isOpen, null, {
     config: springConfigHarsh,
@@ -376,30 +216,18 @@ const FramedSelect: FC<FramedSelectProps> = ({
   return (
     <FormField>
       <NativeSelect
-        aria-hidden="true"
         id={nativeSelectId}
-        ref={register()}
+        register={register}
+        hidden
+        items={items}
         name={name}
         disabled={disabled}
         onChange={e => {
-          if (selected !== e.target.value) {
-            setSelected(e.target.value);
+          if (selectedOption !== e.target.value) {
+            setSelectedOption(e.target.value);
           }
         }}
-      >
-        {items.map(
-          option =>
-            option && (
-              <option
-                key={option.label + option.value}
-                value={option.value}
-                disabled={option.disabled}
-              >
-                {option.label}
-              </option>
-            )
-        )}
-      </NativeSelect>
+      />
 
       <SelectLabel
         id={labelId}
@@ -443,9 +271,9 @@ const FramedSelect: FC<FramedSelectProps> = ({
                             index={index}
                             disabled={option.disabled}
                             key={option.label + option.value}
-                            selected={selected === option.value}
+                            selected={selectedOption === option.value}
                             onClick={() => {
-                              setSelected(option.value);
+                              setSelectedOption(option.value);
                               setIsOpen(false);
                             }}
                           >
@@ -461,7 +289,8 @@ const FramedSelect: FC<FramedSelectProps> = ({
 
         <CurrentContainer onClick={() => setIsOpen(!isOpen)}>
           <CurrentValue>
-            {items.find(item => item.value === selected)?.label || 'Select'}
+            {items.find(item => item.value === selectedOption)?.label ||
+              'Select'}
           </CurrentValue>
         </CurrentContainer>
       </Select>
