@@ -10,7 +10,9 @@ describe('Option', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <Option>Option</Option>
+          <Option index={1} onClick={() => {}}>
+            Option
+          </Option>
         </ThemeProvider>
       )
     ).toBeTruthy();
