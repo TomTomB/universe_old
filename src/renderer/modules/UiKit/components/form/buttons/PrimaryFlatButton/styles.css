@@ -1,0 +1,569 @@
+:host .lol-uikit-flat-button {
+  font-family: LoL Display;
+}
+:host .lol-uikit-flat-button {
+  font-family: LoL Display;
+}
+:host .lol-uikit-flat-button {
+  text-transform: uppercase;
+}
+
+:host {
+  --flat-button-height: 100%;
+  --flat-button-min-height: 32px;
+  --flat-button-border-transition-opacity: 0;
+  --flat-button-glow-animation: initial;
+  --flat-button-bg-opacity: 0;
+  --flat-button-inner-height: 100%;
+}
+
+:host .lol-uikit-flat-button {
+  color: #cdbe91;
+  font-size: var(--font-size, 14px);
+  font-family: var(--font-family, var(--font-display));
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 5px 1.3em;
+  height: 100%;
+  min-height: var(--flat-button-min-height);
+  cursor: pointer;
+  -webkit-user-select: none;
+  box-shadow: 0 0 1px 1px #010a13, inset 0 0 1px 1px #010a13;
+  background: #1e2328;
+  border: 2px solid transparent; /* Flare Element - flare element used for click flare (note: actual image) */ /* Glow Element - used for inner and outset glows for different states / transitions  */ /* Border Element Idle - used for defaut border gradient on flat button */ /* Border Element Transition - used for transitional border gradient for different states */ /* Sheen Wrapper - used to wrap sheen animation and cleanly apply overflow hidden for the size of the button */ /* Sheen Element - sheen element for transform */ /* BG Element - used for BG Color Gradient for different states / transitions */ /* State classes defined below are done so via JS in index.js by the `setInteractionClass` function */ /* Intro State */ /* Hover State - onmouseover */ /* Down State - onmousedown */ /* Click State - on click */ /* Disabled - on disabled="true" */
+}
+:host .lol-uikit-flat-button * {
+  pointer-events: none;
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-content-wrapper {
+  position: relative;
+}
+:host
+  .lol-uikit-flat-button
+  .lol-uikit-flat-button-content-wrapper:lang(ar-ae) {
+  direction: rtl;
+}
+:host
+  .lol-uikit-flat-button
+  .lol-uikit-flat-button-content-wrapper.external::after {
+  width: 9px;
+  height: 9px;
+  content: \'\';
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-mask: url('/fe/lol-uikit/images/external-link-mask.png') no-repeat;
+  -webkit-mask-size: contain;
+  background: #cdbe91;
+  margin-left: 5px;
+  margin-top: -5px;
+}
+:host
+  .lol-uikit-flat-button
+  .lol-uikit-flat-button-content-wrapper.external:lang(ar-ae)::after {
+  transform: scaleX(-1);
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-flare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-flare:before {
+  content: \'\';
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  width: 48px;
+  height: 48px;
+  opacity: 0;
+  background: transparent url('/fe/lol-uikit/images/sheen.png') top center
+    no-repeat;
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-flare:after {
+  content: \'\';
+  position: absolute;
+  bottom: -25px;
+  right: -25px;
+  width: 48px;
+  height: 48px;
+  opacity: 0;
+  background: transparent url('/fe/lol-uikit/images/sheen.png') top center
+    no-repeat;
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-filter: blur(4px);
+  animation: var(--flat-button-glow-animation);
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-border-idle {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  border: 2px solid transparent;
+  border-image: linear-gradient(
+    to top,
+    #785b28 0%,
+    #c89c3c 55%,
+    #c8a355 71%,
+    #c8aa6e 100%
+  );
+  border-image-slice: 1;
+  transition: opacity 300ms linear;
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-border-transition {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 100%;
+  height: 100%;
+  opacity: var(--flat-button-border-transition-opacity);
+  border: 2px solid transparent;
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-sheen-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 150%;
+  transform: translateY(-100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.15) 92%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  -webkit-filter: blur(2px);
+}
+:host .lol-uikit-flat-button .lol-uikit-flat-button-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 400ms cubic-bezier(0, 0, 0.33, 1);
+  opacity: var(--flat-button-bg-opacity);
+  background-image: linear-gradient(
+    to bottom,
+    #1e232a 0%,
+    #1e232a 40%,
+    rgba(118, 97, 51, 0.8) 140%
+  );
+}
+
+/*
+  Hover, Active etc. states
+*/
+
+:host .lol-uikit-flat-button.intro .lol-uikit-flat-button-border-transition {
+  border-image: linear-gradient(to top, #fff 0%, #fff 33%, #fff 66%, #fff 100%);
+  border-image-slice: 1;
+}
+:host .lol-uikit-flat-button.hover {
+  color: #f0e6d2;
+  animation: 600ms cubic-bezier(0, 0, 0.33, 1) 1 hoverTextShadow;
+}
+:host .lol-uikit-flat-button.hover.disabled {
+  color: #5c5b57;
+  animation: none;
+}
+:host .lol-uikit-flat-button.hover .lol-uikit-flat-button-border-transition {
+  opacity: 1;
+  border-image: linear-gradient(
+    to top,
+    #c89c3c 0%,
+    #dcc188 50%,
+    #e1c998 71%,
+    #f0e6d8 100%
+  );
+  border-image-slice: 1;
+}
+:host .lol-uikit-flat-button.hover .lol-uikit-flat-button-glow {
+  animation: 600ms cubic-bezier(0, 0, 0.33, 1) 1 hoverGlow;
+}
+:host .lol-uikit-flat-button.hover .lol-uikit-flat-button-bg {
+  opacity: 1;
+}
+:host
+  .lol-uikit-flat-button.hover
+  .lol-uikit-flat-button-content-wrapper.external::after {
+  background: #f0e6d2;
+}
+:host .lol-uikit-flat-button.down {
+  color: #5c5b57;
+  transition: color 100ms linear;
+  animation: none;
+}
+:host .lol-uikit-flat-button.down .lol-uikit-flat-button-bg {
+  opacity: 0;
+}
+:host .lol-uikit-flat-button.down .lol-uikit-flat-button-border-transition {
+  opacity: 1;
+  border-image: linear-gradient(to bottom, #463817 0%, #694f27 100%);
+  border-image-slice: 1;
+}
+:host
+  .lol-uikit-flat-button.down
+  .lol-uikit-flat-button-content-wrapper.external::after {
+  background: #5c5b57;
+}
+:host .lol-uikit-flat-button.click {
+  color: #e4e1d8;
+  border-image: linear-gradient(to top, #fff 0%, #fff 33%, #fff 66%, #fff 100%);
+  border-image-slice: 1;
+  animation: 130ms linear clickScale 1, 400ms linear 1 hoverTextShadow;
+}
+:host .lol-uikit-flat-button.click .lol-uikit-flat-button-border-transition {
+  border-image: linear-gradient(
+    to top,
+    #c89c3c 0%,
+    #dcc188 50%,
+    #e1c998 71%,
+    #f0e6d8 100%
+  );
+  border-image-slice: 1;
+  transition: opacity 400ms linear;
+  opacity: 1;
+}
+:host .lol-uikit-flat-button.click .lol-uikit-flat-button-glow {
+  animation: 600ms cubic-bezier(0, 0, 0.33, 1) hoverGlow 1;
+}
+:host .lol-uikit-flat-button.click .lol-uikit-flat-button-sheen {
+  animation: 330ms clickSheen 1 linear;
+}
+:host .lol-uikit-flat-button.click .lol-uikit-flat-button-bg {
+  opacity: 1;
+}
+:host .lol-uikit-flat-button.click .lol-uikit-flat-button-flare:before {
+  animation: 400ms cubic-bezier(0, 0, 0.33, 1) 0ms 1 clickFlare;
+}
+:host .lol-uikit-flat-button.click .lol-uikit-flat-button-flare:after {
+  animation: 400ms cubic-bezier(0, 0, 0.33, 1) 30ms 1 clickFlare;
+}
+:host
+  .lol-uikit-flat-button.click
+  .lol-uikit-flat-button-content-wrapper.external::after {
+  background: #e4e1d8;
+}
+:host .lol-uikit-flat-button.disabled {
+  cursor: default;
+  color: #5c5b57;
+  background: #1e2328;
+  border: 2px solid #5c5b57;
+  border-image: initial;
+  transition: all 300ms linear;
+}
+:host .lol-uikit-flat-button.disabled:hover {
+  cursor: default;
+  color: #5c5b57;
+  background: #1e2328;
+  border-color: #5c5b57;
+  border-image: initial;
+  background-image: initial;
+  animation: none;
+}
+:host .lol-uikit-flat-button.disabled .lol-uikit-flat-button-flare,
+:host .lol-uikit-flat-button.disabled .lol-uikit-flat-button-glow,
+:host .lol-uikit-flat-button.disabled .lol-uikit-flat-button-sheen-wrapper,
+:host .lol-uikit-flat-button.disabled .lol-uikit-flat-button-bg {
+  display: none;
+}
+:host .lol-uikit-flat-button.disabled .lol-uikit-flat-button-border-transition {
+  transition: opacity 300ms linear;
+  opacity: 0;
+}
+:host .lol-uikit-flat-button.disabled .lol-uikit-flat-button-border-idle {
+  opacity: 0;
+}
+:host
+  .lol-uikit-flat-button.disabled
+  .lol-uikit-flat-button-content-wrapper.external::after {
+  background: #5c5b57;
+}
+:host .lol-uikit-flat-button.no-min-height {
+  min-height: 0;
+}
+:host .lol-uikit-flat-button.back {
+  background-image: url('/fe/lol-uikit/images/back.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+:host .lol-uikit-flat-button.back:hover {
+  background-image: url('/fe/lol-uikit/images/back-hover.png');
+}
+:host .lol-uikit-flat-button.back.disabled,
+:host .lol-uikit-flat-button.back:active {
+  background-image: url('/fe/lol-uikit/images/back-disabled.png');
+}
+.lol-uikit-flat-button-wrapper {
+  min-width: inherit;
+  width: inherit;
+  height: 100%;
+}
+.lol-uikit-flat-button-inner {
+  height: var(--flat-button-inner-height);
+}
+
+/* Das hier unter ist erstmal optional */
+
+:host(:not([type='next']):not([type='purchase']))
+  .primary:not(.back):not(.disabled) {
+  background: linear-gradient(to bottom, #5a401f 0%, #332717 100%);
+}
+:host(:not([type='next']):not([type='purchase']))
+  .primary:not(.back):not(.disabled)
+  .lol-uikit-flat-button-bg {
+  background: linear-gradient(to bottom, #604522 0%, #846745 100%);
+}
+:host(:not([type='next']):not([type='purchase']))
+  .primary:not(.back):not(.disabled).down {
+  color: #785a28;
+  background: linear-gradient(to bottom, #362715 0%, #17130e 100%);
+}
+:host(:not([type='next']):not([type='purchase']))
+  .primary:not(.back):not(.disabled).down
+  .lol-uikit-flat-button-content-wrapper.external::after {
+  background: #785a28;
+}
+:host([type='purchase']:not([type='next'])) .primary:not(.back):not(.disabled) {
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 44, 170, 0.3) 0%,
+      rgba(255, 44, 170, 0) 100%
+    ),
+    #1e2328;
+  color: #fde9f8;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled)
+  .lol-uikit-flat-button-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 44, 170, 0.3) 0%,
+      rgba(255, 44, 170, 0) 100%
+    ),
+    #1e2328;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled)
+  .lol-uikit-flat-button-border-idle {
+  border-image: linear-gradient(
+    to bottom,
+    rgba(245, 155, 247, 0.8) 0%,
+    rgba(232, 216, 227, 0.8) 0.01%,
+    rgba(237, 153, 239, 0.8) 100%
+  );
+  border-image-slice: 1;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).hover {
+  color: #fde9f8;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 44, 170, 0.5) 0%,
+      rgba(255, 44, 170, 0) 100%
+    ),
+    #1e2328;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).hover
+  .lol-uikit-flat-button-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 44, 170, 0.5) 0%,
+      rgba(255, 44, 170, 0) 100%
+    ),
+    #1e2328;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).hover.disabled {
+  color: #fde9f8;
+  animation: none;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).hover
+  .lol-uikit-flat-button-border-transition {
+  border-image: linear-gradient(
+    to bottom,
+    #f59bf7 0%,
+    #e8d8e3 0.01%,
+    #ed99ef 100%
+  );
+  border-image-slice: 1;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).disabled {
+  color: #fde9f8;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).down {
+  color: #fde9f8;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 44, 170, 0.2) 0%,
+      rgba(255, 44, 170, 0) 100%
+    ),
+    #1e2328;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).down
+  .lol-uikit-flat-button-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 44, 170, 0.2) 0%,
+      rgba(255, 44, 170, 0) 100%
+    ),
+    #1e2328;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).down
+  .lol-uikit-flat-button-border-transition {
+  border-image: linear-gradient(
+    to bottom,
+    rgba(245, 155, 247, 0.4) 0%,
+    rgba(232, 216, 227, 0.4) 0.01%,
+    rgba(237, 153, 239, 0.4) 100%
+  );
+  border-image-slice: 1;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).down
+  .lol-uikit-flat-button-border-idle {
+  border-image: linear-gradient(
+    to bottom,
+    rgba(245, 155, 247, 0.4) 0%,
+    rgba(232, 216, 227, 0.4) 0.01%,
+    rgba(237, 153, 239, 0.4) 100%
+  );
+  border-image-slice: 1;
+}
+:host([type='purchase']:not([type='next']))
+  .primary:not(.back):not(.disabled).down
+  .lol-uikit-flat-button-content-wrapper.external::after {
+  background: #fde9f8;
+}
+:host([type='next']) .lol-uikit-flat-button-wrapper {
+  position: relative;
+}
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper
+  .lol-uikit-flat-button-flare,
+:host([type='next']) .lol-uikit-flat-button-wrapper .lol-uikit-flat-button-glow,
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper
+  .lol-uikit-flat-button-border-idle,
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper
+  .lol-uikit-flat-button-border-transition,
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper
+  .lol-uikit-flat-button-sheen-wrapper,
+:host([type='next']) .lol-uikit-flat-button-wrapper .lol-uikit-flat-button-bg {
+  display: none;
+}
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper
+  .lol-uikit-flat-button-inner {
+  -webkit-clip-path: polygon(
+    0% 0%,
+    calc(100% - 17px) 0%,
+    calc(100% - 1px) 50%,
+    calc(100% - 17px) 100%,
+    0% 100%
+  );
+}
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper
+  .lol-uikit-flat-button-inner
+  .lol-uikit-flat-button {
+  -webkit-clip-path: polygon(
+    0% 0%,
+    calc(100% - 19px) 0%,
+    calc(100% - 4px) 50%,
+    calc(100% - 19px) 100%,
+    0% 100%
+  );
+}
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper:active
+  .lol-uikit-flat-button-inner {
+  background: linear-gradient(to top, #005a82 0%, #08495f 50%, #0d404c 100%);
+}
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper:active
+  .lol-uikit-flat-button-inner
+  .lol-uikit-flat-button {
+  color: #005a82;
+}
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper.disabled
+  .lol-uikit-flat-button-inner {
+  background: #5c5b57;
+}
+:host([type='next'])
+  .lol-uikit-flat-button-wrapper.disabled
+  .lol-uikit-flat-button-inner
+  .lol-uikit-flat-button {
+  color: #5c5b57;
+  background: #1e2328;
+}
+:host([type='next']) .lol-uikit-flat-button-extra {
+  position: absolute;
+}
+:host([type='next']):host([box-outline]) .lol-uikit-flat-button-extra {
+  width: 20px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: 2px solid #0a323c;
+  border-left: 0;
+}
+:host([type='next']):host([box-outline])
+  .disabled
+  .lol-uikit-flat-button-extra {
+  border: 2px solid #1e2328;
+}
+:host([type='next']) .lol-uikit-flat-button-inner {
+  position: relative;
+  background: linear-gradient(to top, #005a82 0%, #0596aa 50%, #08b1b2 100%);
+  padding: 2px 0 2px 2px;
+}
+:host([type='next']) .lol-uikit-flat-button-inner .lol-uikit-flat-button {
+  border: 0;
+  padding-right: 31px;
+  color: #a3c7c7;
+  min-height: 28px;
+  box-shadow: 0 0 1px 0px #010a13, inset 0 0 1px 1px #010a13;
+}
+:host([type='next']) .lol-uikit-flat-button-inner .lol-uikit-flat-button:hover {
+  color: #cdfafa;
+}
+:host([type='next']) .lol-uikit-flat-button-inner .lol-uikit-flat-button.click {
+  animation: none;
+}
+:host([type='next']) .lol-uikit-flat-button-inner:hover {
+  background: linear-gradient(to top, #3097c6 0%, #0ecaba 50%, #cdfafa 100%);
+}

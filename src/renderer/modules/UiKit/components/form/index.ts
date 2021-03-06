@@ -1,4 +1,5 @@
 import FormField from './base/FormField';
+import PrimaryFlatButton from './buttons/PrimaryFlatButton';
 import PrimaryMagicButton from './buttons/PrimaryMagicButton';
 import PlayButton from './buttons/PlayButton';
 import PrimaryReplayButton from './buttons/PrimaryReplayButton';
@@ -19,4 +20,5 @@ export {
   FlatSelect,
   FormField,
   CheckboxContainer,
+  PrimaryFlatButton,
 };

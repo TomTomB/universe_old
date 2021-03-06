@@ -1,4 +1,4 @@
-import { FlatSelect } from '@uikit/components/form';
+import { FlatSelect, PrimaryFlatButton } from '@uikit/components/form';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -66,6 +66,8 @@ const Styleguide: FC = () => {
         register={() => {}}
         value="foo"
       />
+      <br />
+      <PrimaryFlatButton>Nils stinkt</PrimaryFlatButton>
     </div>
   );
 };
