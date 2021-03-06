@@ -30,12 +30,14 @@
     "Styleguide",
     "bornholdt",
     "cond",
+    "eslintignore",
     "fullscreenable",
     "galio",
     "immer",
     "kaisa",
     "opentype",
     "overlayscrollbars",
+    "prettierrc",
     "reduxjs",
     "semibold",
     "shentox",
@@ -45,6 +47,7 @@
     "ungrouped",
     "unselectable",
     "webm",
+    "webp",
     "xstate",
     "zustand"
   ]
