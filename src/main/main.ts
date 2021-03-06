@@ -99,8 +99,6 @@ const createWindow = async () => {
     });
   }
 
-  mainWindow.webContents.openDevTools();
-
   mainWindow.webContents.once('did-finish-load', () => {
     splash.destroy();
 
@@ -144,7 +142,7 @@ app
 
     return true;
   })
-  .catch((e) => Logger.error(e));
+  .catch(e => Logger.error(e));
 
 if (!app.requestSingleInstanceLock()) {
   app.quit();
@@ -203,24 +201,24 @@ app.on('web-contents-created', (_event, contents) => {
   });
 });
 
-app.on('remote-require', (event) => {
+app.on('remote-require', event => {
   event.preventDefault();
 });
 
 // built-ins are modules such as "app"
-app.on('remote-get-builtin', (event) => {
+app.on('remote-get-builtin', event => {
   event.preventDefault();
 });
 
-app.on('remote-get-global', (event) => {
+app.on('remote-get-global', event => {
   event.preventDefault();
 });
 
-app.on('remote-get-current-window', (event) => {
+app.on('remote-get-current-window', event => {
   event.preventDefault();
 });
 
-app.on('remote-get-current-web-contents', (event) => {
+app.on('remote-get-current-web-contents', event => {
   event.preventDefault();
 });
 
