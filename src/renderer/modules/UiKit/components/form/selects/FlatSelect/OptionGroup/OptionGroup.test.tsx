@@ -10,7 +10,7 @@ describe('OptionGroup', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <OptionGroup />
+          <OptionGroup name="Group" />
         </ThemeProvider>
       )
     ).toBeTruthy();
