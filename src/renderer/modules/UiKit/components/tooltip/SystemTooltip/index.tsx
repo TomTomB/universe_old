@@ -133,8 +133,6 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
   const childrenHasChanged = useCompare(children?.toString() ?? '');
 
   useEffect(() => {
-    console.log(triggerRef);
-
     if (!triggerRef) {
       return;
     }
