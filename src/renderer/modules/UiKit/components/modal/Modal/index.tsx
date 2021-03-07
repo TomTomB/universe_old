@@ -45,11 +45,15 @@ const StyledModalSubBorder = styled.div`
 const StyledModal = styled(animated.div)`
   --frameColors: #614a1f 0, #463714 5px, #463714 100%;
 
-  display: flex;
   border: 2px solid transparent;
   position: relative;
   background: #010a13;
   box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
+  max-width: 800px;
+
+  &.withButtons {
+    padding-bottom: 35px;
+  }
 
   &.top,
   &.bottom {
@@ -285,7 +289,7 @@ export enum ModalTopRightCloseButtonVariant {
   CIRCLE,
 }
 
-interface ModalProps {
+export interface ModalProps {
   topRightCloseButton?: {
     variant: ModalTopRightCloseButtonVariant;
     click: (e: React.MouseEvent) => void;
@@ -348,7 +352,12 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
                     <StyledModal
                       style={props}
                       key={key}
-                      className={classNames(className, position, { disabled })}
+                      className={classNames(
+                        className,
+                        position,
+                        { disabled },
+                        { withButtons: bottomButtons.length }
+                      )}
                       ref={modalRef}
                     >
                       <StyledModalSubBorder />

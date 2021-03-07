@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
 import styled from 'styled-components';
-import tooltipSystemCaret from '@assets/components/tooltip/tooltip-caret.png';
+import tooltipCaret from '@assets/components/tooltip/tooltip-caret.png';
 import tooltipSubBorderHorizontal from '@assets/components/tooltip/tooltip-sub-border-horizontal.png';
 import tooltipSubBorderVertical from '@assets/components/tooltip/tooltip-sub-border-vertical.png';
 import { usePopperTooltip } from 'react-popper-tooltip';
@@ -54,7 +54,7 @@ const StyledTooltip = styled(animated.div)`
     &::after {
       content: '';
       position: absolute;
-      background: url(${tooltipSystemCaret}) center no-repeat;
+      background: url(${tooltipCaret}) center no-repeat;
       width: 24px;
       height: 15px;
     }
@@ -178,13 +178,17 @@ const TooltipContent = styled.p`
   margin: 0;
 `;
 
-type SystemTooltipProps = {
+export interface TooltipProps {
   triggerRef: HTMLElement | null;
-};
+  defaultVisible?: boolean;
+  placement?: 'auto' | 'left' | 'top' | 'right' | 'bottom';
+}
 
-const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
+const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({
   triggerRef,
   children,
+  defaultVisible = false,
+  placement = 'auto',
 }) => {
   const {
     getArrowProps,
@@ -193,7 +197,7 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
     setTriggerRef,
     visible,
     update,
-  } = usePopperTooltip({ placement: 'auto' });
+  } = usePopperTooltip({ placement, visible: defaultVisible });
 
   const transitions = useTransition(visible, null, {
     config: springConfigHarsh,
@@ -241,4 +245,4 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
   );
 };
 
-export default SystemTooltip;
+export default Tooltip;

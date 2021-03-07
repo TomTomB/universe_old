@@ -41,7 +41,7 @@ const CheckboxInput = styled.input`
       background-position-y: -14px;
 
       + ${CheckboxLabel} {
-        color: ${(props) => props.theme.colors.gold[1]};
+        color: ${props => props.theme.colors.gold[1]};
       }
     }
   }
@@ -67,7 +67,7 @@ const CheckboxInput = styled.input`
 
       + ${CheckboxLabel} {
         filter: brightness(0.5);
-        color: ${(props) => props.theme.colors.grey[1]};
+        color: ${props => props.theme.colors.grey[1]};
       }
     }
   }
@@ -79,7 +79,7 @@ const CheckboxInput = styled.input`
   }
 `;
 
-interface CheckboxProps {
+export interface CheckboxProps {
   id: string;
   label: string;
   name: string;

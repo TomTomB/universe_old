@@ -2,7 +2,7 @@ import React, { FC, useRef } from 'react';
 import noiseTileAlphaTintLarge from '@assets/components/noise/noise-tile-alpha-tint-large.png';
 import styled, { css, keyframes } from 'styled-components';
 
-interface AnimatedArrowOverlayProps {
+export interface AnimatedArrowOverlayProps {
   isCarrot?: boolean;
   className?: string;
 }

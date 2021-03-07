@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { isTest } from '@shared/env';
+import { isStorybook, isTest } from '@shared/env';
 import { useDispatch } from 'react-redux';
 import { createHashHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
@@ -18,7 +18,7 @@ const store = configureStore({
   preloadedState: load({
     namespace: 'universe',
     states: ['settings'],
-    disableWarnings: isTest,
+    disableWarnings: isTest || isStorybook,
   }),
 });
 

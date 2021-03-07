@@ -102,13 +102,17 @@ const TooltipContent = styled.p`
   margin: 0;
 `;
 
-type SystemTooltipProps = {
+export interface SystemTooltipProps {
   triggerRef: HTMLElement | null;
-};
+  defaultVisible?: boolean;
+  placement?: 'auto' | 'left' | 'top' | 'right' | 'bottom';
+}
 
 const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
   triggerRef,
   children,
+  defaultVisible = false,
+  placement = 'auto',
 }) => {
   const {
     getArrowProps,
@@ -117,7 +121,7 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
     setTriggerRef,
     visible,
     update,
-  } = usePopperTooltip({ placement: 'auto' });
+  } = usePopperTooltip({ placement, visible: defaultVisible });
 
   const transitions = useTransition(visible, null, {
     config: springConfigHarsh,
@@ -129,6 +133,8 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
   const childrenHasChanged = useCompare(children?.toString() ?? '');
 
   useEffect(() => {
+    console.log(triggerRef);
+
     if (!triggerRef) {
       return;
     }

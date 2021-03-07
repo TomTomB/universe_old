@@ -45,7 +45,7 @@ const Styleguide: FC = () => {
         items={{
           grouped: [
             {
-              groupe: 'Foo',
+              group: 'Foo',
               items: [
                 { label: 'Foo', value: 'foo' },
                 { label: 'Foo2', value: 'foo2' },

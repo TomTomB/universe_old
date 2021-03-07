@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import noiseTileAlphaTintLarge from '@assets/components/noise/noise-tile-alpha-tint-large.png';
 import noiseTileAlphaTintSmall from '@assets/components/noise/noise-tile-alpha-tint-small.png';
 
-interface AnimatedArrowOverlayProps {
+export interface AnimatedBorderOverlayProps {
   speed?: number;
   className?: string;
 }
@@ -120,12 +120,12 @@ const GlowContent = styled.div<{ speed: number }>`
 
   &.scroll {
     background-image: url(${noiseTileAlphaTintLarge});
-    animation: ${borderNoiseScrollAnimation} ${(props) => props.speed}ms linear
+    animation: ${borderNoiseScrollAnimation} ${props => props.speed}ms linear
       infinite;
   }
   &.overlay {
     background-image: url(${noiseTileAlphaTintSmall});
-    animation: ${borderNoiseScrollAnimation} ${(props) => props.speed}ms linear
+    animation: ${borderNoiseScrollAnimation} ${props => props.speed}ms linear
       infinite;
   }
   &.top {
@@ -144,7 +144,7 @@ const GlowContent = styled.div<{ speed: number }>`
   }
 `;
 
-const AnimatedBorderOverlay: FC<AnimatedArrowOverlayProps> = ({
+const AnimatedBorderOverlay: FC<AnimatedBorderOverlayProps> = ({
   speed = 25000,
   className,
 }) => {

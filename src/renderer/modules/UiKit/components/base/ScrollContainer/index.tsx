@@ -31,22 +31,22 @@ export const StyledScrollContainer = styled(OverlayScrollbarsComponent)`
 
   .os-scrollbar {
     .os-scrollbar-handle {
-      background-color: ${(props) => props.theme.colors.gold[5]} !important;
+      background-color: ${props => props.theme.colors.gold[5]} !important;
     }
     &:hover {
       .os-scrollbar-handle {
-        background-color: ${(props) => props.theme.colors.gold[3]} !important;
+        background-color: ${props => props.theme.colors.gold[3]} !important;
       }
     }
     &.active {
       .os-scrollbar-handle {
-        background-color: ${(props) => props.theme.colors.gold[6]} !important;
+        background-color: ${props => props.theme.colors.gold[6]} !important;
       }
     }
   }
 `;
 
-interface ScrollContainerProps {
+export interface ScrollContainerProps {
   maskOverflow?: boolean;
   observeStartSelector?: string;
   observeEndSelector?: string;
@@ -77,8 +77,8 @@ const ScrollContainer: FC<PropsWithChildren<ScrollContainerProps>> = ({
     const root = document.querySelector(`#${scrollContainerId}`);
 
     if (maskOverflow && targetStart && targetEnd) {
-      const handleIntersect: IntersectionObserverCallback = (entries) => {
-        entries.forEach((entry) => {
+      const handleIntersect: IntersectionObserverCallback = entries => {
+        entries.forEach(entry => {
           const { isIntersecting, target } = entry;
 
           if (isIntersecting) {

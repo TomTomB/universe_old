@@ -7,7 +7,7 @@ export const StyledLabel = styled.label`
   backface-visibility: hidden;
 `;
 
-interface LabelProps {
+export interface LabelProps {
   htmlFor: string;
   isInvalid: boolean;
   id?: string;

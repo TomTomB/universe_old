@@ -172,7 +172,7 @@ export interface SelectOption {
   disabled?: boolean;
 }
 
-interface FramedSelectProps {
+export interface FramedSelectProps {
   items: SelectOption[];
   id: string;
   label: string;

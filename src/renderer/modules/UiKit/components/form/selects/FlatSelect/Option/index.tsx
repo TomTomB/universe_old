@@ -14,22 +14,21 @@ const StyledFlatSelectOption = styled.div<StyledFlatSelectOptionProps>`
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   font-weight: 700;
-  line-height: 18px;
   letter-spacing: 0.0375em;
 
   height: 40px;
+  line-height: 40px;
+
   font-weight: 700;
-  overflow: visible;
-  text-overflow: clip;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
+
   color: #cdbe91;
   cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   position: relative;
   border-bottom: thin solid #1e2328;
-  padding: 0 10px;
+  padding: 0 30px 0 10px;
   outline: 0;
 
   &:hover,
@@ -63,6 +62,7 @@ const StyledFlatSelectOption = styled.div<StyledFlatSelectOptionProps>`
   &[data-disabled] {
     color: #888;
     cursor: default;
+    pointer-events: none;
 
     &:hover {
       color: #888;

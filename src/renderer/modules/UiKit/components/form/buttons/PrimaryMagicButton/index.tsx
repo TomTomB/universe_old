@@ -97,10 +97,10 @@ const FrameIdle = styled(FrameBase)`
     border: 2px solid transparent;
     border-image: linear-gradient(
         to top,
-        ${(props) => props.theme.colors.blue[4]} 0%,
-        ${(props) => props.theme.colors.blue[3]} 44%,
-        ${(props) => props.theme.colors.blue[3]} 93%,
-        ${(props) => props.theme.colors.blue[2]} 100%
+        ${props => props.theme.colors.blue[4]} 0%,
+        ${props => props.theme.colors.blue[3]} 44%,
+        ${props => props.theme.colors.blue[3]} 93%,
+        ${props => props.theme.colors.blue[2]} 100%
       )
       2 stretch;
   }
@@ -118,8 +118,8 @@ const FrameInteractive = styled(FrameBase)`
     border-image: linear-gradient(
         to top,
         #3295c7 0%,
-        ${(props) => props.theme.colors.blue[2]} 49%,
-        ${(props) => props.theme.colors.blue[1]} 100%
+        ${props => props.theme.colors.blue[2]} 49%,
+        ${props => props.theme.colors.blue[1]} 100%
       )
       2 stretch;
   }
@@ -128,9 +128,9 @@ const FrameInteractive = styled(FrameBase)`
     border: 2px solid transparent;
     border-image: linear-gradient(
         to top,
-        ${(props) => props.theme.colors.blue[4]} 0%,
-        ${(props) => props.theme.colors.blue[4]} 83%,
-        ${(props) => props.theme.colors.blue[4]} 100%
+        ${props => props.theme.colors.blue[4]} 0%,
+        ${props => props.theme.colors.blue[4]} 83%,
+        ${props => props.theme.colors.blue[4]} 100%
       )
       2 stretch;
   }
@@ -208,7 +208,7 @@ const Content = styled.div`
   font-kerning: normal;
   font-feature-settings: 'kern' 1;
   -webkit-font-smoothing: antialiased;
-  color: ${(props) => props.theme.colors.grey[3]};
+  color: ${props => props.theme.colors.grey[3]};
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.0325em;
@@ -271,7 +271,7 @@ const MagicButton = styled.button`
 
     &:not(:hover):not(:active):not(:focus-visible) {
       ${Content} {
-        color: ${(props) => props.theme.colors.grey.blue};
+        color: ${props => props.theme.colors.grey.blue};
       }
       ${FrameInteractive} {
         opacity: 0;
@@ -300,7 +300,7 @@ const MagicButton = styled.button`
     &:hover,
     &:focus-visible {
       ${Content} {
-        color: ${(props) => props.theme.colors.blue[1]};
+        color: ${props => props.theme.colors.blue[1]};
       }
       ${RadialEffect} {
         display: block;
@@ -339,7 +339,7 @@ const MagicButton = styled.button`
 
     &:active {
       ${Content} {
-        color: ${(props) => props.theme.colors.blue[4]};
+        color: ${props => props.theme.colors.blue[4]};
       }
       ${RightRuneMagic} {
         background-position-x: -124px;
@@ -372,17 +372,17 @@ const MagicButton = styled.button`
 
   &[disabled] {
     ${Content} {
-      color: ${(props) => props.theme.colors.grey.disabled};
+      color: ${props => props.theme.colors.grey.disabled};
       font-size: 14px;
-      box-shadow: 0 0 1px 1px ${(props) => props.theme.colors.black},
-        inset 0 0 1px 1px ${(props) => props.theme.colors.black};
-      background-color: ${(props) => props.theme.colors.grey.frame};
-      border: 2px solid ${(props) => props.theme.colors.grey.disabled};
+      box-shadow: 0 0 1px 1px ${props => props.theme.colors.black},
+        inset 0 0 1px 1px ${props => props.theme.colors.black};
+      background-color: ${props => props.theme.colors.grey.frame};
+      border: 2px solid ${props => props.theme.colors.grey.disabled};
     }
   }
 `;
 
-interface PrimaryMagicButtonProps {
+export interface PrimaryMagicButtonProps {
   disabled?: boolean;
   className?: string;
 }

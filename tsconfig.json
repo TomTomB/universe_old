@@ -33,7 +33,8 @@
       "@store": ["src/renderer/store/index.ts"],
       "@shared/*": ["src/shared/*"],
       "@typings": ["src/types/index.ts"],
-      "@typings/*": ["src/types/*"]
+      "@typings/*": ["src/types/*"],
+      "@mocks/*": ["mocks/*"]
     }
   },
   "exclude": [

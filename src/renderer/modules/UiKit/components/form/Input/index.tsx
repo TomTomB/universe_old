@@ -143,7 +143,7 @@ const FlatInput = styled.input`
   }
 `;
 
-interface InputProps {
+export interface InputProps {
   id: string;
   label: string;
   name: string;

@@ -1,6 +1,7 @@
 export const isProd = process.env.NODE_ENV === 'production';
 export const isDev = process.env.NODE_ENV === 'development';
 export const isTest = process.env.NODE_ENV === 'test';
+export const isStorybook = process.env.STORYBOOK === 'true';
 
 export const isWindows = process.platform === 'win32';
 

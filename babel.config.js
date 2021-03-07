@@ -70,6 +70,7 @@ module.exports = api => {
             '@store': './src/renderer/store',
             '@shared': './src/shared',
             '@typings': './src/types',
+            '@mocks': './mocks',
           },
         },
       ],

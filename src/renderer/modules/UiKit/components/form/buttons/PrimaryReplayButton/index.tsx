@@ -4,7 +4,7 @@ import buttonReplayHover from '@assets/components/buttons/replay/button-replay-h
 import buttonReplayActive from '@assets/components/buttons/replay/button-replay-active.png';
 import styled from 'styled-components';
 
-interface PrimaryReplayButtonProps {
+export interface PrimaryReplayButtonProps {
   disabled?: boolean;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

@@ -21,7 +21,8 @@ const OptionsContainer = styled.div<{ openUpward: boolean; active: boolean }>`
   border-image: linear-gradient(to top, #695625, #463714) 1;
   border-width: 2px;
   padding-top: 40px;
-  width: 100%;
+  width: 400px;
+  max-width: 400px;
 
   ${StyledScrollContainer} {
     max-height: 150px;
@@ -55,18 +56,19 @@ const Current = styled.div`
   color: #cdbe91;
   font-size: 18px;
   font-weight: 700;
-  line-height: 22px;
   letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-  display: flex;
-  flex-direction: row;
   background: none;
   position: absolute;
   height: 40px;
+  line-height: 40px;
   margin: 0;
-  align-items: center;
-  padding: 0 10px;
+  padding: 0 25px 0 10px;
   cursor: pointer;
+  max-width: 400px;
 
   [data-disabled='true'] & {
     color: #3c3c41;
@@ -78,11 +80,15 @@ const Current = styled.div`
   }
 
   &::after {
+    position: absolute;
     content: '';
     background: url(${upDownArrow}) center no-repeat;
     width: 13px;
     height: 19px;
     margin: 0 0 0 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
   }
 `;
 
@@ -93,7 +99,6 @@ const StyledFlatSelect = styled.div<{ active: boolean }>`
   outline: 0;
   position: relative;
   max-width: 400px;
-  width: 100%;
 
   &[data-disabled='true'] {
     cursor: default;
@@ -125,7 +130,6 @@ const StyledFlatSelect = styled.div<{ active: boolean }>`
       }
 
       ${Current} {
-        display: flex;
         color: #785a28;
 
         ::after {
@@ -142,10 +146,10 @@ export interface SelectOptionsWithGroups {
 
 export interface SelectOptionGroup {
   items: SelectOption[];
-  groupe: string;
+  group: string;
 }
 
-interface FlatSelectProps {
+export interface FlatSelectProps {
   items: SelectOptionsWithGroups;
   id: string;
   label: string;
@@ -241,7 +245,10 @@ const FlatSelect: FC<PropsWithChildren<FlatSelectProps>> = ({
                   {items.grouped.map(
                     group =>
                       group && (
-                        <FlatSelectOptionGroup key={group.groupe}>
+                        <FlatSelectOptionGroup
+                          key={group.group}
+                          name={group.group}
+                        >
                           {group.items.map(
                             option =>
                               option && (

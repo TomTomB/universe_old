@@ -119,6 +119,7 @@ const StyledPlayButton = styled.div<{ show: boolean }>`
   cursor: default;
   opacity: 0;
   pointer-events: none;
+  position: relative;
 
   ${({ show }) =>
     show &&
@@ -156,7 +157,6 @@ export enum PlayButtonState {
 
   /**
    * Allowed transitions: PLAY / LOBBY_DISABLED / PATCHER / HIDDEN
-   *
    */
   // FIXME(TRB): Transition to PATCHER and HIDDEN shows a blue frame
   PLAY_DISABLED,
@@ -172,7 +172,7 @@ export enum PlayButtonState {
   LOBBY,
 }
 
-interface PlayButtonProps extends ComponentTypes.ButtonProps {
+export interface PlayButtonProps extends ComponentTypes.ButtonProps {
   downloadProgress?: DownloadProgress | null;
   buttonState: PlayButtonState;
   prevButtonState: PlayButtonState;

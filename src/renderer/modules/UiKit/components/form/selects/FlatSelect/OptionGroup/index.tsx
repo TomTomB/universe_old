@@ -5,7 +5,6 @@ const StyledFlatSelectOptionGroup = styled.div`
   display: flex;
   flex-direction: row;
   background-color: #010a13;
-  width: 100%;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -32,11 +31,17 @@ const OptionGroupHeaderText = styled.div`
   align-items: center;
 `;
 
-const FlatSelectOptionGroup: FC<PropsWithChildren<{}>> = ({ children }) => {
+export interface FlatSelectOptionGroupProps {
+  name: string;
+}
+
+const FlatSelectOptionGroup: FC<
+  PropsWithChildren<FlatSelectOptionGroupProps>
+> = ({ children, name }) => {
   return (
     <FlatSelectOptionGroupContainer>
       <StyledFlatSelectOptionGroup>
-        <OptionGroupHeaderText> A Header </OptionGroupHeaderText>
+        <OptionGroupHeaderText> {name} </OptionGroupHeaderText>
       </StyledFlatSelectOptionGroup>
       {children}
     </FlatSelectOptionGroupContainer>
