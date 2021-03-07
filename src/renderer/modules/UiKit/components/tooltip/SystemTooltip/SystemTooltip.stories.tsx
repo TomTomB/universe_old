@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react';
 
 import SystemTooltip, { SystemTooltipProps } from '.';
+import TooltipText from '../TooltipText';
 
 export default {
   title: 'UiKit/Tooltips/SystemTooltip',
@@ -29,8 +30,10 @@ const Template: Story<SystemTooltipProps> = args => {
         placement={args.placement}
         triggerRef={hoverRef.current}
       >
-        Some Text Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Facilis illo corporis dolor.
+        <TooltipText>
+          Some Text Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Facilis illo corporis dolor.
+        </TooltipText>
       </SystemTooltip>
     </div>
   );

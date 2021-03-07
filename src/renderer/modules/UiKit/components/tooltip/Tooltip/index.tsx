@@ -29,9 +29,6 @@ const StyledTooltip = styled(animated.div)`
   border-width: 2px;
   box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
   min-width: 41px;
-  padding: 8px 6px;
-  max-width: 250px;
-  text-align: center;
   border: 2px solid transparent;
   z-index: 100;
   pointer-events: none;
@@ -174,10 +171,6 @@ const StyledTooltip = styled(animated.div)`
   }
 `;
 
-const TooltipContent = styled.p`
-  margin: 0;
-`;
-
 export interface TooltipProps {
   triggerRef: HTMLElement | null;
   defaultVisible?: boolean;
@@ -237,7 +230,7 @@ const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({
             >
               <div {...getArrowProps({ className: 'tooltip-arrow' })} />
               <TooltipSubBorder />
-              <TooltipContent>{children}</TooltipContent>
+              {children}
             </StyledTooltip>
           )
       )}

@@ -15,9 +15,6 @@ const StyledSystemTooltip = styled(animated.div)`
   border-width: 2px;
   box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
   min-width: 41px;
-  padding: 8px 6px;
-  max-width: 250px;
-  text-align: center;
   border: 2px solid transparent;
   z-index: 100;
   pointer-events: none;
@@ -98,10 +95,6 @@ const StyledSystemTooltip = styled(animated.div)`
   }
 `;
 
-const TooltipContent = styled.p`
-  margin: 0;
-`;
-
 export interface SystemTooltipProps {
   triggerRef: HTMLElement | null;
   defaultVisible?: boolean;
@@ -160,7 +153,7 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
               key={key}
             >
               <div {...getArrowProps({ className: 'tooltip-arrow' })} />
-              <TooltipContent>{children}</TooltipContent>
+              {children}
             </StyledSystemTooltip>
           )
       )}

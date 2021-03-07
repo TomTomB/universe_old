@@ -10,7 +10,7 @@ import { FieldError } from 'react-hook-form';
 import { springConfigHarsh } from '@uikit/util/springConfig';
 import Label from '../Label';
 import FormField from '../base/FormField';
-import { Tooltip } from '@uikit/components/tooltip';
+import { Tooltip, TooltipText } from '@uikit/components/tooltip';
 
 const InputLabel = styled(Label)`
   margin-bottom: 2px;
@@ -213,7 +213,9 @@ const Input: FC<InputProps> = ({
           />
 
           <Tooltip triggerRef={triggerShowPasswordCheckboxRef.current}>
-            {showPassword ? 'Hide password' : 'Show password'}
+            <TooltipText>
+              {showPassword ? 'Hide password' : 'Show password'}
+            </TooltipText>
           </Tooltip>
         </>
       )}

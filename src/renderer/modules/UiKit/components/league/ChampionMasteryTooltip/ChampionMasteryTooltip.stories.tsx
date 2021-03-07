@@ -1,15 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react';
-
-import Tooltip, { TooltipProps } from '.';
-import TooltipText from '../TooltipText';
+import ChampionMasteryTooltip, { ChampionMasteryTooltipProps } from '.';
+import { Tooltip } from '@uikit/components/tooltip';
 
 export default {
-  title: 'UiKit/Tooltips/Tooltip',
-  component: Tooltip,
+  title: 'UiKit/League/ChampionMasteryTooltip',
+  component: ChampionMasteryTooltip,
 } as Meta;
 
-const Template: Story<TooltipProps> = args => {
+const Template: Story<ChampionMasteryTooltipProps> = args => {
   const hoverRef = useRef<HTMLElement>(null);
   const [state, setState] = useState(false);
 
@@ -25,15 +24,8 @@ const Template: Story<TooltipProps> = args => {
     >
       <button ref={hoverRef as any}>Some Button</button>
 
-      <Tooltip
-        defaultVisible={args.defaultVisible}
-        placement={args.placement}
-        triggerRef={hoverRef.current}
-      >
-        <TooltipText>
-          Some Text Lorem ipsum dolor sit amet consec tetur adipisicing elit.
-          Facilis illo corporis dolor.
-        </TooltipText>
+      <Tooltip defaultVisible placement="top" triggerRef={hoverRef.current}>
+        <ChampionMasteryTooltip {...args} />
       </Tooltip>
     </div>
   );
@@ -41,6 +33,7 @@ const Template: Story<TooltipProps> = args => {
 
 export const Default = Template.bind({});
 Default.args = {
-  defaultVisible: true,
-  placement: 'top',
+  championName: 'Karma',
+  masteryPoints: 100420,
+  masteryTitle: 'Warden',
 };
