@@ -36,7 +36,7 @@ const handleLevel = (level?: ChampionMasteryLevel) => {
 
 export const StyledChampionMasteryBannerContainer = styled.div`
   position: relative;
-  padding-bottom: 158.730158730159%;
+  padding-bottom: 180%;
   overflow: hidden;
 `;
 
