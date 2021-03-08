@@ -34,9 +34,10 @@ const handleLevel = (level?: ChampionMasteryLevel) => {
   }
 };
 
-const Container = styled.div`
+export const StyledChampionMasteryBannerContainer = styled.div`
   position: relative;
   padding-bottom: 158.730158730159%;
+  overflow: hidden;
 `;
 
 const bannerUnfurlAnimation = keyframes`
@@ -79,9 +80,9 @@ export interface ChampionMasteryBannerProps {
 
 const ChampionMasteryBanner: FC<ChampionMasteryBannerProps> = ({ level }) => {
   return (
-    <Container>
+    <StyledChampionMasteryBannerContainer>
       <StyledChampionMasteryBanner level={level} />
-    </Container>
+    </StyledChampionMasteryBannerContainer>
   );
 };
 

@@ -9,7 +9,7 @@ export default {
 } as Meta;
 
 const Template: Story<ChampionMasteryBannerProps> = args => (
-  <div style={{ width: '75px' }}>
+  <div style={{ width: '68px' }}>
     <ChampionMasteryBanner {...args} />
   </div>
 );
