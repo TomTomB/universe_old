@@ -147,7 +147,7 @@ const StyledModal = styled(animated.div)`
     &.bottom::after {
       height: 18px;
       width: 100%;
-      bottom: -16px;
+      bottom: -17px;
     }
 
     &.left::after {
