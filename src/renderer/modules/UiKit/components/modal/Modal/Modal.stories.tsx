@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import Modal, { ModalProps, ModalTopRightCloseButtonVariant } from '.';
+import Modal, { ModalProps } from '.';
 import register from '@mocks/register';
 
 export default {
@@ -44,13 +44,44 @@ Default.args = {
   ],
 };
 
-export const WithTopRightClose = Template.bind({});
-WithTopRightClose.args = {
+export const WithCloseButton = Template.bind({});
+WithCloseButton.args = {
   show: true,
   position: 'bottom',
   topRightCloseButton: {
-    variant: ModalTopRightCloseButtonVariant.CIRCLE,
+    variant: 'circle',
     click: () => {},
   },
+  bottomButtons: [],
+};
+
+export const WithToastButton = Template.bind({});
+WithToastButton.args = {
+  show: true,
+  position: 'bottom',
+  topRightCloseButton: {
+    variant: 'toast',
+    click: () => {},
+  },
+  bottomButtons: [],
+};
+
+export const WithToastBackgroundButton = Template.bind({});
+WithToastBackgroundButton.args = {
+  show: true,
+  position: 'bottom',
+  topRightCloseButton: {
+    variant: 'toast',
+    toastWithBackground: true,
+    click: () => {},
+  },
+  bottomButtons: [],
+};
+
+export const WithCaret = Template.bind({});
+WithCaret.args = {
+  show: true,
+  position: 'bottom',
+  caret: true,
   bottomButtons: [],
 };

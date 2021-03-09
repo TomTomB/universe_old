@@ -3,7 +3,8 @@ import { springConfigHarsh } from '@uikit/util';
 import classNames from 'classnames';
 import React, { FC, PropsWithChildren, useRef } from 'react';
 import { animated, useTransition } from 'react-spring';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { CloseButton } from '@uikit/components/form';
 
 import subBorderPrimaryHorizontal from '../assets/img/sub-border-primary-horizontal.png';
 import subBorderPrimaryVertical from '../assets/img/sub-border-primary-vertical.png';
@@ -13,6 +14,10 @@ import subBorderPrimaryHorizontalDisabled from '../assets/img/sub-border-primary
 import subBorderPrimaryVerticalDisabled from '../assets/img/sub-border-primary-vertical-disabled.png';
 import subBorderSecondaryHorizontalDisabled from '../assets/img/sub-border-secondary-horizontal-disabled.png';
 import subBorderSecondaryVerticalDisabled from '../assets/img/sub-border-secondary-vertical-disabled.png';
+
+import closeIcon from './assets/close.png';
+import caret from './assets/caret.png';
+import frameButtonCloseTopDown from './assets/frame-button-close-top-down.png';
 
 const ModalContainer = styled(animated.div)`
   position: absolute;
@@ -25,6 +30,72 @@ const ModalContainer = styled(animated.div)`
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
+`;
+
+const ToastCloseButton = styled.button<{ withBackground?: boolean }>`
+  display: block;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: url(${closeIcon}), rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-radius: 4px;
+  background-size: 75% 75%, 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border: 0;
+  appearance: none;
+  padding: 0;
+
+  &:hover {
+    background: url(${closeIcon}), rgba(10, 20, 40, 0.5);
+    background-size: 75% 75%, 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  ${({ withBackground }) =>
+    withBackground &&
+    css`
+      background-color: #0a1428;
+      background-size: 18px 18px;
+      background-position: center;
+      border-radius: 2px;
+      opacity: 0.8;
+      transition: opacity 0.05s ease-in-out;
+
+      &:hover {
+        opacity: 1;
+      }
+    `}
+`;
+
+const ModalTopCloseContainer = styled.div`
+  &::before {
+    content: '';
+    position: absolute;
+    width: 38px;
+    height: 68px;
+    top: -22px;
+    right: -22px;
+    background-image: url(${frameButtonCloseTopDown});
+    background-size: 38px 68px;
+  }
+`;
+const ModalTopCloseButton = styled(CloseButton)`
+  position: absolute;
+  top: -17px;
+  right: -17px;
+  width: 28px;
+  height: 28px;
+
+  > div {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const StyledModalSubBorder = styled.div`
@@ -53,6 +124,47 @@ const StyledModal = styled(animated.div)`
 
   &.withButtons {
     padding-bottom: 35px;
+  }
+
+  &.borderless ${StyledModalSubBorder} {
+    display: none;
+  }
+
+  &.caret {
+    &::after {
+      content: '';
+      position: absolute;
+      background: url(${caret}) 50% no-repeat;
+    }
+
+    &.top::after {
+      height: 18px;
+      width: 100%;
+      top: -16px;
+      transform: rotate(180deg);
+    }
+
+    &.bottom::after {
+      height: 18px;
+      width: 100%;
+      bottom: -16px;
+    }
+
+    &.left::after {
+      height: 100%;
+      width: 32px;
+      top: 0;
+      left: -23px;
+      transform: rotate(90deg);
+    }
+
+    &.right::after {
+      height: 100%;
+      width: 32px;
+      top: 0;
+      right: -23px;
+      transform: rotate(-90deg);
+    }
   }
 
   &.top,
@@ -284,14 +396,10 @@ const ModalButtons = styled.div`
   }
 `;
 
-export enum ModalTopRightCloseButtonVariant {
-  MINIMAL,
-  CIRCLE,
-}
-
 export interface ModalProps {
   topRightCloseButton?: {
-    variant: ModalTopRightCloseButtonVariant;
+    variant: 'circle' | 'toast';
+    toastWithBackground?: boolean;
     click: (e: React.MouseEvent) => void;
   };
   bottomButtons: {
@@ -302,7 +410,9 @@ export interface ModalProps {
   className?: string;
   backdropClick?: () => void;
   position?: 'top' | 'right' | 'bottom' | 'left';
+  caret?: boolean;
   disabled?: boolean;
+  borderless?: boolean;
 }
 
 const Modal: FC<PropsWithChildren<ModalProps>> = ({
@@ -313,6 +423,9 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
   backdropClick,
   position = 'bottom',
   disabled,
+  borderless,
+  topRightCloseButton,
+  caret,
 }) => {
   const transitionsModal = useTransition(show, null, {
     config: springConfigHarsh,
@@ -355,7 +468,9 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
                       className={classNames(
                         className,
                         position,
+                        { caret },
                         { disabled },
+                        { borderless },
                         { withButtons: bottomButtons.length }
                       )}
                       ref={modalRef}
@@ -369,6 +484,29 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
                           </button>
                         ))}
                       </ModalButtons>
+                      {topRightCloseButton && (
+                        <>
+                          {topRightCloseButton.variant === 'circle' && (
+                            <ModalTopCloseContainer>
+                              <ModalTopCloseButton
+                                type="button"
+                                label="Close"
+                                onClick={topRightCloseButton.click}
+                              />
+                            </ModalTopCloseContainer>
+                          )}
+                          {topRightCloseButton.variant === 'toast' && (
+                            <ToastCloseButton
+                              type="button"
+                              aria-label="Close"
+                              withBackground={
+                                topRightCloseButton.toastWithBackground
+                              }
+                              onClick={topRightCloseButton.click}
+                            />
+                          )}
+                        </>
+                      )}
                     </StyledModal>
                   )
               )}
