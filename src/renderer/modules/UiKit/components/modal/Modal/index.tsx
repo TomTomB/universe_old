@@ -5,6 +5,7 @@ import React, { FC, PropsWithChildren, useRef } from 'react';
 import { animated, useTransition } from 'react-spring';
 import styled, { css } from 'styled-components';
 import { CloseButton } from '@uikit/components/form';
+import { ButtonGroup } from '@uikit/components/decoration';
 
 import subBorderPrimaryHorizontal from '../assets/img/sub-border-primary-horizontal.png';
 import subBorderPrimaryVertical from '../assets/img/sub-border-primary-vertical.png';
@@ -14,7 +15,6 @@ import subBorderPrimaryHorizontalDisabled from '../assets/img/sub-border-primary
 import subBorderPrimaryVerticalDisabled from '../assets/img/sub-border-primary-vertical-disabled.png';
 import subBorderSecondaryHorizontalDisabled from '../assets/img/sub-border-secondary-horizontal-disabled.png';
 import subBorderSecondaryVerticalDisabled from '../assets/img/sub-border-secondary-vertical-disabled.png';
-
 import closeIcon from './assets/close.png';
 import caret from './assets/caret.png';
 import frameButtonCloseTopDown from './assets/frame-button-close-top-down.png';
@@ -327,6 +327,29 @@ const StyledModal = styled(animated.div)`
   }
 `;
 
+const ModalButtonGroup = styled(ButtonGroup)`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .top & {
+    --border-color: #463714;
+  }
+
+  .bottom & {
+    --border-color: #614a1f;
+  }
+
+  .disabled.top & {
+    --border-color: #1e282d;
+  }
+
+  .disabled.bottom & {
+    --border-color: #39393e;
+  }
+`;
+
 const ModalButtons = styled.div`
   display: flex;
   justify-content: center;
@@ -364,34 +387,6 @@ const ModalButtons = styled.div`
       border-right: 2px solid #60491e;
       z-index: -1;
       border-radius: 0px 2px 0px 0px;
-    }
-  }
-
-  .top & button {
-    ::before,
-    ::after {
-      border-color: #463714;
-    }
-  }
-
-  .bottom & button {
-    ::before,
-    ::after {
-      border-color: #614a1f;
-    }
-  }
-
-  .disabled.top & button {
-    ::before,
-    ::after {
-      border-color: #1e282d;
-    }
-  }
-
-  .disabled.bottom & button {
-    ::before,
-    ::after {
-      border-color: #39393e;
     }
   }
 `;
@@ -476,14 +471,19 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
                       ref={modalRef}
                     >
                       <StyledModalSubBorder />
+
                       {children}
-                      <ModalButtons>
-                        {bottomButtons.map(b => (
-                          <button key={b.buttonText} onClick={b.click}>
-                            {b.buttonText}
-                          </button>
-                        ))}
-                      </ModalButtons>
+
+                      {bottomButtons.length && (
+                        <ModalButtonGroup>
+                          {bottomButtons.map(b => (
+                            <button key={b.buttonText} onClick={b.click}>
+                              {b.buttonText}
+                            </button>
+                          ))}
+                        </ModalButtonGroup>
+                      )}
+
                       {topRightCloseButton && (
                         <>
                           {topRightCloseButton.variant === 'circle' && (
