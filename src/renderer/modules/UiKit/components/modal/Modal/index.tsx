@@ -17,7 +17,7 @@ import subBorderSecondaryHorizontalDisabled from '../assets/img/sub-border-secon
 import subBorderSecondaryVerticalDisabled from '../assets/img/sub-border-secondary-vertical-disabled.png';
 import closeIcon from './assets/close.png';
 import caret from './assets/caret.png';
-import frameButtonCloseTopDown from './assets/frame-button-close-top-down.png';
+import frameButtonCloseTopDown from '../assets/img/frame-button-close-top-down.png';
 
 const ModalContainer = styled(animated.div)`
   position: absolute;
@@ -347,47 +347,6 @@ const ModalButtonGroup = styled(ButtonGroup)`
 
   .disabled.bottom & {
     --border-color: #39393e;
-  }
-`;
-
-const ModalButtons = styled.div`
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  bottom: -2px;
-  width: 100%;
-  button:first-of-type {
-    margin-right: 4px;
-    z-index: 1;
-    position: relative;
-    &::after {
-      content: '';
-      position: absolute;
-      left: -5px;
-      width: 70px;
-      height: 17px;
-      /* background-color: #010a13; */
-      bottom: 0px;
-      border-left: 2px solid #60491e;
-      z-index: -1;
-      border-radius: 2px 0px 0px 0px;
-    }
-  }
-  button:last-of-type {
-    z-index: 1;
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      right: -5px;
-      width: 70px;
-      height: 17px;
-      /* background-color: #010a13; */
-      bottom: 0px;
-      border-right: 2px solid #60491e;
-      z-index: -1;
-      border-radius: 0px 2px 0px 0px;
-    }
   }
 `;
 

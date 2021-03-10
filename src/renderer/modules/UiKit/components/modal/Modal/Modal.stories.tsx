@@ -5,7 +5,7 @@ import Modal, { ModalProps } from '.';
 import register from '@mocks/register';
 
 export default {
-  title: 'UiKit/Modal',
+  title: 'UiKit/Modal/Modal',
   component: Modal,
   args: {
     register,
