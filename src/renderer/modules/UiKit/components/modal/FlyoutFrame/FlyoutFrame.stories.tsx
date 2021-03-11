@@ -9,7 +9,7 @@ export default {
 } as Meta;
 
 const Template: Story<FlyoutFrameProps> = args => {
-  const [anim, setAnim] = useState<'idle' | 'closing' | undefined>('idle');
+  const [show, setShow] = useState(args.show);
 
   return (
     <>
@@ -17,18 +17,18 @@ const Template: Story<FlyoutFrameProps> = args => {
         <button
           style={{ marginBottom: 40 }}
           onClick={() => {
-            if (anim === 'idle') {
-              setAnim('closing');
+            if (show) {
+              setShow(false);
             } else {
-              setAnim('idle');
+              setShow(true);
             }
           }}
         >
-          Toggle Anim
+          Toggle Show
         </button>
       )}
 
-      <FlyoutFrame {...args} animation={anim}>
+      <FlyoutFrame {...args} show={show}>
         <div style={{ textAlign: 'center', padding: 12 }}>
           <h5>Some Content</h5>
           <p style={{ margin: 0 }}>
@@ -44,3 +44,13 @@ const Template: Story<FlyoutFrameProps> = args => {
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const Animated = Template.bind({});
+Animated.args = {
+  animated: true,
+};
+
+export const WithCloseButton = Template.bind({});
+WithCloseButton.args = {
+  showCloseButton: true,
+};

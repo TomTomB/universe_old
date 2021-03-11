@@ -8,6 +8,9 @@ import pointerIntro from './assets/pointer-intro-01.png';
 import pointerOutro from './assets/pointer-outro-01.png';
 import subBorderPrimaryHorizontal from '../assets/img/sub-border-primary-horizontal.png';
 import subBorderPrimaryVertical from '../assets/img/sub-border-primary-vertical.png';
+import { useTransition } from 'react-spring';
+import { springConfigHarsh } from '@uikit/util';
+import { animated } from 'react-spring';
 
 const caretIntroAnimation = keyframes`
   from {
@@ -27,13 +30,13 @@ const caretOutroAnimation = keyframes`
   }
 `;
 
-const Border = styled.div`
+const Border = styled(animated.div)`
   border: 2px solid transparent;
 
   position: absolute;
   box-shadow: 0 0 0 1px rgba(1, 10, 19, 0.48);
-  transition: 250ms all cubic-bezier(0.02, 0.85, 0.08, 0.99);
   z-index: 1;
+  transform-origin: center center;
 
   &::before {
     content: '';
@@ -46,10 +49,10 @@ const Border = styled.div`
     pointer-events: none;
   }
 `;
-const SubBorder = styled.div`
+const SubBorder = styled(animated.div)`
   position: absolute;
   display: flex;
-  transition: 250ms all cubic-bezier(0.02, 0.85, 0.08, 0.99);
+  transform-origin: center center;
 
   &::before {
     content: '';
@@ -88,6 +91,7 @@ const CloseButtonContainer = styled.div`
     right: -20px;
     background-image: url(${frameButtonCloseTopDown});
     background-size: 38px 68px;
+    z-index: 1;
   }
 `;
 
@@ -97,6 +101,7 @@ const StyledCloseButton = styled(CloseButton)`
   right: -15px;
   width: 28px;
   height: 28px;
+  z-index: 1;
 
   > div {
     width: 24px;
@@ -104,22 +109,18 @@ const StyledCloseButton = styled(CloseButton)`
   }
 `;
 
-const FlyoutFrameInner = styled.div`
+const FlyoutFrameInner = styled(animated.div)`
   position: relative;
   display: flex;
   background-color: #010a13;
-
   -webkit-mask-image: linear-gradient(to left, #000, #000);
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   padding: 2px;
-  transition: 250ms all cubic-bezier(0.02, 0.85, 0.08, 0.99),
-    300ms opacity linear;
 `;
 
-export const StyledFlyoutFrame = styled.div`
+export const StyledFlyoutFrame = styled(animated.div)`
   position: absolute;
-  transition: 250ms all cubic-bezier(0.02, 0.85, 0.08, 0.99);
 
   &.top,
   &.bottom {
@@ -134,7 +135,7 @@ export const StyledFlyoutFrame = styled.div`
       height: 0;
 
       &::before {
-        width: calc(100% - 8px);
+        width: 100%;
         height: 0;
         border-image-source: url(${subBorderPrimaryHorizontal});
         border-width: 4px 4px 0 4px;
@@ -154,10 +155,6 @@ export const StyledFlyoutFrame = styled.div`
         transform-origin: center center;
       }
     }
-
-    ${FlyoutFrameInner} {
-      -webkit-mask-size: 100%;
-    }
   }
 
   &.left,
@@ -173,7 +170,7 @@ export const StyledFlyoutFrame = styled.div`
       top: 8px;
 
       &::before {
-        height: calc(100% - 8px);
+        height: 100%;
         width: 0;
         border-image-source: url(${subBorderPrimaryVertical});
         border-width: 4px 4px 4px 0;
@@ -191,10 +188,6 @@ export const StyledFlyoutFrame = styled.div`
       &::before {
         top: calc(50% + 12px);
       }
-    }
-
-    ${FlyoutFrameInner} {
-      -webkit-mask-size: 100%;
     }
   }
 
@@ -231,8 +224,11 @@ export const StyledFlyoutFrame = styled.div`
     }
 
     ${SubBorder} {
-      top: 0;
-      transform: rotate(180deg);
+      top: -4px;
+
+      &::before {
+        transform: rotate(180deg);
+      }
     }
 
     ${Caret} {
@@ -258,8 +254,11 @@ export const StyledFlyoutFrame = styled.div`
     }
 
     ${SubBorder} {
-      right: -4px;
-      transform: rotate(180deg);
+      right: 0;
+
+      &::before {
+        transform: rotate(180deg);
+      }
     }
 
     ${Caret} {
@@ -307,92 +306,15 @@ export const StyledFlyoutFrame = styled.div`
       }
     }
 
-    &.top,
-    &.bottom {
-      ${Border} {
-        width: 50%;
-        left: 25%;
-      }
-
-      ${SubBorder} {
-        width: 30%;
-        left: calc(33% + 8px);
-      }
-
-      ${FlyoutFrameInner} {
-        -webkit-mask-size: 50% 100%;
-      }
-    }
-
-    &.left,
-    &.right {
-      ${Border} {
-        height: 50%;
-        top: 25%;
-      }
-
-      ${SubBorder} {
-        height: 30%;
-        top: calc(33% + 8px);
-      }
-
-      ${FlyoutFrameInner} {
-        opacity: 0;
-        -webkit-mask-size: 100% 50%;
-      }
-    }
-
-    &.idle {
-      ${Border} {
-        width: 100%;
-        height: 100%;
-      }
-
+    &.show {
       ${Caret} {
         &::before {
           animation: ${caretIntroAnimation} 433ms steps(13, end) forwards;
         }
       }
-
-      ${FlyoutFrameInner} {
-        opacity: 1;
-        -webkit-mask-size: 100% 100%;
-      }
-
-      &.top,
-      &.bottom {
-        /* top: 0; */
-
-        ${Border} {
-          left: 0;
-        }
-
-        ${SubBorder} {
-          width: calc(100% - 16px);
-          left: 8px;
-        }
-      }
-
-      &.left,
-      &.right {
-        /* left: 0; */
-
-        ${Border} {
-          top: 0;
-        }
-
-        ${SubBorder} {
-          height: calc(100% - 16px);
-          top: 8px;
-        }
-      }
     }
 
-    &.closing {
-      ${Border}, ${SubBorder},  ${FlyoutFrameInner} {
-        transition: 133ms all cubic-bezier(1, 0, 1, 1);
-      }
-
+    &:not(.show) {
       ${Caret} {
         &::before {
           background-image: url(${pointerOutro});
@@ -410,37 +332,117 @@ export interface FlyoutFrameProps {
   closeButtonClick?: (e: React.MouseEvent) => void;
   showCloseButton?: boolean;
   animated?: boolean;
-  animation?: 'idle' | 'closing';
+  show?: boolean;
 }
 
-// TODO (TRB): Use spring animation
 const FlyoutFrame: FC<FlyoutFrameProps> = ({
   className,
   children,
   showCloseButton,
   closeButtonClick,
   animated,
-  animation,
+  show,
   position = 'bottom',
 }) => {
+  const isTopOrBottom = position === 'top' || position === 'bottom';
+
+  const transitionsBorder = useTransition(show, null, {
+    config: springConfigHarsh,
+    from: {
+      transform: animated ? `scale${isTopOrBottom ? 'X' : 'Y'}(0.5)` : 'none',
+    },
+    enter: {
+      transform: animated ? `scale${isTopOrBottom ? 'X' : 'Y'}(1)` : 'none',
+    },
+    leave: {
+      transform: animated ? `scale${isTopOrBottom ? 'X' : 'Y'}(0.5)` : 'none',
+    },
+  });
+
+  const transitionBase = useTransition(show, null, {
+    config: springConfigHarsh,
+    from: {
+      opacity: animated ? 0 : 1,
+    },
+    enter: {
+      opacity: animated ? 1 : 1,
+    },
+    leave: {
+      opacity: animated ? 0 : 1,
+    },
+  });
+
+  const transitionFrameInner = useTransition(show, null, {
+    config: springConfigHarsh,
+    from: {
+      WebkitMaskSize: animated
+        ? isTopOrBottom
+          ? '50% 100%'
+          : '100% 50%'
+        : '100% 100%',
+    },
+    enter: {
+      WebkitMaskSize: '100% 100%',
+    },
+    leave: {
+      WebkitMaskSize: animated
+        ? isTopOrBottom
+          ? '50% 100%'
+          : '100% 50%'
+        : '100% 100%',
+    },
+  });
+
   return (
-    <StyledFlyoutFrame
-      className={classNames(className, position, { animated }, animation)}
-    >
-      <Border />
-      <SubBorder />
-      <Caret />
-      <FlyoutFrameInner>{children}</FlyoutFrameInner>
-      {showCloseButton && (
-        <CloseButtonContainer>
-          <StyledCloseButton
-            label="Close"
-            type="button"
-            onClick={closeButtonClick}
-          />
-        </CloseButtonContainer>
+    <>
+      {transitionBase.map(
+        base =>
+          base.item && (
+            <StyledFlyoutFrame
+              key={base.key + '_a'}
+              style={{
+                opacity: base.props.opacity?.interpolate({
+                  range: [0, 0.25, 1],
+                  output: [0, 0.75, 1],
+                }),
+              }}
+              className={classNames(
+                className,
+                position,
+                { animated },
+                { show }
+              )}
+            >
+              {transitionsBorder.map(
+                ({ item, key, props }) =>
+                  item && <Border style={props} key={key} />
+              )}
+              {transitionsBorder.map(
+                ({ item, key, props }) =>
+                  item && <SubBorder style={props} key={key} />
+              )}
+              <Caret />
+              {transitionFrameInner.map(
+                ({ item, key, props }) =>
+                  item && (
+                    <FlyoutFrameInner style={props} key={key}>
+                      {children}
+                    </FlyoutFrameInner>
+                  )
+              )}
+              {showCloseButton && !animated && (
+                <CloseButtonContainer>
+                  <StyledCloseButton
+                    label="Close"
+                    type="button"
+                    onClick={closeButtonClick}
+                  />
+                </CloseButtonContainer>
+              )}
+            </StyledFlyoutFrame>
+          )
       )}
-    </StyledFlyoutFrame>
+    </>
   );
 };
 
