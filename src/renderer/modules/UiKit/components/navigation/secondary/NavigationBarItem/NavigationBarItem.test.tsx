@@ -3,14 +3,18 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '@styles/theme';
-import NavigationBar from '.';
+import NavigationBarItem from '.';
+import { Router } from 'react-router';
+import { createHashHistory } from 'history';
 
-describe('NavigationBar', () => {
+describe('NavigationBarItem', () => {
   it('should render', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <NavigationBar direction="down" navType="primary" />
+          <Router history={createHashHistory()}>
+            <NavigationBarItem linksTo="abc" />
+          </Router>
         </ThemeProvider>
       )
     ).toBeTruthy();

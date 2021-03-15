@@ -7,7 +7,7 @@ import { createHashHistory } from 'history';
 import { Router } from 'react-router-dom';
 
 export default {
-  title: 'UiKit/Navigation/NavigationBar',
+  title: 'UiKit/Navigation/Primary/NavigationBar',
   component: NavigationBar,
 } as Meta;
 
@@ -26,7 +26,4 @@ const Template: Story<NavigationBarProps> = args => (
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  direction: 'left',
-  navType: 'primary',
-};
+Default.args = {};

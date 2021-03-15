@@ -6,7 +6,7 @@ import { Router } from 'react-router';
 import { createHashHistory } from 'history';
 
 export default {
-  title: 'UiKit/Navigation/NavigationBarItem',
+  title: 'UiKit/Navigation/Primary/NavigationBarItem',
   component: NavigationBarItem,
 } as Meta;
 
