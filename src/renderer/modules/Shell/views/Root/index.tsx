@@ -1,12 +1,12 @@
-import { ConnectedRouter } from 'connected-react-router';
 import React, { FC } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import styled from 'styled-components';
-import { history } from '@store';
-import Styleguide from '@uikit/views/Styleguide';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import LoginView from '../../../Auth/views/Login';
-import TitleBarComponent from '../../components/TitleBar';
 import SettingsHost from '../../../Settings/views/SettingsHost';
+import Styleguide from '@uikit/views/Styleguide';
+import TitleBarComponent from '../../components/TitleBar';
+import { history } from '@store';
+import styled from 'styled-components';
 
 const Shell = styled.div`
   width: 100vw;

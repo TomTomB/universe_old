@@ -1,10 +1,9 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-
+import { Meta, Story } from '@storybook/react';
 import NavigationBar, { NavigationBarProps } from '.';
 import NavigationBarItem from '../NavigationBarItem';
-import { createHashHistory } from 'history';
+import React from 'react';
 import { Router } from 'react-router-dom';
+import { createHashHistory } from 'history';
 
 export default {
   title: 'UiKit/Navigation/Primary/NavigationBar',

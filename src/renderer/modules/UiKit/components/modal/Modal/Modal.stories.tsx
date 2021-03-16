@@ -1,7 +1,6 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-
+import { Meta, Story } from '@storybook/react';
 import Modal, { ModalProps } from '.';
+import React from 'react';
 import register from '@mocks/register';
 
 export default {

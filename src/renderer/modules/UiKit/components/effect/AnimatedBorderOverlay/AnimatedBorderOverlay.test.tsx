@@ -1,16 +1,16 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import AnimatedBorderOverlay from '.';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
 import theme from '@styles/theme';
-import ButtonGroup from '.';
 
-describe('ButtonGroup', () => {
+describe('AnimatedBorderOverlay', () => {
   it('should render', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <ButtonGroup />
+          <AnimatedBorderOverlay />
         </ThemeProvider>
       )
     ).toBeTruthy();

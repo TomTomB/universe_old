@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-
-import iconChampTooltipMastery from './assets/icon-champ-tooltip-mastery.png';
 import chestAcquired from './assets/icon-chest-acquired.png';
 import coreAcquired from './assets/icon-core-acquired.png';
+import iconChampTooltipMastery from './assets/icon-champ-tooltip-mastery.png';
 
 const StyledChampionMasteryTooltip = styled.div`
   color: #a09b8c;

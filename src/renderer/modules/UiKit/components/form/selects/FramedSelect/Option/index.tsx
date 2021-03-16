@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react';
 import styled, { css } from 'styled-components';
-import dropdownSelectDot from '../../assets/img/dropdown-select-dot.png';
 import dropdownCheck from '../../assets/img/dropdown-check.png';
+import dropdownSelectDot from '../../assets/img/dropdown-select-dot.png';
 
 interface StyledFramedSelectOptionProps {
   selected?: boolean;

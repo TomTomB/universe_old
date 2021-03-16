@@ -1,6 +1,6 @@
-import { ComponentTypes } from '@typings';
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
+import { ComponentTypes } from '@typings';
 import borderArrowClick from './assets/border-arrow-click.png';
 import borderArrowDisabled from './assets/border-arrow-disabled.png';
 import borderArrowHover from './assets/border-arrow-hover.png';

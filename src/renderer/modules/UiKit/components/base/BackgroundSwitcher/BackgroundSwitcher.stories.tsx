@@ -1,9 +1,8 @@
+import BackgroundSwitcher, { BackgroundSwitcherProps } from '.';
+import { Meta, Story } from '@storybook/react';
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
 import caitlynPulsfire from '@assets/background/splash/image-splash-caitlynpulsefire.jpg';
 import dianaBloodmoon from '@assets/background/splash/image-splash-dianabloodmoon.jpg';
-
-import BackgroundSwitcher, { BackgroundSwitcherProps } from '.';
 
 export default {
   title: 'UiKit/Base/BackgroundSwitcher',

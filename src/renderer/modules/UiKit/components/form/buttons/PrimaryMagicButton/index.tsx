@@ -6,10 +6,10 @@ import React, {
   useState,
 } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { AnimatedBorderOverlay } from '@uikit/components/effect';
+import classNames from 'classnames';
 import magicButtonLeftRunes from '@assets/components/buttons/primary-magic/magic-button-left-runes-44x22-29f30f29f.png';
 import magicButtonRightRunes from '@assets/components/buttons/primary-magic/magic-button-right-runes-62x22-25f30f29f.png';
-import classNames from 'classnames';
-import AnimatedBorderOverlay from '@uikit/components/decoration/AnimatedBorderOverlay';
 
 const backgroundIntroAnimation = keyframes`
   0% {

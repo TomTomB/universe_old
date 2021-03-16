@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import buttonReplay from '@assets/components/buttons/replay/button-replay.png';
-import buttonReplayHover from '@assets/components/buttons/replay/button-replay-hover.png';
 import buttonReplayActive from '@assets/components/buttons/replay/button-replay-active.png';
+import buttonReplayHover from '@assets/components/buttons/replay/button-replay-hover.png';
 import styled from 'styled-components';
 
 export interface PrimaryReplayButtonProps {

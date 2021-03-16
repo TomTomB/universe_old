@@ -1,11 +1,11 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
 import NavigationBarItem from '.';
+import React from 'react';
 import { Router } from 'react-router';
+import { ThemeProvider } from 'styled-components';
 import { createHashHistory } from 'history';
+import { render } from '@testing-library/react';
+import theme from '@styles/theme';
 
 describe('NavigationBarItem', () => {
   it('should render', () => {

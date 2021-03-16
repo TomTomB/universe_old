@@ -1,10 +1,10 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
-import styled from 'styled-components';
-import tooltipSystemCaret from '@assets/components/tooltip/tooltip-system-caret.png';
-import { usePopperTooltip } from 'react-popper-tooltip';
 import { animated, useTransition } from 'react-spring';
 import { springConfigHarsh } from '@uikit/util';
+import styled from 'styled-components';
+import tooltipSystemCaret from '@assets/components/tooltip/tooltip-system-caret.png';
 import { useCompare } from '@uikit/hooks';
+import { usePopperTooltip } from 'react-popper-tooltip';
 
 const StyledSystemTooltip = styled(animated.div)`
   --frameColors: #614a1f 0, #463714 5px, #463714 100%;

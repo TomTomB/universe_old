@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { StyledLabel } from '../Label';
+import styled from 'styled-components';
 
 const FormField = styled.div`
   position: relative;

@@ -1,8 +1,8 @@
+import React, { FC, useRef } from 'react';
 import {
   SplashScreenAudioMachine,
   SplashScreenVideoMachine,
 } from '@uikit/machines';
-import React, { FC, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { State } from 'xstate';
 

@@ -1,13 +1,12 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-
+import { Meta, Story } from '@storybook/react';
 import ParallaxBackground, { ParallaxBackgroundProps } from '.';
-import smokeBackground from './assets/parallax-smoke-background.png';
-import smokeForeground from './assets/parallax-smoke-foreground.png';
+import React from 'react';
 import smoke1 from './assets/parallax-smoke1.png';
 import smoke2 from './assets/parallax-smoke2.png';
 import smoke3 from './assets/parallax-smoke3.png';
 import smoke4 from './assets/parallax-smoke4.png';
+import smokeBackground from './assets/parallax-smoke-background.png';
+import smokeForeground from './assets/parallax-smoke-foreground.png';
 
 export default {
   title: 'UiKit/Base/ParallaxBackground',

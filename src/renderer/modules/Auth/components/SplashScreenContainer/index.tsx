@@ -1,22 +1,22 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
-// import loginVideoIntro from '@assets/video/splash/intro-video-splash-honor.webm';
-import loginVideoLoop from '@assets/video/splash/video-splash-starguardian2017.webm';
-// import loginMusicIntro from '@assets/music/splash/intro-sound-splash-galio.ogg';
-import loginMusicLoop from '@assets/music/splash/music-splash-starguardian2017-alt.ogg';
-import loginPicture from '@assets/background/splash/image-splash-starguardian2017.jpg';
-import styled from 'styled-components';
-import { useMachine } from '@xstate/react';
-import { useSelector } from 'react-redux';
-import {
-  selectPlayLoginAnimations,
-  selectPlayLoginMusic,
-} from '@store/slices/settings/settingsSlice';
 import {
   SplashScreenAudioMachine,
   SplashScreenVideoMachine,
 } from '@uikit/machines';
+import {
+  selectPlayLoginAnimations,
+  selectPlayLoginMusic,
+} from '@store/slices/settings/settingsSlice';
 import SplashScreen from './SplashScreen';
 import SplashScreenControls from './SplashScreenControls';
+// import loginVideoIntro from '@assets/video/splash/intro-video-splash-honor.webm';
+// import loginMusicIntro from '@assets/music/splash/intro-sound-splash-galio.ogg';
+import loginMusicLoop from '@assets/music/splash/music-splash-starguardian2017-alt.ogg';
+import loginPicture from '@assets/background/splash/image-splash-starguardian2017.jpg';
+import loginVideoLoop from '@assets/video/splash/video-splash-starguardian2017.webm';
+import styled from 'styled-components';
+import { useMachine } from '@xstate/react';
+import { useSelector } from 'react-redux';
 
 const StyledSplashScreenContainer = styled.div`
   position: relative;

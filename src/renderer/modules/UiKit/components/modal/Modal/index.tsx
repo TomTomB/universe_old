@@ -1,23 +1,22 @@
-import { useClickOutside } from '@uikit/hooks';
-import { springConfigHarsh } from '@uikit/util';
-import classNames from 'classnames';
 import React, { FC, PropsWithChildren, useRef } from 'react';
 import { animated, useTransition } from 'react-spring';
 import styled, { css } from 'styled-components';
+import { ButtonGroup } from '@uikit/components/base';
 import { CloseButton } from '@uikit/components/form';
-import { ButtonGroup } from '@uikit/components/decoration';
-
-import subBorderPrimaryHorizontal from '../assets/img/sub-border-primary-horizontal.png';
-import subBorderPrimaryVertical from '../assets/img/sub-border-primary-vertical.png';
-import subBorderSecondaryHorizontal from '../assets/img/sub-border-secondary-horizontal.png';
-import subBorderSecondaryVertical from '../assets/img/sub-border-secondary-vertical.png';
-import subBorderPrimaryHorizontalDisabled from '../assets/img/sub-border-primary-horizontal-disabled.png';
-import subBorderPrimaryVerticalDisabled from '../assets/img/sub-border-primary-vertical-disabled.png';
-import subBorderSecondaryHorizontalDisabled from '../assets/img/sub-border-secondary-horizontal-disabled.png';
-import subBorderSecondaryVerticalDisabled from '../assets/img/sub-border-secondary-vertical-disabled.png';
-import closeIcon from './assets/close.png';
 import caret from './assets/caret.png';
+import classNames from 'classnames';
+import closeIcon from './assets/close.png';
 import frameButtonCloseTopDown from '../assets/img/frame-button-close-top-down.png';
+import { springConfigHarsh } from '@uikit/util';
+import subBorderPrimaryHorizontal from '../assets/img/sub-border-primary-horizontal.png';
+import subBorderPrimaryHorizontalDisabled from '../assets/img/sub-border-primary-horizontal-disabled.png';
+import subBorderPrimaryVertical from '../assets/img/sub-border-primary-vertical.png';
+import subBorderPrimaryVerticalDisabled from '../assets/img/sub-border-primary-vertical-disabled.png';
+import subBorderSecondaryHorizontal from '../assets/img/sub-border-secondary-horizontal.png';
+import subBorderSecondaryHorizontalDisabled from '../assets/img/sub-border-secondary-horizontal-disabled.png';
+import subBorderSecondaryVertical from '../assets/img/sub-border-secondary-vertical.png';
+import subBorderSecondaryVerticalDisabled from '../assets/img/sub-border-secondary-vertical-disabled.png';
+import { useClickOutside } from '@uikit/hooks';
 
 const ModalContainer = styled(animated.div)`
   position: absolute;

@@ -1,16 +1,16 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import CometBorder from '.';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
 import theme from '@styles/theme';
-import AnimatedBorderOverlay from '.';
 
-describe('AnimatedBorderOverlay', () => {
+describe('CometBorder', () => {
   it('should render', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <AnimatedBorderOverlay />
+          <CometBorder />
         </ThemeProvider>
       )
     ).toBeTruthy();

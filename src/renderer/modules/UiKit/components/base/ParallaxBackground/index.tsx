@@ -1,6 +1,6 @@
+import ParallaxLayer, { ParallaxLayerProps } from './ParallaxLayer';
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import ParallaxLayer, { ParallaxLayerProps } from './ParallaxLayer';
 
 export const StyledParallaxBackground = styled.div`
   width: 100%;

@@ -1,9 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import lolLogo from '@assets/logos/lol-logo.png';
-import styled from 'styled-components';
-import { generateId, useYupValidationResolver } from '@uikit/util';
 import {
   Checkbox,
   FramedSelect,
@@ -11,15 +6,20 @@ import {
   PlayButton,
   PrimaryMagicButton,
 } from '@uikit/components/form';
-import { Link } from 'react-router-dom';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { generateId, useYupValidationResolver } from '@uikit/util';
 import {
   selectDownloadProgress,
   selectStatus,
 } from '@store/slices/updater/updaterSlice';
-import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { PlayButtonState } from '@uikit/components/form/buttons/PlayButton';
-import gitVersion from '../../../../../../intermediate/git-version.json';
 import SplashScreenContainer from '../../components/SplashScreenContainer';
+import gitVersion from '../../../../../../intermediate/git-version.json';
+import lolLogo from '@assets/logos/lol-logo.png';
+import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 interface FormValues {
   password: string;

@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { PlayButtonState } from '..';
-import { useCompare } from '@uikit/hooks';
 import styled, { css, keyframes } from 'styled-components';
-import ProgressBarMainLoop from '@assets/video/buttons/progress-bar/progress-bar-main-loop.webm';
-import ProgressBarBorderLoop from '@assets/video/buttons/progress-bar/progress-bar-border-loop.webm';
-import ProgressBarTipIntro from '@assets/video/buttons/progress-bar/progress-bar-tip-intro.webm';
-import ProgressBarTipLoop from '@assets/video/buttons/progress-bar/progress-bar-tip-loop.webm';
 import { AnimationWithTransition } from '../Animation';
 import { DownloadProgress } from '@typings/electron';
+import { PlayButtonState } from '..';
+import ProgressBarBorderLoop from '@assets/video/buttons/progress-bar/progress-bar-border-loop.webm';
+import ProgressBarMainLoop from '@assets/video/buttons/progress-bar/progress-bar-main-loop.webm';
+import ProgressBarTipIntro from '@assets/video/buttons/progress-bar/progress-bar-tip-intro.webm';
+import ProgressBarTipLoop from '@assets/video/buttons/progress-bar/progress-bar-tip-loop.webm';
+import { useCompare } from '@uikit/hooks';
 
 const patcherShowAnimation = keyframes`
   from{

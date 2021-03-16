@@ -1,6 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
 import styled, { css } from 'styled-components';
-
 import dropdownCheck from '../../assets/img/dropdown-check.png';
 
 interface StyledFlatSelectOptionProps {

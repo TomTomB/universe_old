@@ -1,15 +1,14 @@
-import { useCompare } from '@uikit/hooks';
+import Animation, { AnimationWithTransition } from '../Animation';
 import React, { FC, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { PlayButtonState } from '..';
-import Animation, { AnimationWithTransition } from '../Animation';
-
 import LobbyHoverIntro from '@assets/video/buttons/lobby-button/lobby-button-hover-intro.webm';
 import LobbyHoverLoop from '@assets/video/buttons/lobby-button/lobby-button-hover-loop.webm';
 import LobbyHoverOutro from '@assets/video/buttons/lobby-button/lobby-button-hover-outro.webm';
 import LobbyIntro from '@assets/video/buttons/lobby-button/lobby-button-intro.webm';
 import LobbyMagicRelease from '@assets/video/buttons/lobby-button/lobby-button-magic-release.webm';
 import LobbyRelease from '@assets/video/buttons/lobby-button/lobby-button-release.webm';
+import { PlayButtonState } from '..';
+import { useCompare } from '@uikit/hooks';
 
 interface LobbyContainerProps {
   show: boolean;

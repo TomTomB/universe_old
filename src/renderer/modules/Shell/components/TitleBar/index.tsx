@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import TitleBarButton, {
   TitleBarButtonBase,
   TitleBarButtonType,
 } from '../TitleBarButton';
+import styled from 'styled-components';
 
 const TitleBar = styled.div`
   -webkit-app-region: drag;

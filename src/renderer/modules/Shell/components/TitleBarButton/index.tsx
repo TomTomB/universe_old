@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { ipcRenderer } from 'electron';
-import styled from 'styled-components';
-import controlHide from '@assets/components/controls/control-hide.png';
-import controlHelp from '@assets/components/controls/control-help.png';
 import controlClose from '@assets/components/controls/control-close.png';
+import controlHelp from '@assets/components/controls/control-help.png';
+import controlHide from '@assets/components/controls/control-hide.png';
 import controlSettings from '@assets/components/controls/control-settings.png';
-import { useAppDispatch } from '@store';
+import { ipcRenderer } from 'electron';
 import { setShowSettingsModal } from '@store/slices/settings/settingsSlice';
+import styled from 'styled-components';
+import { useAppDispatch } from '@store';
 
 export enum TitleBarButtonType {
   Close,

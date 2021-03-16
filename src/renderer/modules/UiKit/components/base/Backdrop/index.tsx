@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
+import backdropMagic from './assets/backdrop-magic.png';
 import styled from 'styled-components';
 
-import backdropMagic from './assets/backdrop-magic.png';
-
-const StyledBackdrop = styled.div`
+export const StyledBackdrop = styled.div`
   position: relative;
   background-color: #000;
   background-image: url(${backdropMagic});

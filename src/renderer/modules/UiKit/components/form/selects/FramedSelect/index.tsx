@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
-import styled, { css } from 'styled-components';
-import dropdownArrowLocked from '../assets/img/up-down-arrow-locked.png';
-import dropdownArrow from '../assets/img/up-down-arrow.png';
-import { animated, useTransition } from 'react-spring';
-import { springConfigHarsh } from '@uikit/util/springConfig';
 import { ScrollContainer, StyledScrollContainer } from '@uikit/components/base';
-import Label from '../../Label';
+import { animated, useTransition } from 'react-spring';
+import styled, { css } from 'styled-components';
 import FormField from '../../base/FormField';
 import FramedSelectOption from './Option';
+import Label from '../../Label';
 import NativeSelect from '../NativeSelect';
+import dropdownArrow from '../assets/img/up-down-arrow.png';
+import dropdownArrowLocked from '../assets/img/up-down-arrow-locked.png';
+import { springConfigHarsh } from '@uikit/util/springConfig';
 import useSelectBehavior from '../hooks/useSelectBehavior';
 
 const SelectLabel = styled(Label)`

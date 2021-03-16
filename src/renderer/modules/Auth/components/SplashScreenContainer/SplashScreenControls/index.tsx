@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import lineVerticalFade from '@assets/decoration/line-vertical-fade.png';
 import {
   Checkbox,
   CheckboxContainer,
   PrimaryReplayButton,
 } from '@uikit/components/form';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '@store';
+import React, { FC } from 'react';
+import {
+  SplashScreenAudioMachine,
+  SplashScreenVideoMachine,
+} from '@uikit/machines';
 import {
   selectPlayLoginAnimations,
   selectPlayLoginMusic,
@@ -15,10 +15,10 @@ import {
   togglePlayLoginMusic,
 } from '@store/slices/settings/settingsSlice';
 import { State } from 'xstate';
-import {
-  SplashScreenAudioMachine,
-  SplashScreenVideoMachine,
-} from '@uikit/machines';
+import lineVerticalFade from '@assets/decoration/line-vertical-fade.png';
+import styled from 'styled-components';
+import { useAppDispatch } from '@store';
+import { useSelector } from 'react-redux';
 
 const SplashScreenControlsContainer = styled.div`
   position: absolute;

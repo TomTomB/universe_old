@@ -1,9 +1,8 @@
-import { app } from 'electron';
-import log from 'electron-log';
-import { autoUpdater } from '@imjs/electron-differential-updater';
-import { Logger } from '../util';
-
 import './events';
+import { Logger } from '../util';
+import { app } from 'electron';
+import { autoUpdater } from '@imjs/electron-differential-updater';
+import log from 'electron-log';
 
 export default class AppUpdater {
   constructor() {

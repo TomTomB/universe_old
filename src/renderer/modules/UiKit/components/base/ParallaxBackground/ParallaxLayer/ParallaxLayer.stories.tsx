@@ -1,6 +1,6 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 import ParallaxLayer, { ParallaxLayerProps } from '.';
+import React from 'react';
 import smoke4 from '../assets/parallax-smoke4.png';
 
 export default {

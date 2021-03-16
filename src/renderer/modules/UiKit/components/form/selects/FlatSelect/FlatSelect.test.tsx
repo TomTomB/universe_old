@@ -1,10 +1,10 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import FlatSelect from '.';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
 import theme from '@styles/theme';
 import { useForm } from 'react-hook-form';
-import FlatSelect from '.';
 
 describe('FlatSelect', () => {
   it('should render', () => {

@@ -1,8 +1,3 @@
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import styled from 'styled-components';
-import contentGradientMaskBoth from '@assets/masks/content-gradient-mask-both-no-scrollbar.png';
-import contentGradientMaskBottom from '@assets/masks/content-gradient-mask-bottom-no-scrollbar.png';
-import contentGradientMaskTop from '@assets/masks/content-gradient-mask-top-no-scrollbar.png';
 import React, {
   FC,
   PropsWithChildren,
@@ -10,8 +5,13 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import classNames from 'classnames';
+import contentGradientMaskBoth from '@assets/masks/content-gradient-mask-both-no-scrollbar.png';
+import contentGradientMaskBottom from '@assets/masks/content-gradient-mask-bottom-no-scrollbar.png';
+import contentGradientMaskTop from '@assets/masks/content-gradient-mask-top-no-scrollbar.png';
 import generateId from '@uikit/util/idGenerator';
+import styled from 'styled-components';
 
 export const StyledScrollContainer = styled(OverlayScrollbarsComponent)`
   &.with-overflow-masks {

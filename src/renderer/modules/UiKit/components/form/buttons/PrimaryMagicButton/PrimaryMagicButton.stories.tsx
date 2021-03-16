@@ -1,7 +1,6 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-
+import { Meta, Story } from '@storybook/react';
 import PrimaryMagicButton, { PrimaryMagicButtonProps } from '.';
+import React from 'react';
 
 export default {
   title: 'UiKit/Form/Buttons/PrimaryMagicButton',

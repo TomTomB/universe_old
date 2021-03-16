@@ -1,16 +1,16 @@
-import { useCompare } from '@uikit/hooks';
+import Animation, { AnimationWithTransition } from '../Animation';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { PlayButtonState } from '..';
-import Animation, { AnimationWithTransition } from '../Animation';
+import LobbyToPlay from '@assets/video/buttons/lobby-button/lobby-button-to-play-button.webm';
 import PatcherToPlay from '@assets/video/buttons/patcher/patcher-to-play-button-enabled.webm';
 import PlayButtonEnabledIntro from '@assets/video/buttons/play-button/play-button-enabled-intro.webm';
-import LobbyToPlay from '@assets/video/buttons/lobby-button/lobby-button-to-play-button.webm';
 import PlayButtonHoverIntro from '@assets/video/buttons/play-button/play-button-hover-intro.webm';
 import PlayButtonHoverLoop from '@assets/video/buttons/play-button/play-button-hover-loop.webm';
 import PlayButtonHoverOutro from '@assets/video/buttons/play-button/play-button-hover-outro.webm';
 import PlayButtonMagicRelease from '@assets/video/buttons/play-button/play-button-magic-release.webm';
 import PlayButtonRelease from '@assets/video/buttons/play-button/play-button-release.webm';
+import { PlayButtonState } from '..';
+import { useCompare } from '@uikit/hooks';
 
 interface PlayContainerProps {
   show: boolean;

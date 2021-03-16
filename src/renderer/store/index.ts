@@ -1,10 +1,10 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { isStorybook, isTest } from '@shared/env';
-import { useDispatch } from 'react-redux';
+import { load, save } from './middleware/localstorage-sync';
 import { createHashHistory } from 'history';
-import { routerMiddleware } from 'connected-react-router';
-import { save, load } from './middleware/localstorage-sync';
 import rootReducer from './rootReducer';
+import { routerMiddleware } from 'connected-react-router';
+import { useDispatch } from 'react-redux';
 
 export const history = createHashHistory();
 

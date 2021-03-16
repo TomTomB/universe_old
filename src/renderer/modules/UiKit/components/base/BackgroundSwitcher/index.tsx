@@ -41,7 +41,7 @@ const popFadeInAnimation = keyframes`
 
 `;
 
-const StyledBackgroundSwitcher = styled.div`
+export const StyledBackgroundSwitcher = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;

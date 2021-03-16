@@ -176,17 +176,6 @@
   "browserslist": [
     "last 1 electron version"
   ],
-  "prettier": {
-    "arrowParens": "avoid",
-    "singleQuote": true,
-    "semi": true
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "renovate": {
     "extends": [
       "bliss"

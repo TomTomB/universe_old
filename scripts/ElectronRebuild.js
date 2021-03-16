@@ -1,7 +1,7 @@
-import path from 'path';
+import { dependencies } from '../src/main/package.json';
 import { execSync } from 'child_process';
 import fs from 'fs';
-import { dependencies } from '../src/main/package.json';
+import path from 'path';
 
 const nodeModulesPath = path.join(__dirname, '../src/main/node_modules');
 

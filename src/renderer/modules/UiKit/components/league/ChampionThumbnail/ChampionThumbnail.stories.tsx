@@ -1,9 +1,8 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import AhriIcon from '@assets/game-data/champion-icons/103.png';
-
 import ChampionThumbnail, { ChampionThumbnailProps } from '.';
+import { Meta, Story } from '@storybook/react';
+import AhriIcon from '@assets/game-data/champion-icons/103.png';
 import ChampionMasteryBanner from '../ChampionMasteryBanner';
+import React from 'react';
 import { Thumbnail } from '@uikit/components/base';
 
 export default {

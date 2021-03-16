@@ -1,16 +1,16 @@
-import classNames from 'classnames';
 import React, { FC, useRef, useState } from 'react';
-import styled from 'styled-components';
-import searchBoxClear from '@assets/components/input/search-box-clear.png';
-import searchIcon from '@assets/components/input/search-icon.png';
-import eyeHide from '@assets/masks/eye-hide.svg';
-import eyeShow from '@assets/masks/eye-show.svg';
+import { Tooltip, TooltipText } from '@uikit/components/tooltip';
 import { animated, useTransition } from 'react-spring';
 import { FieldError } from 'react-hook-form';
-import { springConfigHarsh } from '@uikit/util/springConfig';
-import Label from '../Label';
 import FormField from '../base/FormField';
-import { Tooltip, TooltipText } from '@uikit/components/tooltip';
+import Label from '../Label';
+import classNames from 'classnames';
+import eyeHide from '@assets/masks/eye-hide.svg';
+import eyeShow from '@assets/masks/eye-show.svg';
+import searchBoxClear from '@assets/components/input/search-box-clear.png';
+import searchIcon from '@assets/components/input/search-icon.png';
+import { springConfigHarsh } from '@uikit/util/springConfig';
+import styled from 'styled-components';
 
 const InputLabel = styled(Label)`
   margin-bottom: 2px;

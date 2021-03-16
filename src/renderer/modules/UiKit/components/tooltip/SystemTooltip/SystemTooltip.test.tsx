@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
+import React, { useRef } from 'react';
 import SystemTooltip from '.';
+import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
+import theme from '@styles/theme';
 
 describe('SystemTooltip', () => {
   const TooltipWrapper = () => {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import checkboxSpriteSheet from '@assets/sprites/checkbox-spritesheet.png';
 import classNames from 'classnames';
+import styled from 'styled-components';
 
 export const CheckboxContainer = styled.div`
   position: relative;

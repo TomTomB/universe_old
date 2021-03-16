@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React, { FC, PropsWithChildren } from 'react';
+import classNames from 'classnames';
 import styled from 'styled-components';
 
 export const StyledLabel = styled.label`

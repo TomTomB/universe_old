@@ -1,16 +1,16 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import ButtonGroup from '.';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
 import theme from '@styles/theme';
-import CometBorder from '.';
 
-describe('CometBorder', () => {
+describe('ButtonGroup', () => {
   it('should render', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <CometBorder />
+          <ButtonGroup />
         </ThemeProvider>
       )
     ).toBeTruthy();

@@ -1,10 +1,10 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
 import ParallaxLayer from '.';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
 import smoke4 from '../assets/parallax-smoke4.png';
+import theme from '@styles/theme';
 
 describe('ParallaxLayer', () => {
   it('should render', () => {

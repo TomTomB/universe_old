@@ -1,7 +1,7 @@
 import { useClickOutside, useCompare } from '@uikit/hooks';
-import { generateId } from '@uikit/util';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SelectOption } from '../FramedSelect';
+import { generateId } from '@uikit/util';
 
 const getOption = ({
   selectId,

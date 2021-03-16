@@ -1,13 +1,13 @@
 /* eslint global-require: off, no-console: off */
 
 import * as cp from 'child_process';
-import * as util from 'util';
 import * as fs from 'fs';
-import { FSWatcher, watch } from 'chokidar';
-import log from '../util/logger';
+import * as util from 'util';
 import { COMMAND, INSTALL_REGEX } from './constants';
+import { FSWatcher, watch } from 'chokidar';
 import { LCU } from '../../types';
 import { Window } from '../util';
+import log from '../util/logger';
 
 export default class LCUConnector {
   private exec = util.promisify(cp.exec);
@@ -46,7 +46,7 @@ export default class LCUConnector {
   };
 
   watchLockfile = async (fullPath: string) => {
-    return watch(fullPath).on('all', async (eventName) => {
+    return watch(fullPath).on('all', async eventName => {
       if (eventName !== 'add' && eventName !== 'unlink') {
         return;
       }

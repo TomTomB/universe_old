@@ -8,7 +8,7 @@ const spinAnimation = keyframes`
   }
 `;
 
-const Spinner = styled.div`
+export const StyledLoadingSpinner = styled.div`
   background-image: url(${spinner});
   background-size: contain;
   background-position: center;
@@ -19,7 +19,7 @@ const Spinner = styled.div`
 `;
 
 const LoadingSpinner: FC = () => {
-  return <Spinner />;
+  return <StyledLoadingSpinner />;
 };
 
 export default LoadingSpinner;

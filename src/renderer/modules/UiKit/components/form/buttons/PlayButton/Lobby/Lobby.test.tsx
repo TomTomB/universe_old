@@ -1,10 +1,10 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
 import Lobby from '.';
 import { PlayButtonState } from '..';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
+import theme from '@styles/theme';
 
 describe('Lobby', () => {
   it('should render', () => {

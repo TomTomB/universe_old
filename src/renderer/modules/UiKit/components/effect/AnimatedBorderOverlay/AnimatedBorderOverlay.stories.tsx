@@ -1,7 +1,6 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-
 import AnimatedBorderOverlay, { AnimatedBorderOverlayProps } from '.';
+import { Meta, Story } from '@storybook/react';
+import React from 'react';
 import styled from 'styled-components';
 
 export default {

@@ -1,8 +1,7 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import AhriIcon from '@assets/game-data/champion-icons/103.png';
-
+import { Meta, Story } from '@storybook/react';
 import Thumbnail, { ThumbnailProps } from '.';
+import AhriIcon from '@assets/game-data/champion-icons/103.png';
+import React from 'react';
 
 export default {
   title: 'UiKit/Base/Thumbnail',

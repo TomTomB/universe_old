@@ -1,9 +1,9 @@
-import webpack from 'webpack';
-import path from 'path';
-import { merge } from 'webpack-merge';
+import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import baseConfig from './webpack.config.base';
 import { dependencies } from '../package.json';
-import CheckNodeEnv from '../scripts/CheckNodeEnv';
+import { merge } from 'webpack-merge';
+import path from 'path';
+import webpack from 'webpack';
 
 CheckNodeEnv('development');
 

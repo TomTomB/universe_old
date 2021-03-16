@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
-
 import infoIcon from './assets/info-icon.svg';
+import styled from 'styled-components';
 
 export const StyledInfoIcon = styled.div<{ width: number }>`
   position: relative;

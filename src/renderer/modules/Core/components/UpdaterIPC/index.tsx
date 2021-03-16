@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { isDev } from '@shared/env';
-import { useAppDispatch } from '@store';
+import React, { FC, useEffect } from 'react';
 import {
   setDownloadProgress,
   setStatus,
 } from '@store/slices/updater/updaterSlice';
-import { ipcRenderer } from 'electron';
-import { UpdateInfo } from 'electron-updater';
-import React, { FC, useEffect } from 'react';
 import { DownloadProgress } from '../../../../../types/electron';
+import { UpdateInfo } from 'electron-updater';
+import { ipcRenderer } from 'electron';
+import { isDev } from '@shared/env';
+import { useAppDispatch } from '@store';
 
 const UpdaterIPC: FC = () => {
   const dispatch = useAppDispatch();

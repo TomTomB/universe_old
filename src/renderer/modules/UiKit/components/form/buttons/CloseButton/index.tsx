@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { ComponentTypes } from '@typings';
 import styled, { css } from 'styled-components';
-
-import iconArrowRight from './assets/arrow-right.png';
+import { ComponentTypes } from '@typings';
 import iconAdd from './assets/icon_add.png';
+import iconArrowRight from './assets/arrow-right.png';
 import iconBack from './assets/icon_back.png';
 import iconClearAll from './assets/icon_clearall.png';
 import iconCompare from './assets/icon_compare.png';
@@ -14,8 +13,8 @@ import iconExport from './assets/icon_export.png';
 import iconImport from './assets/icon_import.png';
 import iconNext from './assets/icon_next.png';
 import iconPlus from './assets/icon_plus.png';
-import iconSettings from './assets/icon_settings.png';
 import iconRefresh from './assets/refresh.png';
+import iconSettings from './assets/icon_settings.png';
 import iconX from './assets/x-icon.png';
 
 interface StyledCloseButtonProps {

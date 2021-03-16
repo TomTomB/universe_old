@@ -2,14 +2,14 @@
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { app, BrowserWindow, ipcMain, protocol, shell } from 'electron';
-import * as Sentry from '@sentry/electron';
-import { isDev, sentryURL } from '@shared/env';
-import path from 'path';
 import * as Protocol from './util/protocol';
+import * as Sentry from '@sentry/electron';
+import { BrowserWindow, app, ipcMain, protocol, shell } from 'electron';
+import { isDev, sentryURL } from '@shared/env';
+import AppUpdater from './updater/appUpdater';
 import LCUConnector from './lcu/lcu-connector';
 import Logger from './util/logger';
-import AppUpdater from './updater/appUpdater';
+import path from 'path';
 
 Sentry.init({
   dsn: sentryURL,

@@ -1,6 +1,6 @@
+import { dependencies as externals } from '../src/main/package.json';
 import path from 'path';
 import webpack from 'webpack';
-import { dependencies as externals } from '../src/main/package.json';
 
 const config = {
   externals: [...Object.keys(externals || {})],

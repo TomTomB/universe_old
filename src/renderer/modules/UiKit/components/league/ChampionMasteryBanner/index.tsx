@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-
 import masteryBanner0 from './assets/mastery-banner-0.png';
 import masteryBanner1 from './assets/mastery-banner-1.png';
 import masteryBanner2 from './assets/mastery-banner-2.png';

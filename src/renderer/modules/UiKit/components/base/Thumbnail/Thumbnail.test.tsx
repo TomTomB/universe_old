@@ -1,9 +1,9 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
 import Thumbnail from '.';
+import { render } from '@testing-library/react';
+import theme from '@styles/theme';
 
 describe('Thumbnail', () => {
   it('should render', () => {

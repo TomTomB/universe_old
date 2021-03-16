@@ -1,8 +1,7 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import register from '@mocks/register';
-
 import FramedSelect, { FramedSelectProps } from '.';
+import { Meta, Story } from '@storybook/react';
+import React from 'react';
+import register from '@mocks/register';
 
 export default {
   title: 'UiKit/Form/Selects/FramedSelect',

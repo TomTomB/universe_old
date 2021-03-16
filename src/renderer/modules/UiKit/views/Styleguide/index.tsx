@@ -1,5 +1,5 @@
-import { FlatSelect } from '@uikit/components/form';
 import React, { FC } from 'react';
+import { FlatSelect } from '@uikit/components/form';
 import { Link } from 'react-router-dom';
 
 const Styleguide: FC = () => {

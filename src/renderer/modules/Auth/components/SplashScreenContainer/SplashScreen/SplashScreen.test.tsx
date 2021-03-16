@@ -1,21 +1,21 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
-import { Provider } from 'react-redux';
-import store from '@store';
-import loginVideoIntro from '@assets/video/intro-video-splash-kaisa.webm';
-import loginVideoLoop from '@assets/video/video-splash-kaisa.webm';
-import loginMusicIntro from '@assets/music/intro-sound-splash-kaisa.ogg';
-import loginMusicLoop from '@assets/music/music-splash-kaisa.ogg';
-import loginPicture from '@assets/background/image-splash-kaisa.jpg';
-import { useMachine } from '@xstate/react';
 import {
   SplashScreenAudioMachine,
   SplashScreenVideoMachine,
 } from '@uikit/machines';
+import { Provider } from 'react-redux';
+import React from 'react';
 import SplashScreen from '.';
+import { ThemeProvider } from 'styled-components';
+import loginMusicIntro from '@assets/music/intro-sound-splash-kaisa.ogg';
+import loginMusicLoop from '@assets/music/music-splash-kaisa.ogg';
+import loginPicture from '@assets/background/image-splash-kaisa.jpg';
+import loginVideoIntro from '@assets/video/intro-video-splash-kaisa.webm';
+import loginVideoLoop from '@assets/video/video-splash-kaisa.webm';
+import { render } from '@testing-library/react';
+import store from '@store';
+import theme from '@styles/theme';
+import { useMachine } from '@xstate/react';
 
 describe('SplashScreen', () => {
   it('should render', () => {

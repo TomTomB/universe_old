@@ -1,4 +1,3 @@
-import { createGlobalStyle } from 'styled-components';
 import beaufortBold from '@assets/fonts/BeaufortForLoL-Bold.otf';
 import beaufortBoldItalic from '@assets/fonts/BeaufortForLoL-BoldItalic.otf';
 import beaufortHeavy from '@assets/fonts/BeaufortForLoL-Heavy.otf';
@@ -9,15 +8,16 @@ import beaufortLightItalic from '@assets/fonts/BeaufortForLoL-LightItalic.otf';
 import beaufortMedium from '@assets/fonts/BeaufortForLoL-Medium.otf';
 import beaufortMediumItalic from '@assets/fonts/BeaufortForLoL-MediumItalic.otf';
 import beaufortRegular from '@assets/fonts/BeaufortForLoL-Regular.otf';
+import { createGlobalStyle } from 'styled-components';
+import shentox from '@assets/fonts/shentox.ttf';
+import shentoxLight from '@assets/fonts/shentox-light.ttf';
+import shentoxSemiBold from '@assets/fonts/shentox-semibold.ttf';
 import spiegelBold from '@assets/fonts/Spiegel-Bold.otf';
 import spiegelBoldItalic from '@assets/fonts/Spiegel-BoldItalic.otf';
 import spiegelRegular from '@assets/fonts/Spiegel-Regular.otf';
 import spiegelRegularItalic from '@assets/fonts/Spiegel-RegularItalic.otf';
 import spiegelSemiBold from '@assets/fonts/Spiegel-SemiBold.otf';
 import spiegelSemiBoldItalic from '@assets/fonts/Spiegel-SemiBoldItalic.otf';
-import shentoxLight from '@assets/fonts/shentox-light.ttf';
-import shentoxSemiBold from '@assets/fonts/shentox-semibold.ttf';
-import shentox from '@assets/fonts/shentox.ttf';
 
 const FontFaces = createGlobalStyle`
   @font-face {

@@ -1,12 +1,12 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react';
+import { animated, useTransition } from 'react-spring';
+import { springConfigHarsh } from '@uikit/util';
 import styled from 'styled-components';
 import tooltipCaret from '@assets/components/tooltip/tooltip-caret.png';
 import tooltipSubBorderHorizontal from '@assets/components/tooltip/tooltip-sub-border-horizontal.png';
 import tooltipSubBorderVertical from '@assets/components/tooltip/tooltip-sub-border-vertical.png';
-import { usePopperTooltip } from 'react-popper-tooltip';
-import { animated, useTransition } from 'react-spring';
-import { springConfigHarsh } from '@uikit/util';
 import { useCompare } from '@uikit/hooks';
+import { usePopperTooltip } from 'react-popper-tooltip';
 
 const TooltipSubBorder = styled.div`
   position: absolute;

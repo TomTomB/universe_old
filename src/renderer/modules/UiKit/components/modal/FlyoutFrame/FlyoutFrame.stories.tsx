@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
-
 import FlyoutFrame, { FlyoutFrameProps } from '.';
+import { Meta, Story } from '@storybook/react';
+import React, { useState } from 'react';
 
 export default {
   title: 'UiKit/Modal/FlyoutFrame',

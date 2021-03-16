@@ -1,11 +1,10 @@
-import { StyledThumbnail } from '@uikit/components/base';
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { StyledChampionMasteryBannerContainer } from '../ChampionMasteryBanner';
-
+import { StyledThumbnail } from '@uikit/components/base';
 import iconChestAcquiredFrame from './assets/icon-chest-acquired-frame.png';
-import iconFreeToPlayReward from './assets/icon-free-to-play-reward.png';
 import iconFreeToPlay from './assets/icon-free-to-play.png';
+import iconFreeToPlayReward from './assets/icon-free-to-play-reward.png';
 import iconLockSmall from './assets/icon-lock-small.png';
 import iconRental from './assets/icon-rental.png';
 

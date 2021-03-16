@@ -1,7 +1,6 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-
+import { Meta, Story } from '@storybook/react';
 import NavigationBarItem, { NavigationBarItemProps } from '.';
+import React from 'react';
 import { Router } from 'react-router';
 import { createHashHistory } from 'history';
 

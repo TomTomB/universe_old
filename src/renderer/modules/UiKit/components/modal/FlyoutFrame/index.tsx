@@ -1,16 +1,15 @@
-import { CloseButton } from '@uikit/components/form';
-import classNames from 'classnames';
 import React, { FC } from 'react';
 import styled, { keyframes } from 'styled-components';
-
+import { CloseButton } from '@uikit/components/form';
+import { animated } from 'react-spring';
+import classNames from 'classnames';
 import frameButtonCloseTopDown from '../assets/img/frame-button-close-top-down.png';
 import pointerIntro from './assets/pointer-intro-01.png';
 import pointerOutro from './assets/pointer-outro-01.png';
+import { springConfigHarsh } from '@uikit/util';
 import subBorderPrimaryHorizontal from '../assets/img/sub-border-primary-horizontal.png';
 import subBorderPrimaryVertical from '../assets/img/sub-border-primary-vertical.png';
 import { useTransition } from 'react-spring';
-import { springConfigHarsh } from '@uikit/util';
-import { animated } from 'react-spring';
 
 const caretIntroAnimation = keyframes`
   from {

@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
-
-import navPointer from './assets/nav-pointer.png';
 import navHighlight from './assets/nav-highlight.png';
+import navPointer from './assets/nav-pointer.png';
+import styled from 'styled-components';
 
 export const StyledNavigationBarItem = styled.li`
   all: unset;

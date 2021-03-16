@@ -1,15 +1,15 @@
-import { ScrollContainer, StyledScrollContainer } from '@uikit/components/base';
 import React, { FC, PropsWithChildren, useMemo } from 'react';
+import { ScrollContainer, StyledScrollContainer } from '@uikit/components/base';
+import { animated, useTransition } from 'react-spring';
 import styled, { css } from 'styled-components';
 import FlatSelectOption from './Option';
 import FlatSelectOptionGroup from './OptionGroup';
-import upDownArrowLocked from '../assets/img/up-down-arrow-locked.png';
-import upDownArrow from '../assets/img/up-down-arrow.png';
-import { animated, useTransition } from 'react-spring';
-import { springConfigHarsh } from '@uikit/util';
-import useSelectBehavior from '../hooks/useSelectBehavior';
-import { SelectOption } from '../FramedSelect';
 import NativeSelect from '../NativeSelect';
+import { SelectOption } from '../FramedSelect';
+import { springConfigHarsh } from '@uikit/util';
+import upDownArrow from '../assets/img/up-down-arrow.png';
+import upDownArrowLocked from '../assets/img/up-down-arrow-locked.png';
+import useSelectBehavior from '../hooks/useSelectBehavior';
 
 const OptionsContainer = styled.div<{ openUpward: boolean; active: boolean }>`
   background-color: #010a13;

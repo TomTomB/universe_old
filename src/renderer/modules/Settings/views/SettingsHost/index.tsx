@@ -1,12 +1,12 @@
-import { useAppDispatch } from '@store';
+import React, { FC } from 'react';
 import {
   selectShowSettingsModal,
   setShowSettingsModal,
 } from '@store/slices/settings/settingsSlice';
 import Modal from '@uikit/components/modal/Modal';
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useAppDispatch } from '@store';
+import { useSelector } from 'react-redux';
 
 const SettingsModal = styled(Modal)`
   width: 696px;

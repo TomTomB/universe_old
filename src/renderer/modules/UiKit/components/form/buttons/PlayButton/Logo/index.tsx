@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
+import Animation from '../Animation';
 import LeagueLogoIntro from '@assets/video/league-logo/league-logo-intro.webm';
-import LeagueLogoMagic from '@assets/video/league-logo/league-logo-magic.webm';
-import LeagueLogoLoopIdle from '@assets/video/league-logo/league-logo-loop-idle.webm';
 import LeagueLogoLoopActive from '@assets/video/league-logo/league-logo-loop-active.webm';
+import LeagueLogoLoopIdle from '@assets/video/league-logo/league-logo-loop-idle.webm';
+import LeagueLogoMagic from '@assets/video/league-logo/league-logo-magic.webm';
 import { PlayButtonState } from '..';
 import { useCompare } from '@uikit/hooks';
-import Animation from '../Animation';
 
 interface PlayButtonLogoProps {
   buttonState: { prev: PlayButtonState; curr: PlayButtonState };

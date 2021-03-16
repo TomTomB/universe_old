@@ -1,11 +1,11 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
 import { Provider } from 'react-redux';
-import store from '@store';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import UpdaterIPC from '.';
+import { render } from '@testing-library/react';
+import store from '@store';
+import theme from '@styles/theme';
 
 describe('UpdaterIPC', () => {
   it('should render', () => {

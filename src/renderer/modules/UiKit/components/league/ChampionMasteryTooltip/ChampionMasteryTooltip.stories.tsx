@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { Story, Meta } from '@storybook/react';
 import ChampionMasteryTooltip, { ChampionMasteryTooltipProps } from '.';
+import { Meta, Story } from '@storybook/react';
+import React, { useRef, useState } from 'react';
 import { Tooltip } from '@uikit/components/tooltip';
 
 export default {

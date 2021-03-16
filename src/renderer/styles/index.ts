@@ -1,9 +1,9 @@
-import theme from './theme';
-import HeadingTypography from './typo/Heading';
 import BodyTypography from './typo/Body';
-import Scrollbar from './Scrollbar';
-import Reset from './Reset';
 import FontFaces from './FontFaces';
+import HeadingTypography from './typo/Heading';
+import Reset from './Reset';
+import Scrollbar from './Scrollbar';
+import theme from './theme';
 
 export {
   theme,

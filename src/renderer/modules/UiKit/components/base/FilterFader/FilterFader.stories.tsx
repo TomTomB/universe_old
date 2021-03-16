@@ -1,8 +1,7 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-import AhriIcon from '@assets/game-data/champion-icons/103.png';
-
 import FilterFader, { FilterFaderProps } from '.';
+import { Meta, Story } from '@storybook/react';
+import AhriIcon from '@assets/game-data/champion-icons/103.png';
+import React from 'react';
 import styled from 'styled-components';
 
 export default {

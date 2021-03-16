@@ -1,12 +1,12 @@
 import React, { FC, PropsWithChildren, useState } from 'react';
-import { ComponentTypes } from '@typings';
 import styled, { css, keyframes } from 'styled-components';
+import { ComponentTypes } from '@typings';
 import { DownloadProgress } from '../../../../../../../types/electron';
-import PlayButtonLogo from './Logo';
 import PlayButtonFrame from './Frame';
+import PlayButtonLobby from './Lobby';
+import PlayButtonLogo from './Logo';
 import PlayButtonPatcher from './Patcher';
 import PlayButtonPlay from './Play';
-import PlayButtonLobby from './Lobby';
 
 const textShowAnimation = keyframes`
   from{

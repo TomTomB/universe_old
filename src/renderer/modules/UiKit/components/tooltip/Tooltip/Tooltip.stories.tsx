@@ -1,6 +1,5 @@
+import { Meta, Story } from '@storybook/react';
 import React, { useRef, useState } from 'react';
-import { Story, Meta } from '@storybook/react';
-
 import Tooltip, { TooltipProps } from '.';
 import TooltipText from '../TooltipText';
 

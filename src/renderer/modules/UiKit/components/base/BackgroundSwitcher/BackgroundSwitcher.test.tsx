@@ -1,10 +1,10 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
 import BackgroundSwitcher from '.';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import dianaBloodmoon from '@assets/background/splash/image-splash-dianabloodmoon.jpg';
+import { render } from '@testing-library/react';
+import theme from '@styles/theme';
 
 describe('BackgroundSwitcher', () => {
   it('should render', () => {

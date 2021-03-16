@@ -1,16 +1,16 @@
-import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
-import { Provider } from 'react-redux';
-import store from '@store';
-import { useMachine } from '@xstate/react';
 import {
   SplashScreenAudioMachine,
   SplashScreenVideoMachine,
 } from '@uikit/machines';
+import { Provider } from 'react-redux';
+import React from 'react';
 import SplashScreenControls from '.';
+import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
+import store from '@store';
+import theme from '@styles/theme';
+import { useMachine } from '@xstate/react';
 
 describe('SplashScreenControls', () => {
   it('should render', () => {

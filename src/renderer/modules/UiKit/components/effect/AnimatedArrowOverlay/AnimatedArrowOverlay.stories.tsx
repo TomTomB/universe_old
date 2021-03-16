@@ -1,11 +1,10 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
-
 import AnimatedArrowOverlay, {
   AnimatedArrowOverlayProps,
-  AnimatedArrowOverlayStateHoverFocus,
   AnimatedArrowOverlayStateActive,
+  AnimatedArrowOverlayStateHoverFocus,
 } from '.';
+import { Meta, Story } from '@storybook/react';
+import React from 'react';
 import styled from 'styled-components';
 
 export default {

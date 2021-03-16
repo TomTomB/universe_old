@@ -1,5 +1,5 @@
 import useClickOutside from './useClickOutside';
-import usePrevious from './usePrevious';
 import useCompare from './useCompare';
+import usePrevious from './usePrevious';
 
 export { useClickOutside, usePrevious, useCompare };

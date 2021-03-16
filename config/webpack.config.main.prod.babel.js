@@ -1,12 +1,12 @@
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import CheckNodeEnv from '../scripts/CheckNodeEnv';
+import CopyPlugin from 'copy-webpack-plugin';
+import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
+import TerserPlugin from 'terser-webpack-plugin';
+import baseConfig from './webpack.config.base';
+import { merge } from 'webpack-merge';
 import path from 'path';
 import webpack from 'webpack';
-import { merge } from 'webpack-merge';
-import TerserPlugin from 'terser-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import CopyPlugin from 'copy-webpack-plugin';
-import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../scripts/CheckNodeEnv';
-import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
 
 CheckNodeEnv('production');
 DeleteSourceMaps();

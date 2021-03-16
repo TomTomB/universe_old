@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import PlayButtonFrameImage from '@assets/components/buttons/play/play-button-frame-default.png';
-import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
-import { PlayButtonState } from '..';
-import { useCompare } from '@uikit/hooks';
 import styled, { css } from 'styled-components';
 import Animation from '../Animation';
+import PatcherFrameIntro from '@assets/video/buttons/patcher/patcher-frame-intro.webm';
+import PlayButtonFrameImage from '@assets/components/buttons/play/play-button-frame-default.png';
+import { PlayButtonState } from '..';
+import { useCompare } from '@uikit/hooks';
 
 const Frame = styled.div<{ show: boolean }>`
   position: absolute;
