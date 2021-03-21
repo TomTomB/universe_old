@@ -9,6 +9,7 @@ import Label from './Label';
 import PlayButton from './buttons/PlayButton';
 import PrimaryMagicButton from './buttons/PrimaryMagicButton';
 import PrimaryReplayButton from './buttons/PrimaryReplayButton';
+import PurchaseButton from './buttons/PurchaseButton';
 
 export {
   PrimaryMagicButton,
@@ -16,6 +17,7 @@ export {
   PlayButton,
   CloseButton,
   ArrowButton,
+  PurchaseButton,
   Checkbox,
   Input,
   Label,

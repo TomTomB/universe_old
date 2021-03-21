@@ -10,6 +10,7 @@ import LoadingSpinner, { StyledLoadingSpinner } from './LoadingSpinner';
 import ParallaxBackground, {
   StyledParallaxBackground,
 } from './ParallaxBackground';
+import RadialProgress, { StyledRadialProgress } from './RadialProgress';
 import ScrollContainer, { StyledScrollContainer } from './ScrollContainer';
 import Thumbnail, { StyledThumbnail } from './Thumbnail';
 
@@ -34,4 +35,6 @@ export {
   StyledInfoIcon,
   ParallaxBackground,
   StyledParallaxBackground,
+  RadialProgress,
+  StyledRadialProgress,
 };
