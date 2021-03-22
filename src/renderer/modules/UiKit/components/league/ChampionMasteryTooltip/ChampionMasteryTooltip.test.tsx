@@ -11,6 +11,8 @@ describe('ChampionMasteryTooltip', () => {
       render(
         <ThemeProvider theme={theme}>
           <ChampionMasteryTooltip
+            masteryLevel={7}
+            masteryProgress={20}
             championName="Karma"
             masteryPoints={10000}
             masteryTitle="Warden"
