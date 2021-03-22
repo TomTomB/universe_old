@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { RADIAL_PROGRESS_TOP_GAP } from '@uikit/components/base/RadialProgress';
 import { RadialProgress } from '@uikit/components/base';
 import chestAcquired from './assets/icon-chest-acquired.png';
 import coreAcquired from './assets/icon-core-acquired.png';

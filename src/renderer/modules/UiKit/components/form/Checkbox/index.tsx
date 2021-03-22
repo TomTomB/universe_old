@@ -83,11 +83,9 @@ export interface CheckboxProps {
   id: string;
   label: string;
   name: string;
-
   disabled?: boolean;
   className?: string;
   value?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register?: (...args: any) => any;
   onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
 }
