@@ -110,12 +110,18 @@ export interface RadialProgressProps {
   progressType?: RadialProgressType;
   progress: number;
   polygonConfig?: { startAngle: number; endAngle: number };
+  topLayerChildren?: any;
+  middleLayerChildren?: any;
+  bottomLayerChildren?: any;
 }
 
 export const RADIAL_PROGRESS_FULL = { startAngle: 90, endAngle: -270 };
 export const RADIAL_PROGRESS_TOP_GAP = { startAngle: 80, endAngle: -260 };
 
 const RadialProgress: FC<RadialProgressProps> = ({
+  topLayerChildren,
+  middleLayerChildren,
+  bottomLayerChildren,
   className,
   progressType,
   progress,
@@ -128,9 +134,11 @@ const RadialProgress: FC<RadialProgressProps> = ({
 
   return (
     <StyledRadialProgress className={className} progressType={progressType}>
-      <BottomLayer />
-      <MiddleLayer path={generator.generatePolygon(progress)} />
-      <TopLayer />
+      <BottomLayer>{bottomLayerChildren} </BottomLayer>
+      <MiddleLayer path={generator.generatePolygon(progress)}>
+        {middleLayerChildren}
+      </MiddleLayer>
+      <TopLayer> {topLayerChildren} </TopLayer>
     </StyledRadialProgress>
   );
 };

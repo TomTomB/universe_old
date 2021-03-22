@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
+import { RADIAL_PROGRESS_TOP_GAP } from '@uikit/components/base/RadialProgress';
+import { RadialProgress } from '@uikit/components/base';
 import chestAcquired from './assets/icon-chest-acquired.png';
 import coreAcquired from './assets/icon-core-acquired.png';
 import iconChampTooltipMastery from './assets/icon-champ-tooltip-mastery.png';
@@ -81,9 +83,24 @@ const Chest = styled.div<{ chestAcquired?: boolean; asCore?: boolean }>`
   }
 `;
 
+const StyledRadialProgress = styled(RadialProgress)`
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  margin: 0 16px 0 0;
+`;
+
+const ProgressText = styled.h4`
+  margin: 0;
+  text-align: center;
+  line-height: 44px;
+`;
+
 export interface ChampionMasteryTooltipProps {
   championName: string;
   masteryPoints: number;
+  masteryLevel: number;
+  masteryProgress: number;
   masteryTitle: string;
 
   chestAcquired?: boolean;
@@ -95,15 +112,19 @@ const ChampionMasteryTooltip: FC<ChampionMasteryTooltipProps> = ({
   championName,
   masteryPoints,
   masteryTitle,
-
+  masteryLevel,
+  masteryProgress,
   className,
   chestAcquired,
   displayAsCore,
 }) => {
   return (
     <StyledChampionMasteryTooltip className={className}>
-      {/* TODO(TRB): Radial progress */}
-
+      <StyledRadialProgress
+        progressType="blue"
+        progress={masteryProgress}
+        topLayerChildren={<ProgressText> {masteryLevel} </ProgressText>}
+      ></StyledRadialProgress>
       <Info>
         <Name> {championName} </Name>
         <Separator />

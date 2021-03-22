@@ -36,4 +36,6 @@ Default.args = {
   championName: 'Karma',
   masteryPoints: 100420,
   masteryTitle: 'Warden',
+  masteryLevel: 4,
+  masteryProgress: 40,
 };
