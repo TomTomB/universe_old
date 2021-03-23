@@ -72,18 +72,22 @@ const ScrollPoint = styled.div`
 
 export const ScrollPointTop = styled(ScrollPoint)`
   top: 0;
+  left: 0;
 `;
 
 export const ScrollPointBottom = styled(ScrollPoint)`
   bottom: 0;
+  left: 0;
 `;
 
 export const ScrollPointLeft = styled(ScrollPoint)`
   left: 0;
+  top: 0;
 `;
 
 export const ScrollPointRight = styled(ScrollPoint)`
   right: 0;
+  top: 0;
 `;
 
 export const InnerScrollContainer = styled.div`
