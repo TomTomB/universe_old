@@ -10,6 +10,7 @@ import PlayButton from './buttons/PlayButton';
 import PrimaryMagicButton from './buttons/PrimaryMagicButton';
 import PrimaryReplayButton from './buttons/PrimaryReplayButton';
 import PurchaseButton from './buttons/PurchaseButton';
+import Slider from './Slider';
 
 export {
   PrimaryMagicButton,
@@ -25,4 +26,5 @@ export {
   FlatSelect,
   FormField,
   CheckboxContainer,
+  Slider,
 };
