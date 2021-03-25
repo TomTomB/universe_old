@@ -10,7 +10,7 @@ describe('Slider', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <Slider />
+          <Slider id="abc" name="foo" />
         </ThemeProvider>
       )
     ).toBeTruthy();

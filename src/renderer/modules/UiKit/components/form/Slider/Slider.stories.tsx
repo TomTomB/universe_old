@@ -10,4 +10,8 @@ export default {
 const Template: Story<SliderProps> = args => <Slider {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  value: 40,
+  min: 0,
+  max: 100,
+};
