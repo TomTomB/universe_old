@@ -225,28 +225,21 @@ const Slider: FC<SliderProps> = ({
   };
 
   const updateValue = (percent: number) => {
-    if (
-      percent === value ||
-      percent === cacheVal ||
-      (percent < min && (cacheVal === min || value === min)) ||
-      (percent > max && (cacheVal === max || value === max))
-    ) {
+    if (percent < min) {
+      percent = min;
+    } else if (percent > max) {
+      percent = max;
+    }
+
+    if (percent === value || percent === cacheVal) {
       return;
     }
 
-    if (percent >= min && percent <= max) {
-      setValue(percent);
-      cacheVal = percent;
-      onChange?.(percent);
-    } else if (percent < min) {
-      setValue(min);
-      cacheVal = min;
-      onChange?.(min);
-    } else if (percent > max) {
-      setValue(max);
-      cacheVal = max;
-      onChange?.(max);
-    }
+    console.log(percent);
+
+    setValue(percent);
+    cacheVal = percent;
+    onChange?.(percent);
   };
 
   const styleValue = (100 / max) * value;
