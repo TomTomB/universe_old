@@ -208,9 +208,8 @@ const Slider: FC<SliderProps> = ({
       return;
     }
 
-    const offset = e.clientX - baseBoundingRect.left;
-
-    updateValueFromOffset(offset);
+    const offsetPercentage = getOffsetPercentage(e, baseBoundingRect);
+    updateValueFromPercent(offsetPercentage);
   };
 
   const mouseUpListener = () => {
@@ -225,14 +224,11 @@ const Slider: FC<SliderProps> = ({
       return;
     }
 
-    let offset = e.clientX - baseBoundingRect.left;
-    if (offset < 0) {
-      offset = 0;
-    } else if (offset > baseBoundingRect.width) {
-      offset = baseBoundingRect.width;
-    }
-
-    updateValueFromOffset(offset);
+    const offsetPercentage = getOffsetPercentage(
+      e.nativeEvent,
+      baseBoundingRect
+    );
+    updateValueFromPercent(offsetPercentage);
 
     document.addEventListener('mousemove', mouseMoveListener);
     document.addEventListener('mouseup', mouseUpListener);
@@ -272,34 +268,51 @@ const Slider: FC<SliderProps> = ({
     }
   };
 
-  const updateValueFromOffset = (offset: number) => {
-    if (!baseBoundingRect) {
-      return;
-    }
+  const getOffsetPercentage = (event: MouseEvent, rect: DOMRect) => {
+    const offset =
+      direction === 'horizontal'
+        ? event.clientX - rect.left
+        : event.clientY - rect.top;
 
-    const offsetPercentageExact =
-      (100 / ((100 / max) * baseBoundingRect.width)) * offset;
+    const rectLength = direction === 'horizontal' ? rect.width : rect.height;
+
+    const offsetPercentageExact = (100 / rectLength) * offset;
 
     const offsetPercentage =
       Math.round(offsetPercentageExact * stepInverse) / stepInverse;
 
-    updateValue(offsetPercentage);
+    if (offsetPercentage > 100) {
+      return 100;
+    } else if (offset < 0) {
+      return 0;
+    } else {
+      return offsetPercentage;
+    }
   };
 
-  const updateValue = (percent: number) => {
-    if (percent < min) {
-      percent = min;
-    } else if (percent > max) {
-      percent = max;
+  const updateValueFromPercent = (percent: number) => {
+    let valueFromPercent =
+      direction === 'horizontal'
+        ? (max / 100) * percent
+        : max - (max / 100) * percent;
+
+    updateValue(valueFromPercent);
+  };
+
+  const updateValue = (newValue: number) => {
+    if (newValue < min) {
+      newValue = min;
+    } else if (newValue > max) {
+      newValue = max;
     }
 
-    if (percent === value || percent === cacheVal) {
+    if (newValue === value || newValue === cacheVal) {
       return;
     }
 
-    setValue(percent);
-    cacheVal = percent;
-    onChange?.(percent);
+    setValue(newValue);
+    cacheVal = newValue;
+    onChange?.(newValue);
   };
 
   const styleValue = (100 / max) * value;
