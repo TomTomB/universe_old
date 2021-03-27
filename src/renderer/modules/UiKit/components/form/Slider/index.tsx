@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { Common } from '@typings';
 import sliderBtn from './assets/slider-btn.png';
 import styled from 'styled-components';
 import { useBoundingRect } from '@uikit/hooks';
@@ -8,29 +9,17 @@ const NativeSlider = styled.input`
 `;
 
 const SliderBase = styled.div`
-  width: 100%;
   position: relative;
 
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 2px;
-    width: calc(100% - 6px);
-    height: 2px;
     background: #1e2328;
   }
 `;
 const Fill = styled.div`
-  background: linear-gradient(to left, #695625, #463714);
   position: absolute;
-  height: 4px;
-  top: -1px;
   border: thin solid #010a13;
-  left: 2px;
-  width: calc(100% - 6px);
-  transform-origin: left center;
-  transform: scaleX(var(--slider-value-scale));
   transition: transform 25ms linear;
 `;
 
@@ -42,39 +31,98 @@ const Thumb = styled.div`
   background-size: 100%;
   position: absolute;
   z-index: 1;
-  top: -14px;
 `;
 
 const ThumbRail = styled.div`
   position: absolute;
-  top: 0;
-  left: 2px;
-  width: calc(100% - 6px);
-  height: 0;
-  transform: translateX(calc(var(--thumb-translate) - 15px));
   transition: transform 25ms linear;
   z-index: 1;
 `;
 
 export const StyledSlider = styled.div`
   display: flex;
-  align-items: center;
+
   position: relative;
-  height: 30px;
-  width: 100%;
   overflow: hidden;
-  padding: 0 9px;
   outline: none;
 
-  &[data-disabled='true'] {
-    pointer-events: none;
+  &[aria-orientation='horizontal'] {
+    height: 30px;
+    width: 100%;
+    padding: 0 15px;
+    align-items: center;
+    ${SliderBase} {
+      width: 100%;
+
+      ::before {
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #1e2328;
+        top: 0;
+      }
+    }
 
     ${Fill} {
-      background: rgba(1, 10, 19, 0.15);
+      background: linear-gradient(to left, #695625, #463714);
+      left: 0;
+      width: 100%;
+      transform-origin: left center;
+      transform: scaleX(var(--slider-value-scale));
+      height: 4px;
+      top: -1px;
+    }
+
+    ${ThumbRail} {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      transform: translateX(calc(var(--thumb-translate) - 15px));
     }
 
     ${Thumb} {
-      background-position: 0 -90px;
+      top: -14px;
+    }
+  }
+
+  &[aria-orientation='vertical'] {
+    height: 100%;
+    width: 30px;
+    padding: 15px 0;
+    justify-content: center;
+    ${SliderBase} {
+      height: 100%;
+
+      ::before {
+        bottom: 0;
+        width: 2px;
+        height: 100%;
+      }
+    }
+
+    ${Fill} {
+      background: linear-gradient(to top, #695625, #463714);
+      width: 4px;
+      bottom: 0;
+      left: -1px;
+      height: 100%;
+      transform-origin: center bottom;
+      transform: scaleY(var(--slider-value-scale));
+    }
+
+    ${ThumbRail} {
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      transform: translateY(calc(var(--thumb-translate) + 15px));
+    }
+
+    ${Thumb} {
+      transform: rotate(90deg);
+      left: -14px;
+      bottom: 0;
     }
   }
 
@@ -105,11 +153,24 @@ export const StyledSlider = styled.div`
       background-position: 0 -60px;
     }
   }
+
+  &[data-disabled='true'] {
+    pointer-events: none;
+
+    ${Fill} {
+      background: rgba(1, 10, 19, 0.15);
+    }
+
+    ${Thumb} {
+      background-position: 0 -90px;
+    }
+  }
 `;
 
 export interface SliderProps {
   id: string;
   name: string;
+  direction?: Common.Direction;
   className?: string;
   disabled?: boolean;
   min?: number;
@@ -125,6 +186,7 @@ const Slider: FC<SliderProps> = ({
   id,
   name,
   disabled,
+  direction = 'horizontal',
   min = 0,
   max = 100,
   step = 1,
@@ -235,8 +297,6 @@ const Slider: FC<SliderProps> = ({
       return;
     }
 
-    console.log(percent);
-
     setValue(percent);
     cacheVal = percent;
     onChange?.(percent);
@@ -258,7 +318,7 @@ const Slider: FC<SliderProps> = ({
         onChange={e => updateValue(+e.target.value)}
       />
       <StyledSlider
-        aria-orientation="horizontal"
+        aria-orientation={direction}
         role="slider"
         data-disabled={disabled}
         aria-disabled={disabled}
@@ -272,7 +332,9 @@ const Slider: FC<SliderProps> = ({
         style={
           {
             '--slider-value-scale': styleScale,
-            '--thumb-translate': `${styleValue}%`,
+            '--thumb-translate': `${
+              direction === 'horizontal' ? styleValue : -styleValue
+            }%`,
           } as any
         }
         onKeyDown={handleKeyDown}
