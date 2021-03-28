@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.44](https://github.com/TomTomB/universe/compare/v0.0.43...v0.0.44) (2021-03-28)
+
+### Features
+
+- 🎸 add close btn, comet border and finish modal ([5cea17b](https://github.com/TomTomB/universe/commit/5cea17b25cf1f9e23ea3075ae66af7080f127982))
+- 🎸 add flyout frame ([ff7f21c](https://github.com/TomTomB/universe/commit/ff7f21c94594c9762d367dd3d5742723d99f381d))
+- 🎸 add logic for flat select, move it into hook ([48ecf83](https://github.com/TomTomB/universe/commit/48ecf83cb2e79a890108b0041991c0ee8c881b20))
+- 🎸 add more uikit componentes ([1c96132](https://github.com/TomTomB/universe/commit/1c961322d93166644fc4460c757ba2edd87e2b17))
+- 🎸 add radial progress to champ mastery tooltip ([05e884e](https://github.com/TomTomB/universe/commit/05e884e632a4d4d9b3fdbaeba30fb138514f8978))
+- 🎸 add slider accessibility and improve perf ([3e21054](https://github.com/TomTomB/universe/commit/3e2105457b9478aa5c8622990cd636278f93288d))
+- 🎸 add storybook ([4f0cd93](https://github.com/TomTomB/universe/commit/4f0cd93f297ba7eac6c7b60ebbd18508fd1bef73))
+- 🎸 add themed level ring ([d6ef541](https://github.com/TomTomB/universe/commit/d6ef541468a4c7f633af5f239eb01925bffdce9b))
+- 🎸 add thumbnail and champ mastery thumb components ([e96c5c0](https://github.com/TomTomB/universe/commit/e96c5c0866db85cb874086227df78a7e06866fa3))
+- 🎸 filter fader and button group ([c953d77](https://github.com/TomTomB/universe/commit/c953d77b8cbc1dff715c3db60e5dd13bba8cea3c))
+- 🎸 filter fader and button group ([5404121](https://github.com/TomTomB/universe/commit/5404121c105b97d98c8c11eb7c794d60f6404c72))
+- 🎸 framed icon ([8e1c1c0](https://github.com/TomTomB/universe/commit/8e1c1c0a82f69c3ca086c60e4e53bd64c981bdfd))
+- 🎸 horizontal scrolling ([4a6f598](https://github.com/TomTomB/universe/commit/4a6f598b2fc48dc8e58533895d3da44729c8be04))
+- 🎸 info icon, nav bar and item components ([8e762a4](https://github.com/TomTomB/universe/commit/8e762a44c533fe789be7bd11a3cf937d868e7f39))
+- 🎸 parallax background ([8d3f979](https://github.com/TomTomB/universe/commit/8d3f9791467c39cf7106abb849baee0c34f54e01))
+- 🎸 radial progress and purchase btn ([3b38eef](https://github.com/TomTomB/universe/commit/3b38eefbbcca353bc5f2aaf0d24db6994fe26acc))
+- 🎸 radio group and option components ([63a2c2a](https://github.com/TomTomB/universe/commit/63a2c2a0a9dffa6f08f83dd6874adf1c0f0421ad))
+- 🎸 slider component ([38db837](https://github.com/TomTomB/universe/commit/38db83739c451471df9d2968bb3353cb9acaa772))
+- 🎸 update login splash ([c1ab1b8](https://github.com/TomTomB/universe/commit/c1ab1b864d775afa653ffccfee4ae1565b429f4c))
+- 🎸 vertical slider logic ([c417a0c](https://github.com/TomTomB/universe/commit/c417a0cd13c51767c5eb7b0620b9d2b66ed58056))
+- 🎸 vertical slider wip ([0aab343](https://github.com/TomTomB/universe/commit/0aab34318f23c5535b30290665c159dc5b0f8c62))
+
+### Bug Fixes
+
+- 🐛 champ mastery banner overflow ([5b1c25c](https://github.com/TomTomB/universe/commit/5b1c25cafc6510fb033b4a4ab87aed2d704465e9))
+- 🐛 dont select disabled options in select via arrow keys ([c8806f5](https://github.com/TomTomB/universe/commit/c8806f595b8ddfe573f796ea0bc3fc1e6fe28611))
+- 🐛 modal caret bottom position ([7742ed0](https://github.com/TomTomB/universe/commit/7742ed09d9610832cb237c58a3f8e18841f9a5da))
+
 ### [0.0.43](https://github.com/TomTomB/universe/compare/v0.0.42...v0.0.43) (2021-03-01)
 
 ### Features
