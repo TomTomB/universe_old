@@ -71,13 +71,15 @@ class PolygonGenerator {
   }
 
   generatePolygon(percent: number) {
+    if (percent < 0) {
+      percent = 0;
+    } else if (percent > 100) {
+      percent = 100;
+    }
+
     const points = this._calculatePolygonPoints(percent)
-      .map(function (value) {
-        return value.xPos + '% ' + value.yPos + '%';
-      })
-      .reduce(function (prev, cur) {
-        return prev + ', ' + cur;
-      });
+      .map(value => value.xPos + '% ' + value.yPos + '%')
+      .reduce((prev, cur) => prev + ', ' + cur);
 
     return 'polygon(' + points + ')';
   }
