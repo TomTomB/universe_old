@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { ComponentTypes } from '@typings';
+import classNames from 'classnames';
 import externalLinkMask from './assets/external-link-mask.png';
 import sheen from './assets/sheen.png';
 
@@ -195,7 +196,6 @@ const BorderTransition = styled.div`
 `;
 
 interface StyledPrimaryFlatButtonProps {
-  showClickAnim: boolean;
   external?: boolean;
   variant?: PrimaryFlatButtonVariant;
 }
@@ -450,11 +450,10 @@ export const StyledPrimaryFlatButton = styled.button<StyledPrimaryFlatButtonProp
       }
     `}
 
-    ${({ showClickAnim, variant }) =>
-    showClickAnim &&
+    ${({ variant }) =>
     variant !== 'purchase' &&
     css`
-      && {
+      &&.click {
         border-image: linear-gradient(
           to top,
           #fff 0%,
@@ -475,52 +474,48 @@ export const StyledPrimaryFlatButton = styled.button<StyledPrimaryFlatButtonProp
       }
     `}
 
-  ${({ showClickAnim }) =>
-    showClickAnim &&
-    css`
-      && {
-        color: #e4e1d8;
-        border-image-slice: 1;
-        animation: 130ms linear ${clickScaleAnimation} 1,
-          400ms linear 1 ${hoverTextShadowAnimation};
+  &&.click {
+    color: #e4e1d8;
+    border-image-slice: 1;
+    animation: 130ms linear ${clickScaleAnimation} 1,
+      400ms linear 1 ${hoverTextShadowAnimation};
 
-        ${BorderTransition} {
-          border-image-slice: 1;
-          transition: opacity 400ms linear;
-          opacity: 1;
-        }
+    ${BorderTransition} {
+      border-image-slice: 1;
+      transition: opacity 400ms linear;
+      opacity: 1;
+    }
 
-        ${Glow} {
-          animation: 600ms cubic-bezier(0, 0, 0.33, 1) ${hoverGlowAnimation} 1;
-        }
+    ${Glow} {
+      animation: 600ms cubic-bezier(0, 0, 0.33, 1) ${hoverGlowAnimation} 1;
+    }
 
-        ${Sheen} {
-          animation: 330ms ${clickSheenAnimation} 1 linear;
-        }
+    ${Sheen} {
+      animation: 330ms ${clickSheenAnimation} 1 linear;
+    }
 
-        ${Bg} {
-          opacity: 1;
-        }
+    ${Bg} {
+      opacity: 1;
+    }
 
-        ${Flare} {
-          ::before {
-            animation: 400ms cubic-bezier(0, 0, 0.33, 1) 0ms 1
-              ${clickFlareAnimation};
-          }
-
-          ::after {
-            animation: 400ms cubic-bezier(0, 0, 0.33, 1) 30ms 1
-              ${clickFlareAnimation};
-          }
-        }
-
-        ${ContentWrapper} {
-          ::after {
-            background: #e4e1d8;
-          }
-        }
+    ${Flare} {
+      ::before {
+        animation: 400ms cubic-bezier(0, 0, 0.33, 1) 0ms 1
+          ${clickFlareAnimation};
       }
-    `}
+
+      ::after {
+        animation: 400ms cubic-bezier(0, 0, 0.33, 1) 30ms 1
+          ${clickFlareAnimation};
+      }
+    }
+
+    ${ContentWrapper} {
+      ::after {
+        background: #e4e1d8;
+      }
+    }
+  }
 
   &:disabled {
     pointer-events: none;
@@ -590,13 +585,11 @@ const PrimaryFlatButton: FC<PrimaryFlatButtonProps> = ({
     <StyledPrimaryFlatButton
       disabled={disabled}
       type={type}
-      showClickAnim={showClickAnim}
-      className={className}
+      className={classNames(className, { click: showClickAnim })}
       variant={variant}
       external={external}
       onClick={e => {
         setShowClickAnim(true);
-
         onClick?.(e);
       }}
     >
