@@ -65,25 +65,21 @@ const clickSheenAnimation = keyframes`
   }
 `;
 
-const ContentWrapper = styled.div<{ external?: boolean }>`
+const ContentWrapper = styled.div`
   position: relative;
 
-  ${({ external }) =>
-    external &&
-    css`
-      &::after {
-        width: 9px;
-        height: 9px;
-        content: '';
-        display: inline-block;
-        vertical-align: middle;
-        -webkit-mask: url(${externalLinkMask}) no-repeat;
-        -webkit-mask-size: contain;
-        background: #cdbe91;
-        margin-left: 5px;
-        margin-top: -5px;
-      }
-    `}
+  &::after {
+    display: none;
+    width: 9px;
+    height: 9px;
+    content: '';
+    vertical-align: middle;
+    -webkit-mask: url(${externalLinkMask}) no-repeat;
+    -webkit-mask-size: contain;
+    background: #cdbe91;
+    margin-left: 5px;
+    margin-top: -5px;
+  }
 `;
 
 const Flare = styled.div`
@@ -153,8 +149,6 @@ const Sheen = styled.div`
   -webkit-filter: blur(2px);
 `;
 
-const Extra = styled.div``;
-
 const Bg = styled.div`
   position: absolute;
   top: 0;
@@ -202,6 +196,8 @@ const BorderTransition = styled.div`
 
 interface StyledPrimaryFlatButtonProps {
   showClickAnim: boolean;
+  external?: boolean;
+  variant?: PrimaryFlatButtonVariant;
 }
 
 export const StyledPrimaryFlatButton = styled.button<StyledPrimaryFlatButtonProps>`
@@ -293,11 +289,172 @@ export const StyledPrimaryFlatButton = styled.button<StyledPrimaryFlatButtonProp
     }
   }
 
-  ${({ showClickAnim }) =>
-    showClickAnim &&
+  ${({ external }) =>
+    external &&
+    css`
+      ${ContentWrapper} {
+        ::after {
+          display: inline-block;
+        }
+      }
+    `}
+
+  ${({ variant }) =>
+    variant === 'primary' &&
+    css`
+      background: linear-gradient(to bottom, #5a401f 0%, #332717 100%);
+
+      ${Bg} {
+        background: linear-gradient(to bottom, #604522 0%, #846745 100%);
+      }
+
+      ${ContentWrapper} {
+        ::after {
+          background: #cdbe91;
+        }
+      }
+
+      &:active {
+        color: #785a28;
+        background: linear-gradient(to bottom, #362715 0%, #17130e 100%);
+
+        ${ContentWrapper} {
+          ::after {
+            background: #785a28;
+          }
+        }
+      }
+    `}
+
+    ${({ variant }) =>
+    variant === 'purchase' &&
     css`
       && {
-        color: #e4e1d8;
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 44, 170, 0.3) 0%,
+            rgba(255, 44, 170, 0) 100%
+          ),
+          #1e2328;
+        color: #fde9f8;
+
+        ${Bg} {
+          background: linear-gradient(
+              to bottom,
+              rgba(255, 44, 170, 0.3) 0%,
+              rgba(255, 44, 170, 0) 100%
+            ),
+            #1e2328;
+        }
+
+        ${BorderIdle} {
+          border-image: linear-gradient(
+            to bottom,
+            rgba(245, 155, 247, 0.8) 0%,
+            rgba(232, 216, 227, 0.8) 0.01%,
+            rgba(237, 153, 239, 0.8) 100%
+          );
+          border-image-slice: 1;
+        }
+
+        ${ContentWrapper} {
+          ::after {
+            background: #cdbe91;
+          }
+        }
+
+        &:hover {
+          color: #fde9f8;
+          background: linear-gradient(
+              to bottom,
+              rgba(255, 44, 170, 0.5) 0%,
+              rgba(255, 44, 170, 0) 100%
+            ),
+            #1e2328;
+
+          ${Bg} {
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 44, 170, 0.5) 0%,
+                rgba(255, 44, 170, 0) 100%
+              ),
+              #1e2328;
+          }
+
+          ${BorderTransition} {
+            border-image: linear-gradient(
+              to bottom,
+              #f59bf7 0%,
+              #e8d8e3 0.01%,
+              #ed99ef 100%
+            );
+            border-image-slice: 1;
+          }
+
+          ${ContentWrapper} {
+            ::after {
+              background: #fde9f8;
+            }
+          }
+        }
+      }
+
+      &:active {
+        color: #fde9f8;
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 44, 170, 0.2) 0%,
+            rgba(255, 44, 170, 0) 100%
+          ),
+          #1e2328;
+
+        ${Bg} {
+          background: linear-gradient(
+              to bottom,
+              rgba(255, 44, 170, 0.2) 0%,
+              rgba(255, 44, 170, 0) 100%
+            ),
+            #1e2328;
+        }
+
+        ${BorderTransition} {
+          border-image: linear-gradient(
+            to bottom,
+            rgba(245, 155, 247, 0.4) 0%,
+            rgba(232, 216, 227, 0.4) 0.01%,
+            rgba(237, 153, 239, 0.4) 100%
+          );
+          border-image-slice: 1;
+        }
+
+        ${BorderIdle} {
+          border-image: linear-gradient(
+            to bottom,
+            rgba(245, 155, 247, 0.4) 0%,
+            rgba(232, 216, 227, 0.4) 0.01%,
+            rgba(237, 153, 239, 0.4) 100%
+          );
+          border-image-slice: 1;
+        }
+
+        ${ContentWrapper} {
+          ::after {
+            background: #fde9f8;
+          }
+        }
+      }
+
+      &:disabled {
+        color: #fde9f8;
+        animation: none;
+      }
+    `}
+
+    ${({ showClickAnim, variant }) =>
+    showClickAnim &&
+    variant !== 'purchase' &&
+    css`
+      && {
         border-image: linear-gradient(
           to top,
           #fff 0%,
@@ -305,9 +462,6 @@ export const StyledPrimaryFlatButton = styled.button<StyledPrimaryFlatButtonProp
           #fff 66%,
           #fff 100%
         );
-        border-image-slice: 1;
-        animation: 130ms linear ${clickScaleAnimation} 1,
-          400ms linear 1 ${hoverTextShadowAnimation};
 
         ${BorderTransition} {
           border-image: linear-gradient(
@@ -317,6 +471,20 @@ export const StyledPrimaryFlatButton = styled.button<StyledPrimaryFlatButtonProp
             #e1c998 71%,
             #f0e6d8 100%
           );
+        }
+      }
+    `}
+
+  ${({ showClickAnim }) =>
+    showClickAnim &&
+    css`
+      && {
+        color: #e4e1d8;
+        border-image-slice: 1;
+        animation: 130ms linear ${clickScaleAnimation} 1,
+          400ms linear 1 ${hoverTextShadowAnimation};
+
+        ${BorderTransition} {
           border-image-slice: 1;
           transition: opacity 400ms linear;
           opacity: 1;
@@ -386,7 +554,10 @@ export const StyledPrimaryFlatButton = styled.button<StyledPrimaryFlatButtonProp
   }
 `;
 
+export type PrimaryFlatButtonVariant = 'primary' | 'purchase';
+
 export interface PrimaryFlatButtonProps extends ComponentTypes.ButtonProps {
+  variant?: PrimaryFlatButtonVariant;
   external?: boolean;
 }
 
@@ -396,6 +567,7 @@ const PrimaryFlatButton: FC<PrimaryFlatButtonProps> = ({
   className,
   disabled,
   onClick,
+  variant,
   external,
 }) => {
   const [showClickAnim, setShowClickAnim] = useState(false);
@@ -420,12 +592,14 @@ const PrimaryFlatButton: FC<PrimaryFlatButtonProps> = ({
       type={type}
       showClickAnim={showClickAnim}
       className={className}
+      variant={variant}
+      external={external}
       onClick={e => {
         setShowClickAnim(true);
+
         onClick?.(e);
       }}
     >
-      <Extra />
       <Flare />
       <Glow />
       <Bg />
@@ -434,7 +608,7 @@ const PrimaryFlatButton: FC<PrimaryFlatButtonProps> = ({
       <SheenWrapper>
         <Sheen />
       </SheenWrapper>
-      <ContentWrapper external={external}> {children} </ContentWrapper>
+      <ContentWrapper> {children} </ContentWrapper>
     </StyledPrimaryFlatButton>
   );
 };

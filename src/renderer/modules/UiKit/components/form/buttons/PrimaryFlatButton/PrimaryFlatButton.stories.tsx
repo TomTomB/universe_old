@@ -14,6 +14,16 @@ const Template: Story<PrimaryFlatButtonProps> = args => (
 export const Default = Template.bind({});
 Default.args = {};
 
+export const Primary = Template.bind({});
+Primary.args = {
+  variant: 'primary',
+};
+
+export const Purchase = Template.bind({});
+Purchase.args = {
+  variant: 'purchase',
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
