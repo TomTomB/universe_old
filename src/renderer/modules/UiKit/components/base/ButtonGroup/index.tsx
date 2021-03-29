@@ -31,6 +31,10 @@ export const StyledButtonGroup = styled.div<ButtonGroupProps>`
     border-top: 2px solid transparent;
     height: 10px;
   }
+
+  button + button {
+    margin-left: 0.125rem;
+  }
 `;
 
 export interface ButtonGroupProps {

@@ -1,8 +1,8 @@
+import { CloseButton, PrimaryFlatButton } from '@uikit/components/form';
 import React, { FC, PropsWithChildren, useRef } from 'react';
 import { animated, useTransition } from 'react-spring';
 import styled, { css } from 'styled-components';
 import { ButtonGroup } from '@uikit/components/base';
-import { CloseButton } from '@uikit/components/form';
 import caret from './assets/caret.png';
 import classNames from 'classnames';
 import closeIcon from './assets/close.png';
@@ -328,7 +328,7 @@ const StyledModal = styled(animated.div)`
 
 const ModalButtonGroup = styled(ButtonGroup)`
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
 
@@ -435,9 +435,13 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
                       {bottomButtons.length && (
                         <ModalButtonGroup>
                           {bottomButtons.map(b => (
-                            <button key={b.buttonText} onClick={b.click}>
+                            <PrimaryFlatButton
+                              type="button"
+                              key={b.buttonText}
+                              onClick={b.click}
+                            >
                               {b.buttonText}
-                            </button>
+                            </PrimaryFlatButton>
                           ))}
                         </ModalButtonGroup>
                       )}

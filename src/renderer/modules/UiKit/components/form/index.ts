@@ -7,6 +7,7 @@ import FramedSelect from './selects/FramedSelect';
 import Input from './Input';
 import Label from './Label';
 import PlayButton from './buttons/PlayButton';
+import PrimaryFlatButton from './buttons/PrimaryFlatButton';
 import PrimaryMagicButton from './buttons/PrimaryMagicButton';
 import PrimaryReplayButton from './buttons/PrimaryReplayButton';
 import PurchaseButton from './buttons/PurchaseButton';
@@ -21,6 +22,7 @@ export {
   ArrowButton,
   PurchaseButton,
   SecondaryFlatButton,
+  PrimaryFlatButton,
   Checkbox,
   Input,
   Label,
