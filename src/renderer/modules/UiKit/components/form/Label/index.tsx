@@ -5,11 +5,17 @@ import styled from 'styled-components';
 export const StyledLabel = styled.label`
   display: inline-block;
   backface-visibility: hidden;
+
+  &[data-disabled='true'] {
+    filter: brightness(0.5);
+    pointer-events: none;
+  }
 `;
 
 export interface LabelProps {
   htmlFor: string;
   isInvalid: boolean;
+  disabled?: boolean;
   id?: string;
   onClick?: (e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => void;
   className?: string;
@@ -19,6 +25,7 @@ const Label: FC<LabelProps> = ({
   htmlFor,
   children,
   isInvalid,
+  disabled,
   id,
   onClick,
   className,
@@ -31,6 +38,7 @@ const Label: FC<LabelProps> = ({
       className={classNames(className, {
         'is-invalid': isInvalid,
       })}
+      data-disabled={disabled}
     >
       {children}
     </StyledLabel>

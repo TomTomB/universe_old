@@ -181,7 +181,7 @@ const Input: FC<InputProps> = ({
 
   return (
     <FormField>
-      <InputLabel htmlFor={id} isInvalid={!!error}>
+      <InputLabel htmlFor={id} isInvalid={!!error} disabled={disabled}>
         {label}
       </InputLabel>
       <FlatInput

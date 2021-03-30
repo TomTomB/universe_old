@@ -105,7 +105,7 @@ const Textarea: FC<TextareaProps> = ({
 
   return (
     <FormField>
-      <TextareaLabel htmlFor={id} isInvalid={!!error}>
+      <TextareaLabel htmlFor={id} isInvalid={!!error} disabled={disabled}>
         {label}
       </TextareaLabel>
       <StyledTextarea

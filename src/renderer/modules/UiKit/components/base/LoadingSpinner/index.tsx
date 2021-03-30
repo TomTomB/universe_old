@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import styled, { keyframes } from 'styled-components';
-import spinner from '@assets/components/spinner/spinner.png';
+import styled, { css, keyframes } from 'styled-components';
+import spinner from './assets/spinner.png';
+import spinnerLarge from './assets/spinner-large.png';
 
 const spinAnimation = keyframes`
   100% {
@@ -8,7 +9,7 @@ const spinAnimation = keyframes`
   }
 `;
 
-export const StyledLoadingSpinner = styled.div`
+export const StyledLoadingSpinner = styled.div<{ isLarge?: boolean }>`
   background-image: url(${spinner});
   background-size: contain;
   background-position: center;
@@ -16,10 +17,22 @@ export const StyledLoadingSpinner = styled.div`
   width: 30px;
   height: 30px;
   animation: ${spinAnimation} 4s linear infinite;
+
+  ${({ isLarge }) =>
+    isLarge &&
+    css`
+      background-image: url(${spinnerLarge});
+      width: 60px;
+      height: 60px;
+    `}
 `;
 
-const LoadingSpinner: FC = () => {
-  return <StyledLoadingSpinner />;
+export interface LoadingSpinnerProps {
+  isLarge?: boolean;
+}
+
+const LoadingSpinner: FC<LoadingSpinnerProps> = ({ isLarge }) => {
+  return <StyledLoadingSpinner isLarge={isLarge} />;
 };
 
 export default LoadingSpinner;

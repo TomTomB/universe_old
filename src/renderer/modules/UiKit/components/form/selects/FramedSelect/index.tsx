@@ -233,9 +233,8 @@ const FramedSelect: FC<FramedSelectProps> = ({
         id={labelId}
         htmlFor={id}
         isInvalid={false}
-        onClick={() => {
-          document.getElementById(id)?.focus();
-        }}
+        disabled={disabled}
+        onClick={() => document.getElementById(id)?.focus()}
       >
         {label}
       </SelectLabel>

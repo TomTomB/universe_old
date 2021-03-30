@@ -33,6 +33,7 @@ Default.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
+  label: 'Disabled Select',
   disabled: true,
   items: [],
 };
