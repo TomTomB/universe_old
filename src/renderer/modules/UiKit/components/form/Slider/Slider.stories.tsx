@@ -9,7 +9,6 @@ export default {
 
 const Template: Story<SliderProps> = args => (
   <div style={{ width: '100%', height: '300px' }}>
-    {' '}
     <Slider {...args} />
   </div>
 );

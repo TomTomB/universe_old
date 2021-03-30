@@ -13,6 +13,7 @@ import PrimaryReplayButton from './buttons/PrimaryReplayButton';
 import PurchaseButton from './buttons/PurchaseButton';
 import SecondaryFlatButton from './buttons/SecondaryFlatButton';
 import Slider from './Slider';
+import Textarea from './Textarea';
 
 export {
   PrimaryMagicButton,
@@ -31,4 +32,5 @@ export {
   FormField,
   CheckboxContainer,
   Slider,
+  Textarea,
 };
