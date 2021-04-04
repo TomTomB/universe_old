@@ -1,7 +1,7 @@
 import { mat4, vec3 } from 'gl-matrix';
-import Camera from './camera';
+import { Camera } from './camera';
 
-class CameraOrtho extends Camera {
+export class CameraOrtho extends Camera {
   left!: number;
   right!: number;
   top!: number;
@@ -34,5 +34,3 @@ class CameraOrtho extends Camera {
     mat4.ortho(this.projection, left, right, bottom, top, near, far);
   }
 }
-
-export default CameraOrtho;

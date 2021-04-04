@@ -2,15 +2,15 @@ import {
   BannerAnimationConfig,
   BannerAssets,
   BannerTextureMap,
+  CameraOrtho,
+  FpsCounter,
+  Gl,
   GlOption,
   GlTextureSource,
+  Scheduler,
   Size,
-} from './types';
-import CameraOrtho from './camera/cameraOrtho';
+} from '@uikit/webGl';
 import { EventEmitter } from '@uikit/util';
-import FpsCounter from './fpsCounter';
-import Gl from './gl';
-import Scheduler from './scheduler';
 import VBanner from './vBanner';
 
 class Banner extends EventEmitter<'loaded' | 'error'> {

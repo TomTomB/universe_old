@@ -1,7 +1,13 @@
-import Gl from './gl';
+import { Gl } from './gl';
 import { GlOption } from './types';
 
-const createPlane = (gl: Gl, width: number, height: number, n = 1, r = 1) => {
+export const createPlane = (
+  gl: Gl,
+  width: number,
+  height: number,
+  n = 1,
+  r = 1
+) => {
   const vertexBuffer = [];
   const texCoordBuffer = [];
   const indexBuffer = [];
@@ -40,5 +46,3 @@ const createPlane = (gl: Gl, width: number, height: number, n = 1, r = 1) => {
 
   return mesh;
 };
-
-export default createPlane;

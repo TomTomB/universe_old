@@ -1,6 +1,6 @@
 import { mat4, quat, vec3 } from 'gl-matrix';
 
-class Camera {
+export class Camera {
   private _matrix = mat4.create();
   private _quat = quat.create();
   private _orientation = mat4.create();
@@ -62,5 +62,3 @@ class Camera {
     this.setView(view);
   }
 }
-
-export default Camera;

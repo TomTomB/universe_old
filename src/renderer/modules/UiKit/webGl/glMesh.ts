@@ -1,4 +1,4 @@
-import Gl from './gl';
+import { Gl } from './gl';
 import { GlOption } from './types';
 import { vec3 } from 'gl-matrix';
 
@@ -25,7 +25,7 @@ export interface Face {
   vertices?: number[][];
 }
 
-class GlMesh {
+export class GlMesh {
   private _gl: Gl;
   private _attributes: MeshAttribute[] = [];
   private _numInstance = -1;
@@ -457,5 +457,3 @@ class GlMesh {
     this.bufferNormal(buffer);
   }
 }
-
-export default GlMesh;

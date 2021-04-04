@@ -8,10 +8,12 @@ export default {
 } as Meta;
 
 const Template: Story<SummonerBannerProps> = args => (
-  <div style={{ width: '300px', height: '300px' }}>
+  <div style={{ width: '240px' }}>
     <SummonerBanner {...args} />
   </div>
 );
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  rank: 'challenger',
+};

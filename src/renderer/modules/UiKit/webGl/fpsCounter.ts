@@ -1,4 +1,4 @@
-class FpsCounter {
+export class FpsCounter {
   private _totalElapsedTime = 0;
   private _totalSamples = 0;
 
@@ -35,5 +35,3 @@ class FpsCounter {
     return performance.now();
   }
 }
-
-export default FpsCounter;

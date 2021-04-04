@@ -8,7 +8,7 @@ interface TaskWithDelay extends Task {
   time: number;
 }
 
-class Scheduler {
+export class Scheduler {
   private _delayTasks: Array<TaskWithDelay | null> = [];
   private _nextTasks: Array<Task | null> = [];
   private _deferTasks: Array<Task | null> = [];
@@ -165,5 +165,3 @@ class Scheduler {
     }
   }
 }
-
-export default Scheduler;

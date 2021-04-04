@@ -5,9 +5,9 @@ import {
   GlTextureSource,
   GlTextureSourceType,
 } from './types';
-import Gl from './gl';
+import { Gl } from './gl';
 
-class GlTexture {
+export class GlTexture {
   private _gl: Gl;
   private _source: GlTextureSource;
   private _sourceType: GlTextureSourceType;
@@ -389,5 +389,3 @@ class GlTexture {
     return fullParams;
   }
 }
-
-export default GlTexture;

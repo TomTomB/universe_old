@@ -1,4 +1,4 @@
-import GlTexture from './glTexture';
+import { GlTexture } from './glTexture';
 
 export interface BannerAssets {
   rank: string;

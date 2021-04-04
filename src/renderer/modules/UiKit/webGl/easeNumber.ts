@@ -1,4 +1,4 @@
-class EaseNumber {
+export class EaseNumber {
   easing: number;
 
   private _value: number;
@@ -33,5 +33,3 @@ class EaseNumber {
     this._targetValue = this._value = value;
   }
 }
-
-export default EaseNumber;
