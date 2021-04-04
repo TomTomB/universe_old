@@ -79,3 +79,8 @@ declare module '*.ogg' {
   const ref: string;
   export default ref;
 }
+
+declare module '*.glsl' {
+  const ref: string;
+  export default ref;
+}

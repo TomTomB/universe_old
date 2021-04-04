@@ -60,6 +60,10 @@ export default merge(baseConfig, {
         type: 'asset',
       },
       {
+        test: /\.(glsl)$/i,
+        loader: 'webpack-glsl-loader',
+      },
+      {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },

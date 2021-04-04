@@ -1,7 +1,7 @@
 import Gl from './gl';
 import { GlOption } from './types';
-import basicFragmentShader from './shaders/basic.frag';
-import basicVertexShader from './shaders/basic.vert';
+import basicFragmentShader from './shaders/basic.frag.glsl';
+import basicVertexShader from './shaders/basic.vert.glsl';
 
 export interface GlShaderParameter {
   name: string;
@@ -37,6 +37,8 @@ class GlShader {
   ) {
     this._gl = gl;
     this._varyings = varyings;
+
+    console.log(vertexSrc, fragmentSrc);
 
     if (!vertexSrc) {
       vertexSrc = basicVertexShader;
