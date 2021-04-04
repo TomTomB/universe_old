@@ -72,6 +72,10 @@ export class Gl {
       config
     ) as WebGL2RenderingContext;
 
+    if (!this.context) {
+      return;
+    }
+
     for (const extensionName of this._extensionList) {
       this.extensions[extensionName] = this.context.getExtension(extensionName);
     }

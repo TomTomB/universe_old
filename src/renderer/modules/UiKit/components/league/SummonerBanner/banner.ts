@@ -48,6 +48,10 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
     this._scheduler = new Scheduler();
     this._gl = new Gl(canvasEl, { premultipliedAlpha: true });
 
+    if (!this._gl.context) {
+      return;
+    }
+
     this._gl.context.blendFunc(GlOption.ONE, GlOption.ONE_MINUS_SRC_ALPHA);
     this._gl.setSize(1, 1);
 
@@ -106,7 +110,7 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
   }
 
   destroy() {
-    if (this._destroyed) {
+    if (this._destroyed || !this._gl.context) {
       return;
     }
 
