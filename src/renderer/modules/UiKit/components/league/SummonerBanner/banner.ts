@@ -48,7 +48,7 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
     this._gl = new Gl(canvasEl, { premultipliedAlpha: true });
 
     this._gl.context.blendFunc(GlOption.ONE, GlOption.ONE_MINUS_SRC_ALPHA);
-    // this._gl.setSize(1, 1);
+    this._gl.setSize(1, 1);
 
     this._camera = new CameraOrtho();
 
@@ -121,11 +121,6 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
     if (loseContextExtension) {
       loseContextExtension.loseContext();
     }
-
-    // if(this._canvasParentObserver) {
-    //   this._canvasParentObserver.disconnect();
-    //   delete this._canvasParentObserver
-    // }
   }
 
   private async _generateTextures() {
@@ -204,15 +199,15 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
     this._canvasEl.style.width = `${this._canvasSize.width}px`;
     this._canvasEl.style.height = `${this._canvasSize.height}px`;
 
-    // this._gl.clear(0, 0, 0, 0);
+    this._gl.clear(0, 0, 0, 0);
 
-    // this._gl.setSize(
-    //   this._canvasSize.width * window.devicePixelRatio,
-    //   this._canvasSize.height * window.devicePixelRatio
-    // );
+    this._gl.setSize(
+      this._canvasSize.width * window.devicePixelRatio,
+      this._canvasSize.height * window.devicePixelRatio
+    );
 
     this._fpsCounter.frame();
-    // this._gl.setMatrices(this._camera);
+    this._gl.setMatrices(this._camera);
     // this._vBanner.render();
   }
 }
