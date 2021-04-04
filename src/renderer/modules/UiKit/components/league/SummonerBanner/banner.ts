@@ -16,7 +16,7 @@ import VBanner from './vBanner';
 class Banner extends EventEmitter<'loaded' | 'error'> {
   private _fpsCounter: FpsCounter;
   private _gl: Gl;
-  private _camera: CameraOrtho;
+  private _camera?: CameraOrtho;
   private _vBanner?: VBanner;
   private _scheduler: Scheduler;
 
@@ -24,8 +24,8 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
   private _config: BannerAnimationConfig;
   private _assets: BannerAssets;
 
-  private _isLoading: boolean;
-  private _destroyed: boolean;
+  private _isLoading?: boolean;
+  private _destroyed?: boolean;
   private _canvasSize?: Size | null;
   private _efIndex?: number;
 
@@ -193,7 +193,7 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
       this._canvasSize = this._getCanvasSize();
     }
 
-    if (!this._canvasSize) {
+    if (!this._canvasSize || !this._camera) {
       return;
     }
 

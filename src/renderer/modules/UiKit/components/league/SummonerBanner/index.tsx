@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import Banner from './banner';
 import { BannerAssets } from '@uikit/webGl';
 import { LCU } from '@typings';
