@@ -25,7 +25,7 @@ export interface Face {
   vertices?: number[][];
 }
 
-class Mesh {
+class GlMesh {
   private _gl: Gl;
   private _attributes: MeshAttribute[] = [];
   private _numInstance = -1;
@@ -457,4 +457,4 @@ class Mesh {
   }
 }
 
-export default Mesh;
+export default GlMesh;

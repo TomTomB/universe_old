@@ -1,7 +1,8 @@
-import { GlConfig, GlOption } from './types';
+import { GlConfig, GlOption, GlTextureParams } from './types';
 import { mat3, mat4, vec4 } from 'gl-matrix';
+import GlMesh from './glMesh';
 import GlShader from './glShader';
-import Mesh from './mesh';
+import GlTexture from './glTexture';
 
 class Gl {
   private _canvasElement: HTMLCanvasElement;
@@ -93,10 +94,17 @@ class Gl {
   }
 
   createMesh(drawType = 4) {
-    return new Mesh(this, drawType);
+    return new GlMesh(this, drawType);
   }
 
-  createTexture() {}
+  createTexture(
+    image: HTMLImageElement,
+    options: GlTextureParams = {},
+    width = 0,
+    height = 0
+  ) {
+    return new GlTexture(this, image, options, width, height);
+  }
 
   setMatrices() {}
 
@@ -115,7 +123,21 @@ class Gl {
 
   draw() {}
 
+  enableAlphaBlending() {}
+
+  enableAdditiveBlending() {}
+
+  enable() {}
+
+  disable() {}
+
   setSize() {}
+
+  checkExtension() {}
+
+  getExtension(name: string) {
+    return this.extensions[name];
+  }
 
   // TODO: This is kind of dirty. Remove it if not needed
   getAndApplyExtension(extensionName: string) {

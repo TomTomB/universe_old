@@ -1,4 +1,10 @@
-import { BannerAnimationConfig, BannerAssets, GlOption, Size } from './types';
+import {
+  BannerAnimationConfig,
+  BannerAssets,
+  BannerTextureMap,
+  GlOption,
+  Size,
+} from './types';
 import CameraOrtho from './camera/cameraOrtho';
 import { EventEmitter } from '@uikit/util';
 import FpsCounter from './fpsCounter';
@@ -125,20 +131,21 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
   private async _generateTextures() {
     const images = await Promise.all(this._loadImages());
 
-    // const textureMap: BannerTextureMap = {
-    //   background: this._gl.createTexture(
-    //     images.find(i => i.id === 'background'),
-    //     { premultipliedAlpha: true }
-    //   ),
-    //   overlay: this._gl.createTexture(
-    //     images.find(i => i.id === 'overlay'),
-    //     { premultipliedAlpha: true }
-    //   ),
-    //   rank: this._gl.createTexture(
-    //     images.find(i => i.id === 'rank'),
-    //     { premultipliedAlpha: true }
-    //   ),
-    // };
+    const textureMap: BannerTextureMap = {
+      background: this._gl.createTexture(
+        images.find(i => i.id === 'background')!.image,
+        { premultiplyAlpha: true }
+      ),
+      overlay: this._gl.createTexture(
+        images.find(i => i.id === 'overlay')!.image,
+        { premultiplyAlpha: true }
+      ),
+      rank: this._gl.createTexture(images.find(i => i.id === 'rank')!.image, {
+        premultiplyAlpha: true,
+      }),
+    };
+
+    console.log(textureMap);
 
     //   this._vBanner = new VBanner(this._gl, this._config, textureMap);
 
