@@ -16,4 +16,5 @@ const Template: Story<SummonerBannerProps> = args => (
 export const Default = Template.bind({});
 Default.args = {
   rank: 'challenger',
+  showPattern: true,
 };
