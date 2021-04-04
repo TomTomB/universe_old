@@ -25,7 +25,6 @@ class Mesh {
   private _gl: Gl;
   private _attributes: MeshAttribute[] = [];
   private _numInstance = -1;
-  private _enabledVertexAttribute = [];
   private _indices?: Uint16Array;
   private _numItems?: number;
   private _faces: Face[] = [];
