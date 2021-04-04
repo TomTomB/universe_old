@@ -127,6 +127,7 @@ class GlMesh {
     this._drawType = drawType;
     this._indices = new Uint16Array(buffer);
     this._numItems = this._indices.length;
+    this._hasIndexBufferChanged = true;
     return this;
   }
 

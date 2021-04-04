@@ -76,9 +76,9 @@ class Gl {
       this.extensions[extensionName] = this.context.getExtension(extensionName);
     }
 
-    // this.getAndApplyExtension('OES_vertex_array_object');
-    // this.getAndApplyExtension('ANGLE_instanced_arrays');
-    // this.getAndApplyExtension('WEBGL_draw_buffers');
+    this.getAndApplyExtension('OES_vertex_array_object');
+    this.getAndApplyExtension('ANGLE_instanced_arrays');
+    this.getAndApplyExtension('WEBGL_draw_buffers');
 
     this.context.enable(GlOption.DEPTH_TEST);
     this.context.enable(GlOption.CULL_FACE);
@@ -86,7 +86,6 @@ class Gl {
     this.context.blendFunc(GlOption.SRC_ALPHA, GlOption.ONE_MINUS_SRC_ALPHA);
 
     this.context.createVertexArray();
-    console.log(this.context);
   }
 
   createShader(vertexSrc: string, fragmentSrc: string) {

@@ -3,6 +3,7 @@ import {
   BannerAssets,
   BannerTextureMap,
   GlOption,
+  GlTextureSource,
   Size,
 } from './types';
 import CameraOrtho from './camera/cameraOrtho';
@@ -63,27 +64,25 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
     this._generateTextures();
     this._isLoading = true;
     this._destroyed = false;
-
-    console.log(this);
   }
 
-  setBackgroundTexture(e: any) {
+  setBackgroundTexture(e: GlTextureSource) {
     if (!this._vBanner) {
       return;
     }
-    // this._vBanner.textureBackground.updateTexture(e);
+    this._vBanner.textureBackground.updateTexture(e);
   }
-  setOverlayTexture(e: any) {
+  setOverlayTexture(e: GlTextureSource) {
     if (!this._vBanner) {
       return;
     }
-    // this._vBanner.textureOverlay.updateTexture(e);
+    this._vBanner.textureOverlay.updateTexture(e);
   }
-  setRankTexture(e: any) {
+  setRankTexture(e: GlTextureSource) {
     if (!this._vBanner) {
       return;
     }
-    // this._vBanner.textureRank.updateTexture(e);
+    this._vBanner.textureRank.updateTexture(e);
   }
 
   play() {
@@ -140,9 +139,7 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
       }),
     };
 
-    console.log(textureMap);
-
-    //   this._vBanner = new VBanner(this._gl, this._config, textureMap);
+    this._vBanner = new VBanner(this._gl, this._config, textureMap);
 
     this.emit('loaded');
     this._isLoading = false;
@@ -208,7 +205,7 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
 
     this._fpsCounter.frame();
     this._gl.setMatrices(this._camera);
-    // this._vBanner.render();
+    this._vBanner && this._vBanner.render();
   }
 }
 

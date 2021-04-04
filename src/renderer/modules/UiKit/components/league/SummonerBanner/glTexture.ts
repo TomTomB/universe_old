@@ -107,6 +107,10 @@ class GlTexture {
     return this._texture;
   }
 
+  get doGenerateMipmap() {
+    return this._generateMipmap;
+  }
+
   constructor(
     gl: Gl,
     source: GlTextureSource,

@@ -70,7 +70,7 @@ class GlShader {
     this.uniformTextures = [];
   }
 
-  uniform(shaderProperty: string | object, type: string, value: any) {
+  uniform(shaderProperty: string | object, type?: string, value?: any) {
     if (!this.shaderProgram) {
       return;
     }
@@ -79,6 +79,11 @@ class GlShader {
       this.uniformObject(shaderProperty);
       return;
     }
+
+    if (!type || !value) {
+      return;
+    }
+
     const program = this.shaderProgram as any;
     const glContext = this._gl.context;
     const glType = (this._glShaderType as any)[type] || type;

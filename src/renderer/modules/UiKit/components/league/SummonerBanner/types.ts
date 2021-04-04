@@ -1,3 +1,5 @@
+import GlTexture from './glTexture';
+
 export interface BannerAssets {
   rank: string;
   overlay: string;
@@ -10,9 +12,9 @@ export interface Size {
 }
 
 export interface BannerTextureMap {
-  rank: any;
-  overlay: any;
-  background: any;
+  rank: GlTexture;
+  overlay: GlTexture;
+  background: GlTexture;
 }
 
 export interface BannerAnimationConfig {
