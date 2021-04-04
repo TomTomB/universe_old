@@ -4,6 +4,10 @@ import { vec3 } from 'gl-matrix';
 
 export type DrawType = GlOption.DYNAMIC_DRAW | GlOption.STATIC_DRAW;
 
+export type WebGLProgramWithAttributeCache = WebGLProgram & {
+  cacheAttribLoc?: Record<string, number>;
+};
+
 export interface MeshAttribute {
   buffer?: WebGLBuffer;
   attrPosition?: number;
@@ -18,7 +22,7 @@ export interface MeshAttribute {
 export interface Face {
   normal?: any;
   indices: number[];
-  vertices?: number[];
+  vertices?: number[][];
 }
 
 class Mesh {
@@ -38,7 +42,7 @@ class Mesh {
   private _drawType?: GlOption.DYNAMIC_DRAW | GlOption.STATIC_DRAW;
 
   drawType: number;
-  iBuffer?: WebGLBuffer;
+  iBuffer?: WebGLBuffer & { itemSize?: number; numItems?: number };
 
   get vertices() {
     return this.getSource('aVertexPosition');
@@ -193,6 +197,20 @@ class Mesh {
     return this._attributes.find(a => a.name === attributeName);
   }
 
+  getAttribLoc(program: WebGLProgramWithAttributeCache, attributeName: string) {
+    if (!program.cacheAttribLoc) {
+      program.cacheAttribLoc = {};
+    }
+
+    if (!program.cacheAttribLoc[attributeName]) {
+      program.cacheAttribLoc[
+        attributeName
+      ] = this._gl.context.getAttribLocation(program, attributeName);
+    }
+
+    return program.cacheAttribLoc[attributeName];
+  }
+
   getSource(attributeName: string) {
     const attribute = this.getAttribute(attributeName);
     return attribute ? attribute.source : [];
@@ -264,11 +282,8 @@ class Mesh {
         attribute.drawType
       );
 
-      const attrPosition = this.getAttribLoc(
-        glContext,
-        program,
-        attribute.name
-      );
+      const attrPosition = this.getAttribLoc(program, attribute.name);
+
       glContext.enableVertexAttribArray(attrPosition);
       glContext.vertexAttribPointer(
         attrPosition,
@@ -319,8 +334,31 @@ class Mesh {
     }
   }
 
+  generateFaces() {
+    if (!this._indices) {
+      return;
+    }
+
+    for (let i = 0; i < this._indices.length; i += 3) {
+      const index1 = this._indices[i];
+      const index2 = this._indices[i + 1];
+      const index3 = this._indices[i + 2];
+
+      const vertex1 = this.vertices[index1];
+      const vertex2 = this.vertices[index2];
+      const vertex3 = this.vertices[index3];
+
+      const face = {
+        indices: [index1, index2, index3],
+        vertices: [vertex1, vertex2, vertex3],
+      };
+
+      this._faces.push(face);
+    }
+  }
+
   private _updateIndexBuffer() {
-    if (!this._hasIndexBufferChanged || !this._indices) {
+    if (!this._hasIndexBufferChanged || !this._indices || !this._drawType) {
       return;
     }
 
@@ -416,29 +454,6 @@ class Mesh {
     }
 
     this.bufferNormal(buffer);
-  }
-
-  private generateFaces() {
-    if (!this._indices) {
-      return;
-    }
-
-    for (let i = 0; i < this._indices.length; i += 3) {
-      const index1 = this._indices[i];
-      const index2 = this._indices[i + 1];
-      const index3 = this._indices[i + 2];
-
-      const vertex1 = this.vertices[index1];
-      const vertex2 = this.vertices[index2];
-      const vertex3 = this.vertices[index3];
-
-      const face = {
-        indices: [index1, index2, index3],
-        vertices: [vertex1, vertex2, vertex3],
-      };
-
-      this._faces.push(face);
-    }
   }
 }
 
