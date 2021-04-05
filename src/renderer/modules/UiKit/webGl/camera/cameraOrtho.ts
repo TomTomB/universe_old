@@ -7,7 +7,14 @@ export class CameraOrtho extends Camera {
   top!: number;
   bottom!: number;
 
-  constructor() {
+  constructor(
+    left = 1,
+    right = -1,
+    top = 1,
+    bottom = -1,
+    near = 0.1,
+    far = 100
+  ) {
     super();
 
     const eye = vec3.clone([0, 0, 15]);
@@ -15,7 +22,7 @@ export class CameraOrtho extends Camera {
     const up = vec3.clone([0, -1, 0]);
 
     this.lookAt(eye, center, up);
-    this.ortho(1, -1, 1, -1);
+    this.ortho(left, right, top, bottom, near, far);
   }
 
   ortho(

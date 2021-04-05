@@ -1,5 +1,6 @@
 export * from './camera/camera';
 export * from './camera/cameraOrtho';
+export * from './camera/cameraPerspective';
 export * from './easeNumber';
 export * from './fpsCounter';
 export * from './gl';
@@ -9,3 +10,4 @@ export * from './glTexture';
 export * from './plane';
 export * from './scheduler';
 export * from './types';
+export * from './ray';

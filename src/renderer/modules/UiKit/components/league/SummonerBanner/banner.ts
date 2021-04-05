@@ -55,14 +55,13 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
     this._gl.context.blendFunc(GlOption.ONE, GlOption.ONE_MINUS_SRC_ALPHA);
     this._gl.setSize(1, 1);
 
-    this._camera = new CameraOrtho();
-
-    this._camera.ortho(
+    this._camera = new CameraOrtho(
       -this._config.viewportWidth / 2,
       this._config.viewportWidth / 2,
       -this._config.viewportHeight / 2,
       this._config.viewportHeight / 2
     );
+
     this._camera.lookAt([0, 0, 3], [0, 0, 0]);
 
     this._generateTextures();
