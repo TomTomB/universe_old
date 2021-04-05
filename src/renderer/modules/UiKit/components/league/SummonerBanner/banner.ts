@@ -9,6 +9,7 @@ import {
   GlTextureSource,
   Scheduler,
   Size,
+  loadImages,
 } from '@uikit/webGl';
 import { EventEmitter } from '@uikit/util';
 import VBanner from './vBanner';
@@ -126,7 +127,9 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
   }
 
   private async _generateTextures() {
-    const images = await Promise.all(this._loadImages());
+    const images = await Promise.all(
+      loadImages((this._assets as any) as Record<string, string>)
+    );
 
     const textureMap: BannerTextureMap = {
       background: this._gl.createTexture(
@@ -146,29 +149,6 @@ class Banner extends EventEmitter<'loaded' | 'error'> {
 
     this.emit('loaded');
     this._isLoading = false;
-  }
-
-  private _loadImages() {
-    const imagePromises: Promise<{
-      id: keyof BannerAssets;
-      image: HTMLImageElement;
-    }>[] = [];
-    for (const key in this._assets) {
-      const typedKey = key as keyof BannerAssets;
-      const assetUrl = this._assets[typedKey];
-
-      const image = new Image();
-      imagePromises.push(
-        new Promise((resolve, reject) => {
-          image.onload = () => resolve({ id: typedKey, image });
-          image.onerror = () => reject();
-        })
-      );
-
-      image.src = assetUrl;
-    }
-
-    return imagePromises;
   }
 
   private _getCanvasSize() {

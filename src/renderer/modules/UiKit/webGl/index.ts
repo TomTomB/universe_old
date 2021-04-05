@@ -2,6 +2,7 @@ export * from './camera/camera';
 export * from './camera/cameraOrtho';
 export * from './camera/cameraPerspective';
 export * from './easeNumber';
+export * from './loadImages';
 export * from './fpsCounter';
 export * from './gl';
 export * from './glMesh';
