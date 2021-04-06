@@ -92,7 +92,12 @@ export class Ray {
     return this.at(o);
   }
 
-  intersectTriangle(d: vec3, t: vec3, e: vec3, n?: any) {
+  intersectTriangle(
+    d: vec3,
+    t: vec3,
+    e: vec3,
+    skipIfDotBiggerThanZero?: boolean
+  ) {
     vec3.copy(s, d);
     vec3.copy(c, t);
     vec3.copy(g, e);
@@ -103,7 +108,7 @@ export class Ray {
     let p: number;
 
     if (0 < r) {
-      if (n) {
+      if (skipIfDotBiggerThanZero) {
         return null;
       }
       p = 1;
