@@ -1,13 +1,17 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import BannerBase from '../BannerBase';
 import { LCU } from '@typings';
-import bannerAllyInvited from './assets/invited-banner.webm';
 import bannerPrimaryIntro from './assets/banner_primary.webm';
+import classNames from 'classnames';
 import styled from 'styled-components';
 
-const FadeCondition = styled.div<{ show: boolean }>`
+const FadeCondition = styled.div`
   transition: opacity 300ms ease-in-out;
-  opacity: ${({ show }) => (show ? 1 : 0)};
+  opacity: 0;
+
+  &.show {
+    opacity: 1;
+  }
 
   display: flex;
   justify-content: center;
@@ -16,20 +20,20 @@ const FadeCondition = styled.div<{ show: boolean }>`
 const VideoBase = styled.video``;
 
 const IntroVideo = styled(VideoBase)`
-  margin-top: -60px;
+  z-index: 1;
 `;
 
-const InviteVideo = styled(VideoBase)`
-  width: 178px;
-`;
-
-interface StyledSummonerBannerProps {
-  bannerType: LobbyBannerType;
-}
-
-export const StyledSummonerBanner = styled.div<StyledSummonerBannerProps>`
-  width: ${({ bannerType }) => (bannerType === 'primary' ? '275px' : '240px')};
+export const StyledSummonerBanner = styled.div`
+  width: 275px;
   display: grid;
+
+  &.ally {
+    width: 240px;
+
+    ${IntroVideo} {
+      margin-top: -68px;
+    }
+  }
 
   ${FadeCondition} {
     grid-column: 1;
@@ -37,8 +41,7 @@ export const StyledSummonerBanner = styled.div<StyledSummonerBannerProps>`
   }
 
   ${IntroVideo} {
-    width: ${({ bannerType }) =>
-      bannerType === 'primary' ? '-60px' : '-68px'};
+    margin-top: -60px;
   }
 
   canvas {
@@ -46,7 +49,7 @@ export const StyledSummonerBanner = styled.div<StyledSummonerBannerProps>`
   }
 `;
 
-export type LobbyBannerType = 'primary' | 'ally' | 'invite';
+export type LobbyBannerType = 'primary' | 'ally';
 
 export interface LobbyBannerProps {
   rank: LCU.Rank;
@@ -106,17 +109,13 @@ const LobbyBanner: FC<LobbyBannerProps> = ({
   }, [introState, bannerIntroRef, introTimeElapsedTimeout, playIntro]);
 
   return (
-    <StyledSummonerBanner bannerType={bannerType}>
-      <FadeCondition show={bannerType === 'invite'}>
-        <InviteVideo src={bannerAllyInvited} autoPlay loop muted />
-      </FadeCondition>
-
-      <FadeCondition show={introTimeElapsed && bannerType !== 'invite'}>
+    <StyledSummonerBanner className={bannerType}>
+      <FadeCondition className={classNames({ show: introTimeElapsed })}>
         <BannerBase rank={rank} showPattern={showPattern} />
       </FadeCondition>
 
       <FadeCondition
-        show={!!playIntro && introState !== 'ENDED' && bannerType !== 'invite'}
+        className={classNames({ show: !!playIntro && introState !== 'ENDED' })}
       >
         <IntroVideo
           src={

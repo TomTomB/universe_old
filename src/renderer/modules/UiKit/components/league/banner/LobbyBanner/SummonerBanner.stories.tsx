@@ -22,11 +22,3 @@ Ally.args = {
   showPattern: false,
   bannerType: 'ally',
 };
-
-export const Invite = Template.bind({});
-Invite.args = {
-  rank: 'challenger',
-  showPattern: false,
-  playIntro: true,
-  bannerType: 'invite',
-};

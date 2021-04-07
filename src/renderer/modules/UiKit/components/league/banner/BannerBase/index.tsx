@@ -57,9 +57,10 @@ const getRankTrim = (rank: LCU.Rank) => {
 export interface BannerBaseProps {
   rank: LCU.Rank;
   showPattern?: boolean;
+  className?: string;
 }
 
-const BannerBase: FC<BannerBaseProps> = ({ rank, showPattern }) => {
+const BannerBase: FC<BannerBaseProps> = ({ rank, showPattern, className }) => {
   const bannerCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const BannerBase: FC<BannerBaseProps> = ({ rank, showPattern }) => {
     };
   }, [bannerCanvasRef, rank, showPattern]);
 
-  return <StyledBannerBase ref={bannerCanvasRef} />;
+  return <StyledBannerBase className={className} ref={bannerCanvasRef} />;
 };
 
 export default BannerBase;
