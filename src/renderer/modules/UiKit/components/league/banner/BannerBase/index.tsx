@@ -18,7 +18,7 @@ import bannerTrimPlat from './assets/trim/trim_plat.png';
 import bannerTrimSilver from './assets/trim/trim_silver.png';
 import styled from 'styled-components';
 
-const SummonerBannerCanvas = styled.canvas``;
+export const StyledBannerBase = styled.canvas``;
 
 const getRankTrim = (rank: LCU.Rank) => {
   switch (rank) {
@@ -54,12 +54,12 @@ const getRankTrim = (rank: LCU.Rank) => {
   }
 };
 
-export interface SummonerBannerProps {
+export interface BannerBaseProps {
   rank: LCU.Rank;
   showPattern?: boolean;
 }
 
-const SummonerBanner: FC<SummonerBannerProps> = ({ rank, showPattern }) => {
+const BannerBase: FC<BannerBaseProps> = ({ rank, showPattern }) => {
   const bannerCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const SummonerBanner: FC<SummonerBannerProps> = ({ rank, showPattern }) => {
     };
   }, [bannerCanvasRef, rank, showPattern]);
 
-  return <SummonerBannerCanvas ref={bannerCanvasRef} />;
+  return <StyledBannerBase ref={bannerCanvasRef} />;
 };
 
-export default SummonerBanner;
+export default BannerBase;

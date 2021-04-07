@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
+import BannerBase from '.';
 import React from 'react';
-import SummonerBanner from '.';
 import { ThemeProvider } from 'styled-components';
 import { render } from '@testing-library/react';
 import theme from '@styles/theme';
@@ -10,7 +10,7 @@ describe('SummonerBanner', () => {
     expect(
       render(
         <ThemeProvider theme={theme}>
-          <SummonerBanner rank="challenger" showPattern />
+          <BannerBase rank="challenger" showPattern />
         </ThemeProvider>
       )
     ).toBeTruthy();
