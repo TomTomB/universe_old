@@ -151,6 +151,7 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
         show={shownLogoAnim === LogoAnim.INTRO}
         src={LeagueLogoIntro}
         ref={logoIntroAnim}
+        muted
         onEnded={() => {
           if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
@@ -162,6 +163,7 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
         show={shownLogoAnim === LogoAnim.IDLE && !showLogoMagic}
         src={LeagueLogoLoopIdle}
         ref={logoLoopIdleAnim}
+        muted
         onEnded={() => {
           if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
@@ -173,6 +175,7 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
         show={shownLogoAnim === LogoAnim.ACTIVE}
         src={LeagueLogoLoopActive}
         ref={logoLoopActiveAnim}
+        muted
         onEnded={() => {
           if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
@@ -184,6 +187,7 @@ const PlayButtonLogo: FC<PlayButtonLogoProps> = ({
         show={showLogoMagic}
         src={LeagueLogoMagic}
         ref={logoMagicAnim}
+        muted
         onEnded={() => {
           if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;

@@ -170,6 +170,7 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({
         show={showPatcherToPlay}
         src={PatcherToPlay}
         ref={patcherToPlayElem}
+        muted
         onEnded={() => {
           if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
@@ -183,6 +184,7 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({
         show={showLobbyToPlay}
         src={LobbyToPlay}
         ref={lobbyToPlayElem}
+        muted
         onEnded={() => {
           if (buttonState.curr === PlayButtonState.HIDDEN) {
             return;
@@ -199,6 +201,7 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({
           buttonState.curr !== PlayButtonState.PLAY_DISABLED &&
           !showLobbyToPlay
         }
+        muted
         src={PlayButtonEnabledIntro}
         ref={playEnabledIntroElem}
         autoPlay
@@ -208,6 +211,7 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({
         show={isHovering}
         src={PlayButtonHoverIntro}
         ref={playHoverIntroElem}
+        muted
       />
 
       <PlayAnimation
@@ -215,6 +219,7 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({
         src={PlayButtonHoverLoop}
         autoPlay
         loop
+        muted
         ref={playHoverLoopElem}
       />
 
@@ -223,18 +228,21 @@ const PlayButtonPlay: FC<PlayButtonPlayProps> = ({
         show={false}
         src={PlayButtonHoverOutro}
         ref={playHoverOutroElem}
+        muted
       />
 
       <PlayAnimationWithoutTransition
         show={buttonState.curr === PlayButtonState.PLAY_DISABLED}
         src={PlayButtonRelease}
         ref={playReleaseElem}
+        muted
       />
 
       <PlayAnimationWithoutTransition
         show={buttonState.curr === PlayButtonState.PLAY_DISABLED}
         src={PlayButtonMagicRelease}
         ref={playReleaseMagicElem}
+        muted
       />
     </PlayContainer>
   );

@@ -187,6 +187,7 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
           show={true}
           loop
           autoPlay
+          muted
           ref={patcherFillLoopAnim}
         />
       </ProgressBarContainer>
@@ -195,6 +196,7 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
       <ProgressBarTipLoopAnimation
         src={ProgressBarTipIntro}
         show={false}
+        muted
         ref={patcherTipIntroAnim}
       />
 
@@ -206,6 +208,7 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
         }}
         loop
         autoPlay
+        muted
         ref={patcherTipLoopAnim}
       />
 
@@ -214,6 +217,7 @@ const PlayButtonPatcher: FC<PlayButtonPatcherProps> = ({
         show={true}
         loop
         autoPlay
+        muted
         ref={patcherBorderLoopAnim}
       />
     </ProgressContainer>

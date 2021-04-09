@@ -133,6 +133,7 @@ const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
       }
     >
       <LobbyAnimationWithoutTransition
+        muted
         show={
           buttonState.prev === PlayButtonState.LOBBY_DISABLED &&
           buttonState.curr === PlayButtonState.LOBBY
@@ -142,6 +143,7 @@ const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
       />
 
       <LobbyAnimation
+        muted
         show={isHovering}
         src={LobbyHoverIntro}
         ref={lobbyHoverIntroElem}
@@ -151,12 +153,14 @@ const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
         show={isHovering}
         src={LobbyHoverLoop}
         autoPlay
+        muted
         loop
         ref={lobbyHoverLoopElem}
       />
 
       {/* TODO(TRB): Implement */}
       <LobbyAnimation
+        muted
         show={false}
         src={LobbyHoverOutro}
         ref={lobbyHoverOutroElem}
@@ -169,6 +173,7 @@ const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
             buttonState.prev === PlayButtonState.PLAY_DISABLED)
         }
         autoPlay
+        muted
         src={LobbyRelease}
         ref={lobbyReleaseElem}
       />
@@ -180,6 +185,7 @@ const PlayButtonLobby: FC<PlayButtonLobbyProps> = ({
             buttonState.prev === PlayButtonState.PLAY_DISABLED)
         }
         autoPlay
+        muted
         src={LobbyMagicRelease}
         ref={lobbyMagicReleaseElem}
       />
