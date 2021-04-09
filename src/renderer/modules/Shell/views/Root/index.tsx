@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import LoginView from '../../../Auth/views/Login';
+import PlayButton from '../../components/PlayButton';
 import SettingsHost from '../../../Settings/views/SettingsHost';
 import Styleguide from '@uikit/views/Styleguide';
 import TitleBarComponent from '../../components/TitleBar';
@@ -21,6 +22,7 @@ const RootView: FC = () => {
   return (
     <Shell>
       <TitleBarComponent />
+      <PlayButton />
       <ConnectedRouter history={history}>
         <Switch>
           <Redirect from="/" exact to="/auth/login" />
