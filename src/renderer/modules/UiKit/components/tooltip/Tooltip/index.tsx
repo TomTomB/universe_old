@@ -190,9 +190,9 @@ const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({
     setTriggerRef,
     visible,
     update,
-  } = usePopperTooltip({ placement, visible: defaultVisible });
+  } = usePopperTooltip({ placement, defaultVisible });
 
-  const transitions = useTransition(visible, null, {
+  const transition = useTransition(visible, {
     config: springConfigHarsh,
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -220,20 +220,20 @@ const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({
 
   return (
     <>
-      {transitions.map(
-        ({ item, key, props }) =>
-          item && (
+      {transition((style, visible) => {
+        return (
+          visible && (
             <StyledTooltip
               ref={setTooltipRef}
-              {...getTooltipProps({ style: props })}
-              key={key}
+              {...getTooltipProps({ style: style as any })}
             >
               <div {...getArrowProps({ className: 'tooltip-arrow' })} />
               <TooltipSubBorder />
               {children}
             </StyledTooltip>
           )
-      )}
+        );
+      })}
     </>
   );
 };
