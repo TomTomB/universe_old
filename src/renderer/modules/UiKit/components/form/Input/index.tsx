@@ -219,15 +219,14 @@ const Input: FC<InputProps> = ({
       )}
       {showError && (
         <ErrorContainer>
-          {transition((style, error) => {
-            return (
+          {transition(
+            (style, error) =>
               error && (
                 <ErrorParagraph style={style} role="alert">
                   {error?.message}
                 </ErrorParagraph>
               )
-            );
-          })}
+          )}
         </ErrorContainer>
       )}
     </FormField>

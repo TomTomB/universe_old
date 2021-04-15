@@ -100,7 +100,7 @@ const Panel: FC = () => {
             register={register}
           />
           <br />
-          {/* <Checkbox
+          <Checkbox
             label="Remember Me"
             name="staySignedIn"
             id="staySignedIn"
@@ -123,7 +123,7 @@ const Panel: FC = () => {
               { label: 'Cold Option 7', value: generateId() },
               { label: 'Best Option 8', value: generateId() },
             ]}
-          /> */}
+          />
           <br />
           <br />
           <br />

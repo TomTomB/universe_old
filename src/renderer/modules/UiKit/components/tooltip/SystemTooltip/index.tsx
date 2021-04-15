@@ -116,7 +116,7 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
     update,
   } = usePopperTooltip({ placement, visible: defaultVisible });
 
-  const transitions = useTransition(visible, null, {
+  const transition = useTransition(visible, {
     config: springConfigHarsh,
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -144,13 +144,12 @@ const SystemTooltip: FC<PropsWithChildren<SystemTooltipProps>> = ({
 
   return (
     <>
-      {transitions.map(
-        ({ item, key, props }) =>
-          item && (
+      {transition(
+        (style, show) =>
+          show && (
             <StyledSystemTooltip
               ref={setTooltipRef}
-              {...getTooltipProps({ style: props })}
-              key={key}
+              {...getTooltipProps({ style: style as any })}
             >
               <div {...getArrowProps({ className: 'tooltip-arrow' })} />
               {children}

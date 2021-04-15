@@ -408,12 +408,12 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
 
   return (
     <>
-      {transitionBackdrop((tbStyle, tbVisible) => {
-        return (
+      {transitionBackdrop(
+        (tbStyle, tbVisible) =>
           tbVisible && (
             <ModalContainer style={tbStyle}>
-              {transitionModal((mStyles, mVisible) => {
-                return (
+              {transitionModal(
+                (mStyles, mVisible) =>
                   mVisible && (
                     <StyledModal
                       style={mStyles}
@@ -470,12 +470,10 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
                       )}
                     </StyledModal>
                   )
-                );
-              })}
+              )}
             </ModalContainer>
           )
-        );
-      })}
+      )}
     </>
   );
 };

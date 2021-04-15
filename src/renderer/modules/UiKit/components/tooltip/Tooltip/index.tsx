@@ -220,8 +220,8 @@ const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({
 
   return (
     <>
-      {transition((style, visible) => {
-        return (
+      {transition(
+        (style, visible) =>
           visible && (
             <StyledTooltip
               ref={setTooltipRef}
@@ -232,8 +232,7 @@ const Tooltip: FC<PropsWithChildren<TooltipProps>> = ({
               {children}
             </StyledTooltip>
           )
-        );
-      })}
+      )}
     </>
   );
 };

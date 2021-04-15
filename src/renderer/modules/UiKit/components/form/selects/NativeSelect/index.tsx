@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { SelectOption } from '../FramedSelect';
+import { UseFormRegister } from 'react-hook-form';
 
 const StyledNativeSelect = styled.select<{ hidden?: boolean }>`
   ${({ hidden }) =>
@@ -16,7 +17,7 @@ interface NativeSelectProps {
   items: SelectOption[];
   disabled?: boolean;
   hidden?: boolean;
-  register: (...args: any) => any;
+  register?: UseFormRegister<any>;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -34,10 +35,9 @@ const NativeSelect: FC<NativeSelectProps> = ({
       hidden={hidden}
       aria-hidden={hidden}
       id={id}
-      ref={register}
-      name={name}
       disabled={disabled}
       onChange={onChange}
+      {...register?.(name)}
     >
       {items.map(
         option =>
