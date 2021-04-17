@@ -12,6 +12,7 @@ function root(args) {
  */
 module.exports = {
   outputDir: 'intermediate/renderer',
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   pages: {
     index: {
       entry: 'src/renderer/main.ts',

@@ -2,7 +2,7 @@
   "productName": "Universe",
   "appId": "digital.bornholdt.Universe",
   "directories": {
-    "app": "src/main",
+    "app": "intermediate",
     "output": "release"
   },
   "mac": {

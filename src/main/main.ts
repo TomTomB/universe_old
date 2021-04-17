@@ -8,6 +8,7 @@ function createWindow() {
     width: 800,
     height: 500,
     webPreferences: {
+      devTools: !app.isPackaged,
       sandbox: true,
       preload: join(app.getAppPath(), 'preload.js'),
     },
@@ -15,7 +16,12 @@ function createWindow() {
 
   mainWindow.webContents.openDevTools();
 
-  mainWindow.loadURL('http:localhost:8080');
+  if (app.isPackaged) {
+    mainWindow.loadURL(`file://${join(__dirname, 'renderer/index.html')}`);
+  } else {
+    mainWindow.loadURL('http://localhost:8080');
+  }
+
   mainWindow.on('closed', function() {
     mainWindow = null;
   });

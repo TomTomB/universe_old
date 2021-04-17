@@ -48,7 +48,7 @@ function startElectron() {
       '.bin',
       process.platform === 'win32' ? 'electron.cmd' : 'electron'
     ),
-    ['./intermediate/main.js'],
+    ['intermediate/main.js'],
     { stdio: 'inherit' }
   );
 
@@ -64,6 +64,7 @@ function buildNodeFile(file, out) {
     outfile: out,
     platform: 'node',
     target: 'node14.16',
-    external: ['electron']
+    sourcemap: true,
+    external: ['electron', 'chokidar']
   })
 }
