@@ -1,15 +1,19 @@
 import { app, BrowserWindow } from 'electron';
+import { join } from 'path';
 
 let mainWindow: BrowserWindow | null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 500,
     webPreferences: {
-      nodeIntegration: true,
+      sandbox: true,
+      preload: join(app.getAppPath(), 'preload.js'),
     },
   });
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL('http:localhost:8080');
   mainWindow.on('closed', function() {

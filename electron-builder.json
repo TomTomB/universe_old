@@ -1,0 +1,45 @@
+{
+  "productName": "Universe",
+  "appId": "digital.bornholdt.Universe",
+  "directories": {
+    "app": "dist",
+    "buildResources": "public",
+    "output": "release"
+  },
+  "extraResources": [
+    "./public/**"
+  ],
+  "mac": {
+    "target": [
+      "dmg"
+    ],
+    "type": "distribution",
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false
+  },
+  "dmg": {
+    "contents": [
+      {
+        "x": 130,
+        "y": 220
+      },
+      {
+        "x": 410,
+        "y": 220,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ]
+  },
+  "win": {
+    "target": [
+      "nsis"
+    ]
+  },
+  "linux": {
+    "target": [
+      "AppImage"
+    ],
+    "category": "Development"
+  }
+}

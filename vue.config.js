@@ -11,6 +11,7 @@ function root(args) {
  * @type {import('@vue/cli-service').ProjectOptions}
  */
 module.exports = {
+  outputDir: 'intermediate/renderer',
   pages: {
     index: {
       entry: 'src/renderer/main.ts',

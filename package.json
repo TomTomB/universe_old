@@ -4,17 +4,18 @@
   "private": true,
   "scripts": {
     "commit": "npx git-cz",
-    "serve:main": "yarn build:main && electron ./dist/main/main.js",
-    "serve:renderer": "vue-cli-service serve",
+    "start": "node scripts/serve.js",
     "build:main": "node esbuild.js",
     "build:renderer": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "dependencies": {
     "core-js": "^3.10.1",
-    "electron": "^12.0.4",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-rc.6",
     "vuex": "^4.0.0-rc.2"
@@ -34,6 +35,8 @@
     "@vue/compiler-sfc": "^3.0.11",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "^2.0.0-rc.4",
+    "electron": "^12.0.4",
+    "electron-builder": "^22.10.5",
     "esbuild": "^0.11.11",
     "eslint": "^7.24.0",
     "eslint-plugin-vue": "^7.0.0",
@@ -41,7 +44,8 @@
     "sass": "^1.32.9",
     "sass-loader": "^8.0.2",
     "typescript": "~4.2.4",
-    "vue-jest": "^5.0.0-alpha.8"
+    "vue-jest": "^5.0.0-alpha.8",
+    "wait-on": "^5.3.0"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
