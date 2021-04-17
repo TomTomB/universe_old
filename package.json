@@ -5,8 +5,7 @@
   "scripts": {
     "commit": "npx git-cz",
     "start": "node scripts/serve.js",
-    "build:main": "node esbuild.js",
-    "build:renderer": "vue-cli-service build",
+    "build": "node scripts/build.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",

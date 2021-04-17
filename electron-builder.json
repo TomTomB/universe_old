@@ -2,13 +2,9 @@
   "productName": "Universe",
   "appId": "digital.bornholdt.Universe",
   "directories": {
-    "app": "dist",
-    "buildResources": "public",
+    "app": "src/main",
     "output": "release"
   },
-  "extraResources": [
-    "./public/**"
-  ],
   "mac": {
     "target": [
       "dmg"
