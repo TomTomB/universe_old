@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-
-
-const projectDir = process.cwd();
-
 const esBuild = require('esbuild');
 const vueService = require('@vue/cli-service');
 const { info, error, done } = require('@vue/cli-shared-utils');
 const fsExtra = require('fs-extra')
 
+const projectDir = process.cwd();
 const service = new vueService(projectDir);
 
 function buildProd() {

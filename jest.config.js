@@ -5,5 +5,7 @@ module.exports = {
   },
   transform: {
     '^.+\\.vue$': 'vue-jest'
-  }
+  },
+  testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+  testPathIgnorePatterns: ["/node_modules/", "/tests/e2e/"]
 }

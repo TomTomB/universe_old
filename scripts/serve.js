@@ -1,8 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-
-
-const projectDir = process.cwd();
-
 const { spawn } = require('child_process');
 const path = require('path');
 const esBuild = require('esbuild');
@@ -10,6 +6,7 @@ const vueService = require('@vue/cli-service');
 const { info, error } = require('@vue/cli-shared-utils');
 const fsExtra = require('fs-extra')
 
+const projectDir = process.cwd();
 const service = new vueService(projectDir);
 
 function serveDev() {
@@ -52,7 +49,7 @@ function startElectron() {
     { stdio: 'inherit' }
   );
 
-  p.on('exit', function (code) {
+  p.on('exit', () => {
     process.exit(0);
   });
 }
