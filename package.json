@@ -1,6 +1,6 @@
 {
-  "name": "universe-vue",
-  "version": "0.1.0",
+  "name": "universe",
+  "version": "0.0.44",
   "private": true,
   "scripts": {
     "commit": "npx git-cz",
@@ -14,7 +14,11 @@
     "dist": "electron-builder"
   },
   "dependencies": {
+    "@imjs/electron-differential-updater": "^5.1.4",
+    "@sentry/electron": "^2.4.0",
     "core-js": "^3.10.1",
+    "electron-log": "^4.3.4",
+    "electron-updater": "^4.3.8",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-rc.6",
     "vuex": "^4.0.0-rc.2"
@@ -36,6 +40,7 @@
     "@vue/test-utils": "^2.0.0-rc.4",
     "electron": "^12.0.4",
     "electron-builder": "^22.10.5",
+    "electron-devtools-installer": "^3.1.1",
     "esbuild": "^0.11.11",
     "eslint": "^7.24.0",
     "eslint-plugin-vue": "^7.0.0",

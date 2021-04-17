@@ -8,7 +8,6 @@ const vueService = require('@vue/cli-service');
 const { info, error, done } = require('@vue/cli-shared-utils');
 const fsExtra = require('fs-extra')
 
-
 const service = new vueService(projectDir);
 
 function buildProd() {
@@ -30,6 +29,7 @@ function buildProd() {
 
         fsExtra.copySync(projectDir + '/src/main/node_modules', projectDir + '/intermediate/node_modules');
         fsExtra.copySync(projectDir + '/src/main/package.json', projectDir + '/intermediate/package.json');
+        fsExtra.copySync(projectDir + '/src/splash', projectDir + '/intermediate/splash');
 
         done('Copying completed!\n');
       })

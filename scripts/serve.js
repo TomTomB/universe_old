@@ -8,8 +8,7 @@ const path = require('path');
 const esBuild = require('esbuild');
 const vueService = require('@vue/cli-service');
 const { info, error } = require('@vue/cli-shared-utils');
-
-
+const fsExtra = require('fs-extra')
 
 const service = new vueService(projectDir);
 
@@ -22,9 +21,10 @@ function serveDev() {
     const preloadBuild = buildNodeFile('src/main/preload.ts', 'intermediate/preload.js');
 
     Promise.all([mainBuild, preloadBuild])
-      .then(() =>
-        startElectron()
-      )
+      .then(() => {
+        fsExtra.copySync(projectDir + '/src/splash', projectDir + '/intermediate/splash');
+        startElectron();
+      })
       .catch((e) => {
         error('Could not compile main');
         error(e);
@@ -64,7 +64,6 @@ function buildNodeFile(file, out) {
     outfile: out,
     platform: 'node',
     target: 'node14.16',
-    sourcemap: true,
     external: ['electron', 'chokidar']
   })
 }
