@@ -28,5 +28,20 @@ module.exports = {
         '@universe/mocks': root('src/mocks'),
       },
     };
+
+    config.module.rules.push({
+      resourceQuery: /blockType=i18n/,
+      type: 'javascript/auto',
+      loader: '@intlify/vue-i18n-loader'
+    })
+
+    config.module.rules.push({
+      test: /\.(json5?|ya?ml)$/,
+      type: 'javascript/auto',
+      include: [
+        path.resolve(__dirname, './src/renderer/i18n'),
+      ],
+      loader: '@intlify/vue-i18n-loader'
+    })
   }
 }

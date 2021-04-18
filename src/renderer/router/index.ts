@@ -1,7 +1,15 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-// import Home from '../views/Home.vue'
+import Shell from '../modules/domain/shell/views/Shell.vue';
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    redirect: '/:en-US',
+  },
+  {
+    path: '/:locale',
+    component: Shell,
+  },
   // {
   //   path: '/',
   //   name: 'Home',
