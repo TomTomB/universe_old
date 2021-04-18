@@ -106,7 +106,9 @@ const createWindow = async () => {
     mainWindow.focus();
 
     updater = new AppUpdater();
-    updater.start();
+    if (app.isPackaged) {
+      updater.start();
+    }
 
     lcuConnector = new LCUConnector();
     lcuConnector.start();

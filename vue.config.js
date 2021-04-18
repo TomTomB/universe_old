@@ -23,6 +23,9 @@ module.exports = {
       extensions: ['.js', '.ts'],
       alias: {
         '@universe/components': root('src/renderer/components'),
+        '@universe/shared': root('src/shared'),
+        '@universe/types': root('src/types'),
+        '@universe/mocks': root('src/mocks'),
       },
     };
   }

@@ -16,6 +16,7 @@ const universeAPI: UniverseAPI = {
   },
   isProd: !process.env.NODE_ENV,
   isDev: process.env.NODE_ENV === 'development',
+  isTest: process.env.NODE_ENV === 'test',
 };
 
 contextBridge.exposeInMainWorld('universe', universeAPI);

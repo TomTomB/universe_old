@@ -15,7 +15,10 @@
     "types": ["webpack-env", "jest"],
     "paths": {
       "@/*": ["src/renderer/*"],
-      "@universe/components/*": ["src/renderer/components/*"]
+      "@universe/components/*": ["src/renderer/components/*"],
+      "@universe/shared/*": ["src/shared/*"],
+      "@universe/types/*": ["src/types/*"],
+      "@universe/mocks/*": ["src/mocks/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

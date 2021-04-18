@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as util from 'util';
 import { COMMAND, INSTALL_REGEX } from './constants';
 import { FSWatcher, watch } from 'chokidar';
-import { Credentials } from '../../types/lcu';
+import { Credentials } from '@universe/types/lcu';
 import { Window } from '../util';
 import log from '../util/logger';
 

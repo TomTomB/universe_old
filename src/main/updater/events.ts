@@ -1,5 +1,5 @@
 import { Logger, Window } from '../util';
-import { DownloadProgress } from '../../types/electron';
+import { DownloadProgress } from '@universe/types/electron';
 import { UpdateInfo } from 'electron-updater';
 import { autoUpdater } from '@imjs/electron-differential-updater';
 import { ipcMain } from 'electron';

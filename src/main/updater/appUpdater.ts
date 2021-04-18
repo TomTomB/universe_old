@@ -8,7 +8,6 @@ export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
-    this.start();
   }
 
   start = (): void => {
