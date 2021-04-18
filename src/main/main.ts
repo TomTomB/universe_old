@@ -192,27 +192,6 @@ app.on('web-contents-created', (_event, contents) => {
   });
 });
 
-app.on('remote-require', (event) => {
-  event.preventDefault();
-});
-
-// built-ins are modules such as "app"
-app.on('remote-get-builtin', (event) => {
-  event.preventDefault();
-});
-
-app.on('remote-get-global', (event) => {
-  event.preventDefault();
-});
-
-app.on('remote-get-current-window', (event) => {
-  event.preventDefault();
-});
-
-app.on('remote-get-current-web-contents', (event) => {
-  event.preventDefault();
-});
-
 ipcMain.on('window-close', () => {
   mainWindow?.close();
 
