@@ -1,14 +1,10 @@
 import FlatSelect, { FlatSelectProps } from '.';
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
-import register from '@mocks/register';
 
 export default {
   title: 'UiKit/Form/Selects/FlatSelect',
   component: FlatSelect,
-  args: {
-    register,
-  },
 } as Meta;
 
 const Template: Story<FlatSelectProps> = args => <FlatSelect {...args} />;
