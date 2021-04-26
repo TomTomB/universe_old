@@ -17,6 +17,18 @@ const SettingsModal = styled(Modal)`
   grid-gap: 10px;
 `;
 
+const asciiEmoji = [
+  '¯_(ツ)_/¯',
+  'ಠ_ಠ',
+  'ʕ•ᴥ•ʔ',
+  '(╯°□°)╯︵ ┻━┻',
+  '(งಠᗝಠ)ง',
+  'ಥ_ಥ',
+];
+
+let randomEmojiIndex = Math.floor(Math.random() * asciiEmoji.length);
+let randomEmoji = asciiEmoji[randomEmojiIndex];
+
 const SettingsHost: FC = () => {
   const showSettingsModal = useSelector(selectShowSettingsModal);
   const dispatch = useAppDispatch();
@@ -33,6 +45,9 @@ const SettingsHost: FC = () => {
         backdropClick={onDoneClick}
       >
         <h1>Settings</h1>
+        <br />
+        <h2>Nothing here yet</h2>
+        <h3>{randomEmoji}</h3>
       </SettingsModal>
     </>
   );
