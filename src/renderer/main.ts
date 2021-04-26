@@ -11,6 +11,7 @@ import {
 } from './i18n';
 import './styles/main.scss';
 import enUs from './i18n/locales/en-US.json';
+import axios from 'axios';
 
 const i18n = setupI18n({
   locale: 'en-US',
@@ -39,8 +40,6 @@ router.beforeEach(async (to, from, next) => {
   return next();
 });
 
-createApp(App)
-  .use(store)
-  .use(router)
-  .use(i18n)
-  .mount('#app');
+const app = createApp(App);
+app.config.globalProperties.$http = axios;
+app.use(store).use(router).use(i18n).mount('#app');
