@@ -59,7 +59,7 @@ const Panel: FC = () => {
   );
 
   const resolver = useYupValidationResolver(validationSchema);
-  const { register, handleSubmit, errors, formState } = useForm<FormValues>({
+  const { register, handleSubmit, formState } = useForm<FormValues>({
     resolver,
     mode: 'onChange',
   });
@@ -82,12 +82,12 @@ const Panel: FC = () => {
 
         <form noValidate onSubmit={onSubmit}>
           <Input
+            name="email"
             spellcheck={false}
             label="E-Mail"
-            name="email"
             id="kuchen"
             type="email"
-            error={errors.email}
+            error={formState.errors.email}
             register={register}
           />
           <Input
@@ -96,7 +96,7 @@ const Panel: FC = () => {
             name="password"
             id="password"
             type="password"
-            error={errors.password}
+            error={formState.errors.password}
             register={register}
           />
           <br />

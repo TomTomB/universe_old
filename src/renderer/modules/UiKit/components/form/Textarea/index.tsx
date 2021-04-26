@@ -1,6 +1,6 @@
+import { FieldError, UseFormRegister } from 'react-hook-form';
 import React, { FC } from 'react';
 import { animated, useTransition } from 'react-spring';
-import { FieldError } from 'react-hook-form';
 import FormField from '../base/FormField';
 import Label from '../Label';
 import { springConfigHarsh } from '@uikit/util/springConfig';
@@ -77,7 +77,7 @@ export interface TextareaProps {
   id: string;
   label: string;
   name: string;
-  register: (...args: any) => any;
+  register: UseFormRegister<any>;
   placeholder?: string;
   showError?: boolean;
   disabled?: boolean;
@@ -96,7 +96,7 @@ const Textarea: FC<TextareaProps> = ({
   disabled = false,
   register,
 }) => {
-  const transitions = useTransition(error, null, {
+  const transition = useTransition(error, {
     config: springConfigHarsh,
     from: { transform: 'translateY(-20px)', opacity: 0 },
     enter: { opacity: 1, transform: 'translateY(0)' },
@@ -110,20 +110,19 @@ const Textarea: FC<TextareaProps> = ({
       </TextareaLabel>
       <StyledTextarea
         disabled={disabled}
-        ref={register}
-        name={name}
         id={id}
         spellCheck={spellcheck}
         aria-invalid={error ? 'true' : 'false'}
         placeholder={placeholder}
+        {...register(name)}
       />
       {showError && (
         <ErrorContainer>
-          {transitions.map(
-            ({ item, key, props }) =>
-              item && (
-                <ErrorParagraph style={props} key={key} role="alert">
-                  {item.message}
+          {transition(
+            (style, error) =>
+              error && (
+                <ErrorParagraph style={style} role="alert">
+                  {error.message}
                 </ErrorParagraph>
               )
           )}

@@ -380,14 +380,14 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
   topRightCloseButton,
   caret,
 }) => {
-  const transitionsModal = useTransition(show, null, {
+  const transitionModal = useTransition(show, {
     config: springConfigHarsh,
     from: { opacity: 0, transform: 'scaleX(0.6) scaleY(1) translateY(100px)' },
     enter: { opacity: 1, transform: 'scaleX(1) scaleY(1) translateY(0)' },
     leave: { opacity: 0, transform: 'scaleX(1.2) scaleY(1.2) translateY(0)' },
   });
 
-  const transitionsBackdrop = useTransition(show, null, {
+  const transitionBackdrop = useTransition(show, {
     config: springConfigHarsh,
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -408,16 +408,15 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
 
   return (
     <>
-      {transitionsBackdrop.map(
-        tb =>
-          tb.item && (
-            <ModalContainer key={tb.key} style={tb.props}>
-              {transitionsModal.map(
-                ({ item, key, props }) =>
-                  item && (
+      {transitionBackdrop(
+        (tbStyle, tbVisible) =>
+          tbVisible && (
+            <ModalContainer style={tbStyle}>
+              {transitionModal(
+                (mStyles, mVisible) =>
+                  mVisible && (
                     <StyledModal
-                      style={props}
-                      key={key}
+                      style={mStyles}
                       className={classNames(
                         className,
                         position,

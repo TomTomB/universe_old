@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Common } from '@typings';
+import { UseFormRegister } from 'react-hook-form';
 import sliderBtn from './assets/slider-btn.png';
 import styled from 'styled-components';
 import { useBoundingRect } from '@uikit/hooks';
@@ -177,7 +178,7 @@ export interface SliderProps {
   max?: number;
   step?: number;
   value?: number;
-  register?: (...args: any) => any;
+  register?: UseFormRegister<any>;
   onChange?: (value: number) => void;
 }
 
@@ -327,7 +328,7 @@ const Slider: FC<SliderProps> = ({
         min={min}
         max={max}
         value={value}
-        ref={register}
+        {...register?.(name)}
         onChange={e => updateValue(+e.target.value)}
       />
       <StyledSlider

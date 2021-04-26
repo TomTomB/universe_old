@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Label from '../../Label';
+import { UseFormRegister } from 'react-hook-form';
 import radioSpriteSheet from './assets/btn_icon.png';
 import styled from 'styled-components';
 
@@ -108,7 +109,7 @@ export interface RadioOptionProps {
   disabled?: boolean;
   className?: string;
   value?: string | number;
-  register?: (...args: any) => any;
+  register?: UseFormRegister<any>;
   onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -128,9 +129,8 @@ const RadioOption: FC<RadioOptionProps> = ({
         <RadioInput
           type="radio"
           id={id}
-          name={name}
           disabled={disabled}
-          ref={register}
+          {...register(name)}
         />
       )}
       {!register && (

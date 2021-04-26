@@ -345,7 +345,7 @@ const FlyoutFrame: FC<FlyoutFrameProps> = ({
 }) => {
   const isTopOrBottom = position === 'top' || position === 'bottom';
 
-  const transitionsBorder = useTransition(show, null, {
+  const transitionsBorder = useTransition(show, {
     config: springConfigHarsh,
     from: {
       transform: animated ? `scale${isTopOrBottom ? 'X' : 'Y'}(0.5)` : 'none',
@@ -358,7 +358,7 @@ const FlyoutFrame: FC<FlyoutFrameProps> = ({
     },
   });
 
-  const transitionBase = useTransition(show, null, {
+  const transitionBase = useTransition(show, {
     config: springConfigHarsh,
     from: {
       opacity: animated ? 0 : 1,
@@ -371,7 +371,7 @@ const FlyoutFrame: FC<FlyoutFrameProps> = ({
     },
   });
 
-  const transitionFrameInner = useTransition(show, null, {
+  const transitionFrameInner = useTransition(show, {
     config: springConfigHarsh,
     from: {
       WebkitMaskSize: animated
@@ -394,13 +394,12 @@ const FlyoutFrame: FC<FlyoutFrameProps> = ({
 
   return (
     <>
-      {transitionBase.map(
-        base =>
-          base.item && (
+      {transitionBase(
+        (styleBase, showBase) =>
+          showBase && (
             <StyledFlyoutFrame
-              key={base.key + '_a'}
               style={{
-                opacity: base.props.opacity?.interpolate({
+                opacity: styleBase.opacity?.to({
                   range: [0, 0.25, 1],
                   output: [0, 0.75, 1],
                 }),
@@ -412,19 +411,17 @@ const FlyoutFrame: FC<FlyoutFrameProps> = ({
                 { show }
               )}
             >
-              {transitionsBorder.map(
-                ({ item, key, props }) =>
-                  item && <Border style={props} key={key} />
+              {transitionsBorder(
+                (style, show) => show && <Border style={style} />
               )}
-              {transitionsBorder.map(
-                ({ item, key, props }) =>
-                  item && <SubBorder style={props} key={key} />
+              {transitionsBorder(
+                (style, show) => show && <SubBorder style={style} />
               )}
               <Caret />
-              {transitionFrameInner.map(
-                ({ item, key, props }) =>
-                  item && (
-                    <FlyoutFrameInner style={props} key={key}>
+              {transitionFrameInner(
+                (style, show) =>
+                  show && (
+                    <FlyoutFrameInner style={style}>
                       {children}
                     </FlyoutFrameInner>
                   )

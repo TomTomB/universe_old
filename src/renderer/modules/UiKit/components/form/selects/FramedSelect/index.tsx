@@ -6,6 +6,7 @@ import FormField from '../../base/FormField';
 import FramedSelectOption from './Option';
 import Label from '../../Label';
 import NativeSelect from '../NativeSelect';
+import { UseFormRegister } from 'react-hook-form';
 import dropdownArrow from '../assets/img/up-down-arrow.png';
 import dropdownArrowLocked from '../assets/img/up-down-arrow-locked.png';
 import { springConfigHarsh } from '@uikit/util/springConfig';
@@ -180,7 +181,7 @@ export interface FramedSelectProps {
   value?: string;
   disabled?: boolean;
   openUpward?: boolean;
-  register: (...args: any) => any;
+  register: UseFormRegister<any>;
 }
 
 const FramedSelect: FC<FramedSelectProps> = ({
@@ -206,7 +207,7 @@ const FramedSelect: FC<FramedSelectProps> = ({
     handleKeyUp,
   } = useSelectBehavior(items, name, id, value);
 
-  const transitions = useTransition(isOpen, null, {
+  const transition = useTransition(isOpen, {
     config: springConfigHarsh,
     from: { transform: 'scaleY(0)', opacity: 0 },
     enter: { opacity: 1, transform: 'scaleY(1)' },
@@ -252,14 +253,13 @@ const FramedSelect: FC<FramedSelectProps> = ({
         id={id}
         ref={customSelectRef}
       >
-        {transitions.map(
-          ({ item, key, props }) =>
-            item && (
+        {transition(
+          (style, show) =>
+            show && (
               <AnimatedOptionsContainer
                 openUpward={openUpward}
                 ref={optionsContainerRef}
-                style={props}
-                key={key}
+                style={style}
               >
                 <ScrollContainer>
                   <Options role="listbox">

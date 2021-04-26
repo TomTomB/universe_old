@@ -1,7 +1,7 @@
+import { FieldError, UseFormRegister } from 'react-hook-form';
 import React, { FC, useRef, useState } from 'react';
 import { Tooltip, TooltipText } from '@uikit/components/tooltip';
 import { animated, useTransition } from 'react-spring';
-import { FieldError } from 'react-hook-form';
 import FormField from '../base/FormField';
 import Label from '../Label';
 import classNames from 'classnames';
@@ -147,7 +147,7 @@ export interface InputProps {
   id: string;
   label: string;
   name: string;
-  register: (...args: any) => any;
+  register: UseFormRegister<any>;
   type?: string;
   placeholder?: string;
   showError?: boolean;
@@ -172,7 +172,7 @@ const Input: FC<InputProps> = ({
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const transitions = useTransition(error, null, {
+  const transition = useTransition(error, {
     config: springConfigHarsh,
     from: { transform: 'translateY(-20px)', opacity: 0 },
     enter: { opacity: 1, transform: 'translateY(0)' },
@@ -185,8 +185,7 @@ const Input: FC<InputProps> = ({
         {label}
       </InputLabel>
       <FlatInput
-        ref={register}
-        name={name}
+        {...register(name)}
         id={id}
         spellCheck={spellcheck}
         aria-invalid={error ? 'true' : 'false'}
@@ -220,11 +219,11 @@ const Input: FC<InputProps> = ({
       )}
       {showError && (
         <ErrorContainer>
-          {transitions.map(
-            ({ item, key, props }) =>
-              item && (
-                <ErrorParagraph style={props} key={key} role="alert">
-                  {item.message}
+          {transition(
+            (style, error) =>
+              error && (
+                <ErrorParagraph style={style} role="alert">
+                  {error?.message}
                 </ErrorParagraph>
               )
           )}

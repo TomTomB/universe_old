@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import checkboxSpriteSheet from '@assets/sprites/checkbox-spritesheet.png';
 import classNames from 'classnames';
 import styled from 'styled-components';
@@ -86,7 +87,7 @@ export interface CheckboxProps {
   disabled?: boolean;
   className?: string;
   value?: boolean;
-  register?: (...args: any) => any;
+  register?: UseFormRegister<any>;
   onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -113,9 +114,8 @@ const Checkbox: FC<CheckboxProps> = ({
         <CheckboxInput
           type="checkbox"
           id={id}
-          name={name}
           disabled={disabled}
-          ref={register}
+          {...register(name)}
         />
       )}
       {!register && (

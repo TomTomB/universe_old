@@ -6,6 +6,7 @@ import FlatSelectOption from './Option';
 import FlatSelectOptionGroup from './OptionGroup';
 import NativeSelect from '../NativeSelect';
 import { SelectOption } from '../FramedSelect';
+import { UseFormRegister } from 'react-hook-form';
 import { springConfigHarsh } from '@uikit/util';
 import upDownArrow from '../assets/img/up-down-arrow.png';
 import upDownArrowLocked from '../assets/img/up-down-arrow-locked.png';
@@ -157,7 +158,7 @@ export interface FlatSelectProps {
   value?: string;
   disabled?: boolean;
   openUpward?: boolean;
-  register: (...args: any) => any;
+  register?: UseFormRegister<any>;
 }
 
 const FlatSelect: FC<PropsWithChildren<FlatSelectProps>> = ({
@@ -189,7 +190,7 @@ const FlatSelect: FC<PropsWithChildren<FlatSelectProps>> = ({
   } = useSelectBehavior(normalizedItems, name, id, value);
 
   const translateY = openUpward ? '-10px' : '10px';
-  const transitions = useTransition(isOpen, null, {
+  const transition = useTransition(isOpen, {
     config: springConfigHarsh,
     from: {
       opacity: 0,
@@ -232,14 +233,13 @@ const FlatSelect: FC<PropsWithChildren<FlatSelectProps>> = ({
         id={id}
         ref={customSelectRef}
       >
-        {transitions.map(
-          ({ item, key, props }) =>
-            item && (
+        {transition(
+          (style, show) =>
+            show && (
               <AnimatedOptionsContainer
                 openUpward={openUpward}
                 ref={optionsContainerRef}
-                style={props}
-                key={key}
+                style={style}
               >
                 <ScrollContainer>
                   {items.grouped.map(

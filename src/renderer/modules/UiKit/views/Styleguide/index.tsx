@@ -63,7 +63,6 @@ const Styleguide: FC = () => {
         }}
         label="Select a foo"
         name="foo"
-        register={() => {}}
         value="foo"
       />
     </div>
